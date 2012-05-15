@@ -1,85 +1,28 @@
 # Global ignores
 *~
 *.pyc
-*.swp
+
+# Mac
+.DS_Store
+
+# autoconf and autotools related
 Makefile
 Makefile.in
+configure
 
-# /
-/*.userprefs
-/*.usertasks
-/*.diff
-/*.patch
-/*.userprefs
-/*.usertasks
-/configure
-/config.*
-/config.status
-/depcomp
-/autom4te.cache
-/missing
-/aclocal.m4
-/install-sh
-/intltool-update
-/intltool-update.in
-/intltool-merge
-/intltool-merge.in
-/intltool-extract
-/intltool-extract.in
-/gnome-doc-utils.make
-/INSTALL
-/libtool
-/ltmain.sh
-/mkinstalldirs
-/pot-update
-/stamp-h1
-/tomboy.spec
-/*.tar.gz
-/*.suo
-/*.csproj.user
-/bin
-/obj
-/Properties
-/*.mdb
-/*.dll
-/*.pidb
-/*.userprefs
-/*.usertasks
+# VS and MD
+*.userprefs
+*.suo
+*.pidb
+obj/
+*.csproj.user
+*.cache
 
-# /data
-/data/org.gnome.Tasque.service
-/data/tomboy-addins.pc
-/data/*.desktop
-/data/*.schemas
+# build output
+bin/
+*.exe
+*.dll
+*.pdb
 
-# /help
-/help/*.omf
-/help/*/*.xml
-/help/*/*.mo
-
-# /po
-/po/*.gmo
-/po/POTFILES
-/po/stamp-it
-/po/Makefile.in.in
-/po/cat-id-tbl.c
-/po/.intltool-merge-cache
-/po/messages
-/po/missing
-/po/*.mo
-/po/notexist
-/po/po2tbl.sed.*
-/po/*.pot
-/po/stamp-cat-id
-
-# /src
-/src/*.exe
-/src/*.exe.config
-/src/*.mdb
-/src/*.pc
-/src/Defines.cs
-/src/tasque
-
-# /RtmNet
-/RtmNet/*.dll
-/RtmNet/*.mdb
+# include binary dependencies
+!tasque/lib/*
