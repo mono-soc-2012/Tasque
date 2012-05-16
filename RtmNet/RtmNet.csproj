@@ -85,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="example_app.config" />
-    <None Include="Makefile.am" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="License.txt" />
