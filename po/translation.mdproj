@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ItemType>TranslationProject</ItemType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A8D75EEC-63FE-4A18-8ACF-120870056E4E}</ProjectGuid>
+    <relPath>locale</relPath>
+    <outputType>RelativeToOutput</outputType>
+    <packageName>tasque</packageName>
+    <ReleaseVersion>0.1.10</ReleaseVersion>
+    <translations>
+      <translations>
+        <Translation isoCode="ca" />
+        <Translation isoCode="ca@valencia" />
+        <Translation isoCode="cs" />
+        <Translation isoCode="da" />
+        <Translation isoCode="de" />
+        <Translation isoCode="el" />
+        <Translation isoCode="en_GB" />
+        <Translation isoCode="eo" />
+        <Translation isoCode="es" />
+        <Translation isoCode="et" />
+        <Translation isoCode="fi" />
+        <Translation isoCode="fr" />
+        <Translation isoCode="gl" />
+        <Translation isoCode="id" />
+        <Translation isoCode="it" />
+        <Translation isoCode="ja" />
+        <Translation isoCode="nb" />
+        <Translation isoCode="nds" />
+        <Translation isoCode="nl" />
+        <Translation isoCode="ru" />
+        <Translation isoCode="pl" />
+        <Translation isoCode="pt" />
+        <Translation isoCode="pt_BR" />
+        <Translation isoCode="ro" />
+        <Translation isoCode="sl" />
+        <Translation isoCode="sr" />
+        <Translation isoCode="sr@latin" />
+        <Translation isoCode="sv" />
+        <Translation isoCode="th" />
+        <Translation isoCode="tr" />
+        <Translation isoCode="zh_CN" />
+        <Translation isoCode="zh_TW" />
+      </translations>
+    </translations>
+    <projectInformations>
+      <projectInformations>
+        <TranslationProjectInformation projectName="tests" isIncluded="false" />
+      </projectInformations>
+    </projectInformations>
+  </PropertyGroup>
+</Project>
