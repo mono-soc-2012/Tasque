@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B19B9840-669D-4984-9772-E1F55193A67F}</ProjectGuid>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputType>WinExe</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>tasque</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NoWin32Manifest>True</NoWin32Manifest>
     <RootNamespace>tasque</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WIN32</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <ReleaseVersion>0.1.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,10 +50,21 @@
     <Reference Include="Mono.Data.Sqlite">
       <HintPath>winbin\Mono.Data.Sqlite.dll</HintPath>
     </Reference>
+    <Reference Include="gnome-sharp, Version=2.24.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gnome-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
+      <Private>False</Private>
+      <Package>notify-sharp</Package>
+    </Reference>
+    <Reference Include="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
+      <Private>False</Private>
+      <Package>ndesk-dbus-glib-1.0</Package>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Tasque.exe.config.in" />
-    <Compile Include="Defines.cs" />
     <None Include="res\tasque-opensuse-1click.png" />
     <None Include="res\images\clock-16-0.png" />
     <None Include="res\images\clock-16-0.svg" />
@@ -93,6 +95,14 @@
     <None Include="res\osx\Contents\MacOS\Tasque" />
     <None Include="res\osx\Contents\Resources\tasque.icns" />
     <None Include="res\sounds\notify.wav" />
+    <Compile Include="Defines.WIN32.cs" />
+    <Compile Include="RemoteControl.cs" />
+    <Compile Include="RemoteControlProxy.cs" />
+    <Compile Include="GnomeApplication.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\build\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractTask.cs" />
@@ -125,7 +135,6 @@
     <Compile Include="CompletedTaskGroup.cs" />
     <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="DateButton.cs" />
-    <None Include="GnomeApplication.cs" />
     <Compile Include="GtkApplication.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NoteDialog.cs" />
@@ -141,16 +150,6 @@
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RtmNet\RtmNet.csproj">
-      <Project>{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}</Project>
-      <Name>RtmNet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\libtasque\libtasque.csproj">
-      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
-      <Name>libtasque</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
@@ -159,4 +158,35 @@
     <PostBuildEvent>copy "$(SolutionDir)\winbin" "$(TargetDir)"</PostBuildEvent>
     <PreBuildEvent>copy "$(SolutionDir)\data\images\*.png" "$(ProjectDir)"</PreBuildEvent>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ENABLE_NOTIFY_SHARP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WinDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WIN32</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MacDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OSX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 </Project>
