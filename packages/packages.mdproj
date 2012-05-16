@@ -11,7 +11,7 @@
     <Packages>
       <Packages>
         <Package name="Tarball">
-          <Builder TargetDirectory=".." DefaultConfiguration="Release" GenerateFiles="false" ctype="TarballDeployTarget">
+          <Builder TargetDirectory=".." DefaultConfiguration="Release" ctype="TarballDeployTarget">
             <ChildEntries>
               <SolutionItemReference path="..\tasque\tasque.csproj" />
               <SolutionItemReference path="..\RtmNet\RtmNet.csproj" />
@@ -19,6 +19,12 @@
               <SolutionItemReference path="..\po\translation.mdproj" />
               <SolutionItemReference path="..\tasque.sln" id="{DE3445EA-FCD6-4EAB-B093-19E5C22F3E82}" />
             </ChildEntries>
+            <ExcludedFiles>
+              <File>libtasque,Linux.PkgConfig,libtasque.pc</File>
+              <File>RtmNet,Linux.PkgConfig,rtmnet.pc</File>
+              <File>RtmNet,ProgramFiles,RtmNet.dll</File>
+              <File>libtasque,ProgramFiles,libtasque.dll</File>
+            </ExcludedFiles>
             <RootEntry path="..\tasque.sln" id=":root:" />
           </Builder>
         </Package>
