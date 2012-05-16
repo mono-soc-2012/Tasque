@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E1778C32-E78E-48F4-B22C-2844505B4DA3}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">WinDebug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ReleaseVersion>0.1.10</ReleaseVersion>
+    <Packages>
+      <Packages>
+        <Package name="Tarball">
+          <Builder TargetDirectory=".." DefaultConfiguration="Release" GenerateFiles="false" ctype="TarballDeployTarget">
+            <ChildEntries>
+              <SolutionItemReference path="..\tasque\tasque.csproj" />
+              <SolutionItemReference path="..\RtmNet\RtmNet.csproj" />
+              <SolutionItemReference path="..\libtasque\libtasque.csproj" />
+              <SolutionItemReference path="..\po\translation.mdproj" />
+              <SolutionItemReference path="..\tasque.sln" id="{DE3445EA-FCD6-4EAB-B093-19E5C22F3E82}" />
+            </ChildEntries>
+            <RootEntry path="..\tasque.sln" id=":root:" />
+          </Builder>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>
