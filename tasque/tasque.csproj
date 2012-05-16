@@ -64,7 +64,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Tasque.exe.config.in" />
     <None Include="res\tasque-opensuse-1click.png" />
     <None Include="res\images\clock-16-0.png" />
     <None Include="res\images\clock-16-0.svg" />
@@ -188,5 +187,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libtasque\libtasque.csproj">
+      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
+      <Name>libtasque</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RtmNet\RtmNet.csproj">
+      <Project>{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}</Project>
+      <Name>RtmNet</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
