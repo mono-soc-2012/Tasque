@@ -72,7 +72,7 @@
     <Compile Include="DateFormatters\DateSeparatedFormatter.cs" />
     <Compile Include="INativeApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\build\CommonAssemblyInfo.cs">
+    <Compile Include="..\..\build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
