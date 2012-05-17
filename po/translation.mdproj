@@ -53,4 +53,5 @@
       </projectInformations>
     </projectInformations>
   </PropertyGroup>
+  <Target Name="Build" />
 </Project>
