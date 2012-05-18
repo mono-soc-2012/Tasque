@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "translation", "po\translation.mdproj", "{A8D75EEC-63FE-4A18-8ACF-120870056E4E}"
 EndProject
-Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "packages", "packages\packages.mdproj", "{E1778C32-E78E-48F4-B22C-2844505B4DA3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE3445EA-FCD6-4EAB-B093-19E5C22F3E82}"
 	ProjectSection(SolutionItems) = preProject
 		build\CommonAssemblyInfo.cs = build\CommonAssemblyInfo.cs
@@ -66,10 +64,6 @@ Global
 		{B19B9840-669D-4984-9772-E1F55193A67F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
-		{E1778C32-E78E-48F4-B22C-2844505B4DA3}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
-		{E1778C32-E78E-48F4-B22C-2844505B4DA3}.MacDebug|Any CPU.ActiveCfg = MacDebug|Any CPU
-		{E1778C32-E78E-48F4-B22C-2844505B4DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1778C32-E78E-48F4-B22C-2844505B4DA3}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
