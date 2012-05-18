@@ -25,4 +25,4 @@ bin/
 *.pdb
 
 # include binary dependencies
-!tasque/lib/*
+!/src/tasque/lib/*
