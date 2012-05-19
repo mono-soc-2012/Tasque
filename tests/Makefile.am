@@ -15,6 +15,7 @@ BUILD_DIR = bin/Release
 
 LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Release/libtasque.dll
 TASQUE_TESTS_DLL_MDB=
+LIBTASQUE_DLL_MDB=
 
 endif
 
@@ -31,6 +32,8 @@ BUILD_DIR = bin/Debug
 LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Debug/libtasque.dll
 TASQUE_TESTS_DLL_MDB_SOURCE=bin/Debug/tasque.tests.dll.mdb
 TASQUE_TESTS_DLL_MDB=$(BUILD_DIR)/tasque.tests.dll.mdb
+LIBTASQUE_DLL_MDB_SOURCE=../src/libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
 
 endif
 
@@ -47,6 +50,8 @@ BUILD_DIR = bin/Debug
 LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Debug/libtasque.dll
 TASQUE_TESTS_DLL_MDB_SOURCE=bin/Debug/tasque.tests.dll.mdb
 TASQUE_TESTS_DLL_MDB=$(BUILD_DIR)/tasque.tests.dll.mdb
+LIBTASQUE_DLL_MDB_SOURCE=../src/libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
 
 endif
 
@@ -63,6 +68,8 @@ BUILD_DIR = bin/Debug
 LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Debug/libtasque.dll
 TASQUE_TESTS_DLL_MDB_SOURCE=bin/Debug/tasque.tests.dll.mdb
 TASQUE_TESTS_DLL_MDB=$(BUILD_DIR)/tasque.tests.dll.mdb
+LIBTASQUE_DLL_MDB_SOURCE=../src/libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
 
 endif
 
@@ -71,7 +78,8 @@ SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 
 PROGRAMFILES = \
 	$(LIBTASQUE_DLL) \
-	$(TASQUE_TESTS_DLL_MDB)  
+	$(TASQUE_TESTS_DLL_MDB) \
+	$(LIBTASQUE_DLL_MDB)  
 
 
 RESGEN=resgen2
@@ -100,6 +108,7 @@ include $(top_srcdir)/Makefile.include
 LIBTASQUE_DLL = $(BUILD_DIR)/libtasque.dll
 
 $(eval $(call emit-deploy-target,LIBTASQUE_DLL))
+$(eval $(call emit-deploy-target,LIBTASQUE_DLL_MDB))
 
 
 $(eval $(call emit_resgen_targets))
