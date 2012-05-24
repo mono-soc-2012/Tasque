@@ -68,7 +68,6 @@ namespace Tasque
 		public event EventHandler TextChanged;
 		public event EventHandler DeleteButtonClicked;
 		public event EventHandler EditCanceled;
-		public event EventHandler EditButtonClicked;
 		#endregion // Events
 		
 		#region Properties
