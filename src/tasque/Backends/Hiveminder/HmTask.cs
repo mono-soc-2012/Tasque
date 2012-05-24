@@ -95,7 +95,6 @@ namespace Tasque.Backends.HmBackend
 					default:
 						return TaskPriority.None;
 					}
-					return TaskPriority.None; 
 				}
 			
 			set {
