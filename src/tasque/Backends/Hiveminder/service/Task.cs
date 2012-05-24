@@ -34,8 +34,6 @@ namespace Hiveminder
 	[Serializable]
 	public class Task
 	{
-		private string description;
-		
 		#region PublicProperties
 		
 		[XmlElement("id", Form=XmlSchemaForm.Unqualified)]

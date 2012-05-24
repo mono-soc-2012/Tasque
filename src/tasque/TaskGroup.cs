@@ -242,10 +242,6 @@ namespace Tasque
 		// Find the index within the tree
 		public int GetIterIndex (Gtk.TreeIter iter)
 		{
-			Gtk.TreePath path = treeView.Model.GetPath (iter);
-			Gdk.Rectangle rect =
-				treeView.GetBackgroundArea (path, treeView.GetColumn (0));
-			
 			int pos = 0;
 			Gtk.TreeIter tempIter;
 			Gtk.TreeModel model = treeView.Model;

@@ -55,11 +55,8 @@ namespace Tasque
 #if !WIN32 && !OSX
 		private RemoteControl remoteControl;
 #endif
-		private Gdk.Pixbuf normalPixBuf;
-		private Gtk.Image trayImage;
 		private Gtk.StatusIcon trayIcon;	
 		private Preferences preferences;
-		private EventBox eb;
 		private IBackend backend;
 		private TaskGroupModel overdue_tasks, today_tasks, tomorrow_tasks;
 		private PreferencesDialog preferencesDialog;
@@ -142,10 +139,7 @@ namespace Tasque
 			get { return Application.Instance.preferences; }
 		}
 
-		private Application ()
-		{
-			Init(null);
-		}
+		private Application () : this (null) {}
 
 		private Application (string[] args)
 		{
