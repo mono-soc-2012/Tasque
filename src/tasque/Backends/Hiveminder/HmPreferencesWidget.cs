@@ -97,7 +97,7 @@ namespace Tasque.Backends.HmBackend
 			
 			try {
 				Hiveminder.Hiveminder hm = new Hiveminder.Hiveminder(username, password);
-			} catch (Exception e) {
+			} catch {
 				authButton.Label = "Try Again";
 			}
 		}

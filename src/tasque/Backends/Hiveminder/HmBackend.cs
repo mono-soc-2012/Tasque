@@ -292,7 +292,7 @@ namespace Tasque.Backends.HmBackend
 				
 				configFile.Close();
 				
-			} catch (Exception e) {
+			} catch {
 				return false;
 			}
 			
