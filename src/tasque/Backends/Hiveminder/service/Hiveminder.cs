@@ -164,7 +164,6 @@ namespace Hiveminder
 		public XmlNodeList DownloadTasks ()
 		{
 			string responseString;
-			uint i =0;
 			
 			/*FIXME : Fetches only 15 items.*/
 			responseString = this.Command ("/=/search/BTDT.Model.Task/");
@@ -183,7 +182,6 @@ namespace Hiveminder
 		public XmlNodeList DownloadGroups ()
 		{
 			string responseString;
-			uint i =0;
 			
 			responseString = this.Command ("/=/action/BTDT.Action.SearchGroup/", "POST");
 		
