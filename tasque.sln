@@ -1,74 +1,89 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "build", "build\build.mdproj", "{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tasque", "src\tasque\tasque.csproj", "{B19B9840-669D-4984-9772-E1F55193A67F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtmNet", "src\RtmNet\RtmNet.csproj", "{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libtasque", "src\libtasque\libtasque.csproj", "{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtmNet", "src\RtmNet\RtmNet.csproj", "{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{6DC908EC-E7C2-46CD-A21D-832C0D81D946}"
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "translation", "po\translation.mdproj", "{A8D75EEC-63FE-4A18-8ACF-120870056E4E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE3445EA-FCD6-4EAB-B093-19E5C22F3E82}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D8032D6D-255B-422E-A98D-78F30B74336E}"
 	ProjectSection(SolutionItems) = preProject
-		build\CommonAssemblyInfo.cs = build\CommonAssemblyInfo.cs
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
+		Debug|Any CPU = Debug|Any CPU
 		LinuxDebug|Any CPU = LinuxDebug|Any CPU
-		WinDebug|Any CPU = WinDebug|Any CPU
-		MacDebug|Any CPU = MacDebug|Any CPU
+		LinuxRelease|Any CPU = LinuxRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
-		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.MacDebug|Any CPU.ActiveCfg = MacDebug|Any CPU
-		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.MacDebug|Any CPU.Build.0 = MacDebug|Any CPU
+		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.LinuxRelease|Any CPU.ActiveCfg = LinuxRelease|Any CPU
+		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.LinuxRelease|Any CPU.Build.0 = LinuxRelease|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
-		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
+		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.MacDebug|Any CPU.ActiveCfg = MacDebug|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.MacDebug|Any CPU.Build.0 = MacDebug|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
+		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.LinuxRelease|Any CPU.ActiveCfg = LinuxRelease|Any CPU
+		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
-		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.MacDebug|Any CPU.ActiveCfg = MacDebug|Any CPU
-		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.MacDebug|Any CPU.Build.0 = MacDebug|Any CPU
+		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.LinuxRelease|Any CPU.ActiveCfg = LinuxRelease|Any CPU
+		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.LinuxRelease|Any CPU.Build.0 = LinuxRelease|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
-		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.LinuxDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.LinuxDebug|Any CPU.Build.0 = Debug|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.MacDebug|Any CPU.ActiveCfg = MacDebug|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.MacDebug|Any CPU.Build.0 = MacDebug|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
+		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.Debug|Any CPU.ActiveCfg = Default|Any CPU
+		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.Debug|Any CPU.Build.0 = Default|Any CPU
+		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
+		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
+		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.LinuxRelease|Any CPU.ActiveCfg = LinuxRelease|Any CPU
+		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.LinuxRelease|Any CPU.Build.0 = LinuxRelease|Any CPU
+		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.Release|Any CPU.ActiveCfg = Default|Any CPU
+		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.Release|Any CPU.Build.0 = Default|Any CPU
+		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
+		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
+		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.LinuxRelease|Any CPU.ActiveCfg = LinuxRelease|Any CPU
+		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.LinuxRelease|Any CPU.Build.0 = LinuxRelease|Any CPU
+		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{B19B9840-669D-4984-9772-E1F55193A67F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B19B9840-669D-4984-9772-E1F55193A67F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.LinuxDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.LinuxDebug|Any CPU.Build.0 = LinuxDebug|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.MacDebug|Any CPU.ActiveCfg = MacDebug|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.MacDebug|Any CPU.Build.0 = MacDebug|Any CPU
+		{B19B9840-669D-4984-9772-E1F55193A67F}.LinuxRelease|Any CPU.ActiveCfg = LinuxRelease|Any CPU
+		{B19B9840-669D-4984-9772-E1F55193A67F}.LinuxRelease|Any CPU.Build.0 = LinuxRelease|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.WinDebug|Any CPU.ActiveCfg = WinDebug|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.WinDebug|Any CPU.Build.0 = WinDebug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = src\tasque\tasque.csproj
+		Policies = $0
+		$0.StandardHeader = $1
+		$1.Text = @\n${FileName}\n \nAuthor:\n      ${AuthorName} <${AuthorEmail}>\n\nCopyright (c) ${Year} ${CopyrightHolder}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.
+		$1.IncludeInNewFiles = True
+		$0.DotNetNamingPolicy = $2
+		$2.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$2.ResourceNamePolicy = FileFormatDefault
 		version = 0.1.10
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
