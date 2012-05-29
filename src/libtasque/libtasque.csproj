@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Tasque</RootNamespace>
+    <AssemblyName>libtasque</AssemblyName>
+    <ReleaseVersion>0.1.10</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxRelease|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\LinuxRelease</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Build" command="echo &quot;building...&quot;" />
+        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="IBackend.cs" />
+    <Compile Include="ICategory.cs" />
+    <Compile Include="INote.cs" />
+    <Compile Include="ITask.cs" />
+    <Compile Include="TaskPriority.cs" />
+    <Compile Include="TaskState.cs" />
+    <Compile Include="TaskParser.cs" />
+    <Compile Include="DateFormatterFactory.cs" />
+    <Compile Include="DateFormatters\IDateFormatter.cs" />
+    <Compile Include="DateFormatters\WeekdayFormatter.cs" />
+    <Compile Include="DateFormatters\OrdinalFormatter.cs" />
+    <Compile Include="DateFormatters\WeekFormatter.cs" />
+    <Compile Include="DateFormatters\StringInsensitiveComparer.cs" />
+    <Compile Include="DateFormatters\QuantityFormatter.cs" />
+    <Compile Include="DateFormatters\YearFormatter.cs" />
+    <Compile Include="DateFormatters\DateFormatter.cs" />
+    <Compile Include="DateFormatters\MonthFormatter.cs" />
+    <Compile Include="DateFormatters\TodayTomorrowFormatter.cs" />
+    <Compile Include="RegularExpressionFormatter.cs" />
+    <Compile Include="TranslatableToken.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="DateFormatters\DayFormatter.cs" />
+    <Compile Include="DateFormatters\DateSeparatedFormatter.cs" />
+    <Compile Include="INativeApplication.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\..\build\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\build\GlobalDefines.cs">
+      <Link>Properties\GlobalDefines.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>glib-sharp-2.0</Package>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DateFormatters\" />
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData generatePcFile="false" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

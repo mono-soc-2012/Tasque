@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ItemType>GenericProject</ItemType>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}</ProjectGuid>
+    <ReleaseVersion>0.1.10</ReleaseVersion>
+    <MSBuildCommunityTasksPath>./</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+  <Import Project="lib\MSBuild.Community.Tasks.Targets" />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxDebug|AnyCPU' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxRelease|AnyCPU' ">
+    <OutputPath>.</OutputPath>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Build" command="echo &quot;building...&quot;" />
+        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="build.mdproj" />
+    <None Include="..\tasque.sln">
+      <Link>tasque.sln</Link>
+    </None>
+    <None Include="..\src\libtasque\libtasque.csproj">
+      <Link>libtasque.csproj</Link>
+    </None>
+    <None Include="..\src\RtmNet\RtmNet.csproj">
+      <Link>RtmNet.csproj</Link>
+    </None>
+    <None Include="..\src\tasque\tasque.csproj">
+      <Link>tasque.csproj</Link>
+    </None>
+    <None Include="fixautotoolsbuild.sh" />
+    <None Include="CommonAssemblyInfo.cs" />
+    <None Include="bundle-mac-app.sh" />
+    <GlobalDefinesCsIn Include="GlobalDefines.cs.in" />
+    <None Include="mac-postbuild.sh" />
+    <None Include="mac-prebuild.sh" />
+    <None Include="..\po\translation.mdproj">
+      <Link>translation.mdproj</Link>
+    </None>
+    <None Include="..\tests\tests.csproj">
+      <Link>tests.csproj</Link>
+    </None>
+  </ItemGroup>
+  <Target Name="Build" DependsOnTargets="PreBuild" />
+  <Target Name="PreBuild">
+    <Message Text="Setting up global definitions..." />
+    <ReadLinesFromFile File="@(GlobalDefinesCsIn)">
+      <Output TaskParameter="Lines" ItemName="GlobalDefinesIn" />
+    </ReadLinesFromFile>
+    <RegexReplace Input="@(GlobalDefinesIn)" Expression="@version@" Replacement="$(ReleaseVersion)">
+      <Output ItemName="GlobalDefines" TaskParameter="Output" />
+    </RegexReplace>
+    <WriteLinesToFile File="GlobalDefines.cs" Lines="@(GlobalDefines)" Overwrite="true" />
+    <Message Text="Finished." />
+  </Target>
+</Project>
+

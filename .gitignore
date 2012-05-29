@@ -9,6 +9,12 @@
 Makefile
 Makefile.in
 configure
+aclocal.m4
+/config.log
+/config.status
+/install-sh
+/missing
+/src/tasque/tasque
 
 # VS and MD
 *.userprefs
@@ -25,4 +31,5 @@ bin/
 *.pdb
 
 # include binary dependencies
-!tasque/lib/*
+!/src/tasque/lib/*
+!/build/lib/*

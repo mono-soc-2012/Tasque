@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B19B9840-669D-4984-9772-E1F55193A67F}</ProjectGuid>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>tasque</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <NoWin32Manifest>True</NoWin32Manifest>
+    <RootNamespace>tasque</RootNamespace>
+    <ReleaseVersion>0.1.10</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxDebug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxRelease|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\LinuxRelease</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>glib-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="NDesk.DBus, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
+      <Package>ndesk-dbus-1.0</Package>
+    </Reference>
+    <Reference Include="Mono.Posix" />
+    <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="gnome-sharp, Version=2.24.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gnome-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
+      <Private>False</Private>
+      <Package>notify-sharp</Package>
+    </Reference>
+    <Reference Include="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
+      <Private>False</Private>
+      <Package>ndesk-dbus-glib-1.0</Package>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\data\osx\Contents\Info.plist">
+      <Link>data\osx\Contents\Info.plist</Link>
+    </None>
+    <None Include="..\..\data\osx\Contents\MacOS\Tasque">
+      <Link>data\osx\Contents\MacOS\Tasque</Link>
+    </None>
+    <None Include="..\..\data\osx\Contents\Resources\tasque.icns">
+      <Link>data\osx\Contents\Resources\tasque.icns</Link>
+    </None>
+    <None Include="..\..\data\sounds\notify.wav">
+      <Link>data\sounds\notify.wav</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RemoteControl.cs" />
+    <Compile Include="RemoteControlProxy.cs" />
+    <Compile Include="GnomeApplication.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\..\build\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\build\GlobalDefines.cs">
+      <Link>Properties\GlobalDefines.cs</Link>
+    </Compile>
+    <Compile Include="AbstractTask.cs" />
+    <Compile Include="AllCategory.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="Backends\Dummy\DummyBackend.cs" />
+    <Compile Include="Backends\Dummy\DummyCategory.cs" />
+    <Compile Include="Backends\Dummy\DummyNote.cs" />
+    <Compile Include="Backends\Dummy\DummyTask.cs" />
+    <Compile Include="Backends\Hiveminder\HmBackend.cs" />
+    <Compile Include="Backends\Hiveminder\HmCategory.cs" />
+    <Compile Include="Backends\Hiveminder\HmNote.cs" />
+    <Compile Include="Backends\Hiveminder\HmPreferencesWidget.cs" />
+    <Compile Include="Backends\Hiveminder\HmTask.cs" />
+    <Compile Include="Backends\Hiveminder\service\Group.cs" />
+    <Compile Include="Backends\Hiveminder\service\Hiveminder.cs" />
+    <Compile Include="Backends\Hiveminder\service\HiveminderException.cs" />
+    <Compile Include="Backends\Hiveminder\service\Task.cs" />
+    <Compile Include="Backends\Rtm\RtmBackend.cs" />
+    <Compile Include="Backends\Rtm\RtmCategory.cs" />
+    <Compile Include="Backends\Rtm\RtmNote.cs" />
+    <Compile Include="Backends\Rtm\RtmPreferencesWidget.cs" />
+    <Compile Include="Backends\Rtm\RtmTask.cs" />
+    <Compile Include="Backends\Sqlite\Database.cs" />
+    <Compile Include="Backends\Sqlite\SqliteBackend.cs" />
+    <Compile Include="Backends\Sqlite\SqliteCategory.cs" />
+    <Compile Include="Backends\Sqlite\SqliteNote.cs" />
+    <Compile Include="Backends\Sqlite\SqliteTask.cs" />
+    <Compile Include="CellRendererDate.cs" />
+    <Compile Include="CompletedTaskGroup.cs" />
+    <Compile Include="CompletedTaskGroupModel.cs" />
+    <Compile Include="DateButton.cs" />
+    <Compile Include="GtkApplication.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="NoteDialog.cs" />
+    <Compile Include="NoteWidget.cs" />
+    <None Include="OSXApplication.cs" />
+    <Compile Include="Preferences.cs" />
+    <Compile Include="PreferencesDialog.cs" />
+    <Compile Include="TaskCalendar.cs" />
+    <Compile Include="TaskGroup.cs" />
+    <Compile Include="TaskGroupModel.cs" />
+    <Compile Include="TaskGroupModelFactory.cs" />
+    <Compile Include="TaskTreeView.cs" />
+    <Compile Include="TaskWindow.cs" />
+    <Compile Include="Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="data\" />
+    <Folder Include="data\icons\" />
+    <Folder Include="data\osx\" />
+    <Folder Include="data\sounds\" />
+    <Folder Include="data\osx\Contents\" />
+    <Folder Include="data\osx\Contents\MacOS\" />
+    <Folder Include="data\osx\Contents\Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\libtasque\libtasque.csproj">
+      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
+      <Name>libtasque</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RtmNet\RtmNet.csproj">
+      <Project>{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}</Project>
+      <Name>RtmNet</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_actions_22x22_notebook.png">
+      <Link>data\icons\hicolor_actions_22x22_notebook.png</Link>
+      <LogicalName>hicolor_actions_22x22_notebook.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_actions_22x22_notebook.svg">
+      <Link>data\icons\hicolor_actions_22x22_notebook.svg</Link>
+      <LogicalName>hicolor_actions_22x22_notebook.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-1.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-1.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-1.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-10.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-10.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-10.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-11.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-11.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-11.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-12.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-12.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-12.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-12.svg">
+      <Link>data\icons\hicolor_animations_16x16_countdown-12.svg</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-12.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-2.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-2.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-2.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-3.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-3.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-3.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-4.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-4.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-4.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-5.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-5.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-5.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-6.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-6.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-6.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-7.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-7.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-7.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-8.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-8.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-8.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-9.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-9.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-9.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\rtmLogo.png">
+      <Link>data\icons\rtmLogo.png</Link>
+      <LogicalName>rtmLogo.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque.ico">
+      <Link>data\icons\tasque.ico</Link>
+      <LogicalName>tasque.ico</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque.svg">
+      <Link>data\icons\tasque.svg</Link>
+      <LogicalName>tasque.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-16.png">
+      <Link>data\icons\tasque-16.png</Link>
+      <LogicalName>tasque-16.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-22.png">
+      <Link>data\icons\tasque-22.png</Link>
+      <LogicalName>tasque-22.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-24.png">
+      <Link>data\icons\tasque-24.png</Link>
+      <LogicalName>tasque-24.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-256.png">
+      <Link>data\icons\tasque-256.png</Link>
+      <LogicalName>tasque-256.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-32.png">
+      <Link>data\icons\tasque-32.png</Link>
+      <LogicalName>tasque-32.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-48.png">
+      <Link>data\icons\tasque-48.png</Link>
+      <LogicalName>tasque-48.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-icons-source.svg">
+      <Link>data\icons\tasque-icons-source.svg</Link>
+      <LogicalName>tasque-icons-source.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-opensuse-1click.png">
+      <Link>data\icons\tasque-opensuse-1click.png</Link>
+      <LogicalName>tasque-opensuse-1click.png</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
