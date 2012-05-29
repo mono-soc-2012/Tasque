@@ -76,7 +76,8 @@
     <None Include="..\..\data\sounds\notify.wav">
       <Link>data\sounds\notify.wav</Link>
     </None>
-    <Compile Include="Defines.WIN32.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="RemoteControl.cs" />
     <Compile Include="RemoteControlProxy.cs" />
     <Compile Include="GnomeApplication.cs" />
@@ -84,8 +85,9 @@
     <Compile Include="..\..\build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="..\..\build\GlobalDefines.cs">
+      <Link>Properties\GlobalDefines.cs</Link>
+    </Compile>
     <Compile Include="AbstractTask.cs" />
     <Compile Include="AllCategory.cs" />
     <Compile Include="Application.cs" />

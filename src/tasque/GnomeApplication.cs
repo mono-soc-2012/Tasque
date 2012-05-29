@@ -30,14 +30,14 @@ namespace Tasque
 		                        string process_name,
 		                        string [] args)
 		{
-			Mono.Unix.Catalog.Init ("tasque", Defines.LocaleDir);
+			Mono.Unix.Catalog.Init ("tasque", GlobalDefines.LocaleDir);
 			try {
 				SetProcessName (process_name);
 			} catch {} // Ignore exception if fail (not needed to run)
 
 			Gtk.Application.Init ();
 			program = new Gnome.Program (display_name,
-			                             Defines.Version,
+			                             GlobalDefines.Version,
 			                             Gnome.Modules.UI,
 			                             args);
 		}

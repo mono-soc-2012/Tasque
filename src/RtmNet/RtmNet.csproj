@@ -82,6 +82,9 @@
     <Compile Include="..\..\build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\build\GlobalDefines.cs">
+      <Link>Properties\GlobalDefines.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="example_app.config" />

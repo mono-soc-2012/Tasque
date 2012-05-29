@@ -156,7 +156,7 @@ namespace Tasque
 			nativeApp = new GnomeApplication ();
 #endif
 			nativeApp.Initialize (
-				Defines.LocaleDir,
+				GlobalDefines.LocaleDir,
 				"Tasque",
 				"Tasque",
 				args);
@@ -580,8 +580,8 @@ namespace Tasque
 				translators = null;
 			
 			Gtk.AboutDialog about = new Gtk.AboutDialog ();
-			about.Name = "Tasque";
-			about.Version = Defines.Version;
+			about.ProgramName = "Tasque";
+			about.Version = GlobalDefines.Version;
 			about.Logo = Utilities.GetIcon("tasque-48", 48);
 			about.Copyright =
 				Catalog.GetString ("Copyright \xa9 2008 Novell, Inc.");

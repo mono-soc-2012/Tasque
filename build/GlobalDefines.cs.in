@@ -1,5 +1,6 @@
+// This file (GlobalDefines.cs) is automatically generated. Do not edit. (Edit GlobalDefines.cs.in instead.)
 // 
-// CommonAssemblyInfo.cs
+// GlobalDefines.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,22 +25,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System.Reflection;
-using Tasque;
-
-// Information about this assembly is defined by the following attributes. 
-// Change them to the values specific to your project.
-
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Tasque")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-// The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
-// The form "{Major}.{Minor}.*" will automatically update the build and revision,
-// and "{Major}.{Minor}.{Build}.*" will update just the revision.
-
-// AssemblyVersion and AssemblyInformationalVersion are both set to the application version
-[assembly: AssemblyVersion(GlobalDefines.Version)]
-[assembly: AssemblyInformationalVersion(GlobalDefines.Version)]
+namespace Tasque {
+	static class GlobalDefines {
+		public const string Version = "@version@";
+		public const string DataDir	= "@datadir@";
+		public const string LocaleDir = "@datadir@/locale";
+		public const string SoundDir = "@datadir@/tasque/sounds";
+	}
+}
