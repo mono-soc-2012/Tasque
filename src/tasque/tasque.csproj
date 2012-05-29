@@ -64,36 +64,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\tasque-opensuse-1click.png" />
-    <None Include="res\images\clock-16-0.png" />
-    <None Include="res\images\clock-16-0.svg" />
-    <None Include="res\images\clock-16-1.png" />
-    <None Include="res\images\clock-16-10.png" />
-    <None Include="res\images\clock-16-11.png" />
-    <None Include="res\images\clock-16-2.png" />
-    <None Include="res\images\clock-16-3.png" />
-    <None Include="res\images\clock-16-4.png" />
-    <None Include="res\images\clock-16-5.png" />
-    <None Include="res\images\clock-16-6.png" />
-    <None Include="res\images\clock-16-7.png" />
-    <None Include="res\images\clock-16-8.png" />
-    <None Include="res\images\clock-16-9.png" />
-    <None Include="res\images\note-16.png" />
-    <None Include="res\images\note-22.svg" />
-    <None Include="res\images\rtmLogo.png" />
-    <None Include="res\images\tasque-16.png" />
-    <None Include="res\images\tasque-22.png" />
-    <None Include="res\images\tasque-24.png" />
-    <None Include="res\images\tasque-256.png" />
-    <None Include="res\images\tasque-32.png" />
-    <None Include="res\images\tasque-48.png" />
-    <None Include="res\images\tasque-icons-source.svg" />
-    <None Include="res\images\tasque.ico" />
-    <None Include="res\images\tasque.svg" />
-    <None Include="res\osx\Contents\Info.plist" />
-    <None Include="res\osx\Contents\MacOS\Tasque" />
-    <None Include="res\osx\Contents\Resources\tasque.icns" />
-    <None Include="res\sounds\notify.wav" />
+    <None Include="..\..\data\osx\Contents\Info.plist">
+      <Link>data\osx\Contents\Info.plist</Link>
+    </None>
+    <None Include="..\..\data\osx\Contents\MacOS\Tasque">
+      <Link>data\osx\Contents\MacOS\Tasque</Link>
+    </None>
+    <None Include="..\..\data\osx\Contents\Resources\tasque.icns">
+      <Link>data\osx\Contents\Resources\tasque.icns</Link>
+    </None>
+    <None Include="..\..\data\sounds\notify.wav">
+      <Link>data\sounds\notify.wav</Link>
+    </None>
     <Compile Include="Defines.WIN32.cs" />
     <Compile Include="RemoteControl.cs" />
     <Compile Include="RemoteControlProxy.cs" />
@@ -183,6 +165,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="data\" />
+    <Folder Include="data\icons\" />
+    <Folder Include="data\osx\" />
+    <Folder Include="data\sounds\" />
+    <Folder Include="data\osx\Contents\" />
+    <Folder Include="data\osx\Contents\MacOS\" />
+    <Folder Include="data\osx\Contents\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libtasque\libtasque.csproj">
@@ -193,5 +182,111 @@
       <Project>{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}</Project>
       <Name>RtmNet</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_actions_22x22_notebook.png">
+      <Link>data\icons\hicolor_actions_22x22_notebook.png</Link>
+      <LogicalName>hicolor_actions_22x22_notebook.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_actions_22x22_notebook.svg">
+      <Link>data\icons\hicolor_actions_22x22_notebook.svg</Link>
+      <LogicalName>hicolor_actions_22x22_notebook.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-1.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-1.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-1.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-10.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-10.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-10.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-11.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-11.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-11.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-12.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-12.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-12.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-12.svg">
+      <Link>data\icons\hicolor_animations_16x16_countdown-12.svg</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-12.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-2.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-2.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-2.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-3.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-3.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-3.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-4.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-4.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-4.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-5.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-5.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-5.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-6.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-6.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-6.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-7.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-7.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-7.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-8.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-8.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-8.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\hicolor_animations_16x16_countdown-9.png">
+      <Link>data\icons\hicolor_animations_16x16_countdown-9.png</Link>
+      <LogicalName>hicolor_animations_16x16_countdown-9.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\rtmLogo.png">
+      <Link>data\icons\rtmLogo.png</Link>
+      <LogicalName>rtmLogo.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque.ico">
+      <Link>data\icons\tasque.ico</Link>
+      <LogicalName>tasque.ico</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque.svg">
+      <Link>data\icons\tasque.svg</Link>
+      <LogicalName>tasque.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-16.png">
+      <Link>data\icons\tasque-16.png</Link>
+      <LogicalName>tasque-16.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-22.png">
+      <Link>data\icons\tasque-22.png</Link>
+      <LogicalName>tasque-22.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-24.png">
+      <Link>data\icons\tasque-24.png</Link>
+      <LogicalName>tasque-24.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-256.png">
+      <Link>data\icons\tasque-256.png</Link>
+      <LogicalName>tasque-256.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-32.png">
+      <Link>data\icons\tasque-32.png</Link>
+      <LogicalName>tasque-32.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-48.png">
+      <Link>data\icons\tasque-48.png</Link>
+      <LogicalName>tasque-48.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-icons-source.svg">
+      <Link>data\icons\tasque-icons-source.svg</Link>
+      <LogicalName>tasque-icons-source.svg</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\data\icons\tasque-opensuse-1click.png">
+      <Link>data\icons\tasque-opensuse-1click.png</Link>
+      <LogicalName>tasque-opensuse-1click.png</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

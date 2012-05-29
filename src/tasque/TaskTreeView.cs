@@ -27,11 +27,11 @@ namespace Tasque
 		
 		static TaskTreeView ()
 		{
-			notePixbuf = Utilities.GetIcon ("note", 16);
+			notePixbuf = Utilities.GetIcon ("hicolor_animations_16x16_notebook", 16);
 			
 			inactiveAnimPixbufs = new Gdk.Pixbuf [12];
-			for (int i = 0; i < 12; i++) {
-				string iconName = string.Format ("clock-16-{0}", i);
+			for (int i = 11; i >= 0; i--) {
+				string iconName = string.Format ("hicolor_animations_16x16_countdown-{0}", i);
 				inactiveAnimPixbufs [i] = Utilities.GetIcon (iconName, 16);
 			}
 		}

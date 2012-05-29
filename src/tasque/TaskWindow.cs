@@ -80,7 +80,7 @@ namespace Tasque
 		
 		static TaskWindow ()
 		{
-			noteIcon = Utilities.GetIcon ("note", 16);
+			noteIcon = Utilities.GetIcon ("hicolor_animations_16x16_notebook", 16);
 		}
 		
 		public TaskWindow (IBackend aBackend) : base (Gtk.WindowType.Toplevel)
