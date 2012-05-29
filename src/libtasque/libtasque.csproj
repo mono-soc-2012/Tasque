@@ -114,6 +114,7 @@
     <MonoDevelop>
       <Properties>
         <Deployment.LinuxDeployData generatePcFile="false" />
+      </Properties>
     </MonoDevelop>
   </ProjectExtensions>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
