@@ -15,8 +15,31 @@
     <OutputPath>.</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="build.mdproj" />
+    <None Include="..\tasque.sln">
+      <Link>tasque.sln</Link>
+    </None>
+    <None Include="..\src\libtasque\libtasque.csproj">
+      <Link>libtasque.csproj</Link>
+    </None>
+    <None Include="..\src\RtmNet\RtmNet.csproj">
+      <Link>RtmNet.csproj</Link>
+    </None>
+    <None Include="..\src\tasque\tasque.csproj">
+      <Link>tasque.csproj</Link>
+    </None>
+    <None Include="fixautotoolsbuild.sh" />
     <None Include="CommonAssemblyInfo.cs" />
+    <None Include="bundle-mac-app.sh" />
     <GlobalDefinesCsIn Include="GlobalDefines.cs.in" />
+    <None Include="mac-postbuild.sh" />
+    <None Include="mac-prebuild.sh" />
+    <None Include="..\po\translation.mdproj">
+      <Link>translation.mdproj</Link>
+    </None>
+    <None Include="..\tests\tests.csproj">
+      <Link>tests.csproj</Link>
+    </None>
   </ItemGroup>
   <Target Name="Build" DependsOnTargets="PreBuild" />
   <Target Name="PreBuild">
