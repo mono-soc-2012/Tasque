@@ -3,20 +3,34 @@ EXTRA_DIST =
 
 # Warning: This is an automatically generated file, do not edit!
 
-if ENABLE_RELEASE
+if ENABLE_GNOMEDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/libtasque.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/Debug
+
+LIBTASQUE_DLL_MDB_SOURCE=bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+
+endif
+
+if ENABLE_GNOMERELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize-
-ASSEMBLY = bin/Release/libtasque.dll
+ASSEMBLY = bin/LinuxRelease/libtasque.dll
 ASSEMBLY_MDB = 
 COMPILE_TARGET = library
 PROJECT_REFERENCES = 
-BUILD_DIR = bin/Release
+BUILD_DIR = bin/LinuxRelease
 
 LIBTASQUE_DLL_MDB=
 
 endif
 
-if ENABLE_DEBUG
+if ENABLE_GTKLINUXDEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
 ASSEMBLY = bin/Debug/libtasque.dll
@@ -30,7 +44,20 @@ LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
 
 endif
 
-if ENABLE_LINUXDEBUG
+if ENABLE_GTKLINUXRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize-
+ASSEMBLY = bin/LinuxRelease/libtasque.dll
+ASSEMBLY_MDB = 
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/LinuxRelease
+
+LIBTASQUE_DLL_MDB=
+
+endif
+
+if ENABLE_GTKWINDEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
 ASSEMBLY = bin/Debug/libtasque.dll
@@ -44,7 +71,61 @@ LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
 
 endif
 
-if ENABLE_LINUXRELEASE
+if ENABLE_GTKWINRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize-
+ASSEMBLY = bin/LinuxRelease/libtasque.dll
+ASSEMBLY_MDB = 
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/LinuxRelease
+
+LIBTASQUE_DLL_MDB=
+
+endif
+
+if ENABLE_GTKMACDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/libtasque.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/Debug
+
+LIBTASQUE_DLL_MDB_SOURCE=bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+
+endif
+
+if ENABLE_GTKMACRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize-
+ASSEMBLY = bin/LinuxRelease/libtasque.dll
+ASSEMBLY_MDB = 
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/LinuxRelease
+
+LIBTASQUE_DLL_MDB=
+
+endif
+
+if ENABLE_MONOMACDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/libtasque.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/Debug
+
+LIBTASQUE_DLL_MDB_SOURCE=bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+
+endif
+
+if ENABLE_MONOMACRELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize-
 ASSEMBLY = bin/LinuxRelease/libtasque.dll

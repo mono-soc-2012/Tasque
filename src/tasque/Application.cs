@@ -150,7 +150,7 @@ namespace Tasque
 		{
 #if OSX
 			nativeApp = new OSXApplication ();
-#elif WIN32
+#elif WIN32 || GTKLINUX
 			nativeApp = new GtkApplication ();
 #else
 			nativeApp = new GnomeApplication ();
