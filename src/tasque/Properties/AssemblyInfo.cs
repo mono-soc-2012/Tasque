@@ -1,5 +1,5 @@
 // 
-// CommonAssemblyInfo.cs
+// AssemblyInfo.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,21 +25,11 @@
 // THE SOFTWARE.
 
 using System.Reflection;
-using Tasque;
+using System.Runtime.CompilerServices;
 
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Tasque")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-// The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
-// The form "{Major}.{Minor}.*" will automatically update the build and revision,
-// and "{Major}.{Minor}.{Build}.*" will update just the revision.
-
-// AssemblyVersion and AssemblyInformationalVersion are both set to the application version
-[assembly: AssemblyVersion(GlobalDefines.Version)]
-[assembly: AssemblyInformationalVersion(GlobalDefines.Version)]
+[assembly: AssemblyTitle("tasque")]
+[assembly: AssemblyDescription("Simple Tasque Management")]
+[assembly: AssemblyCopyright("MIT")]
