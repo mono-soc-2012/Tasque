@@ -1,6 +1,0 @@
-Name: RtmNet
-Description: RtmNet
-Version: 0.1.10
-
-Requires: 
-Libs: -r:@expanded_libdir@/@PACKAGE@/RtmNet.dll

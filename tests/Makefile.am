@@ -5,71 +5,71 @@ EXTRA_DIST =
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize-
-ASSEMBLY = bin/Release/tasque.tests.dll
-ASSEMBLY_MDB = 
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/tests.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
 PROJECT_REFERENCES =  \
 	../src/libtasque/bin/Release/libtasque.dll
-BUILD_DIR = bin/Release
+BUILD_DIR = bin/Debug
 
-LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Release/libtasque.dll
-TASQUE_TESTS_DLL_MDB=
-LIBTASQUE_DLL_MDB=
+TESTS_DLL_MDB_SOURCE=bin/Debug/tests.dll.mdb
+TESTS_DLL_MDB=$(BUILD_DIR)/tests.dll.mdb
+LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Debug/libtasque.dll
+LIBTASQUE_DLL_MDB_SOURCE=../src/libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+
+endif
+
+if ENABLE_DEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/tests.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = library
+PROJECT_REFERENCES =  \
+	../src/libtasque/bin/Debug/libtasque.dll
+BUILD_DIR = bin/Debug
+
+TESTS_DLL_MDB_SOURCE=bin/Debug/tests.dll.mdb
+TESTS_DLL_MDB=$(BUILD_DIR)/tests.dll.mdb
+LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Debug/libtasque.dll
+LIBTASQUE_DLL_MDB_SOURCE=../src/libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
 
 endif
 
 if ENABLE_LINUXDEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG"
-ASSEMBLY = bin/Debug/tasque.tests.dll
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/tests.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
 PROJECT_REFERENCES =  \
 	../src/libtasque/bin/Debug/libtasque.dll
 BUILD_DIR = bin/Debug
 
+TESTS_DLL_MDB_SOURCE=bin/Debug/tests.dll.mdb
+TESTS_DLL_MDB=$(BUILD_DIR)/tests.dll.mdb
 LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Debug/libtasque.dll
-TASQUE_TESTS_DLL_MDB_SOURCE=bin/Debug/tasque.tests.dll.mdb
-TASQUE_TESTS_DLL_MDB=$(BUILD_DIR)/tasque.tests.dll.mdb
 LIBTASQUE_DLL_MDB_SOURCE=../src/libtasque/bin/Debug/libtasque.dll.mdb
 LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
 
 endif
 
-if ENABLE_WINDEBUG
+if ENABLE_LINUXRELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG"
-ASSEMBLY = bin/Debug/tasque.tests.dll
-ASSEMBLY_MDB = $(ASSEMBLY).mdb
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize-
+ASSEMBLY = bin/LinuxRelease/tests.dll
+ASSEMBLY_MDB = 
 COMPILE_TARGET = library
 PROJECT_REFERENCES =  \
-	../src/libtasque/bin/Debug/libtasque.dll
-BUILD_DIR = bin/Debug
+	../src/libtasque/bin/LinuxRelease/libtasque.dll
+BUILD_DIR = bin/LinuxRelease
 
-LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Debug/libtasque.dll
-TASQUE_TESTS_DLL_MDB_SOURCE=bin/Debug/tasque.tests.dll.mdb
-TASQUE_TESTS_DLL_MDB=$(BUILD_DIR)/tasque.tests.dll.mdb
-LIBTASQUE_DLL_MDB_SOURCE=../src/libtasque/bin/Debug/libtasque.dll.mdb
-LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
-
-endif
-
-if ENABLE_MACDEBUG
-ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG"
-ASSEMBLY = bin/Debug/tasque.tests.dll
-ASSEMBLY_MDB = $(ASSEMBLY).mdb
-COMPILE_TARGET = library
-PROJECT_REFERENCES =  \
-	../src/libtasque/bin/Debug/libtasque.dll
-BUILD_DIR = bin/Debug
-
-LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/Debug/libtasque.dll
-TASQUE_TESTS_DLL_MDB_SOURCE=bin/Debug/tasque.tests.dll.mdb
-TASQUE_TESTS_DLL_MDB=$(BUILD_DIR)/tasque.tests.dll.mdb
-LIBTASQUE_DLL_MDB_SOURCE=../src/libtasque/bin/Debug/libtasque.dll.mdb
-LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+TESTS_DLL_MDB=
+LIBTASQUE_DLL_SOURCE=../src/libtasque/bin/LinuxRelease/libtasque.dll
+LIBTASQUE_DLL_MDB=
 
 endif
 
@@ -77,8 +77,8 @@ AL=al
 SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 
 PROGRAMFILES = \
+	$(TESTS_DLL_MDB) \
 	$(LIBTASQUE_DLL) \
-	$(TASQUE_TESTS_DLL_MDB) \
 	$(LIBTASQUE_DLL_MDB)  
 
 

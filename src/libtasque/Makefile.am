@@ -16,9 +16,23 @@ LIBTASQUE_DLL_MDB=
 
 endif
 
+if ENABLE_DEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/libtasque.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/Debug
+
+LIBTASQUE_DLL_MDB_SOURCE=bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+
+endif
+
 if ENABLE_LINUXDEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
 ASSEMBLY = bin/Debug/libtasque.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
@@ -30,39 +44,21 @@ LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
 
 endif
 
-if ENABLE_WINDEBUG
+if ENABLE_LINUXRELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG"
-ASSEMBLY = bin/Debug/libtasque.dll
-ASSEMBLY_MDB = $(ASSEMBLY).mdb
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize-
+ASSEMBLY = bin/LinuxRelease/libtasque.dll
+ASSEMBLY_MDB = 
 COMPILE_TARGET = library
 PROJECT_REFERENCES = 
-BUILD_DIR = bin/Debug
+BUILD_DIR = bin/LinuxRelease
 
-LIBTASQUE_DLL_MDB_SOURCE=bin/Debug/libtasque.dll.mdb
-LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
-
-endif
-
-if ENABLE_MACDEBUG
-ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG"
-ASSEMBLY = bin/Debug/libtasque.dll
-ASSEMBLY_MDB = $(ASSEMBLY).mdb
-COMPILE_TARGET = library
-PROJECT_REFERENCES = 
-BUILD_DIR = bin/Debug
-
-LIBTASQUE_DLL_MDB_SOURCE=bin/Debug/libtasque.dll.mdb
-LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=
 
 endif
 
 AL=al
 SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
-
-LINUX_PKGCONFIG = \
-	$(LIBTASQUE_PC)  
 
 PROGRAMFILES = \
 	$(LIBTASQUE_DLL_MDB)  
@@ -70,7 +66,7 @@ PROGRAMFILES = \
 
 RESGEN=resgen2
 	
-all: $(ASSEMBLY) $(LINUX_PKGCONFIG) $(PROGRAMFILES) 
+all: $(ASSEMBLY) $(PROGRAMFILES) 
 
 FILES = \
 	IBackend.cs \
@@ -98,7 +94,8 @@ FILES = \
 	DateFormatters/DateSeparatedFormatter.cs \
 	INativeApplication.cs \
 	Properties/AssemblyInfo.cs \
-	../../build/CommonAssemblyInfo.cs 
+	../../build/CommonAssemblyInfo.cs \
+	../../build/GlobalDefines.cs 
 
 DATA_FILES = 
 
@@ -106,24 +103,22 @@ RESOURCES =
 
 EXTRAS = \
 	DateFormatters \
-	Properties \
-	libtasque.pc.in 
+	Properties 
 
 REFERENCES =  \
 	$(GTK_SHARP_20_LIBS) \
 	System \
 	System.Core \
-	Mono.Posix
+	Mono.Posix \
+	$(GLIB_SHARP_20_LIBS)
 
 DLL_REFERENCES = 
 
-CLEANFILES = $(LINUX_PKGCONFIG) $(PROGRAMFILES) 
+CLEANFILES = $(PROGRAMFILES) 
 
 include $(top_srcdir)/Makefile.include
 
-LIBTASQUE_PC = $(BUILD_DIR)/libtasque.pc
 
-$(eval $(call emit-deploy-wrapper,LIBTASQUE_PC,libtasque.pc))
 
 
 $(eval $(call emit_resgen_targets))
