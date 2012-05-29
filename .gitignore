@@ -26,3 +26,4 @@ bin/
 
 # include binary dependencies
 !/src/tasque/lib/*
+!/build/lib/*
