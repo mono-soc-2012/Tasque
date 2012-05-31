@@ -3,20 +3,34 @@ EXTRA_DIST =
 
 # Warning: This is an automatically generated file, do not edit!
 
-if ENABLE_RELEASE
+if ENABLE_GNOMEDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/RtmNet.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/Debug
+
+RTMNET_DLL_MDB_SOURCE=bin/Debug/RtmNet.dll.mdb
+RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
+
+endif
+
+if ENABLE_GNOMERELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
-ASSEMBLY = bin/Release/RtmNet.dll
+ASSEMBLY = bin/LinuxRelease/RtmNet.dll
 ASSEMBLY_MDB = 
 COMPILE_TARGET = library
 PROJECT_REFERENCES = 
-BUILD_DIR = bin/Release
+BUILD_DIR = bin/LinuxRelease
 
 RTMNET_DLL_MDB=
 
 endif
 
-if ENABLE_DEBUG
+if ENABLE_GTKLINUXDEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
 ASSEMBLY = bin/Debug/RtmNet.dll
@@ -30,7 +44,20 @@ RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
 
 endif
 
-if ENABLE_LINUXDEBUG
+if ENABLE_GTKLINUXRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
+ASSEMBLY = bin/LinuxRelease/RtmNet.dll
+ASSEMBLY_MDB = 
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/LinuxRelease
+
+RTMNET_DLL_MDB=
+
+endif
+
+if ENABLE_GTKWINDEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
 ASSEMBLY = bin/Debug/RtmNet.dll
@@ -44,7 +71,61 @@ RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
 
 endif
 
-if ENABLE_LINUXRELEASE
+if ENABLE_GTKWINRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
+ASSEMBLY = bin/LinuxRelease/RtmNet.dll
+ASSEMBLY_MDB = 
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/LinuxRelease
+
+RTMNET_DLL_MDB=
+
+endif
+
+if ENABLE_GTKMACDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/RtmNet.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/Debug
+
+RTMNET_DLL_MDB_SOURCE=bin/Debug/RtmNet.dll.mdb
+RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
+
+endif
+
+if ENABLE_GTKMACRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
+ASSEMBLY = bin/LinuxRelease/RtmNet.dll
+ASSEMBLY_MDB = 
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/LinuxRelease
+
+RTMNET_DLL_MDB=
+
+endif
+
+if ENABLE_MONOMACDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/RtmNet.dll
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = library
+PROJECT_REFERENCES = 
+BUILD_DIR = bin/Debug
+
+RTMNET_DLL_MDB_SOURCE=bin/Debug/RtmNet.dll.mdb
+RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
+
+endif
+
+if ENABLE_MONOMACRELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
 ASSEMBLY = bin/LinuxRelease/RtmNet.dll

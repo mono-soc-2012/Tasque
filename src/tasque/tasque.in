@@ -1,3 +1,3 @@
-#!/bin/sh
+#!/bin/bash
 
-exec mono "@expanded_libdir@/@PACKAGE@/tasque.exe" "$@"
+exec -a "Tasque" mono "@expanded_libdir@/@PACKAGE@/tasque.exe" "$@"

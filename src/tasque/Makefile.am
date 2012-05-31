@@ -3,26 +3,7 @@ EXTRA_DIST =
 
 # Warning: This is an automatically generated file, do not edit!
 
-if ENABLE_RELEASE
-ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
-ASSEMBLY = bin/Release/tasque.exe
-ASSEMBLY_MDB = 
-COMPILE_TARGET = winexe
-PROJECT_REFERENCES =  \
-	../libtasque/bin/Release/libtasque.dll \
-	../RtmNet/bin/Release/RtmNet.dll
-BUILD_DIR = bin/Release
-
-LIBTASQUE_DLL_SOURCE=../libtasque/bin/Release/libtasque.dll
-RTMNET_DLL_SOURCE=../RtmNet/bin/Release/RtmNet.dll
-TASQUE_EXE_MDB=
-LIBTASQUE_DLL_MDB=
-RTMNET_DLL_MDB=
-
-endif
-
-if ENABLE_DEBUG
+if ENABLE_GNOMEDEBUG
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
 ASSEMBLY = bin/Debug/tasque.exe
@@ -33,40 +14,18 @@ PROJECT_REFERENCES =  \
 	../RtmNet/bin/Debug/RtmNet.dll
 BUILD_DIR = bin/Debug
 
-LIBTASQUE_DLL_SOURCE=../libtasque/bin/Debug/libtasque.dll
-RTMNET_DLL_SOURCE=../RtmNet/bin/Debug/RtmNet.dll
 TASQUE_EXE_MDB_SOURCE=bin/Debug/tasque.exe.mdb
 TASQUE_EXE_MDB=$(BUILD_DIR)/tasque.exe.mdb
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/Debug/libtasque.dll
 LIBTASQUE_DLL_MDB_SOURCE=../libtasque/bin/Debug/libtasque.dll.mdb
 LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+RTMNET_DLL_SOURCE=../RtmNet/bin/Debug/RtmNet.dll
 RTMNET_DLL_MDB_SOURCE=../RtmNet/bin/Debug/RtmNet.dll.mdb
 RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
 
 endif
 
-if ENABLE_LINUXDEBUG
-ASSEMBLY_COMPILER_COMMAND = dmcs
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
-ASSEMBLY = bin/Debug/tasque.exe
-ASSEMBLY_MDB = $(ASSEMBLY).mdb
-COMPILE_TARGET = winexe
-PROJECT_REFERENCES =  \
-	../libtasque/bin/Debug/libtasque.dll \
-	../RtmNet/bin/Debug/RtmNet.dll
-BUILD_DIR = bin/Debug
-
-LIBTASQUE_DLL_SOURCE=../libtasque/bin/Debug/libtasque.dll
-RTMNET_DLL_SOURCE=../RtmNet/bin/Debug/RtmNet.dll
-TASQUE_EXE_MDB_SOURCE=bin/Debug/tasque.exe.mdb
-TASQUE_EXE_MDB=$(BUILD_DIR)/tasque.exe.mdb
-LIBTASQUE_DLL_MDB_SOURCE=../libtasque/bin/Debug/libtasque.dll.mdb
-LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
-RTMNET_DLL_MDB_SOURCE=../RtmNet/bin/Debug/RtmNet.dll.mdb
-RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
-
-endif
-
-if ENABLE_LINUXRELEASE
+if ENABLE_GNOMERELEASE
 ASSEMBLY_COMPILER_COMMAND = dmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
 ASSEMBLY = bin/LinuxRelease/tasque.exe
@@ -77,10 +36,174 @@ PROJECT_REFERENCES =  \
 	../RtmNet/bin/LinuxRelease/RtmNet.dll
 BUILD_DIR = bin/LinuxRelease
 
-LIBTASQUE_DLL_SOURCE=../libtasque/bin/LinuxRelease/libtasque.dll
-RTMNET_DLL_SOURCE=../RtmNet/bin/LinuxRelease/RtmNet.dll
 TASQUE_EXE_MDB=
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/LinuxRelease/libtasque.dll
 LIBTASQUE_DLL_MDB=
+RTMNET_DLL_SOURCE=../RtmNet/bin/LinuxRelease/RtmNet.dll
+RTMNET_DLL_MDB=
+
+endif
+
+if ENABLE_GTKLINUXDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE;GTKLINUX"
+ASSEMBLY = bin/Debug/tasque.exe
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = winexe
+PROJECT_REFERENCES =  \
+	../libtasque/bin/Debug/libtasque.dll \
+	../RtmNet/bin/Debug/RtmNet.dll
+BUILD_DIR = bin/Debug
+
+TASQUE_EXE_MDB_SOURCE=bin/Debug/tasque.exe.mdb
+TASQUE_EXE_MDB=$(BUILD_DIR)/tasque.exe.mdb
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/Debug/libtasque.dll
+LIBTASQUE_DLL_MDB_SOURCE=../libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+RTMNET_DLL_SOURCE=../RtmNet/bin/Debug/RtmNet.dll
+RTMNET_DLL_MDB_SOURCE=../RtmNet/bin/Debug/RtmNet.dll.mdb
+RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
+
+endif
+
+if ENABLE_GTKLINUXRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE;GTKLINUX"
+ASSEMBLY = bin/LinuxRelease/tasque.exe
+ASSEMBLY_MDB = 
+COMPILE_TARGET = winexe
+PROJECT_REFERENCES =  \
+	../libtasque/bin/LinuxRelease/libtasque.dll \
+	../RtmNet/bin/LinuxRelease/RtmNet.dll
+BUILD_DIR = bin/LinuxRelease
+
+TASQUE_EXE_MDB=
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/LinuxRelease/libtasque.dll
+LIBTASQUE_DLL_MDB=
+RTMNET_DLL_SOURCE=../RtmNet/bin/LinuxRelease/RtmNet.dll
+RTMNET_DLL_MDB=
+
+endif
+
+if ENABLE_GTKWINDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE;WIN32"
+ASSEMBLY = bin/Debug/tasque.exe
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = winexe
+PROJECT_REFERENCES =  \
+	../libtasque/bin/Debug/libtasque.dll \
+	../RtmNet/bin/Debug/RtmNet.dll
+BUILD_DIR = bin/Debug
+
+TASQUE_EXE_MDB_SOURCE=bin/Debug/tasque.exe.mdb
+TASQUE_EXE_MDB=$(BUILD_DIR)/tasque.exe.mdb
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/Debug/libtasque.dll
+LIBTASQUE_DLL_MDB_SOURCE=../libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+RTMNET_DLL_SOURCE=../RtmNet/bin/Debug/RtmNet.dll
+RTMNET_DLL_MDB_SOURCE=../RtmNet/bin/Debug/RtmNet.dll.mdb
+RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
+
+endif
+
+if ENABLE_GTKWINRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE;WIN32"
+ASSEMBLY = bin/LinuxRelease/tasque.exe
+ASSEMBLY_MDB = 
+COMPILE_TARGET = winexe
+PROJECT_REFERENCES =  \
+	../libtasque/bin/LinuxRelease/libtasque.dll \
+	../RtmNet/bin/LinuxRelease/RtmNet.dll
+BUILD_DIR = bin/LinuxRelease
+
+TASQUE_EXE_MDB=
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/LinuxRelease/libtasque.dll
+LIBTASQUE_DLL_MDB=
+RTMNET_DLL_SOURCE=../RtmNet/bin/LinuxRelease/RtmNet.dll
+RTMNET_DLL_MDB=
+
+endif
+
+if ENABLE_GTKMACDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE;OSX"
+ASSEMBLY = bin/Debug/tasque.exe
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = winexe
+PROJECT_REFERENCES =  \
+	../libtasque/bin/Debug/libtasque.dll \
+	../RtmNet/bin/Debug/RtmNet.dll
+BUILD_DIR = bin/Debug
+
+TASQUE_EXE_MDB_SOURCE=bin/Debug/tasque.exe.mdb
+TASQUE_EXE_MDB=$(BUILD_DIR)/tasque.exe.mdb
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/Debug/libtasque.dll
+LIBTASQUE_DLL_MDB_SOURCE=../libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+RTMNET_DLL_SOURCE=../RtmNet/bin/Debug/RtmNet.dll
+RTMNET_DLL_MDB_SOURCE=../RtmNet/bin/Debug/RtmNet.dll.mdb
+RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
+
+endif
+
+if ENABLE_GTKMACRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE;OSX"
+ASSEMBLY = bin/LinuxRelease/tasque.exe
+ASSEMBLY_MDB = 
+COMPILE_TARGET = winexe
+PROJECT_REFERENCES =  \
+	../libtasque/bin/LinuxRelease/libtasque.dll \
+	../RtmNet/bin/LinuxRelease/RtmNet.dll
+BUILD_DIR = bin/LinuxRelease
+
+TASQUE_EXE_MDB=
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/LinuxRelease/libtasque.dll
+LIBTASQUE_DLL_MDB=
+RTMNET_DLL_SOURCE=../RtmNet/bin/LinuxRelease/RtmNet.dll
+RTMNET_DLL_MDB=
+
+endif
+
+if ENABLE_MONOMACDEBUG
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug "-define:DEBUG;TRACE"
+ASSEMBLY = bin/Debug/tasque.exe
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
+COMPILE_TARGET = winexe
+PROJECT_REFERENCES =  \
+	../libtasque/bin/Debug/libtasque.dll \
+	../RtmNet/bin/Debug/RtmNet.dll
+BUILD_DIR = bin/Debug
+
+TASQUE_EXE_MDB_SOURCE=bin/Debug/tasque.exe.mdb
+TASQUE_EXE_MDB=$(BUILD_DIR)/tasque.exe.mdb
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/Debug/libtasque.dll
+LIBTASQUE_DLL_MDB_SOURCE=../libtasque/bin/Debug/libtasque.dll.mdb
+LIBTASQUE_DLL_MDB=$(BUILD_DIR)/libtasque.dll.mdb
+RTMNET_DLL_SOURCE=../RtmNet/bin/Debug/RtmNet.dll
+RTMNET_DLL_MDB_SOURCE=../RtmNet/bin/Debug/RtmNet.dll.mdb
+RTMNET_DLL_MDB=$(BUILD_DIR)/RtmNet.dll.mdb
+
+endif
+
+if ENABLE_MONOMACRELEASE
+ASSEMBLY_COMPILER_COMMAND = dmcs
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:TRACE"
+ASSEMBLY = bin/LinuxRelease/tasque.exe
+ASSEMBLY_MDB = 
+COMPILE_TARGET = winexe
+PROJECT_REFERENCES =  \
+	../libtasque/bin/LinuxRelease/libtasque.dll \
+	../RtmNet/bin/LinuxRelease/RtmNet.dll
+BUILD_DIR = bin/LinuxRelease
+
+TASQUE_EXE_MDB=
+LIBTASQUE_DLL_SOURCE=../libtasque/bin/LinuxRelease/libtasque.dll
+LIBTASQUE_DLL_MDB=
+RTMNET_DLL_SOURCE=../RtmNet/bin/LinuxRelease/RtmNet.dll
 RTMNET_DLL_MDB=
 
 endif
@@ -89,10 +212,10 @@ AL=al
 SATELLITE_ASSEMBLY_NAME=$(notdir $(basename $(ASSEMBLY))).resources.dll
 
 PROGRAMFILES = \
-	$(LIBTASQUE_DLL) \
-	$(RTMNET_DLL) \
 	$(TASQUE_EXE_MDB) \
+	$(LIBTASQUE_DLL) \
 	$(LIBTASQUE_DLL_MDB) \
+	$(RTMNET_DLL) \
 	$(RTMNET_DLL_MDB)  
 
 BINARIES = \
@@ -140,7 +263,6 @@ FILES = \
 	CompletedTaskGroup.cs \
 	CompletedTaskGroupModel.cs \
 	DateButton.cs \
-	GtkApplication.cs \
 	Logger.cs \
 	NoteDialog.cs \
 	NoteWidget.cs \
@@ -152,7 +274,9 @@ FILES = \
 	TaskGroupModelFactory.cs \
 	TaskTreeView.cs \
 	TaskWindow.cs \
-	Utilities.cs 
+	Utilities.cs \
+	GtkApplication.cs \
+	OSXApplication.cs 
 
 DATA_FILES = 
 
@@ -189,7 +313,6 @@ EXTRAS = \
 	../../data/osx/Contents/MacOS/Tasque \
 	../../data/osx/Contents/Resources/tasque.icns \
 	../../data/sounds/notify.wav \
-	OSXApplication.cs \
 	Properties \
 	data \
 	data/icons \
@@ -224,10 +347,10 @@ RTMNET_DLL = $(BUILD_DIR)/RtmNet.dll
 TASQUE = $(BUILD_DIR)/tasque
 
 $(eval $(call emit-deploy-target,LIBTASQUE_DLL))
-$(eval $(call emit-deploy-target,RTMNET_DLL))
-$(eval $(call emit-deploy-wrapper,TASQUE,tasque,x))
 $(eval $(call emit-deploy-target,LIBTASQUE_DLL_MDB))
+$(eval $(call emit-deploy-target,RTMNET_DLL))
 $(eval $(call emit-deploy-target,RTMNET_DLL_MDB))
+$(eval $(call emit-deploy-wrapper,TASQUE,tasque,x))
 
 
 $(eval $(call emit_resgen_targets))
