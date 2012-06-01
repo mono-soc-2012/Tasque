@@ -181,9 +181,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RemoteControl.cs" />
-    <Compile Include="RemoteControlProxy.cs" />
-    <Compile Include="GnomeApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
@@ -234,10 +231,17 @@
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' == 'AnyCPU' and ( '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' or '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' or '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ) ">
+  <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
+    <Compile Include="GnomeApplication.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' or '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
+    <Compile Include="RemoteControl.cs" />
+    <Compile Include="RemoteControlProxy.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' or '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' or '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ">
     <Compile Include="GtkApplication.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Platform)' == 'AnyCPU' and ( '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ) ">
+  <ItemGroup Condition=" '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ">
     <Compile Include="OSXApplication.cs" />
   </ItemGroup>
   <ItemGroup>
