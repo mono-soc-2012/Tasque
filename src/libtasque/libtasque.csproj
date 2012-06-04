@@ -19,6 +19,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="mdoc update -o ${ProjectDir}/docs/sources ${TargetFile}" />
+        <Command type="AfterBuild" command="mdoc assemble -o ${TargetDir}/libtasque ${ProjectDir}/docs/sources" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeRelease|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -41,6 +47,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="mdoc update -o docs ${TargetFile}" />
+        <Command type="AfterBuild" command="mdoc assemble -o ${TargetDir}/libtasque ${ProjectDir}/docs/sources" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -153,6 +165,7 @@
     <Compile Include="..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
+    <Compile Include="NativeApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
@@ -181,6 +194,8 @@
   <ItemGroup>
     <Folder Include="DateFormatters\" />
     <Folder Include="Properties\" />
+    <Folder Include="docs\" />
+    <Folder Include="docs\sources\" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
@@ -190,4 +205,29 @@
     </MonoDevelop>
   </ProjectExtensions>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="docs\sources\Tasque\ICategory.xml" />
+    <None Include="docs\sources\Tasque\INativeApplication.xml" />
+    <None Include="docs\sources\Tasque\INote.xml" />
+    <None Include="docs\sources\Tasque\ITask.xml" />
+    <None Include="docs\sources\Tasque\NativeApplication.xml" />
+    <None Include="docs\sources\Tasque\TaskParser.xml" />
+    <None Include="docs\sources\Tasque\TaskPriority.xml" />
+    <None Include="docs\sources\Tasque\TaskState.xml" />
+    <None Include="docs\sources\Tasque.Backends\BackendInitializedHandler.xml" />
+    <None Include="docs\sources\Tasque.Backends\BackendSyncFinishedHandler.xml" />
+    <None Include="docs\sources\Tasque.Backends\BackendSyncStartedHandler.xml" />
+    <None Include="docs\sources\Tasque.Backends\IBackend.xml" />
+    <None Include="docs\sources\Tasque.UI\INativeTray.xml" />
+    <None Include="docs\sources\Tasque.UI\INativeWindow.xml" />
+    <None Include="docs\sources\Tasque.UI\NativeTray.xml" />
+    <None Include="docs\sources\index.xml" />
+    <None Include="docs\sources\ns-Tasque.Backends.xml" />
+    <None Include="docs\sources\ns-Tasque.UI.xml" />
+    <None Include="docs\sources\ns-Tasque.xml" />
+    <DocsSourcesFile Include="docs\libtasque.sources" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(DocsSourcesFile)" DestinationFolder="$(OutputPath)" />
+  </Target>
 </Project>

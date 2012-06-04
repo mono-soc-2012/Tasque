@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<monodoc>
+  <node label="Tasque Library" name="mydocs-lib" parent="libraries" />
+  <source provider="ecma" basefile="libtasque" path="mydocs-lib" />
+</monodoc>

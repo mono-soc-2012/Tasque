@@ -4,20 +4,20 @@ namespace Tasque
 {
 	public interface INativeApplication
 	{
-		void Initialize (string locale_dir,
-		                 string display_name,
-		                 string process_name,
-		                 string [] args);
-
-		event EventHandler ExitingEvent;
-
-		void Exit (int exitcode);
-		void StartMainLoop ();
-		void QuitMainLoop ();
-		void InitializeIdle ();
-
 		string ConfDir { get; }
 
-		void OpenUrl (string url);
+		void Exit (int exitcode);
+
+		void Initialize (string [] args);
+
+		void InitializeIdle ();
+
+		void OpenUrlInBrowser (string url);
+
+		void QuitMainLoop ();
+
+		void StartMainLoop ();
+
+		event EventHandler Exiting;
 	}
 }

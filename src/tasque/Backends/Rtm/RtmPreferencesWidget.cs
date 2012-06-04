@@ -114,7 +114,7 @@ namespace Tasque.Backends.RtmBackend
 					}
 					Logger.Debug("Launching browser to authorize with Remember the Milk");
 					try {
-						Application.Instance.NativeApplication.OpenUrl (url);
+						Application.Instance.NativeApplication.OpenUrlInBrowser (url);
 						authRequested = true;
 						authButton.Label = Catalog.GetString ("Click Here After Authorizing");
 					} catch (Exception ex) {

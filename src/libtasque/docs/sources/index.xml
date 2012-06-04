@@ -1,0 +1,53 @@
+<Overview>
+  <Assemblies>
+    <Assembly Name="libtasque" Version="0.1.10.0">
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyCompany("")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyConfiguration("")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyCopyright("MIT")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyInformationalVersion("0.1.10")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyProduct("Tasque")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyTitle("libtasque")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyTrademark("")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)</AttributeName>
+        </Attribute>
+      </Attributes>
+    </Assembly>
+  </Assemblies>
+  <Remarks>To be added.</Remarks>
+  <Copyright>To be added.</Copyright>
+  <Types>
+    <Namespace Name="Tasque">
+      <Type Name="ICategory" Kind="Interface" />
+      <Type Name="INativeApplication" Kind="Interface" />
+      <Type Name="INote" Kind="Interface" />
+      <Type Name="ITask" Kind="Interface" />
+      <Type Name="NativeApplication" Kind="Class" />
+      <Type Name="TaskParser" Kind="Class" />
+      <Type Name="TaskPriority" Kind="Enumeration" />
+      <Type Name="TaskState" Kind="Enumeration" />
+    </Namespace>
+    <Namespace Name="Tasque.Backends">
+      <Type Name="BackendInitializedHandler" Kind="Delegate" />
+      <Type Name="BackendSyncFinishedHandler" Kind="Delegate" />
+      <Type Name="BackendSyncStartedHandler" Kind="Delegate" />
+      <Type Name="IBackend" Kind="Interface" />
+    </Namespace>
+  </Types>
+  <Title>libtasque</Title>
+</Overview>

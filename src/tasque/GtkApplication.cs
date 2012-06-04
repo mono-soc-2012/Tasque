@@ -18,24 +18,21 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 // 
 // Copyright (c) 2008 Novell, Inc. (http://www.novell.com) 
+// Copyright (c) 2012 Antonius Riha
 // 
 // Authors: 
 //      Sandy Armstrong <sanfordarmstrong@gmail.com>
+//      Antonius Riha <antoniusriha@gmail.com>
 // 
-
 
 using System;
 using System.IO;
 
 namespace Tasque
 {
-	public class GtkApplication : INativeApplication
+	public class GtkApplication : NativeApplication
 	{
-		#region INativeApplication implementation 
-
 		private string confDir;
-
-		public virtual event EventHandler ExitingEvent;
 
 		public GtkApplication ()
 		{
@@ -46,34 +43,23 @@ namespace Tasque
 			if (!Directory.Exists (confDir))
 				Directory.CreateDirectory (confDir);
 		}
-		
-		public virtual void Initialize (string locale_dir, string display_name, string process_name, string[] args)
+
+		public override void Initialize (string[] args)
 		{
 			Gtk.Application.Init ();
 		}
-
-		public virtual void InitializeIdle ()
-		{
-		}
 		
-		public virtual void Exit (int exitcode)
-		{
-			if (ExitingEvent != null)
-				ExitingEvent (null, new EventArgs ());
-			System.Environment.Exit (exitcode);
-		}
-		
-		public virtual void StartMainLoop ()
+		public override void StartMainLoop ()
 		{
 			Gtk.Application.Run ();
 		}
 		
-		public virtual void QuitMainLoop ()
+		public override void QuitMainLoop ()
 		{
 			Gtk.Application.Quit ();
 		}
 
-		public virtual string ConfDir
+		public override string ConfDir
 		{
 			get
 			{
@@ -81,7 +67,7 @@ namespace Tasque
 			}
 		}
 
-		public virtual void OpenUrl (string url)
+		public override void OpenUrlInBrowser (string url)
 		{
 			try {
 				System.Diagnostics.Process.Start (url);
@@ -89,7 +75,5 @@ namespace Tasque
 				Logger.Error ("Error opening url [{0}]:\n{1}", url, e.ToString ());
 			}
 		}
-
-		#endregion
 	}
 }

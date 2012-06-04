@@ -155,11 +155,7 @@ namespace Tasque
 #else
 			nativeApp = new GnomeApplication ();
 #endif
-			nativeApp.Initialize (
-				GlobalDefines.LocaleDir,
-				"Tasque",
-				"Tasque",
-				args);
+			nativeApp.Initialize (args);
 			
 			RegisterUIManager ();
 

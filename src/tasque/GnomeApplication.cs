@@ -10,7 +10,7 @@ using Mono.Unix.Native;
 
 namespace Tasque
 {
-	public class GnomeApplication : INativeApplication
+	public class GnomeApplication : NativeApplication
 	{
 		private Gnome.Program program;
 		private string confDir;
@@ -25,41 +25,26 @@ namespace Tasque
 				Directory.CreateDirectory (confDir);
 		}
 
-		public void Initialize (string locale_dir,
-		                        string display_name,
-		                        string process_name,
-		                        string [] args)
+		public override void Initialize (string [] args)
 		{
 			Mono.Unix.Catalog.Init ("tasque", GlobalDefines.LocaleDir);
 			try {
-				SetProcessName (process_name);
+				SetProcessName ("Tasque");
 			} catch {} // Ignore exception if fail (not needed to run)
 
 			Gtk.Application.Init ();
-			program = new Gnome.Program (display_name,
+			program = new Gnome.Program ("Tasque",
 			                             GlobalDefines.Version,
 			                             Gnome.Modules.UI,
 			                             args);
 		}
 
-		public void InitializeIdle ()
-		{
-		}
-
-		public event EventHandler ExitingEvent;
-
-		public void Exit (int exitcode)
-		{
-			OnExitSignal (-1);
-			System.Environment.Exit (exitcode);
-		}
-
-		public void StartMainLoop ()
+		public override void StartMainLoop ()
 		{
 			program.Run ();
 		}
 
-		public void QuitMainLoop ()
+		public override void QuitMainLoop ()
 		{
 			Gtk.Main.Quit ();
 		}
@@ -83,22 +68,13 @@ namespace Tasque
 				        "Error setting process name: " +
 				        Mono.Unix.Native.Stdlib.GetLastError ());
 		}
-
-		private void OnExitSignal (int signal)
-		{
-			if (ExitingEvent != null)
-				ExitingEvent (null, new EventArgs ());
-
-			if (signal >= 0)
-				System.Environment.Exit (0);
-		}
 		
-		public void OpenUrl (string url)
+		public override void OpenUrlInBrowser (string url)
 		{
 			Gnome.Url.Show (url);
 		}
 		
-		public string ConfDir {
+		public override string ConfDir {
 			get {
 				return confDir;
 			}
