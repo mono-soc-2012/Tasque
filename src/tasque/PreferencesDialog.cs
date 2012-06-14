@@ -129,12 +129,12 @@ namespace Tasque
 			backendPage = null;
 			backendPageId = -1;
 			
-			if (Application.Backend != null) {
-				backendPage = Application.Backend.GetPreferencesWidget ();
+			if (Program.Backend != null) {
+				backendPage = Program.Backend.GetPreferencesWidget ();
 				if (backendPage != null) {
 					backendPage.Show ();
 					Label l =
-						new Label (GLib.Markup.EscapeText (Application.Backend.Name));
+						new Label (GLib.Markup.EscapeText (Program.Backend.Name));
 					l.UseMarkup = false;
 					l.UseUnderline = false;
 					l.Show ();
@@ -173,7 +173,7 @@ namespace Tasque
 			lblTodaysTaskColor.WidthRequest = 75;
 			lblTodaysTaskColor.Show ();
 
-			Preferences prefs = Application.Preferences;
+			Preferences prefs = Program.Preferences;
 			txtTodaysTaskColor = new Entry();
 			txtTodaysTaskColor.Text = prefs.Get (Preferences.TodayTaskTextColor);
 			txtTodaysTaskColor.Changed += OnTxtTodaysTaskColorChanged;
@@ -254,10 +254,10 @@ namespace Tasque
 			// Fill out the ComboBox
 			int i = 0;
 			selectedBackend = -1;
-			foreach (IBackend backend in Application.AvailableBackends) {
+			foreach (IBackend backend in Program.AvailableBackends) {
 				backendComboBox.AppendText (backend.Name);
 				backendComboMap [i] = backend;
-				if (backend == Application.Backend)
+				if (backend == Program.Backend)
 					selectedBackend = i;
 				i++;
 			}
@@ -298,7 +298,7 @@ namespace Tasque
 			VBox innerSectionVBox = new VBox (false, 6);
 			hbox = new HBox (false, 6);
 			
-			bool showCompletedTasks = Application.Preferences.GetBool (
+			bool showCompletedTasks = Program.Preferences.GetBool (
 											Preferences.ShowCompletedTasksKey);
 			showCompletedTasksCheckButton =
 				new CheckButton (Catalog.GetString ("Sh_ow completed tasks"));
@@ -375,7 +375,7 @@ namespace Tasque
 		{
 			Logger.Debug("Loading preferences");
 			categoriesToHide =
-				Application.Preferences.GetStringList (Preferences.HideInAllCategory);
+				Program.Preferences.GetStringList (Preferences.HideInAllCategory);
 			//if (categoriesToHide == null || categoriesToHide.Count == 0)
 			//	categoriesToHide = BuildNewCategoryList ();
 		}
@@ -384,7 +384,7 @@ namespace Tasque
 		{
 			// showCompletedTasksCheckbox delegate
 			showCompletedTasksCheckButton.Toggled += delegate {
-				Application.Preferences.SetBool (
+				Program.Preferences.SetBool (
 					Preferences.ShowCompletedTasksKey,
 					showCompletedTasksCheckButton.Active);
 			};
@@ -399,7 +399,7 @@ namespace Tasque
 		private void OnTxtTodaysTaskColorChanged (object sender, EventArgs args)
 		{
 			// Save the user preference
-			Application.Preferences.Set (Preferences.TodayTaskTextColor,
+			Program.Preferences.Set (Preferences.TodayTaskTextColor,
 			                             ((Entry) sender).Text);
 		}
 
@@ -412,7 +412,7 @@ namespace Tasque
 		private void OnTxtOverdueTaskColorChanged (object sender, EventArgs args)
 		{
 			// Save the user preference
-			Application.Preferences.Set (Preferences.OverdueTaskTextColor,
+			Program.Preferences.Set (Preferences.OverdueTaskTextColor,
 			                             ((Entry) sender).Text);
 		}
 
@@ -453,7 +453,7 @@ namespace Tasque
 			}
 			
 			// TODO: Set the new backend
-			Application.Backend = newBackend;
+			Program.Backend = newBackend;
 			
 			if (newBackend == null)
 				return;
@@ -478,7 +478,7 @@ namespace Tasque
 			}
 			
 			// Save the user preference
-			Application.Preferences.Set (Preferences.CurrentBackend,
+			Program.Preferences.Set (Preferences.CurrentBackend,
 										 newBackend.GetType ().ToString ());
 			
 			//categoriesToHide = BuildNewCategoryList ();
@@ -549,7 +549,7 @@ namespace Tasque
 			else
 				categoriesToHide.Add (category.Name);
 			
-			Application.Preferences.SetStringList (Preferences.HideInAllCategory,
+			Program.Preferences.SetStringList (Preferences.HideInAllCategory,
 												   categoriesToHide);
 		}
 		

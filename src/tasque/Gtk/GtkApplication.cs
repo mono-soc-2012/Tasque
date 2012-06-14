@@ -27,10 +27,11 @@
 
 using System;
 using System.IO;
+using Tasque.UI.Desktop;
 
 namespace Tasque
 {
-	public class GtkApplication : NativeApplication
+	public class GtkApplication : Application
 	{
 		private string confDir;
 
@@ -44,7 +45,7 @@ namespace Tasque
 				Directory.CreateDirectory (confDir);
 		}
 
-		public override void Initialize (string[] args)
+		protected override void OnInitialize (string[] args)
 		{
 			Gtk.Application.Init ();
 		}
@@ -74,6 +75,11 @@ namespace Tasque
 			} catch (Exception e) {
 				Logger.Error ("Error opening url [{0}]:\n{1}", url, e.ToString ());
 			}
+		}
+
+		protected override MainWindow InitializeMainWindow ()
+		{
+			return new GtkMainWindow ();
 		}
 	}
 }

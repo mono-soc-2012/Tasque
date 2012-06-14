@@ -1,22 +1,21 @@
-// This file (GlobalDefines.cs) is automatically generated. Do not edit. (Edit GlobalDefines.cs.in instead.)
-// 
-// GlobalDefines.cs
-//  
+//
+// PreferencesDialogSection.cs
+//
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
-// 
+//
 // Copyright (c) 2012 Antonius Riha
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,19 +23,22 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
 
-using System.Collections.ObjectModel;
+namespace Tasque.UI.Desktop
+{
+	public abstract class PreferencesDialogSection : UIElement
+	{
+		public PreferencesDialogSection ()
+		{
+		}
 
-namespace Tasque {
-	static class GlobalDefines {
-		public const string Version = "@version@";
-//		public const string DataDir	= "@datadir@";
-//		public const string LocaleDir = "@datadir@/locale";
-//		public const string SoundDir = "@datadir@/tasque/sounds";
-		public const string CopyrightInfo = @"@copyrightinfo@";
-		public const string License = @"@license@";
-		public const string Website = "@website@";
-		public static readonly ReadOnlyCollection<string> Authors =
-			new ReadOnlyCollection<string> (new Collection<string> () { @authors@ });
+		protected override void OnInitialize ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected string Title { get; private set; }
 	}
 }
+

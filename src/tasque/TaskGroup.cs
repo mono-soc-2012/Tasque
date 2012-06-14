@@ -37,9 +37,9 @@ namespace Tasque
 			filteredTasks = CreateModel (rangeStart, rangeEnd, tasks);
 
 			filteredTasks.ShowCompletedTasks = 
-				Application.Preferences.GetBool (
+				Program.Preferences.GetBool (
 					Preferences.ShowCompletedTasksKey);
-			Application.Preferences.SettingChanged += OnSettingChanged;
+			Program.Preferences.SettingChanged += OnSettingChanged;
 			
 			// TODO: Add something to watch events so that the group will
 			// automatically refilter and display/hide itself accordingly.
@@ -362,11 +362,11 @@ namespace Tasque
 			// TODO: Move this code into some function in the backend/somewhere
 			// with the signature of GetCategoryForName (string catName):ICategory
 			string selectedCategoryName =
-				Application.Preferences.Get (Preferences.SelectedCategoryKey);
+				Program.Preferences.Get (Preferences.SelectedCategoryKey);
 			
 			if (selectedCategoryName != null) {
 				Gtk.TreeIter iter;
-				Gtk.TreeModel model = Application.Backend.Categories;
+				Gtk.TreeModel model = Program.Backend.Categories;
 
 				// Iterate through (yeah, I know this is gross!) and find the
 				// matching category

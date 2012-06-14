@@ -1,6 +1,5 @@
-// This file (GlobalDefines.cs) is automatically generated. Do not edit. (Edit GlobalDefines.cs.in instead.)
 // 
-// GlobalDefines.cs
+// TasqueTray.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,18 +24,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System.Collections.ObjectModel;
+using System;
 
-namespace Tasque {
-	static class GlobalDefines {
-		public const string Version = "@version@";
-//		public const string DataDir	= "@datadir@";
-//		public const string LocaleDir = "@datadir@/locale";
-//		public const string SoundDir = "@datadir@/tasque/sounds";
-		public const string CopyrightInfo = @"@copyrightinfo@";
-		public const string License = @"@license@";
-		public const string Website = "@website@";
-		public static readonly ReadOnlyCollection<string> Authors =
-			new ReadOnlyCollection<string> (new Collection<string> () { @authors@ });
+namespace Tasque.UI.Desktop
+{
+	public abstract class Tray : UIElement
+	{
+		protected void AddNewTask ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected void QuitApplication ()
+		{
+			Logger.Info ("QuitApplication called - terminating application");
+			Application.QuitMainLoop ();
+		}
+
+		protected void ShowAboutDialog ()
+		{
+			Application.RootVisual.AboutDialog.Show ();
+		}
+
+		protected void ShowPreferencesDialog ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected void ToggleMainWindowVisibility ()
+		{
+//			Application.RootVisual.IsVisible = !Application.RootVisual.IsVisible;
+		}
+
+		protected abstract override void OnInitialize ();
 	}
 }
+

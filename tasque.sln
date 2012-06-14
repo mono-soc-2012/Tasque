@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "build", "build\build.mdproj", "{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}"
+Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "build", "build\build.csproj", "{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tasque", "src\tasque\tasque.csproj", "{B19B9840-669D-4984-9772-E1F55193A67F}"
 EndProject

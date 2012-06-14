@@ -1,6 +1,5 @@
-// This file (GlobalDefines.cs) is automatically generated. Do not edit. (Edit GlobalDefines.cs.in instead.)
 // 
-// GlobalDefines.cs
+// AboutDialog.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,18 +24,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System.Collections.ObjectModel;
+using System;
 
-namespace Tasque {
-	static class GlobalDefines {
-		public const string Version = "@version@";
-//		public const string DataDir	= "@datadir@";
-//		public const string LocaleDir = "@datadir@/locale";
-//		public const string SoundDir = "@datadir@/tasque/sounds";
-		public const string CopyrightInfo = @"@copyrightinfo@";
-		public const string License = @"@license@";
-		public const string Website = "@website@";
-		public static readonly ReadOnlyCollection<string> Authors =
-			new ReadOnlyCollection<string> (new Collection<string> () { @authors@ });
+namespace Tasque.UI.Desktop
+{
+	public abstract class AboutDialog : UIElement, IDialog
+	{
+		protected string CopyrightInfo { get { return AppInfo.CopyrightInfo; } }
+
+		protected string License { get { return AppInfo.License; } }
+		
+		protected string Description { get { return AppInfo.Description; } }
+		
+		protected string LogoName { get { throw new NotImplementedException (); } }
+		
+		protected string Version { get { return AppInfo.Version; } }
+		
+		protected string WebsiteUrl { get { return AppInfo.WebsiteUrl; } }
+		
+		protected string[] Translators { get { return AppInfo.Translators; } }
+		
+		protected string[] Authors { get { return AppInfo.Authors; } }
+
+		protected override void OnInitialize () { }
+
+		public abstract void Show ();
+
+		ApplicationInfo AppInfo { get { return Application.ApplicationInfo;	} }
 	}
 }

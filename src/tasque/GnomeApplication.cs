@@ -35,10 +35,11 @@ using System.Xml;
 
 using Mono.Unix;
 using Mono.Unix.Native;
+using Tasque.UI;
 
 namespace Tasque
 {
-	public class GnomeApplication : NativeApplication
+	public class GnomeApplication : Program
 	{
 		private Gnome.Program program;
 		private string confDir;
@@ -53,7 +54,17 @@ namespace Tasque
 				Directory.CreateDirectory (confDir);
 		}
 
-		public override void Initialize (string [] args)
+//		protected override NativeWindow InitializeMainWindow ()
+//		{
+//			throw new NotImplementedException ();
+//		}
+
+		protected override Tray InitializeTray ()
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected override void OnInitialize (string[] args)
 		{
 			Mono.Unix.Catalog.Init ("tasque", GlobalDefines.LocaleDir);
 			try {

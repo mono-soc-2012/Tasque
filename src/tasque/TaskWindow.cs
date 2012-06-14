@@ -102,8 +102,8 @@ namespace Tasque
 			// Update the window title
 			Title = string.Format ("Tasque");	
 
-			width = Application.Preferences.GetInt("MainWindowWidth");
-			height = Application.Preferences.GetInt("MainWindowHeight");
+			width = Program.Preferences.GetInt("MainWindowWidth");
+			height = Program.Preferences.GetInt("MainWindowHeight");
 			
 			if(width == -1)
 				width = 600;
@@ -183,7 +183,7 @@ namespace Tasque
 						Gtk.AccelFlags.Visible);
 			
 			globalKeys.AddAccelerator (delegate (object sender, EventArgs e) {
-				Application.Instance.Quit (); },
+				Program.Instance.Quit (); },
 						(uint) Gdk.Key.q,
 						Gdk.ModifierType.ControlMask,
 						Gtk.AccelFlags.Visible);
@@ -236,7 +236,7 @@ namespace Tasque
 				OnBackendInitialized();
 			}
 			
-			Application.Preferences.SettingChanged += OnSettingChanged;
+			Program.Preferences.SettingChanged += OnSettingChanged;
 		}
 
 		void PopulateWindow()
@@ -356,11 +356,11 @@ namespace Tasque
 			
 			// Set up the combo box (after the above to set the current filter)
 
-			categoryComboBox.Model = Application.Backend.Categories;		
+			categoryComboBox.Model = Program.Backend.Categories;		
 
 			// Read preferences for the last-selected category and select it
 			string selectedCategoryName =
-				Application.Preferences.Get (Preferences.SelectedCategoryKey);
+				Program.Preferences.Get (Preferences.SelectedCategoryKey);
 			
 			categoryComboBox.Changed += OnCategoryChanged;
 			
@@ -394,10 +394,10 @@ namespace Tasque
 				lastXPos = x;
 				lastYPos = y;
 				
-				Application.Preferences.SetInt("MainWindowLastXPos", lastXPos);
-				Application.Preferences.SetInt("MainWindowLastYPos", lastYPos);
-				Application.Preferences.SetInt("MainWindowWidth", width);
-				Application.Preferences.SetInt("MainWindowHeight", height);	
+				Program.Preferences.SetInt("MainWindowLastXPos", lastXPos);
+				Program.Preferences.SetInt("MainWindowLastYPos", lastYPos);
+				Program.Preferences.SetInt("MainWindowWidth", width);
+				Program.Preferences.SetInt("MainWindowHeight", height);	
 			}
 
 		}
@@ -435,12 +435,12 @@ namespace Tasque
 					}
 					taskWindow.Present();
 				}
-			} else if (Application.Backend != null) {
-				TaskWindow.taskWindow = new TaskWindow(Application.Backend);
+			} else if (Program.Backend != null) {
+				TaskWindow.taskWindow = new TaskWindow(Program.Backend);
 				if(lastXPos == 0 || lastYPos == 0)
 				{
-					lastXPos = Application.Preferences.GetInt("MainWindowLastXPos");
-					lastYPos = Application.Preferences.GetInt("MainWindowLastYPos");				
+					lastXPos = Program.Preferences.GetInt("MainWindowLastXPos");
+					lastYPos = Program.Preferences.GetInt("MainWindowLastYPos");				
 				}
 
 				int x = lastXPos;
@@ -657,7 +657,7 @@ namespace Tasque
 			int count = 0;
 			
 			Gtk.TreeIter iter;
-			Gtk.TreeModel model = Application.Backend.Tasks;
+			Gtk.TreeModel model = Program.Backend.Tasks;
 			
 			if (!model.GetIterFirst (out iter))
 				return 0;
@@ -860,10 +860,10 @@ namespace Tasque
 			lastXPos = x;
 			lastYPos = y;
 			
-			Application.Preferences.SetInt("MainWindowLastXPos", lastXPos);
-			Application.Preferences.SetInt("MainWindowLastYPos", lastYPos);
-			Application.Preferences.SetInt("MainWindowWidth", width);
-			Application.Preferences.SetInt("MainWindowHeight", height);
+			Program.Preferences.SetInt("MainWindowLastXPos", lastXPos);
+			Program.Preferences.SetInt("MainWindowLastYPos", lastYPos);
+			Program.Preferences.SetInt("MainWindowWidth", width);
+			Program.Preferences.SetInt("MainWindowHeight", height);
 
 			Logger.Debug("WindowDeleted was called");
 			taskWindow = null;
@@ -951,7 +951,7 @@ namespace Tasque
 			// out of the entered task text.
 			DateTime taskDueDate = DateTime.MinValue;
 			string taskName;
-			if (Application.Preferences.GetBool (Preferences.ParseDateEnabledKey))
+			if (Program.Preferences.GetBool (Preferences.ParseDateEnabledKey))
 				TaskParser.Instance.TryParse (
 				                         enteredTaskText,
 				                         out taskName,
@@ -995,7 +995,7 @@ namespace Tasque
 					// the "All" category and if not, select the category
 					// specifically.
 					List<string> categoriesToHide =
-						Application.Preferences.GetStringList (
+						Program.Preferences.GetStringList (
 							Preferences.HideInAllCategory);
 					if (categoriesToHide != null && categoriesToHide.Contains (item.Category.Name)) {
 						SelectCategory (item.Category.Name);
@@ -1028,7 +1028,7 @@ namespace Tasque
 			completedTaskGroup.Refilter (category);
 			
 			// Save the selected category in preferences
-			Application.Preferences.Set (Preferences.SelectedCategoryKey,
+			Program.Preferences.Set (Preferences.SelectedCategoryKey,
 										 category.Name);
 		}
 		
@@ -1108,7 +1108,7 @@ namespace Tasque
 					 * here in order to enable changing categories. The list of available categories
 					 * is pre-filtered as to not contain the current category and the AllCategory.
 					 */
-					TreeModelFilter filteredCategories = new TreeModelFilter(Application.Backend.Categories, null);
+					TreeModelFilter filteredCategories = new TreeModelFilter(Program.Backend.Categories, null);
 					filteredCategories.VisibleFunc = delegate(TreeModel t, TreeIter i) {
 						ICategory category = t.GetValue (i, 0) as ICategory;
 						if (category == null || category is AllCategory || category.Equals(clickedTask.Category))
@@ -1157,7 +1157,7 @@ namespace Tasque
 			if (clickedTask == null)
 				return;
 		
-			Application.Backend.DeleteTask(clickedTask);
+			Program.Backend.DeleteTask(clickedTask);
 			
 			status = Catalog.GetString ("Task deleted");
 			TaskWindow.ShowStatus (status);
@@ -1207,13 +1207,13 @@ namespace Tasque
 		private void OnBackendSyncFinished ()
 		{
 			Logger.Debug("Backend sync finished");
-			if (Application.Backend.Configured) {
+			if (Program.Backend.Configured) {
 				string now = DateTime.Now.ToString ();
 				// Translators: This status shows the date and time when the task list was last refreshed
 				status = string.Format (Catalog.GetString ("Tasks loaded: {0}"), now);
 				TaskWindow.lastLoadedTime = now;
 				TaskWindow.ShowStatus (status);
-				RebuildAddTaskMenu (Application.Backend.Categories);
+				RebuildAddTaskMenu (Program.Backend.Categories);
 				addTaskEntry.Sensitive = true;
 				categoryComboBox.Sensitive = true;
 				// Keep insensitive text color

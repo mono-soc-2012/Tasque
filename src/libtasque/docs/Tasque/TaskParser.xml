@@ -1,0 +1,195 @@
+<Type Name="TaskParser" FullName="Tasque.TaskParser">
+  <TypeSignature Language="C#" Value="public class TaskParser" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit TaskParser extends System.Object" />
+  <AssemblyInfo>
+    <AssemblyName>libtasque</AssemblyName>
+    <AssemblyVersion>0.1.10.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="Day">
+      <MemberSignature Language="C#" Value="public static string Day;" />
+      <MemberSignature Language="ILAsm" Value=".field public static string Day" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Instance">
+      <MemberSignature Language="C#" Value="public static Tasque.TaskParser Instance { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property class Tasque.TaskParser Instance" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Tasque.TaskParser</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Month">
+      <MemberSignature Language="C#" Value="public static string Month;" />
+      <MemberSignature Language="ILAsm" Value=".field public static string Month" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MonthsArray">
+      <MemberSignature Language="C#" Value="public static string[] MonthsArray { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string[] MonthsArray" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OrdinalSuffixes">
+      <MemberSignature Language="C#" Value="public static string OrdinalSuffixes;" />
+      <MemberSignature Language="ILAsm" Value=".field public static string OrdinalSuffixes" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Today">
+      <MemberSignature Language="C#" Value="public static string Today;" />
+      <MemberSignature Language="ILAsm" Value=".field public static string Today" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Tomorrow">
+      <MemberSignature Language="C#" Value="public static string Tomorrow;" />
+      <MemberSignature Language="ILAsm" Value=".field public static string Tomorrow" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryParse">
+      <MemberSignature Language="C#" Value="public bool TryParse (string enteredTaskText, out string parsedTaskText, out DateTime dueDateTime);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool TryParse(string enteredTaskText, string parsedTaskText, valuetype System.DateTime dueDateTime) cil managed" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="enteredTaskText" Type="System.String" />
+        <Parameter Name="parsedTaskText" Type="System.String&amp;" RefType="out" />
+        <Parameter Name="dueDateTime" Type="System.DateTime&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="enteredTaskText">To be added.</param>
+        <param name="parsedTaskText">To be added.</param>
+        <param name="dueDateTime">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Week">
+      <MemberSignature Language="C#" Value="public static string Week;" />
+      <MemberSignature Language="ILAsm" Value=".field public static string Week" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="WeekdaysArray">
+      <MemberSignature Language="C#" Value="public static string[] WeekdaysArray { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string[] WeekdaysArray" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Year">
+      <MemberSignature Language="C#" Value="public static string Year;" />
+      <MemberSignature Language="ILAsm" Value=".field public static string Year" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>0.1.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

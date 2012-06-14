@@ -8,11 +8,10 @@
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
   </Base>
-  <Interfaces>
-  </Interfaces>
+  <Interfaces />
   <Docs>
-    <summary>A common base class for all native applications.</summary>
-    <remarks>This class can be used as a base class for various platform specific implementations of the Tasque application.</remarks>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -39,8 +38,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Gets the file system directory which holds the application configuration file(s).</summary>
-        <value>The path to the configuration directory.</value>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -58,9 +57,9 @@
         <Parameter Name="exitcode" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="exitcode">The exit code.</param>
-        <summary>Exits the application with the specified exit code.</summary>
-        <remarks>This method calls <see cref="M:Tasque.NativeApplication.OnExit(int)" /> and fires the <see cref="E:Tasque.NativeApplication.Exiting" /> event.</remarks>
+        <param name="exitcode">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="Exiting">
@@ -74,7 +73,7 @@
         <ReturnType>System.EventHandler</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Occurs when the application is exiting.</summary>
+        <summary>To be added.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -92,9 +91,9 @@
         <Parameter Name="args" Type="System.String[]" />
       </Parameters>
       <Docs>
-        <param name="args">Arguments passed along with the command (passed through from <c>Main()</c>).</param>
-        <summary>Initialize the native application.</summary>
-        <remarks>Initialization should take place right after object creation. This method must only be called once. Subsequent calls are ignored.</remarks>
+        <param name="args">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="InitializeIdle">
@@ -109,8 +108,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Runs low priority initialization tasks.</summary>
-        <remarks>This method is not called immediately after <see cref="M:Tasque.NativeApplication.Initialize(string[])" />, rather on a separate thread when the application main loop is running idle.</remarks>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="InitializeMainWindow">
@@ -162,7 +161,7 @@
       </Parameters>
       <Docs>
         <param name="exitCode">To be added.</param>
-        <summary>Is called when the application exits.</summary>
+        <summary>To be added.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -199,18 +198,9 @@
         <Parameter Name="url" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="url">The URL.</param>
-        <summary>Opens a URL in a browser.</summary>
-        <remarks>
-          <para>
-This method opens the system default browser and navigates to url.
-</para>
-          <block subset="none" type="note">
-            <para>
-    This method does not handle exceptions.
-  </para>
-          </block>
-        </remarks>
+        <param name="url">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="QuitMainLoop">
@@ -225,8 +215,8 @@ This method opens the system default browser and navigates to url.
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Quits the main loop.</summary>
-        <remarks>This method must be called after <see cref="M:Tasque.NativeApplication.StartMainLoop()" />. Otherwise it throws an exception. Calls to this method are ignored, if the main loop has already been quit.</remarks>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="StartMainLoop">
@@ -241,8 +231,8 @@ This method opens the system default browser and navigates to url.
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Starts the main loop.</summary>
-        <remarks>This method must be called after <see cref="M:Tasque.NativeApplication.Initialize()" />. Otherwise it throws an exception. Subsequent calls to this method are ignored as long as <see cref="M:Tasque.NativeApplication.QuitMainLoop()" /> has not been called.</remarks>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
   </Members>

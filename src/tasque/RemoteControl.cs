@@ -85,7 +85,7 @@ namespace Tasque
 						bool enterEditMode, bool parseDate)
 		{
 			Gtk.TreeIter iter;
-			Gtk.TreeModel model = Application.Backend.Categories;
+			Gtk.TreeModel model = Program.Backend.Categories;
 			
 			//
 			// Validate the input parameters.  Don't allow null or empty strings
@@ -119,14 +119,14 @@ namespace Tasque
 			// If enabled, attempt to parse due date information
 			// out of the taskName.
 			DateTime taskDueDate = DateTime.MinValue;
-			if (parseDate && Application.Preferences.GetBool (Preferences.ParseDateEnabledKey))
+			if (parseDate && Program.Preferences.GetBool (Preferences.ParseDateEnabledKey))
 				TaskParser.Instance.TryParse (
 				                         taskName,
 				                         out taskName,
 				                         out taskDueDate);
 			ITask task = null;
 			try {
-				task = Application.Backend.CreateTask (taskName, category);
+				task = Program.Backend.CreateTask (taskName, category);
 				if (taskDueDate != DateTime.MinValue)
 					task.DueDate = taskDueDate;
 			} catch (Exception e) {
@@ -169,7 +169,7 @@ namespace Tasque
 			string[] emptyArray = categories.ToArray ();
 			
 			Gtk.TreeIter iter;
-			Gtk.TreeModel model = Application.Backend.Categories;
+			Gtk.TreeModel model = Program.Backend.Categories;
 			
 			if (!model.GetIterFirst (out iter))
 				return emptyArray;
@@ -205,7 +205,7 @@ namespace Tasque
 			List<string> ids;
 			
 			ids = new List<string> ();
-			model = Application.Backend.Tasks;
+			model = Program.Backend.Tasks;
 			
 			if (!model.GetIterFirst (out iter))
 				return new string[0];
@@ -294,7 +294,7 @@ namespace Tasque
 				return false;
 			}
 			Gtk.TreeIter iter;
-			Gtk.TreeModel model = Application.Backend.Categories;
+			Gtk.TreeModel model = Program.Backend.Categories;
 			
 			if (!model.GetIterFirst (out iter))
 				return false;
@@ -487,7 +487,7 @@ namespace Tasque
 			Gtk.TreeModel model;
 			
 			ITask task = null;
-			model = Application.Backend.Tasks;
+			model = Program.Backend.Tasks;
 			
 			if (model.GetIterFirst (out iter)) {
 				do {

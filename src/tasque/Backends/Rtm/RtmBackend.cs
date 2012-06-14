@@ -209,7 +209,7 @@ namespace Tasque.Backends.RtmBackend
 			// AUTHENTICATION to Remember The Milk
 			// *************************************
 			string authToken =
-				Application.Preferences.Get (Preferences.AuthTokenKey);
+				Program.Preferences.Get (Preferences.AuthTokenKey);
 			if (authToken != null ) {
 				Logger.Debug("Found AuthToken, checking credentials...");
 				try {
@@ -221,9 +221,9 @@ namespace Tasque.Backends.RtmBackend
 					configured = true;
 				} catch (RtmNet.RtmApiException e) {
 					
-					Application.Preferences.Set (Preferences.AuthTokenKey, null);
-					Application.Preferences.Set (Preferences.UserIdKey, null);
-					Application.Preferences.Set (Preferences.UserNameKey, null);
+					Program.Preferences.Set (Preferences.AuthTokenKey, null);
+					Program.Preferences.Set (Preferences.UserIdKey, null);
+					Program.Preferences.Set (Preferences.UserNameKey, null);
 					rtm = null;
 					rtmAuth = null;
 					Logger.Error("Exception authenticating, reverting" + e.Message);
@@ -288,7 +288,7 @@ namespace Tasque.Backends.RtmBackend
 		{
 			rtmAuth = rtm.AuthGetToken(frob);
 			if (rtmAuth != null) {
-				Preferences prefs = Application.Preferences;
+				Preferences prefs = Program.Preferences;
 				prefs.Set (Preferences.AuthTokenKey, rtmAuth.Token);
 				if (rtmAuth.User != null) {
 					prefs.Set (Preferences.UserNameKey, rtmAuth.User.Username);
@@ -297,7 +297,7 @@ namespace Tasque.Backends.RtmBackend
 			}
 			
 			string authToken =
-				Application.Preferences.Get (Preferences.AuthTokenKey);
+				Program.Preferences.Get (Preferences.AuthTokenKey);
 			if (authToken != null ) {
 				Logger.Debug("Found AuthToken, checking credentials...");
 				try {

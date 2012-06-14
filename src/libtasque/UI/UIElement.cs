@@ -1,6 +1,5 @@
-// This file (GlobalDefines.cs) is automatically generated. Do not edit. (Edit GlobalDefines.cs.in instead.)
 // 
-// GlobalDefines.cs
+// UIElement.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,19 +23,68 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
+using System;
 using System.Collections.ObjectModel;
+using Tasque;
 
-namespace Tasque {
-	static class GlobalDefines {
-		public const string Version = "@version@";
-//		public const string DataDir	= "@datadir@";
-//		public const string LocaleDir = "@datadir@/locale";
-//		public const string SoundDir = "@datadir@/tasque/sounds";
-		public const string CopyrightInfo = @"@copyrightinfo@";
-		public const string License = @"@license@";
-		public const string Website = "@website@";
-		public static readonly ReadOnlyCollection<string> Authors =
-			new ReadOnlyCollection<string> (new Collection<string> () { @authors@ });
+namespace Tasque.UI
+{
+	public abstract class UIElement
+	{
+		internal virtual void Initialize ()
+		{
+			OnInitialize ();
+
+			foreach (var item in Children) {
+				item.Parent = this;
+				item.Initialize ();
+			}
+		}
+
+		internal virtual void InitializeIdle ()
+		{
+			OnInitializeIdle ();
+
+			foreach (var item in Children) {
+				item.InitializeIdle ();
+			}
+		}
+
+		protected internal UIElement Initialize (UIElement child)
+		{
+			if (child == null)
+				throw new ArgumentNullException ("child");
+
+			Children.Add (child);
+			return child;
+		}
+
+		protected abstract void OnInitialize ();
+
+		protected virtual void OnInitializeIdle ()
+		{
+		}
+
+//		void Refresh ();
+
+		protected internal Collection<UIElement> Children { get; private set; }
+
+		protected internal UIElement Parent { get; private set; }
+
+		internal Application Application {
+			get {
+				if (Parent != null)
+					return Parent.Application;
+				else
+					return application;
+			}
+			set {
+				if (Parent == null)
+					application = value;
+			}
+		}
+
+		Application application;
 	}
 }
+

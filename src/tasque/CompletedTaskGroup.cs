@@ -36,7 +36,7 @@ namespace Tasque
 			this.HideWhenEmpty = false;
 			
 			selectedCategory = GetSelectedCategory ();
-			Application.Preferences.SettingChanged += OnSelectedCategorySettingChanged;
+			Program.Preferences.SettingChanged += OnSelectedCategorySettingChanged;
 			
 			CreateRangeSlider ();
 			UpdateDateRanges ();
@@ -58,11 +58,11 @@ namespace Tasque
 			
 			// TODO: Set the initial value and range
 			string rangeStr =
-				Application.Preferences.Get (Preferences.CompletedTasksRange);
+				Program.Preferences.Get (Preferences.CompletedTasksRange);
 			if (rangeStr == null) {
 				// Set a default value of All
 				rangeStr = ShowCompletedRange.All.ToString ();
-				Application.Preferences.Set (Preferences.CompletedTasksRange,
+				Program.Preferences.Set (Preferences.CompletedTasksRange,
 											 rangeStr);
 			}
 			
@@ -97,11 +97,11 @@ namespace Tasque
 		{
 			ICategory foundCategory = null;
 			
-			string cat = Application.Preferences.Get (
+			string cat = Program.Preferences.Get (
 							Preferences.SelectedCategoryKey);
 			if (cat != null) {
 				TreeIter iter;
-				TreeModel model = Application.Backend.Categories;
+				TreeModel model = Program.Backend.Categories;
 				
 				if (model.GetIterFirst (out iter)) {
 					do {
@@ -127,7 +127,7 @@ namespace Tasque
 				return;
 			
 			this.currentRange = range;
-			Application.Preferences.Set (Preferences.CompletedTasksRange,
+			Program.Preferences.Set (Preferences.CompletedTasksRange,
 										 range.ToString ());
 			
 			UpdateDateRanges ();

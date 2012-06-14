@@ -1,6 +1,5 @@
-// This file (GlobalDefines.cs) is automatically generated. Do not edit. (Edit GlobalDefines.cs.in instead.)
 // 
-// GlobalDefines.cs
+// GtkAboutDialog.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,18 +24,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System.Collections.ObjectModel;
+using System;
+using System.Text;
+using Mono.Unix;
+using Tasque.UI.Desktop;
 
-namespace Tasque {
-	static class GlobalDefines {
-		public const string Version = "@version@";
-//		public const string DataDir	= "@datadir@";
-//		public const string LocaleDir = "@datadir@/locale";
-//		public const string SoundDir = "@datadir@/tasque/sounds";
-		public const string CopyrightInfo = @"@copyrightinfo@";
-		public const string License = @"@license@";
-		public const string Website = "@website@";
-		public static readonly ReadOnlyCollection<string> Authors =
-			new ReadOnlyCollection<string> (new Collection<string> () { @authors@ });
+namespace Tasque
+{
+	public class GtkAboutDialog : AboutDialog
+	{
+		public override void Show ()
+		{
+			/* string [] documenters = new string [] {
+			   "Calvin Gaisford <calvinrg@gmail.com>"
+			   };
+			*/
+			
+			var translators = new StringBuilder ();
+			foreach (var item in Translators) {
+				translators.AppendLine (item);
+			}
+				
+			Gtk.AboutDialog about = new Gtk.AboutDialog ();
+			about.ProgramName = "Tasque";
+			about.Version = Version;
+			about.Logo = Utilities.GetIcon("tasque-48", 48);
+			about.Copyright = CopyrightInfo;
+			about.Comments = Description;
+			about.Website = WebsiteUrl;
+			about.WebsiteLabel = Catalog.GetString ("Tasque Project Homepage");
+			about.Authors = Authors;
+			//about.Documenters = documenters;
+			about.TranslatorCredits = translators.ToString ();
+			about.IconName = "tasque";
+			about.SetSizeRequest(300, 300);
+			about.Run ();
+			about.Destroy ();
+		}
 	}
 }

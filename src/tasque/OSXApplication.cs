@@ -47,7 +47,7 @@ namespace Tasque
 				                 null)
 			});
 			
-			UIManager uiManager = Application.Instance.UIManager;
+			UIManager uiManager = Program.Instance.UIManager;
 			
 			uiManager.AddUiFromString (osxMenuXml);
 			uiManager.InsertActionGroup (mainMenuActionGroup, 1);
@@ -55,7 +55,7 @@ namespace Tasque
 			// This totally doesn't work...is my lib too old?
 			IgeMacDock dock = new IgeMacDock();
 			dock.Clicked += delegate (object sender, EventArgs args) {TaskWindow.ShowWindow ();};
-			dock.QuitActivate += delegate (object sender, EventArgs args) { Application.Instance.Quit (); };
+			dock.QuitActivate += delegate (object sender, EventArgs args) { Program.Instance.Quit (); };
 			
 			MenuShell mainMenu = uiManager.GetWidget ("/MainMenu") as MenuShell;
 			mainMenu.Show ();
@@ -76,7 +76,7 @@ namespace Tasque
 			IgeMacMenu.QuitMenuItem = quit_item;
 			
 			// Hide StatusIcon
-			Application.Instance.Tray.Visible = false;
+			Program.Instance.Tray.Visible = false;
 		}
 			
 			[DllImport ("libc", EntryPoint="system")]

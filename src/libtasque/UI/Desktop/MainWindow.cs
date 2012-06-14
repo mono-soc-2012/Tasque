@@ -1,6 +1,5 @@
-// This file (GlobalDefines.cs) is automatically generated. Do not edit. (Edit GlobalDefines.cs.in instead.)
 // 
-// GlobalDefines.cs
+// ITasqueWindow.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,19 +23,39 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
 
-using System.Collections.ObjectModel;
+namespace Tasque.UI.Desktop
+{
+	public abstract class MainWindow : UIElement
+	{
+		public abstract bool IsVisible { get; set; }
 
-namespace Tasque {
-	static class GlobalDefines {
-		public const string Version = "@version@";
-//		public const string DataDir	= "@datadir@";
-//		public const string LocaleDir = "@datadir@/locale";
-//		public const string SoundDir = "@datadir@/tasque/sounds";
-		public const string CopyrightInfo = @"@copyrightinfo@";
-		public const string License = @"@license@";
-		public const string Website = "@website@";
-		public static readonly ReadOnlyCollection<string> Authors =
-			new ReadOnlyCollection<string> (new Collection<string> () { @authors@ });
+		protected override void OnInitialize () {}
+
+		protected abstract AboutDialog InitializeAboutDialog ();
+
+		protected abstract Tray InitializeTray ();
+
+		protected abstract PreferencesDialog InitializePreferencesDialog ();
+
+		internal AboutDialog AboutDialog { get; private set; }
+
+		internal override void Initialize ()
+		{
+			try {
+				tray = (Tray)Initialize (InitializeTray ());
+				AboutDialog = (AboutDialog)Initialize (InitializeAboutDialog ());
+				preferencesDialog = (PreferencesDialog)Initialize (InitializePreferencesDialog ());
+			} catch (ArgumentNullException ex) {
+				throw new ApplicationException ("A child UIElement has not" +
+				                                "been properly initialized.", ex);
+			}
+
+			base.Initialize ();
+		}
+
+		PreferencesDialog preferencesDialog;
+		Tray tray;
 	}
 }

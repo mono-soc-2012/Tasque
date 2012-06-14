@@ -17,10 +17,10 @@ namespace Tasque
 		
 		public AllCategory ()
 		{
-			Preferences preferences = Application.Preferences;
+			Preferences preferences = Program.Preferences;
 			categoriesToHide =
 				preferences.GetStringList (Preferences.HideInAllCategory);
-			Application.Preferences.SettingChanged += OnSettingChanged;
+			Program.Preferences.SettingChanged += OnSettingChanged;
 		}
 		
 		public string Name

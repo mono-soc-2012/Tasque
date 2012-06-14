@@ -47,15 +47,13 @@ using Tasque.Backends;
 
 namespace Tasque
 {
-	class Application
+	class Program
 	{
-		private static Tasque.Application application = null;
-		private static System.Object locker = new System.Object();
-		private INativeApplication nativeApp;
+		private static Application application;
 #if !WIN32 && !OSX
 		private RemoteControl remoteControl;
 #endif
-		private Gtk.StatusIcon trayIcon;	
+			
 		private Preferences preferences;
 		private IBackend backend;
 		private TaskGroupModel overdue_tasks, today_tasks, tomorrow_tasks;
@@ -72,94 +70,61 @@ namespace Tasque
 		
 		private IBackend customBackend;
 
-		private UIManager uiManager;
-		private const string menuXml = @"
-<ui>
-	<popup name=""TrayIconMenu"">
-		<menuitem action=""NewTaskAction""/>
-		<separator/>
-		<menuitem action=""PreferencesAction""/>
-		<menuitem action=""AboutAction""/>
-		<separator/>
-		<menuitem action=""RefreshAction""/>
-		<separator/>
-		<menuitem action=""QuitAction""/>
-	</popup>
-</ui>
-";
 
 		public static IBackend Backend
 		{ 
-			get { return Application.Instance.backend; }
-			set { Application.Instance.SetBackend (value); }
+			get { return Program.Instance.backend; }
+			set { Program.Instance.SetBackend (value); }
 		}
 		
 		public static List<IBackend> AvailableBackends
 		{
 			get {
-				return new List<IBackend> (Application.Instance.availableBackends.Values);
+				return new List<IBackend> (Program.Instance.availableBackends.Values);
 			}
 //			get { return Application.Instance.availableBackends; }
 		}
 		
-		public static Application Instance
+		public static Program Instance
 		{
 			get {
-				lock(locker) {
+
 					if(application == null) {
-						lock(locker) {
-							application = new Application();
-						}
+						
+							application = new Program();
+
 					}
 					return application;
-				}
 			}
 		}
 
-		public INativeApplication NativeApplication
+		public static Application Application
 		{
 			get
 			{
-				return nativeApp;
+				return application;
 			}
-		}
-
-		public UIManager UIManager
-		{
-			get { return uiManager; }
-		}
-
-		public StatusIcon Tray
-		{
-			get { return trayIcon; }
 		}
 
 		public static Preferences Preferences
 		{
-			get { return Application.Instance.preferences; }
+			get { return Program.Instance.preferences; }
 		}
 
-		private Application () : this (null) {}
-
-		private Application (string[] args)
-		{
-			Init(args);
-		}
-
-		private void Init(string[] args)
+		static void Init(string[] args)
 		{
 #if OSX
-			nativeApp = new OSXApplication ();
+			application = new OSXApplication ();
 #elif WIN32 || GTKLINUX
-			nativeApp = new GtkApplication ();
+			application = new GtkApplication ();
 #else
-			nativeApp = new GnomeApplication ();
+			application = new GnomeApplication ();
 #endif
-			nativeApp.Initialize (args);
+			application.Initialize (args);
 			
-			RegisterUIManager ();
+//			RegisterUIManager ();
 
-			preferences = new Preferences (nativeApp.ConfDir);
+			preferences = new Preferences (application.ConfDir);
 			
 #if !WIN32 && !OSX
 			// Register Tasque RemoteControl
@@ -346,7 +311,7 @@ namespace Tasque
 			// Initialize the new backend
 			this.backend = value;
 			if (this.backend == null) {
-				RefreshTrayIconTooltip ();
+//				RefreshTrayIconTooltip ();
 				return;
 			}
 				
@@ -362,7 +327,7 @@ namespace Tasque
 			}
 
 			RebuildTooltipTaskGroupModels ();
-			RefreshTrayIconTooltip ();
+//			RefreshTrayIconTooltip ();
 			
 			Logger.Debug("Configuration status: {0}",
 			             this.backend.Configured.ToString());
@@ -371,7 +336,7 @@ namespace Tasque
 		private bool InitializeIdle()
 		{
 			if (customBackend != null) {
-				Application.Backend = customBackend;
+				Program.Backend = customBackend;
 			} else {
 				// Check to see if the user has a preference of which backend
 				// to use.  If so, use it, otherwise, pop open the preferences
@@ -380,16 +345,16 @@ namespace Tasque
 				Logger.Debug ("CurrentBackend specified in Preferences: {0}", backendTypeString);
 				if (backendTypeString != null
 						&& availableBackends.ContainsKey (backendTypeString)) {
-					Application.Backend = availableBackends [backendTypeString];
+					Program.Backend = availableBackends [backendTypeString];
 				}
 			}
 			
-			SetupTrayIcon ();
+//			SetupTrayIcon ();
 			
 			if (backend == null) {
 				// Pop open the preferences dialog so the user can choose a
 				// backend service to use.
-				Application.ShowPreferences ();
+				Program.ShowPreferences ();
 			} else if (!quietStart) {
 				TaskWindow.ShowWindow ();
 			}
@@ -397,7 +362,7 @@ namespace Tasque
 				GLib.Timeout.Add(1000, new GLib.TimeoutHandler(RetryBackend));
 			}
 
-			nativeApp.InitializeIdle ();
+			application.InitializeIdle ();
 			
 			return false;
 		}
@@ -428,26 +393,13 @@ namespace Tasque
 				
 				UnhookFromTooltipTaskGroupModels ();
 				RebuildTooltipTaskGroupModels ();
-				RefreshTrayIconTooltip ();
+//				RefreshTrayIconTooltip ();
 			}
 			
 			return true;
 		}
 
-		private void SetupTrayIcon ()
-		{
-			trayIcon = new Gtk.StatusIcon();
-			trayIcon.Pixbuf = Utilities.GetIcon ("tasque-24", 24);
-			
-			// hooking event
-			trayIcon.Activate += OnTrayIconClick;
-			trayIcon.PopupMenu += OnTrayIconPopupMenu;
 
-			// showing the trayicon
-			trayIcon.Visible = true;
-
-			RefreshTrayIconTooltip ();
-		}
 
 		private void UnhookFromTooltipTaskGroupModels ()
 		{
@@ -465,7 +417,7 @@ namespace Tasque
 
 		private void OnTooltipModelChanged (object o, EventArgs args)
 		{
-			RefreshTrayIconTooltip ();
+//			RefreshTrayIconTooltip ();
 		}
 
 		private void RebuildTooltipTaskGroupModels ()
@@ -493,47 +445,6 @@ namespace Tasque
 				model.RowDeleted += OnTooltipModelChanged;
 			}
 		}
-		
-		private void RefreshTrayIconTooltip ()
-		{
-			if (trayIcon == null) {
-				return;
-			}
-
-			StringBuilder sb = new StringBuilder ();
-			if (overdue_tasks != null) {
-				int count =  overdue_tasks.IterNChildren ();
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task is Overdue\n", "{0} tasks are Overdue\n", count), count));
-				}
-			}
-			
-			if (today_tasks != null) {
-				int count =  today_tasks.IterNChildren ();
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Today\n", "{0} tasks for Today\n", count), count));
-				}
-			}
-
-			if (tomorrow_tasks != null) {
-				int count =  tomorrow_tasks.IterNChildren ();
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Tomorrow\n", "{0} tasks for Tomorrow\n", count), count));
-				}
-			}
-
-			if (sb.Length == 0) {
-				// Translators: This is the status icon's tooltip. When no tasks are overdue, due today, or due tomorrow, it displays this fun message
-				trayIcon.Tooltip = Catalog.GetString ("Tasque Rocks");
-				return;
-			}
-
-			trayIcon.Tooltip = sb.ToString ().TrimEnd ('\n');
-		}
-
 
 		private void OnPreferences (object sender, EventArgs args)
 		{
@@ -557,44 +468,6 @@ namespace Tasque
 			application.OnPreferences(null, EventArgs.Empty);
 		}
 
-		private void OnAbout (object sender, EventArgs args)
-		{
-			string [] authors = new string [] {
-				"Boyd Timothy <btimothy@gmail.com>",
-				"Calvin Gaisford <calvinrg@gmail.com>",
-				"Sandy Armstrong <sanfordarmstrong@gmail.com>",
-				"Brian G. Merrell <bgmerrell@novell.com>"
-			};
-
-			/* string [] documenters = new string [] {
-			   "Calvin Gaisford <calvinrg@gmail.com>"
-			   };
-			   */
-
-			string translators = Catalog.GetString ("translator-credits");
-			if (translators == "translator-credits")
-				translators = null;
-			
-			Gtk.AboutDialog about = new Gtk.AboutDialog ();
-			about.ProgramName = "Tasque";
-			about.Version = GlobalDefines.Version;
-			about.Logo = Utilities.GetIcon("tasque-48", 48);
-			about.Copyright =
-				Catalog.GetString ("Copyright \xa9 2008 Novell, Inc.");
-			about.Comments = Catalog.GetString ("A Useful Task List");
-			about.Website = "http://live.gnome.org/Tasque";
-			about.WebsiteLabel = Catalog.GetString("Tasque Project Homepage");
-			about.Authors = authors;
-			//about.Documenters = documenters;
-			about.TranslatorCredits = translators;
-			about.IconName = "tasque";
-			about.SetSizeRequest(300, 300);
-			about.Run ();
-			about.Destroy ();
-
-		}
-
-
 		private void OnShowTaskWindow (object sender, EventArgs args)
 		{
 			TaskWindow.ShowWindow();
@@ -609,65 +482,27 @@ namespace Tasque
 
 		private void OnQuit (object sender, EventArgs args)
 		{
-			Logger.Info ("OnQuit called - terminating application");
-			if (backend != null) {
-				UnhookFromTooltipTaskGroupModels ();
-				backend.Cleanup();
-			}
-			TaskWindow.SavePosition();
 
-			nativeApp.QuitMainLoop ();
+
+			application.QuitMainLoop ();
 		}
 		
 		private void OnRefreshAction (object sender, EventArgs args)
 		{
-			Application.Backend.Refresh();
+			Program.Backend.Refresh();
 		}
-
-		private void OnTrayIconClick (object sender, EventArgs args) // handler for mouse click
-		{
-			TaskWindow.ToggleWindowVisible ();
-		}
-
-		private void OnTrayIconPopupMenu (object sender, EventArgs args)
-		{
-			Menu popupMenu = (Menu) uiManager.GetWidget ("/TrayIconMenu");
-
-			bool backendItemsSensitive = (backend != null && backend.Initialized);
-			
-			uiManager.GetAction ("/TrayIconMenu/NewTaskAction").Sensitive = backendItemsSensitive;
-			uiManager.GetAction ("/TrayIconMenu/RefreshAction").Sensitive = backendItemsSensitive;
-
-			popupMenu.ShowAll(); // shows everything
-			popupMenu.Popup();
-		}		
 
 		public static void Main(string[] args)
 		{
 			try 
 			{
-				application = GetApplicationWithArgs(args);
+				Init (args);
 				application.StartMainLoop ();
 			} 
 			catch (Exception e)
 			{
 				Tasque.Logger.Debug("Exception is: {0}", e);
 				Instance.NativeApplication.Exit (-1);
-			}
-		}
-
-		public static Application GetApplicationWithArgs(string[] args)
-		{
-			lock(locker)
-			{
-				if(application == null)
-				{
-					lock(locker)
-					{
-						application = new Application(args);
-					}
-				}
-				return application;
 			}
 		}
 
@@ -683,55 +518,12 @@ namespace Tasque
 
 		public void StartMainLoop ()
 		{
-			nativeApp.StartMainLoop ();
+			application.StartMainLoop ();
 		}
 
 		public void Quit ()
 		{
 			OnQuit (null, null);
-		}
-
-		private void RegisterUIManager ()
-		{
-			ActionGroup trayActionGroup = new ActionGroup ("Tray");
-			trayActionGroup.Add (new ActionEntry [] {
-				new ActionEntry ("NewTaskAction",
-				                 Stock.New,
-				                 Catalog.GetString ("New Task ..."),
-				                 null,
-				                 null,
-				                 OnNewTask),
-				
-				new ActionEntry ("ShowTasksAction",
-				                 null,
-				                 Catalog.GetString ("Show Tasks ..."),
-				                 null,
-				                 null,
-				                 OnShowTaskWindow),
-
-				new ActionEntry ("AboutAction",
-				                 Stock.About,
-				                 OnAbout),
-				
-				new ActionEntry ("PreferencesAction",
-				                 Stock.Preferences,
-				                 OnPreferences),
-				
-				new ActionEntry ("RefreshAction",
-				                 Stock.Execute,
-				                 Catalog.GetString ("Refresh Tasks ..."),
-				                 null,
-				                 null,
-				                 OnRefreshAction),
-				
-				new ActionEntry ("QuitAction",
-				                 Stock.Quit,
-				                 OnQuit)
-			});
-			
-			uiManager = new UIManager ();
-			uiManager.AddUiFromString (menuXml);
-			uiManager.InsertActionGroup (trayActionGroup, 0);
 		}
 	}
 }

@@ -11,7 +11,7 @@
     <AssemblyName>tasque</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <NoWin32Manifest>True</NoWin32Manifest>
-    <RootNamespace>tasque</RootNamespace>
+    <RootNamespace>Tasque</RootNamespace>
     <ReleaseVersion>0.1.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeDebug|AnyCPU' ">
@@ -129,6 +129,7 @@
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -159,7 +160,6 @@
     </Reference>
     <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
       <Private>False</Private>
-      <Package>notify-sharp</Package>
     </Reference>
     <Reference Include="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
       <Private>False</Private>
@@ -190,20 +190,10 @@
     </Compile>
     <Compile Include="AbstractTask.cs" />
     <Compile Include="AllCategory.cs" />
-    <Compile Include="Application.cs" />
     <Compile Include="Backends\Dummy\DummyBackend.cs" />
     <Compile Include="Backends\Dummy\DummyCategory.cs" />
     <Compile Include="Backends\Dummy\DummyNote.cs" />
     <Compile Include="Backends\Dummy\DummyTask.cs" />
-    <Compile Include="Backends\Hiveminder\HmBackend.cs" />
-    <Compile Include="Backends\Hiveminder\HmCategory.cs" />
-    <Compile Include="Backends\Hiveminder\HmNote.cs" />
-    <Compile Include="Backends\Hiveminder\HmPreferencesWidget.cs" />
-    <Compile Include="Backends\Hiveminder\HmTask.cs" />
-    <Compile Include="Backends\Hiveminder\service\Group.cs" />
-    <Compile Include="Backends\Hiveminder\service\Hiveminder.cs" />
-    <Compile Include="Backends\Hiveminder\service\HiveminderException.cs" />
-    <Compile Include="Backends\Hiveminder\service\Task.cs" />
     <Compile Include="Backends\Rtm\RtmBackend.cs" />
     <Compile Include="Backends\Rtm\RtmCategory.cs" />
     <Compile Include="Backends\Rtm\RtmNote.cs" />
@@ -218,10 +208,8 @@
     <Compile Include="CompletedTaskGroup.cs" />
     <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="DateButton.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="NoteDialog.cs" />
     <Compile Include="NoteWidget.cs" />
-    <Compile Include="Preferences.cs" />
     <Compile Include="PreferencesDialog.cs" />
     <Compile Include="TaskCalendar.cs" />
     <Compile Include="TaskGroup.cs" />
@@ -230,6 +218,21 @@
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="Gtk\GtkAboutDialog.cs" />
+    <Compile Include="Gtk\GtkTray.cs" />
+    <Compile Include="Gtk\GtkApplication.cs" />
+    <Compile Include="Gtk\GtkMainWindow.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Gtk\GtkPreferencesDialog.cs" />
+    <Compile Include="Backends\Hiveminder\service\Group.cs" />
+    <Compile Include="Backends\Hiveminder\service\Hiveminder.cs" />
+    <Compile Include="Backends\Hiveminder\service\HiveminderException.cs" />
+    <Compile Include="Backends\Hiveminder\service\Task.cs" />
+    <Compile Include="Backends\Hiveminder\HmBackend.cs" />
+    <Compile Include="Backends\Hiveminder\HmCategory.cs" />
+    <Compile Include="Backends\Hiveminder\HmNote.cs" />
+    <Compile Include="Backends\Hiveminder\HmPreferencesWidget.cs" />
+    <Compile Include="Backends\Hiveminder\HmTask.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
     <Compile Include="GnomeApplication.cs" />
@@ -237,9 +240,6 @@
   <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' or '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
     <Compile Include="RemoteControl.cs" />
     <Compile Include="RemoteControlProxy.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' or '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' or '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ">
-    <Compile Include="GtkApplication.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ">
     <Compile Include="OSXApplication.cs" />
@@ -253,6 +253,7 @@
     <Folder Include="data\osx\Contents\" />
     <Folder Include="data\osx\Contents\MacOS\" />
     <Folder Include="data\osx\Contents\Resources\" />
+    <Folder Include="Gtk\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libtasque\libtasque.csproj">
@@ -264,7 +265,6 @@
       <Name>RtmNet</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <EmbeddedResource Include="..\..\data\icons\hicolor_actions_22x22_notebook.png">
       <Link>data\icons\hicolor_actions_22x22_notebook.png</Link>

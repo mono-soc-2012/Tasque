@@ -34,7 +34,6 @@
   <Types>
     <Namespace Name="Tasque">
       <Type Name="ICategory" Kind="Interface" />
-      <Type Name="INativeApplication" Kind="Interface" />
       <Type Name="INote" Kind="Interface" />
       <Type Name="ITask" Kind="Interface" />
       <Type Name="NativeApplication" Kind="Class" />
@@ -47,6 +46,11 @@
       <Type Name="BackendSyncFinishedHandler" Kind="Delegate" />
       <Type Name="BackendSyncStartedHandler" Kind="Delegate" />
       <Type Name="IBackend" Kind="Interface" />
+    </Namespace>
+    <Namespace Name="Tasque.UI">
+      <Type Name="NativeTray" Kind="Class" />
+      <Type Name="NativeWindow" Kind="Class" />
+      <Type Name="PreferencesDialog" Kind="Class" />
     </Namespace>
   </Types>
   <Title>libtasque</Title>

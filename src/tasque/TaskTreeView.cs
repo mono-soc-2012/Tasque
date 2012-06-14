@@ -435,7 +435,7 @@ namespace Tasque
 			
 			string formatString = "{0}";
 
-			Preferences prefs = Application.Preferences;
+			Preferences prefs = Program.Preferences;
 			string todayTasksColor = prefs.Get (Preferences.TodayTaskTextColor);
 			string overdueTaskColor = prefs.Get (Preferences.OverdueTaskTextColor);
 
@@ -519,7 +519,7 @@ namespace Tasque
 				return;
 			}
 			
-			Preferences prefs = Application.Preferences;
+			Preferences prefs = Program.Preferences;
 			int timerSeconds = prefs.GetInt (Preferences.InactivateTimeoutKey);
 			// convert to milliseconds for more granularity
 			long timeout = timerSeconds * 1000;
@@ -623,7 +623,7 @@ namespace Tasque
 			
 			if (task.State == TaskState.Active) {
 				bool showCompletedTasks =
-					Application.Preferences.GetBool (
+					Program.Preferences.GetBool (
 						Preferences.ShowCompletedTasksKey);
 				
 				// When showCompletedTasks is true, complete the tasks right
@@ -637,7 +637,7 @@ namespace Tasque
 					
 					// Read the inactivate timeout from a preference
 					int timeout =
-						Application.Preferences.GetInt (Preferences.InactivateTimeoutKey);
+						Program.Preferences.GetInt (Preferences.InactivateTimeoutKey);
 					Logger.Debug ("Read timeout from prefs: {0}", timeout);
 					InactivateTimer timer =
 						new InactivateTimer (this, iter, task, (uint) timeout);
@@ -688,7 +688,7 @@ namespace Tasque
 			string newText = args.NewText;
 			
 			// Attempt to derive due date information from text.
-			if (Application.Preferences.GetBool (Preferences.ParseDateEnabledKey) &&
+			if (Program.Preferences.GetBool (Preferences.ParseDateEnabledKey) &&
 			    task.State == TaskState.Active &&
 			    task.DueDate == DateTime.MinValue) {
 				
