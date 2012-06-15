@@ -47,12 +47,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" command="mdoc update -o docs ${TargetFile}" />
-        <Command type="AfterBuild" command="mdoc assemble -o ${TargetDir}/libtasque ${ProjectDir}/docs/sources" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -218,12 +212,8 @@
     <None Include="docs\sources\Tasque.Backends\BackendSyncFinishedHandler.xml" />
     <None Include="docs\sources\Tasque.Backends\BackendSyncStartedHandler.xml" />
     <None Include="docs\sources\Tasque.Backends\IBackend.xml" />
-    <None Include="docs\sources\Tasque.UI\INativeTray.xml" />
-    <None Include="docs\sources\Tasque.UI\INativeWindow.xml" />
-    <None Include="docs\sources\Tasque.UI\NativeTray.xml" />
     <None Include="docs\sources\index.xml" />
     <None Include="docs\sources\ns-Tasque.Backends.xml" />
-    <None Include="docs\sources\ns-Tasque.UI.xml" />
     <None Include="docs\sources\ns-Tasque.xml" />
     <DocsSourcesFile Include="docs\libtasque.sources" />
   </ItemGroup>
