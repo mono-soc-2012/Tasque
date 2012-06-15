@@ -1,81 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">GnomeDebug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ItemType>GenericProject</ItemType>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}</ProjectGuid>
     <ReleaseVersion>0.1.10</ReleaseVersion>
-    <MSBuildCommunityTasksPath>./</MSBuildCommunityTasksPath>
-  </PropertyGroup>
-  <Import Project="lib\MSBuild.Community.Tasks.Targets" />
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Tasque.Build</AssemblyName>
+    <RootNamespace>Tasque.Build</RootNamespace>
+    <Website>https://live.gnome.org/Tasque</Website>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeDebug|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeRelease|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
     <CustomCommands>
       <CustomCommands>
         <Command type="Build" command="echo &quot;building...&quot;" />
         <Command type="Clean" command="echo &quot;cleaning...&quot;" />
       </CustomCommands>
     </CustomCommands>
+    <DebugType>none</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxDebug|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
     <CustomCommands>
       <CustomCommands>
         <Command type="Build" command="echo &quot;building...&quot;" />
         <Command type="Clean" command="echo &quot;cleaning...&quot;" />
       </CustomCommands>
     </CustomCommands>
+    <DebugType>none</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinDebug|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinRelease|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
     <CustomCommands>
       <CustomCommands>
         <Command type="Build" command="echo &quot;building...&quot;" />
         <Command type="Clean" command="echo &quot;cleaning...&quot;" />
       </CustomCommands>
     </CustomCommands>
+    <DebugType>none</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkMacDebug|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkMacRelease|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
     <CustomCommands>
       <CustomCommands>
         <Command type="Build" command="echo &quot;building...&quot;" />
         <Command type="Clean" command="echo &quot;cleaning...&quot;" />
       </CustomCommands>
     </CustomCommands>
+    <DebugType>none</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacDebug|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacRelease|AnyCPU' ">
-    <OutputPath>.</OutputPath>
+    <OutputPath>lib</OutputPath>
     <CustomCommands>
       <CustomCommands>
         <Command type="Build" command="echo &quot;building...&quot;" />
         <Command type="Clean" command="echo &quot;cleaning...&quot;" />
       </CustomCommands>
     </CustomCommands>
+    <DebugType>none</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
+  <!-- Project and tasks imports -->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <UsingTask AssemblyFile="lib\Tasque.Build.dll" TaskName="Tasque.Build.SetDataAtBuildTime" />
   <ItemGroup>
-    <None Include="build.mdproj" />
+    <None Include="build.csproj" />
     <None Include="..\tasque.sln">
       <Link>tasque.sln</Link>
     </None>
@@ -91,7 +137,6 @@
     <None Include="fixautotoolsbuild.sh" />
     <None Include="CommonAssemblyInfo.cs" />
     <None Include="bundle-mac-app.sh" />
-    <GlobalDefinesCsIn Include="GlobalDefines.cs.in" />
     <None Include="mac-postbuild.sh" />
     <None Include="mac-prebuild.sh" />
     <None Include="..\po\translation.mdproj">
@@ -101,16 +146,35 @@
       <Link>tests.csproj</Link>
     </None>
   </ItemGroup>
-  <Target Name="Build" DependsOnTargets="PreBuild" />
-  <Target Name="PreBuild">
+  <ItemGroup>
+    <Compile Include="SetDataAtBuildTime.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <GlobalDefines Include="GlobalDefines.cs" />
+    <GlobalDefinesIn Include="GlobalDefines.cs.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <License Include="..\LICENSE">
+      <Link>LICENSE</Link>
+    </License>
+    <Authors Include="..\AUTHORS">
+      <Link>AUTHORS</Link>
+    </Authors>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
     <Message Text="Setting up global definitions..." />
-    <ReadLinesFromFile File="@(GlobalDefinesCsIn)">
-      <Output TaskParameter="Lines" ItemName="GlobalDefinesIn" />
-    </ReadLinesFromFile>
-    <RegexReplace Input="@(GlobalDefinesIn)" Expression="@version@" Replacement="$(ReleaseVersion)">
-      <Output ItemName="GlobalDefines" TaskParameter="Output" />
-    </RegexReplace>
-    <WriteLinesToFile File="GlobalDefines.cs" Lines="@(GlobalDefines)" Overwrite="true" />
-    <Message Text="Finished." />
+    <SetDataAtBuildTime AuthorsFile="@(Authors)" CopyingFile="@(License)" GlobalDefinesFile="@(GlobalDefines)" GlobalDefinesFileIn="@(GlobalDefinesIn)" Version="$(ReleaseVersion)" Website="$(Website)" />
+    <Message Text="Finished setting up global definitions." />
   </Target>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData generatePcFile="false" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
