@@ -113,7 +113,7 @@ namespace Tasque.Backends.HmBackend
 		/// <value>
 		/// All the tasks .
 		/// </value>
-		public Gtk.TreeModel Tasks
+		public Gtk.TreeModel SortedTasks
 		{
 			get { return sortedTasksModel; }
 		}

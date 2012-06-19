@@ -6,22 +6,20 @@ using System.Collections.Generic;
 
 namespace Tasque
 {
-	public interface ITask
+	public interface ITask : IComparable<ITask>
 	{
 		#region Properties
 		/// <value>
 		/// A unique identifier for the task
 		/// </value>
-		string Id
-		{
+		string Id {
 			get; 
 		}
 
 		/// <value>
 		/// A Task's Name will be used to show the task in the main list window.
 		/// </value>
-		string Name
-		{
+		string Name {
 			get;
 			set;
 		}
@@ -29,8 +27,7 @@ namespace Tasque
 		/// <value>
 		/// A DueDate of DateTime.MinValue indicates that a due date is not set.
 		/// </value>
-		DateTime DueDate
-		{
+		DateTime DueDate {
 			get;
 			set;
 		}
@@ -38,8 +35,7 @@ namespace Tasque
 		/// <value>
 		/// If set to CompletionDate.MinValue, the task has not been completed.
 		/// </value>
-		DateTime CompletionDate
-		{
+		DateTime CompletionDate {
 			get;
 			set;
 		}
@@ -48,8 +44,7 @@ namespace Tasque
 		/// This is a convenience property which should use the CompletionDate
 		/// to determine whether a task is completed.
 		/// </value>
-		bool IsComplete 
-		{
+		bool IsComplete {
 			get;
 		}
 		
@@ -57,8 +52,7 @@ namespace Tasque
 		/// Backends should, by default, set the priority of a task to
 		/// TaskPriority.None.
 		/// </value>
-		TaskPriority Priority
-		{
+		TaskPriority Priority {
 			get;
 			set;
 		}
@@ -67,16 +61,14 @@ namespace Tasque
 		/// Indicates whether any notes exist in this task.  If a backend does
 		/// not support notes, it should always return false.
 		/// </value>
-		bool HasNotes
-		{
+		bool HasNotes {
 			get;
 		}
 		
 		/// <value>
 		/// Should be true if the task supports having multiple notes.
 		/// </value>
-		bool SupportsMultipleNotes
-		{
+		bool SupportsMultipleNotes {
 			get;
 		}
 		
@@ -84,16 +76,14 @@ namespace Tasque
 		/// The state of the task.  Note: sreeves' LOVES source code comments
 		/// like these.
 		/// </value>
-		TaskState State
-		{
+		TaskState State {
 			get;
 		}
 		
 		/// <value>
 		/// The category to which this task belongs
 		/// </value>
-		ICategory Category
-		{
+		ICategory Category {
 			get; 
 			set;
 		}
@@ -101,8 +91,7 @@ namespace Tasque
 		/// <value>
 		/// The notes associated with this task
 		/// </value>
-		List<INote> Notes
-		{
+		List<INote> Notes {
 			get;
 		}
 		
@@ -110,8 +99,7 @@ namespace Tasque
 		/// The ID of the timer used to complete a task after being marked
 		/// inactive.
 		/// </value>
-		uint TimerID
-		{
+		uint TimerID {
 			get;
 			set;
 		}	
@@ -143,17 +131,17 @@ namespace Tasque
 		/// <summary>
 		/// Creates a new note on this task
 		/// </summary>
-		INote CreateNote(string text);
+		INote CreateNote (string text);
 		
 		/// <summary>
 		/// Removes a note from this task
 		/// </summary>
-		void DeleteNote(INote note);
+		void DeleteNote (INote note);
 		
 		/// <summary>
 		/// Updates an exising note on the task
 		/// </summary>
-		void SaveNote(INote note);
+		void SaveNote (INote note);
 		
 		/// <summary>
 		/// This is used for sorting tasks in the TaskWindow and should compare

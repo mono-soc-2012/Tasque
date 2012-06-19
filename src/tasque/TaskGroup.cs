@@ -4,6 +4,8 @@
 using System;
 using Gdk;
 using Gtk;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Tasque
 {
@@ -24,7 +26,7 @@ namespace Tasque
 		
 		#region Constructor
 		public TaskGroup (string groupName, DateTime rangeStart,
-						  DateTime rangeEnd, Gtk.TreeModel tasks)
+						  DateTime rangeEnd, IEnumerable<ITask> tasks)
 		{
 			hideWhenEmpty = true;
 						
@@ -100,13 +102,11 @@ namespace Tasque
 		#endregion // Events
 		
 		#region Public Properties
-		public string DisplayName
-		{
+		public string DisplayName {
 			get { return header.Text; }
 		}
 		
-		public int HeaderHeight
-		{
+		public int HeaderHeight {
 			get { return header.Requisition.Height; }
 		}
 		
@@ -114,8 +114,7 @@ namespace Tasque
 		/// Use this to set an Extra Widget.  The extra widget will be placed
 		/// on the right-hand side of the TaskGroup header.
 		/// </value>
-		public Gtk.Widget ExtraWidget
-		{
+		public Gtk.Widget ExtraWidget {
 			get { return extraWidget; }
 			set {
 				// Remove and destroy an existing extraWidget
@@ -142,8 +141,7 @@ namespace Tasque
 		/// range slider (HScale) widget can control how many completed tasks to
 		/// show.
 		/// </value>
-		public bool HideWhenEmpty
-		{
+		public bool HideWhenEmpty {
 			get { return hideWhenEmpty; }
 			set {
 				if (hideWhenEmpty == value)
@@ -156,8 +154,7 @@ namespace Tasque
 		/// <value>
 		/// Get and set the minimum date for the group
 		/// </value>
-		public DateTime TimeRangeStart
-		{
+		public DateTime TimeRangeStart {
 			get { return filteredTasks.TimeRangeStart; }
 			set {
 				if (value == filteredTasks.TimeRangeStart)
@@ -171,8 +168,7 @@ namespace Tasque
 		/// <value>
 		/// Get and set the maxiumum date for the group
 		/// </value>
-		public DateTime TimeRangeEnd
-		{
+		public DateTime TimeRangeEnd {
 			get { return filteredTasks.TimeRangeEnd; }
 			set {
 				if (value == filteredTasks.TimeRangeEnd)
@@ -183,8 +179,7 @@ namespace Tasque
 			}
 		}
 		
-		public Gtk.TreeView TreeView
-		{
+		public Gtk.TreeView TreeView {
 			get { return this.treeView; }
 		}
 		#endregion // Public Properties
@@ -234,9 +229,9 @@ namespace Tasque
 			return false;
 		}
 		
-		public int GetNChildren(Gtk.TreeIter iter)
+		public int GetNChildren (Gtk.TreeIter iter)
 		{
-			return treeView.Model.IterNChildren();
+			return treeView.Model.IterNChildren ();
 		}
 			
 		// Find the index within the tree
@@ -308,7 +303,7 @@ namespace Tasque
 				nameColumn.CellRenderers [0] as Gtk.CellRendererText;
 			path = treeView.Model.GetPath (iter);
 			
-			treeView.Model.IterNChildren();
+			treeView.Model.IterNChildren ();
 				
 			treeView.SetCursorOnCell (path, nameColumn, nameCellRendererText, true);
 		}
@@ -320,13 +315,13 @@ namespace Tasque
 			base.OnRealized ();
 			
 			if (treeView.GetNumberOfTasks () == 0
-					&& (!filteredTasks.ShowCompletedTasks || hideWhenEmpty))
+				&& (!filteredTasks.ShowCompletedTasks || hideWhenEmpty))
 				Hide ();
 			else
 				Show ();
 		}
 
-		protected override void OnStyleSet(Style previous_style)
+		protected override void OnStyleSet (Style previous_style)
 		{
 			base.OnStyleSet (previous_style);
 			header.Markup = GetHeaderMarkup (DisplayName);
@@ -334,7 +329,7 @@ namespace Tasque
 
 		protected virtual  TaskGroupModel CreateModel (DateTime rangeStart,
 		                                               DateTime rangeEnd,
-		                                               TreeModel tasks)
+		                                               IEnumerable<ITask> tasks)
 		{
 			return new TaskGroupModel (rangeStart, rangeEnd, tasks);
 		}
@@ -396,7 +391,7 @@ namespace Tasque
 			Gdk.Color fgColor;
 
 			using (Gtk.Style style = Gtk.Rc.GetStyle (this)) 
-				fgColor = style.Backgrounds [(int) StateType.Selected];
+				fgColor = style.Backgrounds [(int)StateType.Selected];
 
 			return Utilities.ColorGetHex (fgColor);
 		}
@@ -416,7 +411,7 @@ namespace Tasque
 			//Logger.Debug ("TaskGroup (\"{0}\").OnNumberOfTasksChanged ()", DisplayName);
 			// Check to see whether this group should be hidden or shown.
 			if (treeView.GetNumberOfTasks () == 0
-					&& (!filteredTasks.ShowCompletedTasks || hideWhenEmpty))
+				&& (!filteredTasks.ShowCompletedTasks || hideWhenEmpty))
 				Hide ();
 			else
 				Show ();

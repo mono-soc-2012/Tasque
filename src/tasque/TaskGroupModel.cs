@@ -1,14 +1,14 @@
 
 using System;
-
+using System.Collections.ObjectModel;
 using Gtk;
+using System.Collections.Generic;
 
 namespace Tasque
 {
 	public class TaskGroupModel : TreeModelFilter
 	{
-		public bool ShowCompletedTasks
-		{
+		public bool ShowCompletedTasks {
 			get { return showCompletedTasks; }
 			set {
 				showCompletedTasks = value;
@@ -16,18 +16,17 @@ namespace Tasque
 			}
 		}
 
-		public DateTime TimeRangeStart
-		{
+		public DateTime TimeRangeStart {
 			get { return timeRangeStart; }
 		}
 
-		public DateTime TimeRangeEnd
-		{
+		public DateTime TimeRangeEnd {
 			get { return timeRangeEnd; }
 		}
 		
 		public TaskGroupModel (DateTime rangeStart, DateTime rangeEnd,
-		                       Gtk.TreeModel tasks) : base (tasks, null)
+		                       IEnumerable<ITask> tasks)
+			: base (new TreeModelAdapter (new TreeViewModelImplementor<ITask> (tasks)), null)
 		{
 			this.timeRangeStart = rangeStart;
 			this.timeRangeEnd = rangeEnd;
@@ -43,8 +42,8 @@ namespace Tasque
 		}
 
 		/// <summary>
-	        /// Filter out tasks that don't fit within the group's date range
-	        /// </summary>
+		/// Filter out tasks that don't fit within the group's date range
+		/// </summary>
 		protected virtual bool FilterTasks (Gtk.TreeModel model, Gtk.TreeIter iter)
 		{
 			ITask task = model.GetValue (iter, 0) as ITask;
@@ -100,7 +99,7 @@ namespace Tasque
 		{
 			DateTime today = DateTime.Now;
 			if (today.Year != testDate.Year
-					|| today.DayOfYear != testDate.DayOfYear)
+				|| today.DayOfYear != testDate.DayOfYear)
 				return false;
 			
 			return true;

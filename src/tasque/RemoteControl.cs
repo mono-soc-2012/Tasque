@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Mono.Unix; // for Catalog.GetString ()
 
@@ -198,24 +199,18 @@ namespace Tasque
 		/// </returns>
 		public string[] GetTaskIds ()
 		{
-			Gtk.TreeIter iter;
-			Gtk.TreeModel model;
-			
-			ITask task;
-			List<string> ids;
-			
-			ids = new List<string> ();
-			model = Application.Backend.Tasks;
-			
-			if (!model.GetIterFirst (out iter))
+			var model = Application.Backend.Tasks;
+
+			if (model == null)
 				return new string[0];
-				
-			do {
-				task = model.GetValue (iter, 0) as ITask;
+
+			List<string> ids = new List<string> ();
+			foreach (var task in model) {
 				ids.Add (task.Id);
-			} while (model.IterNext (ref iter));
-			
+			}
+
 			return ids.ToArray ();
+
 		}
 		
 		/// <summary>
@@ -483,22 +478,7 @@ namespace Tasque
 		/// </returns>
 		private ITask GetTaskById (string id)
 		{
-			Gtk.TreeIter  iter;
-			Gtk.TreeModel model;
-			
-			ITask task = null;
-			model = Application.Backend.Tasks;
-			
-			if (model.GetIterFirst (out iter)) {
-				do {
-					task = model.GetValue (iter, 0) as ITask;
-					if (task.Id.Equals (id)) {
-						return task;
-					}
-				} while (model.IterNext (ref iter));
-			}			
-			
-			return task;
+			return Application.Backend.Tasks.SingleOrDefault (f => f.Id == id);
 		}
 	}
 }

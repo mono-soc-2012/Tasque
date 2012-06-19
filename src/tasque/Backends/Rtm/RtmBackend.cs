@@ -92,7 +92,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// All the tasks including ITaskDivider items.
 		/// </value>
-		public Gtk.TreeModel Tasks
+		public Gtk.TreeModel SortedTasks
 		{
 			get { return sortedTasksModel; }
 		}

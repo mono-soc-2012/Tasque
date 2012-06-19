@@ -478,9 +478,9 @@ namespace Tasque
 				return;
 			}
 
-			overdue_tasks = TaskGroupModelFactory.CreateOverdueModel (backend.Tasks);
-			today_tasks = TaskGroupModelFactory.CreateTodayModel (backend.Tasks);
-			tomorrow_tasks = TaskGroupModelFactory.CreateTomorrowModel (backend.Tasks);
+			overdue_tasks = TaskGroupModelFactory.CreateOverdueModel (backend.SortedTasks);
+			today_tasks = TaskGroupModelFactory.CreateTodayModel (backend.SortedTasks);
+			tomorrow_tasks = TaskGroupModelFactory.CreateTomorrowModel (backend.SortedTasks);
 
 			foreach (TaskGroupModel model in new TaskGroupModel[] { overdue_tasks, today_tasks, tomorrow_tasks })
 			{

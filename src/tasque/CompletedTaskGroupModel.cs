@@ -1,12 +1,14 @@
 
 using System;
 using Gtk;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Tasque
 {
 	public class CompletedTaskGroupModel : TaskGroupModel
 	{
-		public CompletedTaskGroupModel (DateTime rangeStart, DateTime rangeEnd, TreeModel tasks)
+		public CompletedTaskGroupModel (DateTime rangeStart, DateTime rangeEnd, IEnumerable<ITask> tasks)
 			: base (rangeStart, rangeEnd, tasks)
 		{
 		}
@@ -48,7 +50,7 @@ namespace Tasque
 			DateTime today = DateTime.Now;
 			
 			if (today.Year == task.CompletionDate.Year
-					&& today.DayOfYear == task.CompletionDate.DayOfYear)
+				&& today.DayOfYear == task.CompletionDate.DayOfYear)
 				return false;
 			
 			return true;

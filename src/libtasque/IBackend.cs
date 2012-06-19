@@ -2,6 +2,8 @@
 // User: boyd at 7:02 AM 2/11/2008
 
 using System;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Tasque.Backends
 {
@@ -25,24 +27,25 @@ namespace Tasque.Backends
 		/// preferences dialog to allow the user to select which backend Tasque
 		/// should use.
 		/// </value>
-		string Name
-		{
+		string Name {
 			get;
 		}
 		
 		/// <value>
 		/// All the tasks provided by the backend.
 		/// </value>
-		Gtk.TreeModel Tasks
-		{
+		ObservableCollection<ITask> Tasks {
+			get;
+		}
+
+		IEnumerable<ITask> SortedTasks {
 			get;
 		}
 		
 		/// <value>
 		/// This returns all the ICategory items from the backend.
 		/// </value>
-		Gtk.TreeModel Categories
-		{
+		Gtk.TreeModel Categories {
 			get;
 		}
 		
@@ -51,16 +54,14 @@ namespace Tasque.Backends
 		/// (credentials/etc.) to run.  If false, the properties dialog will
 		/// be shown so the user can configure the backend.
 		/// </value>
-		bool Configured
-		{
+		bool Configured {
 			get;
 		}
 		
 		/// <value>
 		/// Inidication that the backend is initialized
 		/// </value>
-		bool Initialized
-		{
+		bool Initialized {
 			get;
 		}
 		#endregion // Properties
@@ -82,17 +83,17 @@ namespace Tasque.Backends
 		/// <summary>
 		/// Refreshes the backend.
 		/// </summary>
-		void Refresh();
+		void Refresh ();
 		
 		/// <summary>
 		/// Initializes the backend
 		/// </summary>
-		void Initialize();
+		void Initialize ();
 
 		/// <summary>
 		/// Cleanup the backend before quitting
 		/// </summary>
-		void Cleanup();
+		void Cleanup ();
 		
 		/// <summary>
 		/// A widget that will be placed into the Preferences Dialog when the

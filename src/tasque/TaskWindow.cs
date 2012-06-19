@@ -256,7 +256,7 @@ namespace Tasque
 			
 			overdueGroup = new TaskGroup (Catalog.GetString ("Overdue"),
 										  rangeStart, rangeEnd,
-										  backend.Tasks);
+										  backend.SortedTasks);
 			overdueGroup.RowActivated += OnRowActivated;
 			overdueGroup.ButtonPressed += OnButtonPressed;
 			overdueGroup.Show ();
@@ -274,7 +274,7 @@ namespace Tasque
 									 rangeEnd.Day, 23, 59, 59);
 			todayGroup = new TaskGroup (Catalog.GetString ("Today"),
 										rangeStart, rangeEnd,
-										backend.Tasks);
+										backend.SortedTasks);
 			todayGroup.RowActivated += OnRowActivated;
 			todayGroup.ButtonPressed += OnButtonPressed;
 			todayGroup.Show ();
@@ -292,7 +292,7 @@ namespace Tasque
 									 rangeEnd.Day, 23, 59, 59);
 			tomorrowGroup = new TaskGroup (Catalog.GetString ("Tomorrow"),
 										   rangeStart, rangeEnd,
-										   backend.Tasks);
+										   backend.SortedTasks);
 			tomorrowGroup.RowActivated += OnRowActivated;
 			tomorrowGroup.ButtonPressed += OnButtonPressed;			
 			tomorrowGroup.Show ();
@@ -310,7 +310,7 @@ namespace Tasque
 									 rangeEnd.Day, 23, 59, 59);
 			nextSevenDaysGroup = new TaskGroup (Catalog.GetString ("Next 7 Days"),
 										   rangeStart, rangeEnd,
-										   backend.Tasks);
+										   backend.SortedTasks);
 			nextSevenDaysGroup.RowActivated += OnRowActivated;
 			nextSevenDaysGroup.ButtonPressed += OnButtonPressed;				
 			nextSevenDaysGroup.Show ();
@@ -326,7 +326,7 @@ namespace Tasque
 			rangeEnd = DateTime.MaxValue;
 			futureGroup = new TaskGroup (Catalog.GetString ("Future"),
 										 rangeStart, rangeEnd,
-										 backend.Tasks);
+										 backend.SortedTasks);
 			futureGroup.RowActivated += OnRowActivated;
 			futureGroup.ButtonPressed += OnButtonPressed;			
 			futureGroup.Show ();
@@ -341,7 +341,7 @@ namespace Tasque
 			completedTaskGroup = new CompletedTaskGroup (
 					Catalog.GetString ("Completed"),
 					rangeStart, rangeEnd,
-					backend.Tasks);
+					backend.SortedTasks);
 			completedTaskGroup.RowActivated += OnRowActivated;
 			completedTaskGroup.ButtonPressed += OnButtonPressed;
 			completedTaskGroup.Show ();
@@ -645,36 +645,9 @@ namespace Tasque
 				crt.Text =
 					string.Format ("{0} ({1})",
 								   category.Name,
-								   GetTaskCountInCategory (category));
+								   "HERE SHOULD BE THE TASK COUNT");
 			} else
 				crt.Text = "unknown";
-		}
-		
-		// TODO: Move this method into a property of ICategory.TaskCount
-		private int GetTaskCountInCategory (ICategory category)
-		{
-			// This is disgustingly inefficient, but, oh well
-			int count = 0;
-			
-			Gtk.TreeIter iter;
-			Gtk.TreeModel model = Application.Backend.Tasks;
-			
-			if (!model.GetIterFirst (out iter))
-				return 0;
-			
-			do {
-				ITask task = model.GetValue (iter, 0) as ITask;
-				if (task == null)
-					continue;
-				if (task.State != TaskState.Active
-						&& task.State != TaskState.Inactive)
-					continue;
-				
-				if (category.ContainsTask (task))
-					count++;
-			} while (model.IterNext (ref iter));
-			
-			return count;
 		}
 		
 		/// <summary>

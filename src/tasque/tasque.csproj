@@ -159,7 +159,6 @@
     </Reference>
     <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
       <Private>False</Private>
-      <Package>notify-sharp</Package>
     </Reference>
     <Reference Include="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
       <Private>False</Private>
@@ -179,6 +178,25 @@
     <None Include="..\..\data\sounds\notify.wav">
       <Link>data\sounds\notify.wav</Link>
     </None>
+    <None Include="Backends\Hiveminder\HmBackend.cs" />
+    <None Include="Backends\Hiveminder\HmCategory.cs" />
+    <None Include="Backends\Hiveminder\HmNote.cs" />
+    <None Include="Backends\Hiveminder\HmPreferencesWidget.cs" />
+    <None Include="Backends\Hiveminder\HmTask.cs" />
+    <None Include="Backends\Hiveminder\service\Group.cs" />
+    <None Include="Backends\Hiveminder\service\Hiveminder.cs" />
+    <None Include="Backends\Hiveminder\service\HiveminderException.cs" />
+    <None Include="Backends\Hiveminder\service\Task.cs" />
+    <None Include="Backends\Rtm\RtmBackend.cs" />
+    <None Include="Backends\Rtm\RtmCategory.cs" />
+    <None Include="Backends\Rtm\RtmNote.cs" />
+    <None Include="Backends\Rtm\RtmPreferencesWidget.cs" />
+    <None Include="Backends\Rtm\RtmTask.cs" />
+    <None Include="Backends\Sqlite\Database.cs" />
+    <None Include="Backends\Sqlite\SqliteBackend.cs" />
+    <None Include="Backends\Sqlite\SqliteCategory.cs" />
+    <None Include="Backends\Sqlite\SqliteNote.cs" />
+    <None Include="Backends\Sqlite\SqliteTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -195,25 +213,6 @@
     <Compile Include="Backends\Dummy\DummyCategory.cs" />
     <Compile Include="Backends\Dummy\DummyNote.cs" />
     <Compile Include="Backends\Dummy\DummyTask.cs" />
-    <Compile Include="Backends\Hiveminder\HmBackend.cs" />
-    <Compile Include="Backends\Hiveminder\HmCategory.cs" />
-    <Compile Include="Backends\Hiveminder\HmNote.cs" />
-    <Compile Include="Backends\Hiveminder\HmPreferencesWidget.cs" />
-    <Compile Include="Backends\Hiveminder\HmTask.cs" />
-    <Compile Include="Backends\Hiveminder\service\Group.cs" />
-    <Compile Include="Backends\Hiveminder\service\Hiveminder.cs" />
-    <Compile Include="Backends\Hiveminder\service\HiveminderException.cs" />
-    <Compile Include="Backends\Hiveminder\service\Task.cs" />
-    <Compile Include="Backends\Rtm\RtmBackend.cs" />
-    <Compile Include="Backends\Rtm\RtmCategory.cs" />
-    <Compile Include="Backends\Rtm\RtmNote.cs" />
-    <Compile Include="Backends\Rtm\RtmPreferencesWidget.cs" />
-    <Compile Include="Backends\Rtm\RtmTask.cs" />
-    <Compile Include="Backends\Sqlite\Database.cs" />
-    <Compile Include="Backends\Sqlite\SqliteBackend.cs" />
-    <Compile Include="Backends\Sqlite\SqliteCategory.cs" />
-    <Compile Include="Backends\Sqlite\SqliteNote.cs" />
-    <Compile Include="Backends\Sqlite\SqliteTask.cs" />
     <Compile Include="CellRendererDate.cs" />
     <Compile Include="CompletedTaskGroup.cs" />
     <Compile Include="CompletedTaskGroupModel.cs" />
@@ -230,6 +229,7 @@
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="TreeViewModelImplementor.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
     <Compile Include="GnomeApplication.cs" />

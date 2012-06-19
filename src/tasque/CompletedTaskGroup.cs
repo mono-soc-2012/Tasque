@@ -7,6 +7,9 @@
 using System;
 using Gtk;
 using Mono.Unix;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Tasque
 {
@@ -26,9 +29,9 @@ namespace Tasque
 		ShowCompletedRange currentRange;
 		
 		public CompletedTaskGroup (string groupName, DateTime rangeStart,
-								   DateTime rangeEnd, Gtk.TreeModel tasks)
+								   DateTime rangeEnd, IEnumerable<ITask> tasks)
 			: base (groupName, rangeStart, rangeEnd,
-					new CompletedTasksSortModel(tasks))
+					tasks.OrderBy (f => f, new CompletedTasksComparer ()))
 		{
 			// Don't hide this group when it's empty because then the range
 			// slider won't appear and the user won't be able to customize the
@@ -77,7 +80,7 @@ namespace Tasque
 
 		protected override TaskGroupModel CreateModel (DateTime rangeStart,
 		                                               DateTime rangeEnd,
-		                                               TreeModel tasks)
+		                                               IEnumerable<ITask> tasks)
 		{
 			return new CompletedTaskGroupModel (rangeStart, rangeEnd, tasks);
 		}
@@ -205,35 +208,17 @@ namespace Tasque
 			this.TimeRangeStart = date;
 		}
 	}
-	
+
 	/// <summary>
 	/// The purpose of this class is to allow the CompletedTaskGroup to show
 	/// completed tasks in reverse order (i.e., most recently completed tasks
 	/// at the top of the list).
 	/// </summary>
-	class CompletedTasksSortModel : Gtk.TreeModelSort
+	class CompletedTasksComparer : Comparer<ITask>
 	{
-		public CompletedTasksSortModel (Gtk.TreeModel childModel)
-			: base (childModel)
+		public override int Compare (ITask x, ITask y)
 		{
-			SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareTasksSortFunc));
-			SetSortColumnId (0, Gtk.SortType.Descending);
+			return x.CompareToByCompletionDate (y);
 		}
-		
-		#region Private Methods
-		static int CompareTasksSortFunc (Gtk.TreeModel model,
-										 Gtk.TreeIter a,
-										 Gtk.TreeIter b)
-		{
-			ITask taskA = model.GetValue (a, 0) as ITask;
-			ITask taskB = model.GetValue (b, 0) as ITask;
-			
-			if (taskA == null || taskB == null)
-				return 0;
-			
-			// Reverse the logic with the '!' so it's in re
-			return (taskA.CompareToByCompletionDate (taskB));
-		}
-		#endregion // Private Methods
 	}
 }
