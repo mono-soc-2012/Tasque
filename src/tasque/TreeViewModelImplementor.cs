@@ -30,15 +30,27 @@ using System.Runtime.InteropServices;
 using GLib;
 using Gtk;
 using System.Linq;
+using System.Collections.Specialized;
 
 namespace Tasque
 {
 	public class TreeViewModelImplementor<T> : GLib.Object, TreeModelImplementor where T : class
 	{
-		public TreeViewModelImplementor (IEnumerable<T> collection)
+		public static TreeViewModelImplementor<T> CreateImplementor<TItems> (TItems items)
+			where TItems : IEnumerable<T>, INotifyCollectionChanged
 		{
+			if (items == null)
+				throw new ArgumentNullException ("collection");
+
+
+		}
+
+		public TreeViewModelImplementor (IEnumerable<T> items)
+		{
+
+
 			stamp = new Random ().Next (int.MinValue, int.MaxValue);
-			items = collection;
+			this.items = items;
 //			adapter = new TreeModelAdapter (this);
 			gcHandles = new List<GCHandle> ();
 		}
@@ -59,7 +71,7 @@ namespace Tasque
 			base.Dispose ();
 		}
 
-		public GLib.GType GetColumnType (int index_)
+		public GType GetColumnType (int index)
 		{
 			return (GType)typeof(T);
 		}

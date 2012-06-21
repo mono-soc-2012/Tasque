@@ -10,6 +10,8 @@ using Tasque.Backends;
 using RtmNet;
 using System.Threading;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Tasque.Backends.RtmBackend
 {
@@ -17,8 +19,6 @@ namespace Tasque.Backends.RtmBackend
 	{
 		private const string apiKey = "b29f7517b6584035d07df3170b80c430";
 		private const string sharedSecret = "93eb5f83628b2066";
-		private Gtk.TreeStore taskStore;
-		private Gtk.TreeModelSort sortedTasksModel;
 
 		private Gtk.ListStore categoryListStore;
 		private Gtk.TreeModelSort sortedCategoriesModel;
@@ -31,8 +31,7 @@ namespace Tasque.Backends.RtmBackend
 		private string frob;
 		private Auth rtmAuth;
 		private string timeline;
-		
-		private Dictionary<string, Gtk.TreeIter> taskIters;
+
 		private object taskLock;
 
 		private Dictionary<string, RtmCategory> categories;
@@ -49,7 +48,6 @@ namespace Tasque.Backends.RtmBackend
 			initialized = false;
 			configured = false;
 
-			taskIters = new Dictionary<string, Gtk.TreeIter> ();
 			taskLock = new Object();
 			
 			categories = new Dictionary<string, RtmCategory> ();
@@ -58,11 +56,7 @@ namespace Tasque.Backends.RtmBackend
 			// *************************************
 			// Data Model Set up
 			// *************************************
-			taskStore = new Gtk.TreeStore (typeof (ITask));
-
-			sortedTasksModel = new Gtk.TreeModelSort (taskStore);
-			sortedTasksModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareTasksSortFunc));
-			sortedTasksModel.SetSortColumnId (0, Gtk.SortType.Ascending);
+			Tasks = new ObservableCollection<ITask>();
 
 			categoryListStore = new Gtk.ListStore (typeof (ICategory));
 
@@ -92,10 +86,12 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// All the tasks including ITaskDivider items.
 		/// </value>
-		public Gtk.TreeModel SortedTasks
+		public IEnumerable<ITask> SortedTasks
 		{
-			get { return sortedTasksModel; }
+			get { return Tasks.OrderBy (t => t, Comparer<ITask>.Default); }
 		}
+
+		public ObservableCollection<ITask> Tasks { get; private set; }
 
 		/// <value>
 		/// This returns all the task lists (categories) that exist.
@@ -177,7 +173,7 @@ namespace Tasque.Backends.RtmBackend
 						Gtk.Application.Invoke ( delegate {
 							if(taskIters.ContainsKey(rtmTask.ID)) {
 								Gtk.TreeIter iter = taskIters[rtmTask.ID];
-								taskStore.Remove(ref iter);
+								Tasks.Remove(ref iter);
 								taskIters.Remove(rtmTask.ID);
 							}
 						});
@@ -429,7 +425,7 @@ namespace Tasque.Backends.RtmBackend
 				Gtk.Application.Invoke ( delegate {
 					if(taskIters.ContainsKey(task.ID)) {
 						iter = taskIters[task.ID];
-						taskStore.SetValue (iter, 0, task);
+						Tasks.SetValue (iter, 0, task);
 					}
 				});
 			}		
@@ -445,11 +441,11 @@ namespace Tasque.Backends.RtmBackend
 					Gtk.Application.Invoke ( delegate {
 						if(taskIters.ContainsKey(rtmTask.ID)) {
 							Gtk.TreeIter iter = taskIters[rtmTask.ID];
-							taskStore.SetValue (iter, 0, rtmTask);
+							Tasks.SetValue (iter, 0, rtmTask);
 						} else {
-							Gtk.TreeIter iter = taskStore.AppendNode();
+							Gtk.TreeIter iter = Tasks.AppendNode();
 							taskIters.Add(rtmTask.ID, iter);
-							taskStore.SetValue (iter, 0, rtmTask);
+							Tasks.SetValue (iter, 0, rtmTask);
 						}
 					});
 				}
@@ -518,19 +514,6 @@ namespace Tasque.Backends.RtmBackend
 #endregion // Public Methods
 
 #region Private Methods
-		static int CompareTasksSortFunc (Gtk.TreeModel model,
-				Gtk.TreeIter a,
-				Gtk.TreeIter b)
-		{
-			ITask taskA = model.GetValue (a, 0) as ITask;
-			ITask taskB = model.GetValue (b, 0) as ITask;
-
-			if (taskA == null || taskB == null)
-				return 0;
-
-			return (taskA.CompareTo (taskB));
-		}
-
 		static int CompareCategorySortFunc (Gtk.TreeModel model,
 											Gtk.TreeIter a,
 											Gtk.TreeIter b)
@@ -622,11 +605,11 @@ namespace Tasque.Backends.RtmBackend
 										if(taskIters.ContainsKey(rtmTask.ID)) {
 											iter = taskIters[rtmTask.ID];
 										} else {
-											iter = taskStore.AppendNode ();
+											iter = Tasks.AppendNode ();
 											taskIters.Add(rtmTask.ID, iter);
 										}
 
-										taskStore.SetValue (iter, 0, rtmTask);
+										Tasks.SetValue (iter, 0, rtmTask);
 									});
 								}
 							}

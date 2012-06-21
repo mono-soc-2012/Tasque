@@ -19,7 +19,6 @@ namespace Tasque.Backends.Dummy
 		/// Key   = Task ID
 		/// Value = Gtk.TreeIter in taskStore
 		/// </summary>
-		private Dictionary<int, Gtk.TreeIter> taskIters;
 		private int newTaskId;
 		private bool initialized;
 		private bool configured = true;
@@ -39,7 +38,6 @@ namespace Tasque.Backends.Dummy
 		{
 			initialized = false;
 			newTaskId = 0;
-			taskIters = new Dictionary<int, Gtk.TreeIter> (); 
 			Tasks = new ObservableCollection<ITask> ();
 			
 			categoryListStore = new Gtk.ListStore (typeof(ICategory));

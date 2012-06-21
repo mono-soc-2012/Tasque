@@ -159,6 +159,7 @@
     </Reference>
     <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
       <Private>False</Private>
+      <Package>notify-sharp</Package>
     </Reference>
     <Reference Include="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
       <Private>False</Private>
@@ -187,16 +188,16 @@
     <None Include="Backends\Hiveminder\service\Hiveminder.cs" />
     <None Include="Backends\Hiveminder\service\HiveminderException.cs" />
     <None Include="Backends\Hiveminder\service\Task.cs" />
-    <None Include="Backends\Rtm\RtmBackend.cs" />
-    <None Include="Backends\Rtm\RtmCategory.cs" />
-    <None Include="Backends\Rtm\RtmNote.cs" />
-    <None Include="Backends\Rtm\RtmPreferencesWidget.cs" />
-    <None Include="Backends\Rtm\RtmTask.cs" />
     <None Include="Backends\Sqlite\Database.cs" />
     <None Include="Backends\Sqlite\SqliteBackend.cs" />
     <None Include="Backends\Sqlite\SqliteCategory.cs" />
     <None Include="Backends\Sqlite\SqliteNote.cs" />
     <None Include="Backends\Sqlite\SqliteTask.cs" />
+    <None Include="Backends\Rtm\RtmBackend.cs" />
+    <None Include="Backends\Rtm\RtmCategory.cs" />
+    <None Include="Backends\Rtm\RtmNote.cs" />
+    <None Include="Backends\Rtm\RtmPreferencesWidget.cs" />
+    <None Include="Backends\Rtm\RtmTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
