@@ -1,0 +1,3 @@
+[submodule "src/ObservableTransformCollections"]
+	path = src/ObservableTransformCollections
+	url = git@github.com:antoniusriha/ObservableTransformCollections
