@@ -9,7 +9,7 @@ namespace Tasque
 {
 	public abstract class AbstractTask : ITask
 	{
-		private uint timerID = 0;
+		uint timerID = 0;
 		
 		#region Properties
 		public abstract string Id
@@ -23,8 +23,7 @@ namespace Tasque
 			set;
 		}
 		
-		public abstract DateTime DueDate
-		{
+		public abstract DateTime DueDate {
 			get;
 			set;
 		}
@@ -162,7 +161,7 @@ namespace Tasque
 		
 		#region Private Methods
 		
-		private int CompareByPriorityAndName (ITask task)
+		int CompareByPriorityAndName (ITask task)
 		{
 			// The due dates match, so now sort based on priority
 			if (Priority != task.Priority) {

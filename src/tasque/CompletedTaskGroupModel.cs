@@ -69,7 +69,6 @@ namespace Tasque
 			// today.  Tasks completed today should still appear under their
 			// original group until tomorrow.
 			DateTime today = DateTime.Now;
-			
 			if (today.Year == task.CompletionDate.Year
 				&& today.DayOfYear == task.CompletionDate.DayOfYear)
 				return false;

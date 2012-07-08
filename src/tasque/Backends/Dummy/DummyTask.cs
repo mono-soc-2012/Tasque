@@ -30,18 +30,11 @@ namespace Tasque.Backends.Dummy
 		}
 		
 		#region Public Properties
-		
-		public int DummyId
-		{
-			get { return id; }
-			set { id = value; }
-		}
 
 		public override string Id
 		{
 			get { return id.ToString(); }
 		}
-
 		
 		public override string Name
 		{

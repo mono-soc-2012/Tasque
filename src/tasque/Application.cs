@@ -449,7 +449,7 @@ namespace Tasque
 			RefreshTrayIconTooltip ();
 		}
 
-		private void UnhookFromTooltipTaskGroupModels ()
+		void UnhookFromTooltipTaskGroupModels ()
 		{
 			foreach (TaskGroupModel model in new TaskGroupModel[] { overdue_tasks, today_tasks, tomorrow_tasks })
 			{
@@ -460,12 +460,12 @@ namespace Tasque
 			}
 		}
 
-		private void OnTooltipModelChanged (object o, EventArgs args)
+		void OnTooltipModelChanged (object sender, EventArgs args)
 		{
 			RefreshTrayIconTooltip ();
 		}
 
-		private void RebuildTooltipTaskGroupModels ()
+		void RebuildTooltipTaskGroupModels ()
 		{
 			if (backend == null || backend.Tasks == null) {
 				overdue_tasks = null;
