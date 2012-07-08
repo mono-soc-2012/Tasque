@@ -145,6 +145,18 @@
     <None Include="..\tests\tests.csproj">
       <Link>tests.csproj</Link>
     </None>
+    <None Include="..\src\ObservableTransformCollections\CollectionTransform\CollectionTransform.csproj">
+      <Link>CollectionTransform.csproj</Link>
+    </None>
+    <None Include="..\src\ObservableTransformCollections\CollectionTransform.Tests\CollectionTransform.Tests.csproj">
+      <Link>CollectionTransform.Tests.csproj</Link>
+    </None>
+    <None Include="..\src\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+      <Link>CollectionView.csproj</Link>
+    </None>
+    <None Include="..\src\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
+      <Link>TreeModelListAdapter.csproj</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SetDataAtBuildTime.cs" />

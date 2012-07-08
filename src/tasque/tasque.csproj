@@ -159,12 +159,12 @@
     </Reference>
     <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
       <Private>False</Private>
-      <Package>notify-sharp</Package>
     </Reference>
     <Reference Include="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
       <Private>False</Private>
       <Package>ndesk-dbus-glib-1.0</Package>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\data\osx\Contents\Info.plist">
@@ -230,7 +230,6 @@
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="TreeViewModelImplementor.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
     <Compile Include="GnomeApplication.cs" />
@@ -263,6 +262,14 @@
     <ProjectReference Include="..\RtmNet\RtmNet.csproj">
       <Project>{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}</Project>
       <Name>RtmNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
+      <Name>CollectionView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
+      <Project>{95B669DC-0F9F-4C26-B31E-34CFA54112E8}</Project>
+      <Name>TreeModelListAdapter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
