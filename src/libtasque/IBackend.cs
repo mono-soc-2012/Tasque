@@ -4,6 +4,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Tasque.Backends
 {
@@ -38,7 +39,7 @@ namespace Tasque.Backends
 			get;
 		}
 
-		IEnumerable<ITask> SortedTasks {
+		IEnumerable SortedTasks {
 			get;
 		}
 		

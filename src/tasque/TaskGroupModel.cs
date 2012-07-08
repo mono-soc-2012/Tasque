@@ -1,69 +1,92 @@
-
+// 
+// TaskGroupModel.cs
+//  
+// Author:
+//       Antonius Riha <antoniusriha@gmail.com>
+// 
+// Copyright (c) 2012 Antonius Riha
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 using System;
-using System.Collections.ObjectModel;
-using Gtk;
-using System.Collections.Generic;
+using System.Collections;
+using CollectionTransforms;
 
 namespace Tasque
 {
-	public class TaskGroupModel : TreeModelFilter
+	public class TaskGroupModel : CollectionView<ITask>
 	{
 		public bool ShowCompletedTasks {
 			get { return showCompletedTasks; }
 			set {
+				if (showCompletedTasks == value)
+					return;
+				
 				showCompletedTasks = value;
-				base.Refilter ();
+				Refresh ();
 			}
 		}
+		
+		public DateTime TimeRangeStart { get; private set; }
+		
+		public DateTime TimeRangeEnd { get; private set; }
+		
+		public TaskGroupModel (DateTime rangeStart, DateTime rangeEnd, IEnumerable tasks)
+			: base (tasks)
+		{
+			TimeRangeStart = rangeStart;
+			TimeRangeEnd = rangeEnd;
 
-		public DateTime TimeRangeStart {
-			get { return timeRangeStart; }
-		}
-
-		public DateTime TimeRangeEnd {
-			get { return timeRangeEnd; }
+			Filter = FilterTasks;
+			int i = 5;
 		}
 		
-		public TaskGroupModel (DateTime rangeStart, DateTime rangeEnd,
-		                       IEnumerable<ITask> tasks)
-			: base (new TreeModelAdapter (new TreeViewModelImplementor<ITask> (tasks)), null)
-		{
-			this.timeRangeStart = rangeStart;
-			this.timeRangeEnd = rangeEnd;
-
-			base.VisibleFunc = FilterTasks;
-		}
-
 		public void SetRange (DateTime rangeStart, DateTime rangeEnd)
 		{
-			this.timeRangeStart = rangeStart;
-			this.timeRangeEnd = rangeEnd;
-			base.Refilter ();
+			if (rangeStart == TimeRangeStart && rangeEnd == TimeRangeEnd)
+				return;
+			
+			TimeRangeStart = rangeStart;
+			TimeRangeEnd = rangeEnd;
+			Refresh ();
 		}
-
+		
 		/// <summary>
 		/// Filter out tasks that don't fit within the group's date range
 		/// </summary>
-		protected virtual bool FilterTasks (Gtk.TreeModel model, Gtk.TreeIter iter)
+		protected virtual bool FilterTasks (ITask task)
 		{
-			ITask task = model.GetValue (iter, 0) as ITask;
 			if (task == null || task.State == TaskState.Deleted)
 				return false;
 			
 			// Do something special when task.DueDate == DateTime.MinValue since
 			// these tasks should always be in the very last category.
 			if (task.DueDate == DateTime.MinValue) {
-				if (timeRangeEnd == DateTime.MaxValue) {
+				if (TimeRangeEnd == DateTime.MaxValue) {
 					if (!ShowCompletedTask (task))
 						return false;
 					
 					return true;
-				} else {
+				} else
 					return false;
-				}
 			}
 			
-			if (task.DueDate < timeRangeStart || task.DueDate > timeRangeEnd)
+			if (task.DueDate < TimeRangeStart || task.DueDate > TimeRangeEnd)
 				return false;
 			
 			if (!ShowCompletedTask (task))
@@ -72,11 +95,13 @@ namespace Tasque
 			return true;
 		}
 		
-		protected DateTime timeRangeStart;
-		protected DateTime timeRangeEnd;
-		protected bool showCompletedTasks = false;
-
-		private bool ShowCompletedTask (ITask task)
+		bool IsToday (DateTime date)
+		{
+			DateTime today = DateTime.Now;
+			return today.Year == date.Year && today.DayOfYear == date.DayOfYear;
+		}
+		
+		bool ShowCompletedTask (ITask task)
 		{
 			if (task.State == TaskState.Completed) {
 				if (!showCompletedTasks)
@@ -95,14 +120,6 @@ namespace Tasque
 			return true;
 		}
 		
-		private bool IsToday (DateTime testDate)
-		{
-			DateTime today = DateTime.Now;
-			if (today.Year != testDate.Year
-				|| today.DayOfYear != testDate.DayOfYear)
-				return false;
-			
-			return true;
-		}
+		bool showCompletedTasks;
 	}
 }

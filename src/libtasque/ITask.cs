@@ -3,10 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Tasque
 {
-	public interface ITask : IComparable<ITask>
+	public interface ITask : IComparable<ITask>, INotifyPropertyChanged
 	{
 		#region Properties
 		/// <value>
@@ -142,18 +143,6 @@ namespace Tasque
 		/// Updates an exising note on the task
 		/// </summary>
 		void SaveNote (INote note);
-		
-		/// <summary>
-		/// This is used for sorting tasks in the TaskWindow and should compare
-		/// based on due date.
-		/// </summary>
-		/// <param name="task">
-		/// A <see cref="ITask"/>
-		/// </param>
-		/// <returns>
-		/// A <see cref="System.Int32"/>
-		/// </returns>
-		int CompareTo (ITask task);
 		
 		/// <summary>
 		/// This is the same as CompareTo above but should use completion date

@@ -10,6 +10,9 @@ using Mono.Unix;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+using CollectionTransforms;
+using System.ComponentModel;
 
 namespace Tasque
 {
@@ -24,14 +27,25 @@ namespace Tasque
 	
 	public class CompletedTaskGroup : TaskGroup
 	{
+		/// <summary>
+		/// The purpose of this method is to allow the CompletedTaskGroup to show
+		/// completed tasks in reverse order (i.e., most recently completed tasks
+		/// at the top of the list).
+		/// </summary>
+		static IEnumerable GetSortedTasks (IEnumerable tasks)
+		{
+			var cv = new CollectionView<ITask> (tasks);
+			cv.SortDescriptions.Add (new SortDescription ("CompletionDate", ListSortDirection.Descending));
+			return cv;
+		}
+		
 		ICategory selectedCategory;
 		HScale rangeSlider;
 		ShowCompletedRange currentRange;
 		
 		public CompletedTaskGroup (string groupName, DateTime rangeStart,
-								   DateTime rangeEnd, IEnumerable<ITask> tasks)
-			: base (groupName, rangeStart, rangeEnd,
-					tasks.OrderBy (f => f, new CompletedTasksComparer ()))
+								   DateTime rangeEnd, IEnumerable tasks)
+			: base (groupName, rangeStart, rangeEnd, GetSortedTasks (tasks))
 		{
 			// Don't hide this group when it's empty because then the range
 			// slider won't appear and the user won't be able to customize the
@@ -80,7 +94,7 @@ namespace Tasque
 
 		protected override TaskGroupModel CreateModel (DateTime rangeStart,
 		                                               DateTime rangeEnd,
-		                                               IEnumerable<ITask> tasks)
+		                                               IEnumerable tasks)
 		{
 			return new CompletedTaskGroupModel (rangeStart, rangeEnd, tasks);
 		}
@@ -206,19 +220,6 @@ namespace Tasque
 			}
 			
 			this.TimeRangeStart = date;
-		}
-	}
-
-	/// <summary>
-	/// The purpose of this class is to allow the CompletedTaskGroup to show
-	/// completed tasks in reverse order (i.e., most recently completed tasks
-	/// at the top of the list).
-	/// </summary>
-	class CompletedTasksComparer : Comparer<ITask>
-	{
-		public override int Compare (ITask x, ITask y)
-		{
-			return x.CompareToByCompletionDate (y);
 		}
 	}
 }

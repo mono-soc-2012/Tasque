@@ -453,13 +453,10 @@ namespace Tasque
 		{
 			foreach (TaskGroupModel model in new TaskGroupModel[] { overdue_tasks, today_tasks, tomorrow_tasks })
 			{
-				if (model == null) {
+				if (model == null)
 					continue;
-				}
 				
-				model.RowInserted -= OnTooltipModelChanged;
-				model.RowChanged -= OnTooltipModelChanged;
-				model.RowDeleted -= OnTooltipModelChanged;
+				model.CollectionChanged -= OnTooltipModelChanged;
 			}
 		}
 
@@ -484,13 +481,10 @@ namespace Tasque
 
 			foreach (TaskGroupModel model in new TaskGroupModel[] { overdue_tasks, today_tasks, tomorrow_tasks })
 			{
-				if (model == null) {
+				if (model == null)
 					continue;
-				}
 				
-				model.RowInserted += OnTooltipModelChanged;
-				model.RowChanged += OnTooltipModelChanged;
-				model.RowDeleted += OnTooltipModelChanged;
+				model.CollectionChanged += OnTooltipModelChanged;
 			}
 		}
 		
@@ -502,7 +496,7 @@ namespace Tasque
 
 			StringBuilder sb = new StringBuilder ();
 			if (overdue_tasks != null) {
-				int count =  overdue_tasks.IterNChildren ();
+				int count =  overdue_tasks.Count;
 
 				if (count > 0) {
 					sb.Append (String.Format (Catalog.GetPluralString ("{0} task is Overdue\n", "{0} tasks are Overdue\n", count), count));
@@ -510,7 +504,7 @@ namespace Tasque
 			}
 			
 			if (today_tasks != null) {
-				int count =  today_tasks.IterNChildren ();
+				int count =  today_tasks.Count;
 
 				if (count > 0) {
 					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Today\n", "{0} tasks for Today\n", count), count));
@@ -518,7 +512,7 @@ namespace Tasque
 			}
 
 			if (tomorrow_tasks != null) {
-				int count =  tomorrow_tasks.IterNChildren ();
+				int count =  tomorrow_tasks.Count;
 
 				if (count > 0) {
 					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Tomorrow\n", "{0} tasks for Tomorrow\n", count), count));

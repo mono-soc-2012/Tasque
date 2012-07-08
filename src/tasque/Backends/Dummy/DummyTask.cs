@@ -47,13 +47,14 @@ namespace Tasque.Backends.Dummy
 		{
 			get { return name; }
 			set {
-Logger.Debug ("Setting new task name");
-				if (value == null)
-					name = string.Empty;
+				if (value != name) {
+					Logger.Debug ("Setting new task name");
+					if (value == null)
+						name = string.Empty;
 				
-				name = value.Trim ();
-				
-				backend.UpdateTask (this);
+					name = value.Trim ();
+					OnPropertyChanged ("Name");
+				}
 			}
 		}
 		
@@ -61,10 +62,11 @@ Logger.Debug ("Setting new task name");
 		{
 			get { return dueDate; }
 			set {
-Logger.Debug ("Setting new task due date");
-				dueDate = value;
-				
-				backend.UpdateTask (this);
+				if (value != dueDate) {
+					Logger.Debug ("Setting new task due date");
+					dueDate = value;
+					OnPropertyChanged ("DueDate");
+				}
 			}
 		}
 		
@@ -72,10 +74,11 @@ Logger.Debug ("Setting new task due date");
 		{
 			get { return completionDate; }
 			set {
-Logger.Debug ("Setting new task completion date");
-				completionDate = value;
-				
-				backend.UpdateTask (this);
+				if (value != completionDate) {
+					Logger.Debug ("Setting new task completion date");
+					completionDate = value;
+					OnPropertyChanged ("CompletionDate");
+				}
 			}
 		}
 		
@@ -88,10 +91,11 @@ Logger.Debug ("Setting new task completion date");
 		{
 			get { return priority; }
 			set {
-Logger.Debug ("Setting new task priority");
-				priority = value;
-				
-				backend.UpdateTask (this);
+				if (value != priority) {
+					Logger.Debug ("Setting new task priority");
+					priority = value;
+					OnPropertyChanged ("Priority");
+				}
 			}
 		}
 
@@ -114,7 +118,10 @@ Logger.Debug ("Setting new task priority");
 		{
 			get { return category; } 
 			set {
-				category = value as DummyCategory;
+				if (value != category) {
+					category = value as DummyCategory;
+					OnPropertyChanged ("Category");
+				}
 			}
 		}
 		
@@ -128,18 +135,18 @@ Logger.Debug ("Setting new task priority");
 		#region Public Methods
 		public override void Activate ()
 		{
-Logger.Debug ("DummyTask.Activate ()");
+			Logger.Debug ("DummyTask.Activate ()");
 			completionDate = DateTime.MinValue;
 			state = TaskState.Active;
-			backend.UpdateTask (this);
+			OnPropertyChanged ("State");
 		}
 		
 		public override void Inactivate ()
 		{
-Logger.Debug ("DummyTask.Inactivate ()");
+			Logger.Debug ("DummyTask.Inactivate ()");
 			completionDate = DateTime.Now;
 			state = TaskState.Inactive;
-			backend.UpdateTask (this);
+			OnPropertyChanged ("State");
 		}
 		
 		public override void Complete ()
@@ -147,14 +154,14 @@ Logger.Debug ("DummyTask.Inactivate ()");
 			Logger.Debug ("DummyTask.Complete ()");
 			CompletionDate = DateTime.Now;
 			state = TaskState.Completed;
-			backend.UpdateTask (this);
+			OnPropertyChanged ("State");
 		}
 		
 		public override void Delete ()
 		{
-Logger.Debug ("DummyTask.Delete ()");
+			Logger.Debug ("DummyTask.Delete ()");
 			state = TaskState.Deleted;
-			backend.UpdateTask (this);
+			OnPropertyChanged ("State");
 		}
 		
 		public override INote CreateNote(string text)

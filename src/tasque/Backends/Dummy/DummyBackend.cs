@@ -2,11 +2,11 @@
 // User: boyd at 7:10 AM 2/11/2008
 
 using System;
-using System.Collections.Generic;
-using Mono.Unix;
 using Tasque.Backends;
 using System.Collections.ObjectModel;
-using System.Linq;
+using CollectionTransforms;
+using System.ComponentModel;
+using System.Collections;
 
 namespace Tasque.Backends.Dummy
 {
@@ -39,6 +39,13 @@ namespace Tasque.Backends.Dummy
 			initialized = false;
 			newTaskId = 0;
 			Tasks = new ObservableCollection<ITask> ();
+			var cv =  new CollectionView<ITask> (Tasks);
+			/*
+			 * this invokes the default comparer, which in turn
+			 * will use the IComparable implmentation of Task
+			 */
+			cv.SortDescriptions.Add (new SortDescription ());
+			SortedTasks = cv;
 			
 			categoryListStore = new Gtk.ListStore (typeof(ICategory));
 			
@@ -55,9 +62,7 @@ namespace Tasque.Backends.Dummy
 		/// <value>
 		/// All the tasks including ITaskDivider items.
 		/// </value>
-		public IEnumerable<ITask> SortedTasks {
-			get { return Tasks.OrderBy (t => t, Comparer<ITask>.Default); }
-		}
+		public IEnumerable SortedTasks { get; private set; }
 
 		public ObservableCollection<ITask> Tasks { get; private set; }
 		

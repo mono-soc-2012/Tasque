@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Tasque
 {
@@ -150,6 +151,14 @@ namespace Tasque
 			return CompareByPriorityAndName (task);
 		}
 		#endregion // Methods
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected void OnPropertyChanged (string propertyName)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
+		}
 		
 		#region Private Methods
 		
