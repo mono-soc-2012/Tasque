@@ -46,9 +46,9 @@ namespace Tasque.Backends
 		/// <value>
 		/// This returns all the ICategory items from the backend.
 		/// </value>
-		Gtk.TreeModel Categories {
-			get;
-		}
+		ObservableCollection<ICategory> Categories { get; }
+		
+		IEnumerable SortedCategories { get;	}
 		
 		/// <value>
 		/// Indication that the backend has enough information

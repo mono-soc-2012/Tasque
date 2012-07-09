@@ -35,6 +35,8 @@ using Gtk;
 using Mono.Unix;
 
 using Tasque.Backends;
+using CollectionTransforms;
+using System.Collections;
 
 namespace Tasque
 {
@@ -356,7 +358,8 @@ namespace Tasque
 			
 			// Set up the combo box (after the above to set the current filter)
 
-			categoryComboBox.Model = Application.Backend.Categories;		
+			var adapter = new TreeModelListAdapter<ICategory> (Application.Backend.SortedCategories);
+			categoryComboBox.Model = adapter;	
 
 			// Read preferences for the last-selected category and select it
 			string selectedCategoryName =
@@ -689,24 +692,18 @@ namespace Tasque
 			}
 		}
 		
-		private void RebuildAddTaskMenu (Gtk.TreeModel categoriesModel)
+		void RebuildAddTaskMenu (CollectionView<ICategory> categories)
 		{
-			Gtk.Menu menu = new Menu ();
+			Menu menu = new Menu ();
 			
-			Gtk.TreeIter iter;
-			if (categoriesModel.GetIterFirst (out iter)) {
-				do {
-					ICategory category =
-						categoriesModel.GetValue (iter, 0) as ICategory;
-					
-					if (category is AllCategory)
-						continue; // Skip this one
-					
-					CategoryMenuItem item = new CategoryMenuItem (category);
-					item.Activated += OnNewTaskByCategory;
-					item.ShowAll ();
-					menu.Add (item);
-				} while (categoriesModel.IterNext (ref iter));
+			foreach (var cat in categories) {
+				if (cat is AllCategory)
+					continue;
+				
+				CategoryMenuItem item = new CategoryMenuItem ((ICategory)cat);
+				item.Activated += OnNewTaskByCategory;
+				item.ShowAll ();
+				menu.Add (item);
 			}
 			
 			addTaskButton.Menu = menu;
@@ -1081,26 +1078,19 @@ namespace Tasque
 					 * here in order to enable changing categories. The list of available categories
 					 * is pre-filtered as to not contain the current category and the AllCategory.
 					 */
-					TreeModelFilter filteredCategories = new TreeModelFilter(Application.Backend.Categories, null);
-					filteredCategories.VisibleFunc = delegate(TreeModel t, TreeIter i) {
-						ICategory category = t.GetValue (i, 0) as ICategory;
-						if (category == null || category is AllCategory || category.Equals(clickedTask.Category))
-							return false;
-						return true;
-					};
+					var cvCategories = new CollectionView<ICategory> (Application.Backend.SortedCategories);
+					cvCategories.Filter = c => c != null && !(c is AllCategory) && !c.Equals(clickedTask.Category);
 
 					// The categories submenu is only created in case we actually provide at least one category.
-					if (filteredCategories.GetIterFirst(out iter))
-					{
+					if (cvCategories.Count > 0) {
 						Menu categoryMenu = new Menu();
 						CategoryMenuItem categoryItem;
 
-						filteredCategories.Foreach(delegate(TreeModel t, TreePath p, TreeIter i) {
-							categoryItem = new CategoryMenuItem((ICategory)t.GetValue(i, 0));
+						foreach (var cat in cvCategories) {
+							categoryItem = new CategoryMenuItem((ICategory)cat);
 							categoryItem.Activated += OnChangeCategory;
 							categoryMenu.Add(categoryItem);
-							return false;
-						});
+						}
 					
 						// TODO Needs translation.
 						item = new ImageMenuItem(Catalog.GetString("_Change category"));
@@ -1186,7 +1176,7 @@ namespace Tasque
 				status = string.Format (Catalog.GetString ("Tasks loaded: {0}"), now);
 				TaskWindow.lastLoadedTime = now;
 				TaskWindow.ShowStatus (status);
-				RebuildAddTaskMenu (Application.Backend.Categories);
+				RebuildAddTaskMenu ((CollectionView<ICategory>)Application.Backend.SortedCategories);
 				addTaskEntry.Sensitive = true;
 				categoryComboBox.Sensitive = true;
 				// Keep insensitive text color

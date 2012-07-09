@@ -33,5 +33,19 @@ namespace Tasque.Backends.Dummy
 				return false;
 		}
 		
+		public int CompareTo (ICategory other)
+		{
+			if (other == null)
+				return -1;
+			
+			if (other is AllCategory)
+				return 1;
+			
+			return name.CompareTo (other.Name);
+		}
+
+		#region INotifyPropertyChanged implementation
+		public event PropertyChangedEventHandler PropertyChanged;
+		#endregion
 	}
 }

@@ -85,37 +85,23 @@ namespace Tasque
 		public string CreateTask (string categoryName, string taskName,
 						bool enterEditMode, bool parseDate)
 		{
-			Gtk.TreeIter iter;
-			Gtk.TreeModel model = Application.Backend.Categories;
+			var categories = Application.Backend.Categories;
 			
 			//
 			// Validate the input parameters.  Don't allow null or empty strings
 			// be passed-in.
 			//
-			if (categoryName == null || categoryName.Trim () == string.Empty
-					|| taskName == null || taskName.Trim () == string.Empty) {
+			if (string.IsNullOrWhiteSpace (categoryName) || string.IsNullOrWhiteSpace (taskName))
 				return string.Empty;
-			}
 			
 			//
 			// Look for the specified category
 			//
-			if (!model.GetIterFirst (out iter)) {
-				return string.Empty;
-			}
-			
 			ICategory category = null;
-			do {
-				ICategory tempCategory = model.GetValue (iter, 0) as ICategory;
-				if (tempCategory.Name.ToLower ().CompareTo (categoryName.ToLower ()) == 0) {
-					// Found a match
-					category = tempCategory;
-				}
-			} while (model.IterNext (ref iter));
+			categories.SingleOrDefault (c => c.Name.ToLower () == categoryName.ToLower ());
 			
-			if (category == null) {
+			if (category == null)
 				return string.Empty;
-			}
 			
 			// If enabled, attempt to parse due date information
 			// out of the taskName.
@@ -167,20 +153,14 @@ namespace Tasque
 		public string[] GetCategoryNames ()
 		{
 			List<string> categories = new List<string> ();
-			string[] emptyArray = categories.ToArray ();
+			var model = Application.Backend.SortedCategories;
 			
-			Gtk.TreeIter iter;
-			Gtk.TreeModel model = Application.Backend.Categories;
-			
-			if (!model.GetIterFirst (out iter))
-				return emptyArray;
-			
-			do {
-				ICategory category = model.GetValue (iter, 0) as ICategory;
-				if (category is AllCategory)
-					continue; // Prevent the AllCategory from being returned
-				categories.Add (category.Name);
-			} while (model.IterNext (ref iter));
+			foreach (var item in model) {
+				if (item is AllCategory)
+					continue;
+				
+				categories.Add (((ICategory)item).Name);
+			}
 			
 			return categories.ToArray ();
 		}
@@ -280,29 +260,14 @@ namespace Tasque
 		/// A <see cref="System.Boolean"/>, true for success, false
 		/// for failure.
 		/// </returns>
-		public bool SetCategoryForTaskById (string id,
-							string categoryName)
+		public bool SetCategoryForTaskById (string id, string categoryName)
 		{
 			ITask task = GetTaskById (id);
 			if (task == null)
-			{
-				return false;
-			}
-			Gtk.TreeIter iter;
-			Gtk.TreeModel model = Application.Backend.Categories;
-			
-			if (!model.GetIterFirst (out iter))
 				return false;
 			
-			do {
-				ICategory category = model.GetValue (iter, 0) as ICategory;
-				if (string.Compare(category.Name,categoryName)==0)
-				{
-					task.Category = category;
-					return true;
-				}
-			} while (model.IterNext (ref iter));
-			return false;
+			var categories = Application.Backend.Categories;
+			return categories.Contains (task.Category);
 		}
 		
 		/// <summary>

@@ -19,12 +19,9 @@ namespace Tasque.Backends.Dummy
 		/// Key   = Task ID
 		/// Value = Gtk.TreeIter in taskStore
 		/// </summary>
-		private int newTaskId;
-		private bool initialized;
-		private bool configured = true;
-		
-		private Gtk.ListStore categoryListStore;
-		private Gtk.TreeModelSort sortedCategoriesModel;
+		int newTaskId;
+		bool initialized;
+		bool configured = true;
 
 		public event BackendInitializedHandler BackendInitialized;
 		public event BackendSyncStartedHandler BackendSyncStarted;
@@ -39,19 +36,18 @@ namespace Tasque.Backends.Dummy
 			initialized = false;
 			newTaskId = 0;
 			Tasks = new ObservableCollection<ITask> ();
-			var cv =  new CollectionView<ITask> (Tasks);
+			var cvTasks =  new CollectionView<ITask> (Tasks);
 			/*
 			 * this invokes the default comparer, which in turn
 			 * will use the IComparable implmentation of Task
 			 */
-			cv.SortDescriptions.Add (new SortDescription ());
-			SortedTasks = cv;
+			cvTasks.SortDescriptions.Add (new SortDescription ());
+			SortedTasks = cvTasks;
 			
-			categoryListStore = new Gtk.ListStore (typeof(ICategory));
-			
-			sortedCategoriesModel = new Gtk.TreeModelSort (categoryListStore);
-			sortedCategoriesModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareCategorySortFunc));
-			sortedCategoriesModel.SetSortColumnId (0, Gtk.SortType.Ascending);
+			Categories = new ObservableCollection<ICategory> ();
+			var cvCategories = new CollectionView<ICategory> (Categories);
+			cvCategories.SortDescriptions.Add (new SortDescription ());
+			SortedCategories = cvCategories;
 		}
 		
 		#region Public Properties
@@ -69,9 +65,9 @@ namespace Tasque.Backends.Dummy
 		/// <value>
 		/// This returns all the task lists (categories) that exist.
 		/// </value>
-		public Gtk.TreeModel Categories {
-			get { return sortedCategoriesModel; }
-		}
+		public IEnumerable SortedCategories { get; private set; }
+		
+		public ObservableCollection<ICategory> Categories { get; private set; }
 		
 		/// <value>
 		/// Indication that the dummy backend is configured
@@ -116,29 +112,23 @@ namespace Tasque.Backends.Dummy
 		
 		public void Initialize ()
 		{
-			Gtk.TreeIter iter;
-			
 			//
 			// Add in the "All" Category
 			//
-			AllCategory allCategory = new Tasque.AllCategory ();
-			iter = categoryListStore.Append ();
-			categoryListStore.SetValue (iter, 0, allCategory);
+			AllCategory allCategory = new AllCategory ();
+			Categories.Add (allCategory);
 			
 			//
 			// Add in some fake categories
 			//
 			homeCategory = new DummyCategory ("Home");
-			iter = categoryListStore.Append ();
-			categoryListStore.SetValue (iter, 0, homeCategory);
+			Categories.Add (homeCategory);
 			
 			workCategory = new DummyCategory ("Work");
-			iter = categoryListStore.Append ();
-			categoryListStore.SetValue (iter, 0, workCategory);
+			Categories.Add (workCategory);
 			
 			projectsCategory = new DummyCategory ("Projects");
-			iter = categoryListStore.Append ();
-			categoryListStore.SetValue (iter, 0, projectsCategory);
+			Categories.Add (projectsCategory);
 			
 			//
 			// Add in some fake tasks
@@ -240,25 +230,6 @@ namespace Tasque.Backends.Dummy
 		#endregion // Public Methods
 		
 		#region Private Methods
-
-		static int CompareCategorySortFunc (Gtk.TreeModel model,
-											Gtk.TreeIter a,
-											Gtk.TreeIter b)
-		{
-			ICategory categoryA = model.GetValue (a, 0) as ICategory;
-			ICategory categoryB = model.GetValue (b, 0) as ICategory;
-			
-			if (categoryA == null || categoryB == null)
-				return 0;
-			
-			if (categoryA is Tasque.AllCategory)
-				return -1;
-			else if (categoryB is Tasque.AllCategory)
-				return 1;
-			
-			return (categoryA.Name.CompareTo (categoryB.Name));
-		}
-
 		public void UpdateTask (DummyTask task)
 		{
 			if (!Tasks.Contains (task))

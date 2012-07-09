@@ -26,8 +26,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using Gtk;
 using System.Collections;
+using System.Linq;
+using Gtk;
 
 namespace Tasque
 {
@@ -375,7 +376,7 @@ namespace Tasque
 		/// <returns>
 		/// A <see cref="ICategory"/>
 		/// </returns>
-		private ICategory GetSelectedCategory ()
+		ICategory GetSelectedCategory ()
 		{
 			// TODO: Move this code into some function in the backend/somewhere
 			// with the signature of GetCategoryForName (string catName):ICategory
@@ -383,21 +384,8 @@ namespace Tasque
 				Application.Preferences.Get (Preferences.SelectedCategoryKey);
 			
 			if (selectedCategoryName != null) {
-				Gtk.TreeIter iter;
-				Gtk.TreeModel model = Application.Backend.Categories;
-
-				// Iterate through (yeah, I know this is gross!) and find the
-				// matching category
-				if (model.GetIterFirst (out iter)) {
-					do {
-						ICategory cat = model.GetValue (iter, 0) as ICategory;
-						if (cat == null)
-							continue; // Needed for some reason to prevent crashes from some backends
-						if (cat.Name.CompareTo (selectedCategoryName) == 0) {
-							return cat;
-						}
-					} while (model.IterNext (ref iter));
-				}
+				var categories = Application.Backend.Categories;
+				return categories.SingleOrDefault (c => c.Name == selectedCategoryName);
 			}
 			
 			return null;

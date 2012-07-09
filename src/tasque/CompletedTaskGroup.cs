@@ -114,21 +114,10 @@ namespace Tasque
 		{
 			ICategory foundCategory = null;
 			
-			string cat = Application.Preferences.Get (
-							Preferences.SelectedCategoryKey);
+			string cat = Application.Preferences.Get (Preferences.SelectedCategoryKey);
 			if (cat != null) {
-				TreeIter iter;
-				TreeModel model = Application.Backend.Categories;
-				
-				if (model.GetIterFirst (out iter)) {
-					do {
-						ICategory category = model.GetValue (iter, 0) as ICategory;
-						if (category.Name.CompareTo (cat) == 0) {
-							foundCategory = category;
-							break;
-						}
-					} while (model.IterNext (ref iter));
-				}
+				var categories = Application.Backend.Categories;
+				foundCategory = categories.SingleOrDefault (c => c.Name == cat);
 			}
 			
 			return foundCategory;

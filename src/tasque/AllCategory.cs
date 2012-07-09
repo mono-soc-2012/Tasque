@@ -50,5 +50,16 @@ namespace Tasque
 			categoriesToHide =
 				preferences.GetStringList (Preferences.HideInAllCategory);
 		}
+
+		#region IComparable implementation
+		public int CompareTo (ICategory other)
+		{
+			return -1;
+		}
+		#endregion
+
+		#region INotifyPropertyChanged implementation
+		public event PropertyChangedEventHandler PropertyChanged;
+		#endregion
 	}
 }
