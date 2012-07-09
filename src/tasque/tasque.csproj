@@ -11,7 +11,7 @@
     <AssemblyName>tasque</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <NoWin32Manifest>True</NoWin32Manifest>
-    <RootNamespace>tasque</RootNamespace>
+    <RootNamespace>Tasque</RootNamespace>
     <ReleaseVersion>0.1.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeDebug|AnyCPU' ">
@@ -230,6 +230,7 @@
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="Backends\Dummy\Gtk\DummyPreferences.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
     <Compile Include="GnomeApplication.cs" />
@@ -253,6 +254,7 @@
     <Folder Include="data\osx\Contents\" />
     <Folder Include="data\osx\Contents\MacOS\" />
     <Folder Include="data\osx\Contents\Resources\" />
+    <Folder Include="Backends\Dummy\Gtk\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libtasque\libtasque.csproj">

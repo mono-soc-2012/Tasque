@@ -32,6 +32,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CollectionTransforms;
 using Tasque.Backends;
+using Tasque.Backends.Dummy.Gtk;
 
 namespace Tasque.Backends.Dummy
 {
@@ -246,11 +247,13 @@ namespace Tasque.Backends.Dummy
 		{
 		}
 		
-		public Gtk.Widget GetPreferencesWidget ()
+		public IBackendPreferences Preferences
 		{
-			// TODO: Replace this with returning null once things are going
-			// so that the Preferences Dialog doesn't waste space.
-			return new Gtk.Label ("Debugging System (this message is a test)");
+			get {
+				// TODO: Replace this with returning null once things are going
+				// so that the Preferences Dialog doesn't waste space.
+				return new DummyPreferences ();
+			}
 		}
 		#endregion // Public Methods
 		
