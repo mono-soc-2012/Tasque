@@ -1,9 +1,7 @@
 // ITaskBackend.cs created with MonoDevelop
 // User: boyd at 7:02 AM 2/11/2008
 
-using System;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using System.Collections;
 
 namespace Tasque.Backends
@@ -35,13 +33,9 @@ namespace Tasque.Backends
 		/// <value>
 		/// All the tasks provided by the backend.
 		/// </value>
-		ObservableCollection<ITask> Tasks {
-			get;
-		}
+		ObservableCollection<ITask> Tasks {	get; }
 
-		IEnumerable SortedTasks {
-			get;
-		}
+		IEnumerable SortedTasks { get; }
 		
 		/// <value>
 		/// This returns all the ICategory items from the backend.
@@ -105,6 +99,6 @@ namespace Tasque.Backends
 		/// </returns>
 		Gtk.Widget GetPreferencesWidget ();
 
-#endregion // Methods
+		#endregion // Methods
 	}
 }

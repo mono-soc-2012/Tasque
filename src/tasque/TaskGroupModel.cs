@@ -53,7 +53,6 @@ namespace Tasque
 			TimeRangeEnd = rangeEnd;
 
 			Filter = FilterTasks;
-			int i = 5;
 		}
 		
 		public void SetRange (DateTime rangeStart, DateTime rangeEnd)
