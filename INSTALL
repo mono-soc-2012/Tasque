@@ -1,3 +1,30 @@
+Install instructions
+--------------------
+
+Tasque currently builds only on Linux with xbuild and git installed.
+
+To checkout and build Tasque run:
+
+git clone git://github.com/mono-soc-2012/Tasque
+cd Tasque
+xbuild /property:Configuration=GtkLinuxDebug tasque.sln
+
+
+NOTE: After a fresh checkout, it is recommended to run xbuild once before
+opening the solution in Monodevelop. Otherwise Monodevelop will issue
+warnings about some missing projects. Those projects are fetched during build.
+
+
+Instructions below are deprecated.
+--------------------------------------------------------
+
+
+
+
+
+
+
+
 Installation Instructions
 *************************
 
