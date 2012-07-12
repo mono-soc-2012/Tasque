@@ -9,18 +9,15 @@ namespace Tasque.Backends.Dummy
 {
 	public class DummyTask : AbstractTask
 	{
-		DummyBackend backend;
 		string name;
 		DateTime dueDate;
 		DateTime completionDate;
 		TaskPriority priority;
 		TaskState state;
 		int id;
-		DummyCategory category;
 		
-		public DummyTask(DummyBackend backend, int id, string taskName)
+		public DummyTask(DummyBackend backend, int id, string taskName) : base (backend)
 		{
-			this.backend = backend;
 			this.id = id;
 			this.name = taskName;
 			this.dueDate = DateTime.MinValue; // No due date specified
@@ -105,17 +102,6 @@ namespace Tasque.Backends.Dummy
 		public override TaskState State
 		{
 			get { return state; }
-		}
-		
-		public override ICategory Category
-		{
-			get { return category; } 
-			set {
-				if (value != category) {
-					category = value as DummyCategory;
-					OnPropertyChanged ("Category");
-				}
-			}
 		}
 		
 		public override List<INote> Notes

@@ -36,7 +36,7 @@ using Tasque.Backends;
 
 namespace Tasque.Backends.HmBackend
 {
-	public class HmBackend : IBackend
+	public class HmBackend : Backend
 	{
 
 		private Hiveminder.Hiveminder hm;
@@ -78,7 +78,7 @@ namespace Tasque.Backends.HmBackend
 			
 			newTaskId = 0;
 			taskIters = new Dictionary<string, Gtk.TreeIter> (); 
-			taskStore = new Gtk.TreeStore (typeof (ITask));
+			taskStore = new Gtk.TreeStore (typeof (Task));
 
 			taskLock = new object ();
 
@@ -144,7 +144,7 @@ namespace Tasque.Backends.HmBackend
 		#endregion // Public Properties
 		
 		#region Public Methods
-		public ITask CreateTask (string taskName, ICategory category)		
+		public Task CreateTask (string taskName, ICategory category)		
 		{
 			Hiveminder.Task task = new Task ();
 			Hiveminder.Task createdTask;
@@ -165,7 +165,7 @@ namespace Tasque.Backends.HmBackend
 			return hmTask;
 		}
 		
-		public void DeleteTask(ITask task)
+		public void DeleteTask(Task task)
 		{
 
 		}		
@@ -305,8 +305,8 @@ namespace Tasque.Backends.HmBackend
 										 Gtk.TreeIter a,
 										 Gtk.TreeIter b)
 		{
-			ITask taskA = model.GetValue (a, 0) as ITask;
-			ITask taskB = model.GetValue (b, 0) as ITask;
+			Task taskA = model.GetValue (a, 0) as Task;
+			Task taskB = model.GetValue (b, 0) as Task;
 			
 			if (taskA == null || taskB == null)
 				return 0;

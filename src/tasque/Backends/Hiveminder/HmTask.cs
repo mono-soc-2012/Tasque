@@ -300,7 +300,7 @@ namespace Tasque.Backends.HmBackend
 			this.backend.UpdateTask (this);
 		}		
 
-		public int CompareTo (ITask task)
+		public int CompareTo (Task task)
 		{
 			bool isSameDate = true;
 			if (DueDate.Year != task.DueDate.Year
@@ -329,7 +329,7 @@ namespace Tasque.Backends.HmBackend
 			return CompareByPriorityAndName (task);
 		}
 		
-		public int CompareToByCompletionDate (ITask task)
+		public int CompareToByCompletionDate (Task task)
 		{
 			bool isSameDate = true;
 			if (CompletionDate.Year != task.CompletionDate.Year
@@ -361,7 +361,7 @@ namespace Tasque.Backends.HmBackend
 		
 		#region Private Methods
 		
-		private int CompareByPriorityAndName (ITask task)
+		private int CompareByPriorityAndName (Task task)
 		{
 			// The due dates match, so now sort based on priority
 			if (Priority != task.Priority) {

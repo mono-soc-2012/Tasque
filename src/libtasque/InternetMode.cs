@@ -1,7 +1,5 @@
-// AllCategory.cs created with MonoDevelop
-// User: boyd at 3:45 PM 2/12/2008
 // 
-// AllCategory.cs
+// InternetMode.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,42 +23,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System.Collections.Generic;
-using Mono.Unix;
-using System.ComponentModel;
 
 namespace Tasque
 {
-	public class AllCategory : Category
+	public enum InternetMode
 	{
-		// A "set" of categories specified by the user to show when the "All"
-		// category is selected in the TaskWindow.  If the list is empty, tasks
-		// from all categories will be shown.  Otherwise, only tasks from the
-		// specified lists will be shown.
-		List<string> categoriesToHide;
-		
-		public AllCategory () : base ("All")
-		{
-			Preferences preferences = Application.Preferences;
-			categoriesToHide =
-				preferences.GetStringList (Preferences.HideInAllCategory);
-			Application.Preferences.SettingChanged += OnSettingChanged;
-		}
-		
-		void OnSettingChanged (Preferences preferences, string settingKey)
-		{
-			if (settingKey.CompareTo (Preferences.HideInAllCategory) != 0)
-				return;
-			
-			categoriesToHide =
-				preferences.GetStringList (Preferences.HideInAllCategory);
-		}
-
-		#region IComparable implementation
-		public override int CompareTo (ICategory other)
-		{
-			return -1;
-		}
-		#endregion
+		Online,
+		Offline
 	}
 }
+

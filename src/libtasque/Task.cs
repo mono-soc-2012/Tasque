@@ -31,8 +31,16 @@ using System.ComponentModel;
 
 namespace Tasque
 {
-	public abstract class AbstractTask : ITask
+	public abstract class Task : IComparable<Task>, INotifyPropertyChanged
 	{
+		protected Task (string name)
+		{
+			if (name == null)
+				throw new ArgumentNullException ("name");
+			
+			Name = name;
+		}
+		
 		uint timerID = 0;
 		
 		#region Properties
@@ -41,11 +49,7 @@ namespace Tasque
 			get; 
 		}
 
-		public abstract string Name
-		{
-			get;
-			set;
-		}
+		public string Name { get; set; }
 		
 		public abstract DateTime DueDate {
 			get;
@@ -84,12 +88,6 @@ namespace Tasque
 			get;
 		}
 		
-		public abstract ICategory Category
-		{
-			get; 
-			set;
-		}
-		
 		public abstract List<INote> Notes
 		{
 			get;
@@ -116,7 +114,7 @@ namespace Tasque
 		public abstract void DeleteNote(INote note);
 		public abstract void SaveNote(INote note);		
 		
-		public int CompareTo (ITask task)
+		public int CompareTo (Task task)
 		{
 			bool isSameDate = true;
 			if (DueDate.Year != task.DueDate.Year
@@ -145,7 +143,7 @@ namespace Tasque
 			return CompareByPriorityAndName (task);
 		}
 		
-		public int CompareToByCompletionDate (ITask task)
+		public int CompareToByCompletionDate (Task task)
 		{
 			bool isSameDate = true;
 			if (CompletionDate.Year != task.CompletionDate.Year
@@ -185,7 +183,7 @@ namespace Tasque
 		
 		#region Private Methods
 		
-		int CompareByPriorityAndName (ITask task)
+		int CompareByPriorityAndName (Task task)
 		{
 			// The due dates match, so now sort based on priority
 			if (Priority != task.Priority) {
@@ -213,5 +211,7 @@ namespace Tasque
 			return Name.CompareTo (task.Name);
 		}
 		#endregion // Private Methods
+		
+		Backend backend;
 	}
 }

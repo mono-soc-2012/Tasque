@@ -109,7 +109,7 @@ namespace Tasque
 			//
 			// Group TreeView
 			//
-			var adapter = new TreeModelListAdapter<ITask> (filteredTasks);
+			var adapter = new TreeModelListAdapter<Task> (filteredTasks);
 			treeView = new TaskTreeView (adapter);
 			treeView.Show ();
 			PackStart (treeView, true, true, 0);
@@ -231,7 +231,7 @@ namespace Tasque
 		/// Additionally, if true, the <see cref="Gtk.TreeIter">iter</see> will
 		/// point to the specified <see cref="ITask">task</see>.
 		/// </returns>
-		public bool ContainsTask (ITask task, out Gtk.TreeIter iter)
+		public bool ContainsTask (Task task, out Gtk.TreeIter iter)
 		{
 			Gtk.TreeIter tempIter;
 			Gtk.TreeModel model = treeView.Model;
@@ -243,7 +243,7 @@ namespace Tasque
 			
 			// Loop through the model looking for a matching task
 			do {
-				ITask tempTask = model.GetValue (tempIter, 0) as ITask;
+				Task tempTask = model.GetValue (tempIter, 0) as Task;
 				if (tempTask == task) {
 					iter = tempIter;
 					return true;
@@ -264,7 +264,7 @@ namespace Tasque
 			int pos = 0;
 			Gtk.TreeIter tempIter;
 			Gtk.TreeModel model = treeView.Model;
-			ITask task = model.GetValue (iter, 0) as ITask;
+			Task task = model.GetValue (iter, 0) as Task;
 			
 			if (!model.GetIterFirst (out tempIter))
 				return 0;
@@ -272,7 +272,7 @@ namespace Tasque
 			// This is ugly, but figure out what position the specified iter is
 			// at so we can return a value accordingly.
 			do {
-				ITask tempTask = model.GetValue (tempIter, 0) as ITask;
+				Task tempTask = model.GetValue (tempIter, 0) as Task;
 				if (tempTask == task)
 					break;
 				
@@ -293,7 +293,7 @@ namespace Tasque
 			int pos = 0;
 			Gtk.TreeIter tempIter;
 			Gtk.TreeModel model = treeView.Model;
-			ITask task = model.GetValue (iter, 0) as ITask;
+			Task task = model.GetValue (iter, 0) as Task;
 			
 			if (!model.GetIterFirst (out tempIter))
 				return 0;
@@ -301,7 +301,7 @@ namespace Tasque
 			// This is ugly, but figure out what position the specified iter is
 			// at so we can return a value accordingly.
 			do {
-				ITask tempTask = model.GetValue (tempIter, 0) as ITask;
+				Task tempTask = model.GetValue (tempIter, 0) as Task;
 				if (tempTask == task)
 					break;
 				
@@ -315,7 +315,7 @@ namespace Tasque
 			return pos * height + header.Requisition.Height;
 		}
 		
-		public void EnterEditMode (ITask task, Gtk.TreeIter iter)
+		public void EnterEditMode (Task task, Gtk.TreeIter iter)
 		{
 			Gtk.TreePath path;
 			

@@ -47,7 +47,7 @@ namespace Tasque
 		private static int lastYPos;
 		private static Gdk.Pixbuf noteIcon;
 		
-		private IBackend backend;
+		private Backend backend;
 		private ScrolledWindow scrolledWindow;
 		
 		private Entry addTaskEntry;
@@ -65,7 +65,7 @@ namespace Tasque
 
 		private List<TaskGroup> taskGroups;
 		
-		private Dictionary<ITask, NoteDialog> noteDialogs;
+		private Dictionary<Task, NoteDialog> noteDialogs;
 		
 		private Gtk.Statusbar statusbar;
 		private uint statusContext;
@@ -75,7 +75,7 @@ namespace Tasque
 		private static string lastLoadedTime;
 		private const uint DWELL_TIME_MS = 8000;
 		
-		private ITask clickedTask;
+		private Task clickedTask;
 		
 		private Gtk.AccelGroup accelGroup;
 		private GlobalKeybinder globalKeys;
@@ -85,11 +85,11 @@ namespace Tasque
 			noteIcon = Utilities.GetIcon ("hicolor_animations_16x16_notebook", 16);
 		}
 		
-		public TaskWindow (IBackend aBackend) : base (Gtk.WindowType.Toplevel)
+		public TaskWindow (Backend aBackend) : base (Gtk.WindowType.Toplevel)
 		{
 			this.backend = aBackend;
 			taskGroups = new List<TaskGroup> ();
-			noteDialogs = new Dictionary<ITask, NoteDialog> ();
+			noteDialogs = new Dictionary<Task, NoteDialog> ();
 			InitWindow();
 			
 			Realized += OnRealized;
@@ -464,7 +464,7 @@ namespace Tasque
 			taskWindow.addTaskEntry.GrabFocus ();
 		}
 		
-		public static void SelectAndEdit (ITask task)
+		public static void SelectAndEdit (Task task)
 		{
 			ShowWindow ();
 			taskWindow.EnterEditMode (task, true);
@@ -534,7 +534,7 @@ namespace Tasque
 				TaskWindow.ShowWindow ();
 		}
 		
-		public void HighlightTask (ITask task)
+		public void HighlightTask (Task task)
 		{
 			Gtk.TreeIter iter;
 			
@@ -561,7 +561,7 @@ namespace Tasque
 		/// <param name="task">
 		/// A <see cref="ITask"/>
 		/// </param>
-		public void ScrollToTask (ITask task)
+		public void ScrollToTask (Task task)
 		{
 			// TODO: NEED to add something to NOT scroll the window if the new
 			// task is already showing in the window!
@@ -666,7 +666,7 @@ namespace Tasque
 		/// A <see cref="bool"/> which indicates whether the task should be
 		/// scrolled to.
 		/// </param>
-		private void EnterEditMode (ITask task, bool adjustScrolledWindow)
+		private void EnterEditMode (Task task, bool adjustScrolledWindow)
 		{
 			// Make sure we've waited around for the new task to fully
 			// be added to the TreeModel before continuing.  Some
@@ -744,7 +744,7 @@ namespace Tasque
 			}
 		}
 		
-		private void ShowTaskNotes (ITask task)
+		private void ShowTaskNotes (Task task)
 		{
 			NoteDialog dialog = null;
 			if (!noteDialogs.ContainsKey (task)) {
@@ -761,9 +761,9 @@ namespace Tasque
 			dialog.Present ();
 		}
 		
-		private ITask CreateTask (string taskText, ICategory category)
+		private Task CreateTask (string taskText, ICategory category)
 		{
-			ITask task = backend.CreateTask (taskText, category);
+			Task task = backend.CreateTask (taskText, category);
 			
 			if (task == null) {
 				Logger.Debug ("Error creating a new task!");
@@ -929,7 +929,7 @@ namespace Tasque
 			else
 				taskName = enteredTaskText;
 			
-			ITask task = CreateTask (taskName, category);
+			Task task = CreateTask (taskName, category);
 			if (task == null)
 				return; // TODO: Explain error to user!
 			
@@ -975,7 +975,7 @@ namespace Tasque
 				}
 			}
 			
-			ITask task = CreateTask (newTaskText, item.Category);
+			Task task = CreateTask (newTaskText, item.Category);
 			
 			HighlightTask (task);
 		}
@@ -1017,7 +1017,7 @@ namespace Tasque
 			if (!model.GetIter (out iter, args.Path))
 				return;
 			
-			ITask task = model.GetValue (iter, 0) as ITask;
+			Task task = model.GetValue (iter, 0) as Task;
 			if (task == null)
 				return;
 			
@@ -1049,7 +1049,7 @@ namespace Tasque
 					if (!model.GetIter (out iter, path))
 						return;
 					
-					clickedTask = model.GetValue (iter, 0) as ITask;
+					clickedTask = model.GetValue (iter, 0) as Task;
 					if (clickedTask == null)
 						return;
 					

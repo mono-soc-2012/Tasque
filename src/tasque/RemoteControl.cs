@@ -111,7 +111,7 @@ namespace Tasque
 				                         taskName,
 				                         out taskName,
 				                         out taskDueDate);
-			ITask task = null;
+			Task task = null;
 			try {
 				task = Application.Backend.CreateTask (taskName, category);
 				if (taskDueDate != DateTime.MinValue)
@@ -204,7 +204,7 @@ namespace Tasque
 		/// </returns>
 		public string GetNameForTaskById (string id)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			return task != null ? task.Name : string.Empty;
 		}
 		
@@ -223,7 +223,7 @@ namespace Tasque
 		/// </returns>
 		public bool SetNameForTaskById (string id, string name)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			if (task == null)
 			{
 				return false;
@@ -243,7 +243,7 @@ namespace Tasque
 		/// </returns>
 		public string GetCategoryForTaskById (string id)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			return task != null ? task.Category.Name : string.Empty;
 		}
 		
@@ -262,7 +262,7 @@ namespace Tasque
 		/// </returns>
 		public bool SetCategoryForTaskById (string id, string categoryName)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			if (task == null)
 				return false;
 			
@@ -282,7 +282,7 @@ namespace Tasque
 		/// </returns>
 		public int GetDueDateForTaskById (string id)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			if (task == null)
 				return -1;
 			if (task.DueDate == DateTime.MinValue)
@@ -306,7 +306,7 @@ namespace Tasque
 		/// <returns>
 		public bool SetDueDateForTaskById (string id, int dueDate)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			if (task == null)
 			{
 				return false;
@@ -329,7 +329,7 @@ namespace Tasque
 		/// </returns>
 		public int GetStateForTaskById (string id)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			return task != null ? (int) task.State : -1;
 		}
 
@@ -344,7 +344,7 @@ namespace Tasque
 		/// </returns>
 		public int GetPriorityForTaskById (string id)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			return task != null ? (int) task.Priority : -1;
 		}
 		
@@ -363,7 +363,7 @@ namespace Tasque
 		/// </returns>
 		public bool SetPriorityForTaskById (string id, int priority)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			if (task == null)
 			{
 				return false;
@@ -384,7 +384,7 @@ namespace Tasque
 		/// </returns>
 		public bool MarkTaskAsActiveById (string id)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			if (task == null)
 				return false;
 				
@@ -400,7 +400,7 @@ namespace Tasque
 		/// </param>
 		public void MarkTaskAsCompleteById (string id)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			if (task == null)
 				return;
 				
@@ -423,7 +423,7 @@ namespace Tasque
 		/// </returns>
 		public bool DeleteTaskById (string id)
 		{
-			ITask task = GetTaskById (id);
+			Task task = GetTaskById (id);
 			if (task == null)
 				return false;
 				
@@ -441,7 +441,7 @@ namespace Tasque
 		/// <returns>
 		/// A <see cref="ITask"/> having the given ID
 		/// </returns>
-		private ITask GetTaskById (string id)
+		private Task GetTaskById (string id)
 		{
 			return Application.Backend.Tasks.SingleOrDefault (f => f.Id == id);
 		}
