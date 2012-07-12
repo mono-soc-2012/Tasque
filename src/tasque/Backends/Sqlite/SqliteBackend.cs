@@ -9,7 +9,7 @@ using Mono.Data.Sqlite;
 
 namespace Tasque.Backends.Sqlite
 {
-	public class SqliteBackend : IBackend
+	public class SqliteBackend : Backend
 	{
 		private Dictionary<int, Gtk.TreeIter> taskIters;
 		private Gtk.TreeStore taskStore;
@@ -34,7 +34,7 @@ namespace Tasque.Backends.Sqlite
 		{
 			initialized = false;
 			taskIters = new Dictionary<int, Gtk.TreeIter> (); 
-			taskStore = new Gtk.TreeStore (typeof (ITask));
+			taskStore = new Gtk.TreeStore (typeof (Task));
 			
 			sortedTasksModel = new Gtk.TreeModelSort (taskStore);
 			sortedTasksModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareTasksSortFunc));
@@ -93,7 +93,7 @@ namespace Tasque.Backends.Sqlite
 		#endregion // Public Properties
 		
 		#region Public Methods
-		public ITask CreateTask (string taskName, ICategory category)		
+		public Task CreateTask (string taskName, ICategory category)		
 		{
 			// not sure what to do here with the category
 			SqliteTask task = new SqliteTask (this, taskName);
@@ -111,7 +111,7 @@ namespace Tasque.Backends.Sqlite
 			return task;
 		}
 		
-		public void DeleteTask(ITask task)
+		public void DeleteTask(Task task)
 		{
 			//string id = task.Id;
 			task.Delete ();
@@ -183,8 +183,8 @@ namespace Tasque.Backends.Sqlite
 										 Gtk.TreeIter a,
 										 Gtk.TreeIter b)
 		{
-			ITask taskA = model.GetValue (a, 0) as ITask;
-			ITask taskB = model.GetValue (b, 0) as ITask;
+			Task taskA = model.GetValue (a, 0) as Task;
+			Task taskB = model.GetValue (b, 0) as Task;
 			
 			if (taskA == null || taskB == null)
 				return 0;

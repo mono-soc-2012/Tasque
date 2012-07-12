@@ -57,7 +57,7 @@ namespace Tasque.Backends.Sqlite
 			this.id = id;
 		}
 
-		public bool ContainsTask(ITask task)
+		public bool ContainsTask(Task task)
 		{
 			if(task.Category is SqliteCategory)
 				return ((task.Category as SqliteCategory).ID == id);

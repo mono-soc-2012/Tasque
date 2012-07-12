@@ -47,7 +47,7 @@ namespace Tasque.Backends.HmBackend
 		{
 			get { return group.Id; }
 		}
-		public bool ContainsTask(ITask task)
+		public bool ContainsTask(Task task)
 		{
 			if (task is HmTask) {
 				HmTask hmtask = task as HmTask;

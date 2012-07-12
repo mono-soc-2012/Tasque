@@ -48,7 +48,7 @@ namespace Tasque
 		Gtk.Widget				generalPage;
 		int						generalPageId;
 		Gtk.ComboBox			backendComboBox;
-		Dictionary<int, IBackend> backendComboMap; // track backends
+		Dictionary<int, Backend> backendComboMap; // track backends
 		int 					selectedBackend;
 		Gtk.CheckButton			showCompletedTasksCheckButton;
 		CollectionView<ICategory> filteredCategories;
@@ -251,11 +251,11 @@ namespace Tasque
 			sectionVBox.PackStart (l, false, false, 0);
 			
 			backendComboBox = ComboBox.NewText ();
-			backendComboMap = new Dictionary<int,IBackend> ();
+			backendComboMap = new Dictionary<int,Backend> ();
 			// Fill out the ComboBox
 			int i = 0;
 			selectedBackend = -1;
-			foreach (IBackend backend in Application.AvailableBackends) {
+			foreach (Backend backend in Application.AvailableBackends) {
 				backendComboBox.AppendText (backend.Name);
 				backendComboMap [i] = backend;
 				if (backend == Application.Backend)
@@ -433,7 +433,7 @@ namespace Tasque
 				// if yes (replace backend)
 				if (backendComboMap.ContainsKey (selectedBackend)) {
 					// Cleanup old backend
-					IBackend oldBackend = backendComboMap [selectedBackend];
+					Backend oldBackend = backendComboMap [selectedBackend];
 					Logger.Info ("Cleaning up '{0}'...", oldBackend.Name);
 					try {
 						oldBackend.Cleanup ();
@@ -448,7 +448,7 @@ namespace Tasque
 				}
 			}
 			
-			IBackend newBackend = null;
+			Backend newBackend = null;
 			if (backendComboMap.ContainsKey (backendComboBox.Active)) {
 				newBackend = backendComboMap [backendComboBox.Active];
 			}
@@ -593,7 +593,7 @@ namespace Tasque
 				return;
 			}
 			
-			IBackend backend = backendComboMap [selectedBackend];
+			Backend backend = backendComboMap [selectedBackend];
 			filteredCategories = new CollectionView<ICategory> (backend.SortedCategories);
 			// Filter out the AllCategory
 			filteredCategories.Filter = c => c != null && !(c is AllCategory);

@@ -198,6 +198,7 @@
     <None Include="Backends\Rtm\RtmNote.cs" />
     <None Include="Backends\Rtm\RtmPreferencesWidget.cs" />
     <None Include="Backends\Rtm\RtmTask.cs" />
+    <None Include="AllCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -207,11 +208,8 @@
     <Compile Include="..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
-    <Compile Include="AbstractTask.cs" />
-    <Compile Include="AllCategory.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Backends\Dummy\DummyBackend.cs" />
-    <Compile Include="Backends\Dummy\DummyCategory.cs" />
     <Compile Include="Backends\Dummy\DummyNote.cs" />
     <Compile Include="Backends\Dummy\DummyTask.cs" />
     <Compile Include="CellRendererDate.cs" />

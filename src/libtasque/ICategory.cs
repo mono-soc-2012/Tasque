@@ -30,13 +30,14 @@
 // THE SOFTWARE.
 using System;
 using System.ComponentModel;
+using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Tasque
 {
-	public interface ICategory : IComparable<ICategory>, INotifyPropertyChanged
+	public interface ICategory : ICollection<Task>, IComparable<ICategory>,
+		INotifyPropertyChanged,	INotifyCollectionChanged
 	{
 		string Name	{ get; }
-		
-		bool ContainsTask(ITask task);
 	}
 }

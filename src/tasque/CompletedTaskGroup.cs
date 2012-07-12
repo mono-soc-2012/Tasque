@@ -34,7 +34,7 @@ namespace Tasque
 		/// </summary>
 		static IEnumerable GetSortedTasks (IEnumerable tasks)
 		{
-			var cv = new CollectionView<ITask> (tasks);
+			var cv = new CollectionView<Task> (tasks);
 			cv.SortDescriptions.Add (new SortDescription ("CompletionDate", ListSortDirection.Descending));
 			return cv;
 		}

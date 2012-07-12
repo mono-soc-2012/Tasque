@@ -1,10 +1,5 @@
-// DummyCategory.cs created with MonoDevelop
-// User: boyd at 9:06 AM 2/11/2008
-//
-// To change standard headers go to Edit->Preferences->Coding->Standard Headers
-//
 // 
-// DummyCategory.cs
+// Category.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -28,48 +23,42 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using Tasque;
-using System.ComponentModel;
+using System;
+using System.Collections.ObjectModel;
+using System.Collections;
 
-namespace Tasque.Backends.Dummy
+namespace Tasque
 {
-	public class DummyCategory : ICategory
+	public class Category : ObservableCollection<Task>, ICategory
 	{
-		string name;
-		
-		public DummyCategory (string name)
+		public Category (string name, Backend backend)
 		{
-			this.name = name;
-		}
-		
-		public string Name
-		{
-			get {
-				return name;
-			}
+			if (backend == null)
+				throw new ArgumentNullException ("backend");
+			if (name == null)
+				throw new ArgumentNullException ("name");
+			
+			Name = name;
+			this.backend = backend;
 		}
 
-		public bool ContainsTask(ITask task)
-		{
-			if(task.Category is DummyCategory)
-				return (task.Category.Name.CompareTo(name) == 0);
-			else
-				return false;
-		}
+		public bool IsReadOnly { get { return false; } }
 		
-		public int CompareTo (ICategory other)
+		public string Name { get; private set; }
+		
+		public virtual int CompareTo (ICategory other)
 		{
 			if (other == null)
-				return -1;
-			
-			if (other is AllCategory)
 				return 1;
 			
-			return name.CompareTo (other.Name);
+			return Name.CompareTo (other.Name);
 		}
-
-		#region INotifyPropertyChanged implementation
-		public event PropertyChangedEventHandler PropertyChanged;
-		#endregion
+		
+		IEnumerator IEnumerable.GetEnumerator ()
+		{
+			return GetEnumerator ();
+		}
+		
+		Backend backend;
 	}
 }

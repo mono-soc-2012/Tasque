@@ -29,7 +29,7 @@ using CollectionTransforms;
 
 namespace Tasque
 {
-	public class TaskGroupModel : CollectionView<ITask>
+	public class TaskGroupModel : CollectionView<Task>
 	{
 		public bool ShowCompletedTasks {
 			get { return showCompletedTasks; }
@@ -68,7 +68,7 @@ namespace Tasque
 		/// <summary>
 		/// Filter out tasks that don't fit within the group's date range
 		/// </summary>
-		protected virtual bool FilterTasks (ITask task)
+		protected virtual bool FilterTasks (Task task)
 		{
 			if (task == null || task.State == TaskState.Deleted)
 				return false;
@@ -100,7 +100,7 @@ namespace Tasque
 			return today.Year == date.Year && today.DayOfYear == date.DayOfYear;
 		}
 		
-		bool ShowCompletedTask (ITask task)
+		bool ShowCompletedTask (Task task)
 		{
 			if (task.State == TaskState.Completed) {
 				if (!showCompletedTasks)

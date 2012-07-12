@@ -48,7 +48,7 @@ namespace Tasque
 		/// <returns>
 		/// A <see cref="System.Boolean"/>
 		/// </returns>
-		protected override bool FilterTasks (ITask task)
+		protected override bool FilterTasks (Task task)
 		{
 			// Don't show any task here if showCompletedTasks is false
 			if (!ShowCompletedTasks)

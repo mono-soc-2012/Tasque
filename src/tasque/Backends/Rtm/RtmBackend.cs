@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Tasque.Backends.RtmBackend
 {
-	public class RtmBackend : IBackend
+	public class RtmBackend : Backend
 	{
 		private const string apiKey = "b29f7517b6584035d07df3170b80c430";
 		private const string sharedSecret = "93eb5f83628b2066";
@@ -56,7 +56,7 @@ namespace Tasque.Backends.RtmBackend
 			// *************************************
 			// Data Model Set up
 			// *************************************
-			Tasks = new ObservableCollection<ITask>();
+			Tasks = new ObservableCollection<Task>();
 
 			categoryListStore = new Gtk.ListStore (typeof (ICategory));
 
@@ -86,12 +86,12 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// All the tasks including ITaskDivider items.
 		/// </value>
-		public IEnumerable<ITask> SortedTasks
+		public IEnumerable<Task> SortedTasks
 		{
-			get { return Tasks.OrderBy (t => t, Comparer<ITask>.Default); }
+			get { return Tasks.OrderBy (t => t, Comparer<Task>.Default); }
 		}
 
-		public ObservableCollection<ITask> Tasks { get; private set; }
+		public ObservableCollection<Task> Tasks { get; private set; }
 
 		/// <value>
 		/// This returns all the task lists (categories) that exist.
@@ -130,7 +130,7 @@ namespace Tasque.Backends.RtmBackend
 #endregion // Public Properties
 
 #region Public Methods
-		public ITask CreateTask (string taskName, ICategory category)
+		public Task CreateTask (string taskName, ICategory category)
 		{
 			string categoryID;
 			RtmTask rtmTask = null;
@@ -161,7 +161,7 @@ namespace Tasque.Backends.RtmBackend
 			return rtmTask;
 		}
 		
-		public void DeleteTask(ITask task)
+		public void DeleteTask(Task task)
 		{
 			RtmTask rtmTask = task as RtmTask;
 			if(rtm != null) {

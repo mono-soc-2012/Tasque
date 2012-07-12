@@ -61,7 +61,7 @@ namespace Tasque.Backends.RtmBackend
 			set { iter = value; }
 		}
 
-		public bool ContainsTask(ITask task)
+		public bool ContainsTask(Task task)
 		{
 			if(task.Category is RtmCategory)
 				return ((task.Category as RtmCategory).ID.CompareTo(ID) == 0);

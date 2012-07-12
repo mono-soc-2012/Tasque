@@ -128,10 +128,8 @@
     </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IBackend.cs" />
     <Compile Include="ICategory.cs" />
     <Compile Include="INote.cs" />
-    <Compile Include="ITask.cs" />
     <Compile Include="TaskPriority.cs" />
     <Compile Include="TaskState.cs" />
     <Compile Include="TaskParser.cs" />
@@ -161,11 +159,16 @@
     </Compile>
     <Compile Include="NativeApplication.cs" />
     <Compile Include="IBackendPreferences.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="Backend.cs" />
+    <Compile Include="InternetMode.cs" />
+    <Compile Include="Task.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Posix" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DateFormatters\" />
@@ -202,4 +205,10 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(DocsSourcesFile)" DestinationFolder="$(OutputPath)" />
   </Target>
+  <ItemGroup>
+    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
+      <Name>CollectionView</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

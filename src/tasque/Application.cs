@@ -57,7 +57,7 @@ namespace Tasque
 #endif
 		private Gtk.StatusIcon trayIcon;	
 		private Preferences preferences;
-		private IBackend backend;
+		private Backend backend;
 		private TaskGroupModel overdue_tasks, today_tasks, tomorrow_tasks;
 		private PreferencesDialog preferencesDialog;
 		private bool quietStart = false;
@@ -68,9 +68,9 @@ namespace Tasque
 		/// Keep track of the available backends.  The key is the Type name of
 		/// the backend.
 		/// </value>
-		private Dictionary<string, IBackend> availableBackends;
+		private Dictionary<string, Backend> availableBackends;
 		
-		private IBackend customBackend;
+		private Backend customBackend;
 
 		private UIManager uiManager;
 		private const string menuXml = @"
@@ -88,16 +88,16 @@ namespace Tasque
 </ui>
 ";
 
-		public static IBackend Backend
+		public static Backend Backend
 		{ 
 			get { return Application.Instance.backend; }
 			set { Application.Instance.SetBackend (value); }
 		}
 		
-		public static List<IBackend> AvailableBackends
+		public static List<Backend> AvailableBackends
 		{
 			get {
-				return new List<IBackend> (Application.Instance.availableBackends.Values);
+				return new List<Backend> (Application.Instance.availableBackends.Values);
 			}
 //			get { return Application.Instance.availableBackends; }
 		}
@@ -220,7 +220,7 @@ namespace Tasque
 				customBackend = null;
 				Assembly asm = Assembly.GetCallingAssembly ();
 				try {
-					customBackend = (IBackend)
+					customBackend = (Backend)
 						asm.CreateInstance (potentialBackendClassName);
 				} catch (Exception e) {
 					Logger.Warn ("Backend specified on args not found: {0}\n\t{1}",
@@ -242,9 +242,9 @@ namespace Tasque
 		/// </summary>
 		private void LoadAvailableBackends ()
 		{
-			availableBackends = new Dictionary<string,IBackend> ();
+			availableBackends = new Dictionary<string,Backend> ();
 			
-			List<IBackend> backends = new List<IBackend> ();
+			List<Backend> backends = new List<Backend> ();
 			
 			Assembly tasqueAssembly = Assembly.GetCallingAssembly ();
 			
@@ -274,7 +274,7 @@ namespace Tasque
 				backends.AddRange (GetBackendsFromAssembly (asm));
 			}
 			
-			foreach (IBackend backend in backends) {
+			foreach (Backend backend in backends) {
 				string typeId = backend.GetType ().ToString ();
 				if (availableBackends.ContainsKey (typeId))
 					continue;
@@ -284,9 +284,9 @@ namespace Tasque
 			}
 		}
 		
-		private List<IBackend> GetBackendsFromAssembly (Assembly asm)
+		private List<Backend> GetBackendsFromAssembly (Assembly asm)
 		{
-			List<IBackend> backends = new List<IBackend> ();
+			List<Backend> backends = new List<Backend> ();
 			
 			Type[] types = null;
 			
@@ -306,9 +306,9 @@ namespace Tasque
 				}
 				Logger.Debug ("Found Available Backend: {0}", type.ToString ());
 				
-				IBackend availableBackend = null;
+				Backend availableBackend = null;
 				try {
-					availableBackend = (IBackend)
+					availableBackend = (Backend)
 						asm.CreateInstance (type.ToString ());
 				} catch (Exception e) {
 					Logger.Warn ("Could not instantiate {0}: {1}",
@@ -325,7 +325,7 @@ namespace Tasque
 			return backends;
 		}
 
-		private void SetBackend (IBackend value)
+		private void SetBackend (Backend value)
 		{
 			bool changingBackend = false;
 			if (this.backend != null) {
