@@ -209,7 +209,7 @@ namespace Tasque
 		#endregion // Public Properties
 		
 		#region Public Methods
-		public void Refilter (ICategory selectedCategory)
+		public void Refilter (Category selectedCategory)
 		{
 			filteredTasks.Refresh ();
 			treeView.Refilter (selectedCategory);
@@ -363,7 +363,7 @@ namespace Tasque
 		/// </summary>
 		private void Refilter ()
 		{
-			ICategory cat = GetSelectedCategory ();
+			Category cat = GetSelectedCategory ();
 			if (cat != null)
 				Refilter (cat);
 		}
@@ -376,7 +376,7 @@ namespace Tasque
 		/// <returns>
 		/// A <see cref="ICategory"/>
 		/// </returns>
-		ICategory GetSelectedCategory ()
+		Category GetSelectedCategory ()
 		{
 			// TODO: Move this code into some function in the backend/somewhere
 			// with the signature of GetCategoryForName (string catName):ICategory
@@ -384,7 +384,7 @@ namespace Tasque
 				Application.Preferences.Get (Preferences.SelectedCategoryKey);
 			
 			if (selectedCategoryName != null) {
-				var categories = Application.Backend.Categories;
+				var categories = Application.Backend.Categories2;
 				return categories.SingleOrDefault (c => c.Name == selectedCategoryName);
 			}
 			
@@ -456,7 +456,7 @@ namespace Tasque
 			
 			filteredTasks.ShowCompletedTasks = newValue;
 			
-			ICategory cat = GetSelectedCategory ();
+			Category cat = GetSelectedCategory ();
 			if (cat != null)
 				Refilter (cat);
 		}

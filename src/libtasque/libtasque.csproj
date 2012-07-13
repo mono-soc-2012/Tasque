@@ -128,8 +128,6 @@
     </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ICategory.cs" />
-    <Compile Include="INote.cs" />
     <Compile Include="TaskPriority.cs" />
     <Compile Include="TaskState.cs" />
     <Compile Include="TaskParser.cs" />
@@ -159,10 +157,15 @@
     </Compile>
     <Compile Include="NativeApplication.cs" />
     <Compile Include="IBackendPreferences.cs" />
-    <Compile Include="Category.cs" />
     <Compile Include="Backend.cs" />
     <Compile Include="InternetMode.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="TaskNote.cs" />
+    <Compile Include="TaskNoteSupport.cs" />
+    <Compile Include="TaskCompletionDateComparer.cs" />
+    <Compile Include="NotifyCollection.cs" />
+    <Compile Include="ReadOnlyNotifyCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

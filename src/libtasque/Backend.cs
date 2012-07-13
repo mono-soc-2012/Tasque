@@ -1,7 +1,7 @@
 // ITaskBackend.cs created with MonoDevelop
 // User: boyd at 7:02 AM 2/11/2008
 // 
-// IBackend.cs
+// Backend.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,97 +25,57 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System.Collections;
-using System.Collections.ObjectModel;
-using CollectionTransforms;
-using Tasque;
-using System.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace Tasque
 {
-	public delegate void BackendInitializedHandler ();
-	public delegate void BackendSyncStartedHandler ();
-	public delegate void BackendSyncFinishedHandler ();
-	
 	/// <summary>
 	/// This is the main integration interface for different backends that
 	/// Tasque can use.
 	/// </summary>
 	public abstract class Backend
 	{
-		protected Backend ()
+		protected Backend (string name)
 		{
-			tasks = new ObservableCollection<Task> ();
-			Tasks = new ReadOnlyObservableCollection<Task> (tasks);
-			var cvTasks = new CollectionView<Task> (Tasks);
-			/*
-			 * this invokes the default comparer, which in turn
-			 * will use the IComparable implmentation of Task
-			 */
-			cvTasks.SortDescriptions.Add (new SortDescription ());
-			SortedTasks = cvTasks;
-			
-			Categories = new ObservableCollection<ICategory> ();
-			var cvCategories = new CollectionView<ICategory> (Categories);
-			cvCategories.SortDescriptions.Add (new SortDescription ());
-			SortedCategories = cvCategories;
+			if (name == null)
+				throw new ArgumentNullException ("name");
+
+			Name = name;
+
+			tasks = new NotifyCollection<Task> ();
+			Tasks = new ReadOnlyNotifyCollection<Task> (tasks);
+
+			categoriesChangedSources = new List<INotifyCollectionChanged> ();
+			Categories = new NotifyCollection<Category> ();
+			Categories.CollectionChanged += HandleCategoriesChanged;
 		}
-		
-		public abstract event BackendInitializedHandler BackendInitialized;
-		public abstract event BackendSyncStartedHandler BackendSyncStarted;
-		public abstract event BackendSyncFinishedHandler BackendSyncFinished;
 
 		#region Properties
 		/// <value>
-		/// A human-readable name for the backend that will be displayed in the
-		/// preferences dialog to allow the user to select which backend Tasque
-		/// should use.
-		/// </value>
-		public abstract string Name {
-			get;
-		}
-		
-		/// <value>
-		/// All the tasks provided by the backend.
-		/// </value>
-		public ReadOnlyObservableCollection<Task> Tasks {	get; }
-
-		public abstract IEnumerable SortedTasks { get; }
-		
-		/// <value>
 		/// This returns all the ICategory items from the backend.
 		/// </value>
-		public abstract ObservableCollection<ICategory> Categories { get; }
-		
-		public abstract IEnumerable SortedCategories { get;	}
-		
-		public ICategory DefaultCategory {
-			get { return defaultCategory; }
-			set {
-				if (value == null)
-					throw new ArgumentNullException ("value");
-				
-				defaultCategory = value;
-			}
-		}
-		
+		public NotifyCollection<Category> Categories { get; private set; }
+
 		/// <value>
 		/// Indication that the backend has enough information
 		/// (credentials/etc.) to run.  If false, the properties dialog will
 		/// be shown so the user can configure the backend.
 		/// </value>
-		public abstract bool Configured {
-			get;
-		}
-		
+		public abstract bool Configured { get; }
+
 		/// <value>
 		/// Inidication that the backend is initialized
 		/// </value>
-		public abstract bool Initialized {
-			get;
-		}
+		public abstract bool Initialized { get; }
+
+		/// <value>
+		/// A human-readable name for the backend that will be displayed in the
+		/// preferences dialog to allow the user to select which backend Tasque
+		/// should use.
+		/// </value>
+		public string Name { get; private set; }
 		
 		/// <summary>
 		/// An object that provides a means of managing backend specific preferences.
@@ -124,74 +84,159 @@ namespace Tasque
 		/// A <see cref="Tasque.Backends.BackendPreferences"/>
 		/// </returns>
 		public abstract IBackendPreferences Preferences { get; }
-		#endregion // Properties
+
+		/// <value>
+		/// All the tasks provided by the backend.
+		/// </value>
+		public ReadOnlyNotifyCollection<Task> Tasks { get; private set; }
+		#endregion
 		
 		#region Methods
-		public Task CreateTask (string taskName)
-		{
-			CreateTask (taskName, null);
-		}
-		
+		/// <summary>
+		/// Cleanup the backend before quitting
+		/// </summary>
+		public abstract void Cleanup ();
+
 		/// <summary>
 		/// Create a new task.
 		/// </summary>
-		public Task CreateTask (string taskName, ICategory category)
+		public Task CreateTask (string taskName, Category category)
 		{
-			return CreateTask (taskName, new ICategory [] { category });
-		}
-		
-		public Task CreateTask (string taskName, IEnumerable<ICategory> categories)
-		{
+			if (category == null)
+				throw new ArgumentNullException ("category");
 
+			return CreateTask (taskName, new Category [] { category });
 		}
 		
-		/// <summary>
-		/// Deletes the specified task.
-		/// </summary>
-		/// <param name="task">
-		/// A <see cref="ITask"/>
-		/// </param>
-		public abstract void DeleteTask (Task task);
-		
-		/// <summary>
-		/// Refreshes the backend.
-		/// </summary>
-		public abstract void Refresh ();
-		
+		public Task CreateTask (string taskName, IEnumerable<Category> categories)
+		{
+			if (taskName == null)
+				throw new ArgumentNullException ("taskName");
+			if (categories == null)
+				throw new ArgumentNullException ("categories");
+
+			var task = CreateTaskCore (taskName);
+
+			bool isEmpty = true;
+			foreach (var cat in categories) {
+				if (cat == null)
+					throw new ArgumentException ("One of the provided categories is null.","categories");
+
+				cat.Add (task);
+				isEmpty = false;
+			}
+
+			if (isEmpty)
+				throw new ArgumentException ("This backend doesn't contain a category. Hence it's " +
+					"impossible to add an item.", "categories");
+
+			return task;
+		}
+
 		/// <summary>
 		/// Initializes the backend
 		/// </summary>
 		public abstract void Initialize ();
 
 		/// <summary>
-		/// Cleanup the backend before quitting
+		/// Refreshes the backend.
 		/// </summary>
-		public abstract void Cleanup ();
-		#endregion // Methods
+		public abstract void Refresh ();
+
+		protected abstract Task CreateTaskCore (string taskName);
+
+		protected void OnBackendInitialized () {
+			if (BackendInitialized != null)
+				BackendInitialized (this, EventArgs.Empty);
+		}
+
+		protected void OnBackendSyncFinished () {
+			if (BackendSyncFinished != null)
+				BackendSyncFinished (this, EventArgs.Empty);
+		}
+
+		protected void OnBackendSyncStarted () {
+			if (BackendSyncStarted != null)
+				BackendSyncStarted (this, EventArgs.Empty);
+		}
+		#endregion
+
+		public event EventHandler BackendInitialized;
+		public event EventHandler BackendSyncFinished;
+		public event EventHandler BackendSyncStarted;
 		
-		protected void AddTask (Task task, IEnumerable<ICategory> categories)
+		void HandleCategoriesChanged (object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (Categories.Count == 0)
-				throw new InvalidOperationException ("Cannot add a task to a backend " +
-					"which doesn't have any categories defined.");
-			if (categories == null)
-				throw new ArgumentNullException ("categories");
-			if (task == null)
-				throw new ArgumentNullException ("task");
-			
-			foreach (var cat in categories) {
-				if (cat == null)
-					cat = DefaultCategory;
-				
-				if (!Categories.Contains (cat))
-					throw new ArgumentException (string.Format (
-						"The provided category {0} has not been added to this backend.", cat.Name));
-				
-				
+			switch (e.Action) {
+			case NotifyCollectionChangedAction.Add: {
+				var cat = (Category)e.NewItems [0];
+				RegisterCategoriesChanged (cat);
+				foreach (var item in cat)
+					tasks.Add (item);
+				break;
+			}
+			case NotifyCollectionChangedAction.Remove: {
+				var cat = (Category)e.OldItems [0];
+				UnRegisterCategoriesChanged (cat);
+				RemoveCategoryContent (cat);
+				break;
+			}
+			case NotifyCollectionChangedAction.Reset:
+				for (int i = 0; i < categoriesChangedSources.Count; i++) {
+					UnRegisterCategoriesChanged (categoriesChangedSources [0]);
+				}
+				tasks.Clear ();
+				break;
 			}
 		}
-		
-		ICategory defaultCategory;
-		ObservableCollection<Task> tasks;
+
+		void HandleTaskCollectionChanged (object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action) {
+			case NotifyCollectionChangedAction.Add:
+				tasks.Add ((Task)e.NewItems [0]);
+				break;
+			case NotifyCollectionChangedAction.Remove:
+				var task = (Task)e.OldItems [0];
+				if (IsSoleOccurenceInCategory ((Category)sender, task))
+					tasks.Remove (task);
+				break;
+			case NotifyCollectionChangedAction.Reset:
+				RemoveCategoryContent ((Category)sender);
+				break;
+			}
+		}
+
+		bool IsSoleOccurenceInCategory (Category cat, Task task)
+		{
+			foreach (var item in Categories) {
+				if (cat != item && cat.Contains (task))
+					return false;
+			}
+			return true;
+		}
+
+		void RemoveCategoryContent (Category cat)
+		{
+			foreach (var item in cat) {
+				if (IsSoleOccurenceInCategory (cat, item))
+					tasks.Remove (item);
+			}
+		}
+
+		void RegisterCategoriesChanged (INotifyCollectionChanged source)
+		{
+			categoriesChangedSources.Add (source);
+			source.CollectionChanged += HandleCategoriesChanged;
+		}
+
+		void UnRegisterCategoriesChanged (INotifyCollectionChanged source)
+		{
+			source.CollectionChanged -= HandleCategoriesChanged;
+			categoriesChangedSources.Remove (source);
+		}
+
+		List<INotifyCollectionChanged> categoriesChangedSources;
+		NotifyCollection<Task> tasks;
 	}
 }

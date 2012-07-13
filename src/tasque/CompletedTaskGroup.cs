@@ -39,7 +39,7 @@ namespace Tasque
 			return cv;
 		}
 		
-		ICategory selectedCategory;
+		Category selectedCategory;
 		HScale rangeSlider;
 		ShowCompletedRange currentRange;
 		
@@ -110,13 +110,13 @@ namespace Tasque
 			Refilter (selectedCategory);
 		}
 		
-		protected ICategory GetSelectedCategory ()
+		protected Category GetSelectedCategory ()
 		{
-			ICategory foundCategory = null;
+			Category foundCategory = null;
 			
 			string cat = Application.Preferences.Get (Preferences.SelectedCategoryKey);
 			if (cat != null) {
-				var categories = Application.Backend.Categories;
+				var categories = Application.Backend.Categories2;
 				foundCategory = categories.SingleOrDefault (c => c.Name == cat);
 			}
 			

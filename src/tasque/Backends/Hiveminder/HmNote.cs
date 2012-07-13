@@ -27,7 +27,7 @@ using Tasque;
 
 namespace Tasque.Backends.HmBackend
 {
-       public class HmNote : INote
+       public class HmNote : TaskNote
        {
 	       private Hiveminder.Task task;
 

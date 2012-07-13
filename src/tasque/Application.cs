@@ -467,7 +467,7 @@ namespace Tasque
 
 		void RebuildTooltipTaskGroupModels ()
 		{
-			if (backend == null || backend.Tasks == null) {
+			if (backend == null || backend.Tasks2 == null) {
 				overdue_tasks = null;
 				today_tasks = null;
 				tomorrow_tasks = null;
@@ -475,9 +475,9 @@ namespace Tasque
 				return;
 			}
 
-			overdue_tasks = TaskGroupModelFactory.CreateOverdueModel (backend.SortedTasks);
-			today_tasks = TaskGroupModelFactory.CreateTodayModel (backend.SortedTasks);
-			tomorrow_tasks = TaskGroupModelFactory.CreateTomorrowModel (backend.SortedTasks);
+			overdue_tasks = TaskGroupModelFactory.CreateOverdueModel (backend.Tasks);
+			today_tasks = TaskGroupModelFactory.CreateTodayModel (backend.Tasks);
+			tomorrow_tasks = TaskGroupModelFactory.CreateTomorrowModel (backend.Tasks);
 
 			foreach (TaskGroupModel model in new TaskGroupModel[] { overdue_tasks, today_tasks, tomorrow_tasks })
 			{

@@ -10,7 +10,7 @@ using RtmNet;
 
 namespace Tasque.Backends.RtmBackend
 {
-	public class RtmNote : INote
+	public class RtmNote : TaskNote
 	{
 		Note note;
 		

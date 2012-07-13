@@ -39,7 +39,7 @@ namespace Tasque.Backends.HmBackend
 		Task task;
 
 		private HmBackend backend;
-		private List <INote> notes;
+		private List <TaskNote> notes;
 		
 		#region Properties
 		
@@ -136,13 +136,13 @@ namespace Tasque.Backends.HmBackend
 			}
 		}
 		
-		public override ICategory Category
+		public override Category Category
 		{
 			get {return null;} 
 			set { Logger.Info ("Not implemented");}
 		}
 		
-		public override List<INote> Notes
+		public override List<TaskNote> Notes
 		{
 			get {
 				return this.notes; 
@@ -197,7 +197,7 @@ namespace Tasque.Backends.HmBackend
 			this.backend = hmBackend;
 
 			//Add Description as note.
-			this.notes = new List<INote>();
+			this.notes = new List<TaskNote>();
 
 			if (!string.IsNullOrEmpty (this.task.Description)) 
 				notes.Add (new HmNote (this.task));
@@ -245,7 +245,7 @@ namespace Tasque.Backends.HmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override INote CreateNote(string text)
+		public override TaskNote CreateNote(string text)
 		{
 			Logger.Debug ("CreateNote : " + text);
 
@@ -266,7 +266,7 @@ namespace Tasque.Backends.HmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override void DeleteNote(INote note)
+		public override void DeleteNote(TaskNote note)
 		{
 		       Logger.Debug ("DeleteNote : " + note.Text);
 
@@ -287,7 +287,7 @@ namespace Tasque.Backends.HmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override void SaveNote(INote note)
+		public override void SaveNote(TaskNote note)
 		{		
 			Logger.Debug ("SaveNote : " + note.Text);
 

@@ -51,7 +51,7 @@ namespace Tasque
 		Dictionary<int, Backend> backendComboMap; // track backends
 		int 					selectedBackend;
 		Gtk.CheckButton			showCompletedTasksCheckButton;
-		CollectionView<ICategory> filteredCategories;
+		CollectionView<Category> filteredCategories;
 		List<string>			categoriesToHide;
 		Gtk.TreeView			categoriesTree;
 
@@ -494,7 +494,7 @@ namespace Tasque
 											 Gtk.TreeIter iter)
 		{
 			Gtk.CellRendererToggle crt = cell as Gtk.CellRendererToggle;
-			ICategory category = model.GetValue (iter, 0) as ICategory;
+			Category category = model.GetValue (iter, 0) as Category;
 			if (category == null) {
 				crt.Active = true;
 				return;
@@ -521,7 +521,7 @@ namespace Tasque
 		{
 			Gtk.CellRendererText crt = renderer as Gtk.CellRendererText;
 			crt.Ellipsize = Pango.EllipsizeMode.End;
-			ICategory category = model.GetValue (iter, 0) as ICategory;
+			Category category = model.GetValue (iter, 0) as Category;
 			if (category == null) {
 				crt.Text = string.Empty;
 				return;
@@ -538,7 +538,7 @@ namespace Tasque
 			if (!categoriesTree.Model.GetIter (out iter, path))
 				return; // Do nothing
 			
-			ICategory category = categoriesTree.Model.GetValue (iter, 0) as ICategory;
+			Category category = categoriesTree.Model.GetValue (iter, 0) as Category;
 			if (category == null)
 				return;
 			
@@ -594,10 +594,10 @@ namespace Tasque
 			}
 			
 			Backend backend = backendComboMap [selectedBackend];
-			filteredCategories = new CollectionView<ICategory> (backend.SortedCategories);
+			filteredCategories = new CollectionView<Category> (backend.Categories);
 			// Filter out the AllCategory
 			filteredCategories.Filter = c => c != null && !(c is AllCategory);
-			var adapter = new TreeModelListAdapter<ICategory> (filteredCategories);
+			var adapter = new TreeModelListAdapter<Category> (filteredCategories);
 			categoriesTree.Model = adapter;
 		}
 		

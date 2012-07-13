@@ -10,7 +10,7 @@ using RtmNet;
 
 namespace Tasque.Backends.RtmBackend
 {
-	public class RtmCategory : ICategory
+	public class RtmCategory : Category
 	{
 		private List list;
 		private Gtk.TreeIter iter;

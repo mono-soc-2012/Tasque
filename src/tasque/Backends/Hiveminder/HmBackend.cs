@@ -86,7 +86,7 @@ namespace Tasque.Backends.HmBackend
 			sortedTasksModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareTasksSortFunc));
 			sortedTasksModel.SetSortColumnId (0, Gtk.SortType.Ascending);
 			
-			categoryListStore = new Gtk.ListStore (typeof (ICategory));
+			categoryListStore = new Gtk.ListStore (typeof (Category));
 			
 			sortedCategoriesModel = new Gtk.TreeModelSort (categoryListStore);
 			sortedCategoriesModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareCategorySortFunc));
@@ -144,7 +144,7 @@ namespace Tasque.Backends.HmBackend
 		#endregion // Public Properties
 		
 		#region Public Methods
-		public Task CreateTask (string taskName, ICategory category)		
+		public Task CreateTask (string taskName, Category category)		
 		{
 			Hiveminder.Task task = new Task ();
 			Hiveminder.Task createdTask;
@@ -318,8 +318,8 @@ namespace Tasque.Backends.HmBackend
 											Gtk.TreeIter a,
 											Gtk.TreeIter b)
 		{
-			ICategory categoryA = model.GetValue (a, 0) as ICategory;
-			ICategory categoryB = model.GetValue (b, 0) as ICategory;
+			Category categoryA = model.GetValue (a, 0) as Category;
+			Category categoryB = model.GetValue (b, 0) as Category;
 			
 			if (categoryA == null || categoryB == null)
 				return 0;

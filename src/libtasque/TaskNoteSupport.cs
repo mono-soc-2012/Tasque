@@ -1,5 +1,5 @@
 // 
-// Category.cs
+// TaskNoteSupport.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,52 +23,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.ComponentModel;
 
 namespace Tasque
 {
-	public class Category : NotifyCollection<Task>, IComparable<Category>, INotifyPropertyChanged
+	public enum TaskNoteSupport
 	{
-		public Category (string name)
-		{
-			Name = name;
-		}
-
-		public string Name {
-			get { return name; }
-			set {
-				if (value == null)
-					throw new ArgumentNullException ("name");
-
-				if (value == name) {
-					name = value;
-					OnNameChanged ();
-					OnPropertyChanged ("Name");
-				}
-			}
-		}
-		
-		public virtual int CompareTo (Category other)
-		{
-			if (other == null)
-				return 1;
-			
-			return Name.CompareTo (other.Name);
-		}
-
-		#region INotifyPropertyChanged implementation
-		public event PropertyChangedEventHandler PropertyChanged;
-		#endregion
-
-		protected virtual void OnNameChanged () {}
-
-		protected void OnPropertyChanged (string propertyName)
-		{
-			if (PropertyChanged != null)
-				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
-		}
-
-		string name;
+		None,
+		Single,
+		Multiple
 	}
 }

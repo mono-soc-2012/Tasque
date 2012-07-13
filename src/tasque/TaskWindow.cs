@@ -258,7 +258,7 @@ namespace Tasque
 			
 			overdueGroup = new TaskGroup (Catalog.GetString ("Overdue"),
 										  rangeStart, rangeEnd,
-										  backend.SortedTasks);
+										  backend.Tasks);
 			overdueGroup.RowActivated += OnRowActivated;
 			overdueGroup.ButtonPressed += OnButtonPressed;
 			overdueGroup.Show ();
@@ -276,7 +276,7 @@ namespace Tasque
 									 rangeEnd.Day, 23, 59, 59);
 			todayGroup = new TaskGroup (Catalog.GetString ("Today"),
 										rangeStart, rangeEnd,
-										backend.SortedTasks);
+										backend.Tasks);
 			todayGroup.RowActivated += OnRowActivated;
 			todayGroup.ButtonPressed += OnButtonPressed;
 			todayGroup.Show ();
@@ -294,7 +294,7 @@ namespace Tasque
 									 rangeEnd.Day, 23, 59, 59);
 			tomorrowGroup = new TaskGroup (Catalog.GetString ("Tomorrow"),
 										   rangeStart, rangeEnd,
-										   backend.SortedTasks);
+										   backend.Tasks);
 			tomorrowGroup.RowActivated += OnRowActivated;
 			tomorrowGroup.ButtonPressed += OnButtonPressed;			
 			tomorrowGroup.Show ();
@@ -312,7 +312,7 @@ namespace Tasque
 									 rangeEnd.Day, 23, 59, 59);
 			nextSevenDaysGroup = new TaskGroup (Catalog.GetString ("Next 7 Days"),
 										   rangeStart, rangeEnd,
-										   backend.SortedTasks);
+										   backend.Tasks);
 			nextSevenDaysGroup.RowActivated += OnRowActivated;
 			nextSevenDaysGroup.ButtonPressed += OnButtonPressed;				
 			nextSevenDaysGroup.Show ();
@@ -328,7 +328,7 @@ namespace Tasque
 			rangeEnd = DateTime.MaxValue;
 			futureGroup = new TaskGroup (Catalog.GetString ("Future"),
 										 rangeStart, rangeEnd,
-										 backend.SortedTasks);
+										 backend.Tasks);
 			futureGroup.RowActivated += OnRowActivated;
 			futureGroup.ButtonPressed += OnButtonPressed;			
 			futureGroup.Show ();
@@ -343,7 +343,7 @@ namespace Tasque
 			completedTaskGroup = new CompletedTaskGroup (
 					Catalog.GetString ("Completed"),
 					rangeStart, rangeEnd,
-					backend.SortedTasks);
+					backend.Tasks);
 			completedTaskGroup.RowActivated += OnRowActivated;
 			completedTaskGroup.ButtonPressed += OnButtonPressed;
 			completedTaskGroup.Show ();
@@ -358,7 +358,7 @@ namespace Tasque
 			
 			// Set up the combo box (after the above to set the current filter)
 
-			var adapter = new TreeModelListAdapter<ICategory> (Application.Backend.SortedCategories);
+			var adapter = new TreeModelListAdapter<Category> (Application.Backend.Categories);
 			categoryComboBox.Model = adapter;	
 
 			// Read preferences for the last-selected category and select it
@@ -640,7 +640,7 @@ namespace Tasque
 									   Gtk.TreeIter iter)
 		{
 			Gtk.CellRendererText crt = renderer as Gtk.CellRendererText;
-			ICategory category = model.GetValue (iter, 0) as ICategory;
+			Category category = model.GetValue (iter, 0) as Category;
 
 			// CRG: What?  I added this check for null and we don't crash
 			// but I never see anything called unknown
@@ -692,7 +692,7 @@ namespace Tasque
 			}
 		}
 		
-		void RebuildAddTaskMenu (CollectionView<ICategory> categories)
+		void RebuildAddTaskMenu (CollectionView<Category> categories)
 		{
 			Menu menu = new Menu ();
 			
@@ -700,7 +700,7 @@ namespace Tasque
 				if (cat is AllCategory)
 					continue;
 				
-				CategoryMenuItem item = new CategoryMenuItem ((ICategory)cat);
+				CategoryMenuItem item = new CategoryMenuItem ((Category)cat);
 				item.Activated += OnNewTaskByCategory;
 				item.ShowAll ();
 				menu.Add (item);
@@ -720,7 +720,7 @@ namespace Tasque
 				// matching category
 				if (model.GetIterFirst (out iter)) {
 					do {
-						ICategory cat = model.GetValue (iter, 0) as ICategory;
+						Category cat = model.GetValue (iter, 0) as Category;
 						if (cat == null)
 							continue; // Needed for some reason to prevent crashes from some backends
 						if (cat.Name.CompareTo (categoryName) == 0) {
@@ -737,7 +737,7 @@ namespace Tasque
 				// category.
 				if (model.GetIterFirst (out iter)) {
 					// Make sure we can actually get a category
-					ICategory cat = model.GetValue (iter, 0) as ICategory;
+					Category cat = model.GetValue (iter, 0) as Category;
 					if (cat != null)
 						categoryComboBox.SetActiveIter (iter);
 				}
@@ -761,7 +761,7 @@ namespace Tasque
 			dialog.Present ();
 		}
 		
-		private Task CreateTask (string taskText, ICategory category)
+		private Task CreateTask (string taskText, Category category)
 		{
 			Task task = backend.CreateTask (taskText, category);
 			
@@ -914,8 +914,8 @@ namespace Tasque
 			if (!categoryComboBox.GetActiveIter (out iter))
 				return;
 			
-			ICategory category =
-				categoryComboBox.Model.GetValue (iter, 0) as ICategory;
+			Category category =
+				categoryComboBox.Model.GetValue (iter, 0) as Category;
 		
 			// If enabled, attempt to parse due date information
 			// out of the entered task text.
@@ -956,8 +956,8 @@ namespace Tasque
 			// the title of the task.
 			Gtk.TreeIter iter;
 			if (categoryComboBox.GetActiveIter (out iter)) {
-				ICategory selectedCategory =
-					categoryComboBox.Model.GetValue (iter, 0) as ICategory;
+				Category selectedCategory =
+					categoryComboBox.Model.GetValue (iter, 0) as Category;
 				
 				// Check to see if "All" is selected
 				if (selectedCategory is AllCategory) {
@@ -986,8 +986,8 @@ namespace Tasque
 			if (!categoryComboBox.GetActiveIter (out iter))
 				return;
 			
-			ICategory category =
-				categoryComboBox.Model.GetValue (iter, 0) as ICategory;
+			Category category =
+				categoryComboBox.Model.GetValue (iter, 0) as Category;
 				
 			// Update the TaskGroups so they can filter accordingly
 			overdueGroup.Refilter (category);
@@ -1078,7 +1078,7 @@ namespace Tasque
 					 * here in order to enable changing categories. The list of available categories
 					 * is pre-filtered as to not contain the current category and the AllCategory.
 					 */
-					var cvCategories = new CollectionView<ICategory> (Application.Backend.SortedCategories);
+					var cvCategories = new CollectionView<Category> (Application.Backend.Categories);
 					cvCategories.Filter = c => c != null && !(c is AllCategory) && !c.Equals(clickedTask.Category);
 
 					// The categories submenu is only created in case we actually provide at least one category.
@@ -1087,7 +1087,7 @@ namespace Tasque
 						CategoryMenuItem categoryItem;
 
 						foreach (var cat in cvCategories) {
-							categoryItem = new CategoryMenuItem((ICategory)cat);
+							categoryItem = new CategoryMenuItem((Category)cat);
 							categoryItem.Activated += OnChangeCategory;
 							categoryMenu.Add(categoryItem);
 						}
@@ -1176,7 +1176,7 @@ namespace Tasque
 				status = string.Format (Catalog.GetString ("Tasks loaded: {0}"), now);
 				TaskWindow.lastLoadedTime = now;
 				TaskWindow.ShowStatus (status);
-				RebuildAddTaskMenu ((CollectionView<ICategory>)Application.Backend.SortedCategories);
+				RebuildAddTaskMenu ((CollectionView<Category>)Application.Backend.Categories);
 				addTaskEntry.Sensitive = true;
 				categoryComboBox.Sensitive = true;
 				// Keep insensitive text color
@@ -1214,14 +1214,14 @@ namespace Tasque
 		#region Private Classes
 		class CategoryMenuItem : Gtk.MenuItem
 		{
-			private ICategory cat;
+			private Category cat;
 			
-			public CategoryMenuItem (ICategory category) : base (category.Name)
+			public CategoryMenuItem (Category category) : base (category.Name)
 			{
 				cat = category;
 			}
 			
-			public ICategory Category
+			public Category Category
 			{
 				get { return cat; }
 			}

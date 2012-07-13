@@ -147,7 +147,7 @@ namespace Tasque.Backends.Sqlite
 			}
 		}
 
-		public override ICategory Category
+		public override Category Category
 		{
 			get { return new SqliteCategory(backend, this.category); }
 			set {
@@ -158,10 +158,10 @@ namespace Tasque.Backends.Sqlite
 			}
 		}
 		
-		public override List<INote> Notes
+		public override List<TaskNote> Notes
 		{
 			get {
-				List<INote> notes = new List<INote>();
+				List<TaskNote> notes = new List<TaskNote>();
 
 				string command = String.Format("SELECT ID, Text FROM Notes WHERE Task='{0}'", id);
 				SqliteCommand cmd = backend.Database.Connection.CreateCommand();
@@ -211,7 +211,7 @@ namespace Tasque.Backends.Sqlite
 			backend.UpdateTask (this);
 		}
 		
-		public override INote CreateNote(string text)
+		public override TaskNote CreateNote(string text)
 		{
 			Logger.Debug("Creating New Note Object : {0} (id={1})", text, id);
 			text = backend.SanitizeText (text);
@@ -221,7 +221,7 @@ namespace Tasque.Backends.Sqlite
 			return new SqliteNote (taskId, text);
 		}
 		
-		public override void DeleteNote(INote note)
+		public override void DeleteNote(TaskNote note)
 		{
 			SqliteNote sqNote = (note as SqliteNote);
 
@@ -229,7 +229,7 @@ namespace Tasque.Backends.Sqlite
 			backend.Database.ExecuteScalar(command);
 		}
 
-		public override void SaveNote(INote note)
+		public override void SaveNote(TaskNote note)
 		{
 			SqliteNote sqNote = (note as SqliteNote);
 
