@@ -267,7 +267,13 @@ namespace Tasque
 				return false;
 			
 			var categories = Application.Backend.Categories;
-			return categories.Contains (task.Category);
+			var cat = categories.SingleOrDefault (c => c.Name == categoryName);
+			if (cat != null) {
+				task.Category = cat;
+				return true;
+			}
+
+			return false;
 		}
 		
 		/// <summary>
