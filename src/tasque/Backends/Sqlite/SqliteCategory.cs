@@ -9,7 +9,7 @@ using Tasque;
 
 namespace Tasque.Backends.Sqlite
 {
-	public class SqliteCategory : ICategory
+	public class SqliteCategory : Category
 	{
 		private int id;
 		SqliteBackend backend;

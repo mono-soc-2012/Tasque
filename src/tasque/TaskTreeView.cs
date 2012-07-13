@@ -19,7 +19,7 @@ namespace Tasque
 		private static Gdk.Pixbuf[] inactiveAnimPixbufs;
 		
 		private Gtk.TreeModelFilter modelFilter;
-		private ICategory filterCategory;	
+		private Category filterCategory;	
 		private Task taskBeingEdited = null;
 		private bool toggled;
 
@@ -300,7 +300,7 @@ namespace Tasque
 			Refilter (filterCategory);
 		}
 		
-		public void Refilter (ICategory selectedCategory)
+		public void Refilter (Category selectedCategory)
 		{
 			this.filterCategory = selectedCategory;
 			Model = modelFilter;

@@ -34,7 +34,7 @@ using Hiveminder;
 
 namespace Tasque.Backends.HmBackend
 {
-	public class HmCategory : ICategory
+	public class HmCategory : Category
 	{
 		Group group;
 		

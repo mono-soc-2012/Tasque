@@ -46,7 +46,7 @@ namespace Tasque
 			innerEb.Show ();
 			
 			if(task.Notes != null) {
-				foreach (INote note in task.Notes) {
+				foreach (TaskNote note in task.Notes) {
 					NoteWidget noteWidget = new NoteWidget (note);
 					noteWidget.TextChanged += OnNoteTextChanged;
 					noteWidget.DeleteButtonClicked += OnDeleteButtonClicked;
@@ -140,7 +140,7 @@ namespace Tasque
 			// if null, add a note, else, modify it
 			if(nWidget.Note == null) {
 				try {
-					INote note = task.CreateNote(nWidget.Text);
+					TaskNote note = task.CreateNote(nWidget.Text);
 					nWidget.Note = note;
 				} catch(Exception e) {
 					Logger.Debug("Unable to create a note");

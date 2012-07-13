@@ -12,7 +12,7 @@ namespace Tasque.Backends.RtmBackend
 		private RtmBackend rtmBackend;
 		private TaskState state;
 		private RtmCategory category;
-		private List<INote> notes;		
+		private List<TaskNote> notes;		
 		
 		TaskSeries taskSeries;
 		
@@ -32,7 +32,7 @@ namespace Tasque.Backends.RtmBackend
 				state = TaskState.Active;
 			else
 				state = TaskState.Completed;
-			notes = new List<INote>();
+			notes = new List<TaskNote>();
 
 			if (taskSeries.Notes.NoteCollection != null) {
 				foreach(Note note in taskSeries.Notes.NoteCollection) {
@@ -183,7 +183,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// Returns the category object for this task
 		/// </value>
-		public override ICategory Category
+		public override Category Category
 		{
 			get { return category; } 
 			set {
@@ -195,7 +195,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// Returns the notes associates with this task
 		/// </value>
-		public override List<INote> Notes
+		public override List<TaskNote> Notes
 		{
 			get { return notes; }
 		}
@@ -279,7 +279,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override INote CreateNote(string text)
+		public override TaskNote CreateNote(string text)
 		{
 			RtmNote rtmNote;
 			
@@ -295,7 +295,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override void DeleteNote(INote note)
+		public override void DeleteNote(TaskNote note)
 		{
 			RtmNote rtmNote = (note as RtmNote);
 			
@@ -314,7 +314,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override void SaveNote(INote note)
+		public override void SaveNote(TaskNote note)
 		{		
 			rtmBackend.SaveNote(this, (note as RtmNote));
 		}		

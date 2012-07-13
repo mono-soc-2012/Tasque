@@ -58,7 +58,7 @@ namespace Tasque.Backends.RtmBackend
 			// *************************************
 			Tasks = new ObservableCollection<Task>();
 
-			categoryListStore = new Gtk.ListStore (typeof (ICategory));
+			categoryListStore = new Gtk.ListStore (typeof (Category));
 
 			sortedCategoriesModel = new Gtk.TreeModelSort (categoryListStore);
 			sortedCategoriesModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareCategorySortFunc));
@@ -86,7 +86,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// All the tasks including ITaskDivider items.
 		/// </value>
-		public IEnumerable<Task> SortedTasks
+		public IEnumerable<Task> Tasks
 		{
 			get { return Tasks.OrderBy (t => t, Comparer<Task>.Default); }
 		}
@@ -96,7 +96,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// This returns all the task lists (categories) that exist.
 		/// </value>
-		public Gtk.TreeModel Categories
+		public Gtk.TreeModel Categories2
 		{
 			get { return sortedCategoriesModel; }
 		}
@@ -130,7 +130,7 @@ namespace Tasque.Backends.RtmBackend
 #endregion // Public Properties
 
 #region Public Methods
-		public Task CreateTask (string taskName, ICategory category)
+		public Task CreateTask (string taskName, Category category)
 		{
 			string categoryID;
 			RtmTask rtmTask = null;
@@ -518,8 +518,8 @@ namespace Tasque.Backends.RtmBackend
 											Gtk.TreeIter a,
 											Gtk.TreeIter b)
 		{
-			ICategory categoryA = model.GetValue (a, 0) as ICategory;
-			ICategory categoryB = model.GetValue (b, 0) as ICategory;
+			Category categoryA = model.GetValue (a, 0) as Category;
+			Category categoryB = model.GetValue (b, 0) as Category;
 			
 			if (categoryA == null || categoryB == null)
 				return 0;

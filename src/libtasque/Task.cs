@@ -1,7 +1,5 @@
-// AbstractTask.cs created with MonoDevelop
-// User: boyd at 6:52 AM 2/12/2008
 // 
-// AbstractTask.cs
+// Task.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -26,7 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace Tasque
@@ -35,90 +33,66 @@ namespace Tasque
 	{
 		protected Task (string name)
 		{
-			if (name == null)
-				throw new ArgumentNullException ("name");
-			
 			Name = name;
 		}
 		
-		uint timerID = 0;
-		
 		#region Properties
-		public abstract string Id
-		{
-			get; 
-		}
+		public string Name {
+			get { return name; }
+			set {
+				if (value == null)
+					throw new ArgumentNullException ("name");
 
-		public string Name { get; set; }
-		
-		public abstract DateTime DueDate {
-			get;
-			set;
+				if (value != name) {
+					name = value;
+					OnNameChanged ();
+					OnPropertyChanged ("Name");
+				}
+			}
 		}
 		
-		public abstract DateTime CompletionDate
-		{
-			get;
-			set;
-		}
+		public abstract DateTime DueDate { get; set; }
 		
-		public abstract bool IsComplete 
-		{
-			get;
-		}
-		
-		public abstract TaskPriority Priority
-		{
-			get;
-			set;
-		}
-		
-		public abstract bool HasNotes
-		{
-			get;
-		}
-		
-		public abstract bool SupportsMultipleNotes
-		{
-			get;
-		}
-		
-		public abstract TaskState State
-		{
-			get;
-		}
-		
-		public abstract List<INote> Notes
-		{
-			get;
-		}
+		public abstract DateTime CompletionDate { get; set; }
 
-		/// <value>
-		/// The ID of the timer used to complete a task after being marked
-		/// inactive.
-		/// </value>
-		public uint TimerID
-		{
-			get { return timerID; }
-			set { timerID = value; }
-		}		
-		#endregion // Properties
+		public bool HasNotes { get { return Notes.Count > 0; } }
+
+		public bool IsComplete { get { return State == TaskState.Completed; } }
+
+		public bool IsCompletionDateSet { get { return CompletionDate != DateTime.MinValue; } }
+
+		public bool IsDueDateSet { get { return DueDate != DateTime.MinValue; } }
+
+		public abstract ReadOnlyObservableCollection<TaskNote> Notes { get; }
+
+		public abstract TaskPriority Priority { get; set; }
+
+		public abstract TaskState State { get; }
+
+		public abstract TaskNoteSupport TaskNoteSupport { get; }
+		#endregion
 		
 		#region Methods
-		
 		public abstract void Activate ();
-		public abstract void Inactivate ();
-		public abstract void Complete ();
-		public abstract void Delete ();
-		public abstract INote CreateNote(string text);
-		public abstract void DeleteNote(INote note);
-		public abstract void SaveNote(INote note);		
-		
+
+		public void AddNote (TaskNote note)
+		{
+			if (note == null)
+				throw new ArgumentNullException ("note");
+
+			if (Notes.Contains (note))
+				return;
+
+			OnAddNote ();
+		}
+
 		public int CompareTo (Task task)
 		{
+			if (task == null)
+				return 1;
+
 			bool isSameDate = true;
-			if (DueDate.Year != task.DueDate.Year
-					|| DueDate.DayOfYear != task.DueDate.DayOfYear)
+			if (DueDate.Year != task.DueDate.Year || DueDate.DayOfYear != task.DueDate.DayOfYear)
 				isSameDate = false;
 			
 			if (!isSameDate) {
@@ -134,56 +108,36 @@ namespace Tasque
 				
 				int result = DueDate.CompareTo (task.DueDate);
 				
-				if (result != 0) {
+				if (result != 0)
 					return result;
-				}
 			}
 			
 			// The due dates match, so now sort based on priority and name
-			return CompareByPriorityAndName (task);
+			return CompareToByPriorityAndName (task);
 		}
-		
-		public int CompareToByCompletionDate (Task task)
-		{
-			bool isSameDate = true;
-			if (CompletionDate.Year != task.CompletionDate.Year
-					|| CompletionDate.DayOfYear != task.CompletionDate.DayOfYear)
-				isSameDate = false;
-			
-			if (!isSameDate) {
-				if (CompletionDate == DateTime.MinValue) {
-					// No completion date set for some reason.  Since we already
-					// tested to see if the dates were the same above, we know
-					// that the passed-in task has a CompletionDate set, so the
-					// passed-in task should be "higher" in the sort.
-					return 1;
-				} else if (task.CompletionDate == DateTime.MinValue) {
-					// "this" task has a completion date and should evaluate
-					// higher than the passed-in task which doesn't have a
-					// completion date.
-					return -1;
-				}
-				
-				return CompletionDate.CompareTo (task.CompletionDate);
-			}
-			
-			// The completion dates are the same, so no sort based on other
-			// things.
-			return CompareByPriorityAndName (task);
-		}
-		#endregion // Methods
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public abstract void Complete ();
+
+		public abstract TaskNote CreateNote(string text);
+
+		public abstract void Delete ();
+
+		public abstract bool DeleteNote(TaskNote note);
+
+		protected abstract void OnAddNote ();
+
+		protected virtual void OnNameChanged () {}
 
 		protected void OnPropertyChanged (string propertyName)
 		{
 			if (PropertyChanged != null)
 				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
-		
-		#region Private Methods
-		
-		int CompareByPriorityAndName (Task task)
+		#endregion
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		internal int CompareToByPriorityAndName (Task task)
 		{
 			// The due dates match, so now sort based on priority
 			if (Priority != task.Priority) {
@@ -191,17 +145,15 @@ namespace Tasque
 				case TaskPriority.High:
 					return -1;
 				case TaskPriority.Medium:
-					if (task.Priority == TaskPriority.High) {
+					if (task.Priority == TaskPriority.High)
 						return 1;
-					} else {
+					else
 						return -1;
-					}
 				case TaskPriority.Low:
-					if (task.Priority == TaskPriority.None) {
+					if (task.Priority == TaskPriority.None)
 						return -1;
-					} else {
+					else
 						return 1;
-					}
 				case TaskPriority.None:
 					return 1;
 				}
@@ -210,8 +162,7 @@ namespace Tasque
 			// Due dates and priorities match, now sort by name
 			return Name.CompareTo (task.Name);
 		}
-		#endregion // Private Methods
-		
-		Backend backend;
+
+		string name;
 	}
 }

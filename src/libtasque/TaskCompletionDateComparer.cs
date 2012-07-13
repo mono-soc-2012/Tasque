@@ -1,7 +1,5 @@
-// AllCategory.cs created with MonoDevelop
-// User: boyd at 3:45 PM 2/12/2008
 // 
-// AllCategory.cs
+// TaskCompletionDateComparer.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,42 +23,46 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
 using System.Collections.Generic;
-using Mono.Unix;
-using System.ComponentModel;
 
 namespace Tasque
 {
-	public class AllCategory : Category
+	public class TaskCompletionDateComparer : Comparer<Task>
 	{
-		// A "set" of categories specified by the user to show when the "All"
-		// category is selected in the TaskWindow.  If the list is empty, tasks
-		// from all categories will be shown.  Otherwise, only tasks from the
-		// specified lists will be shown.
-		List<string> categoriesToHide;
-		
-		public AllCategory () : base ("All")
+		public override int Compare (Task x, Task y)
 		{
-			Preferences preferences = Application.Preferences;
-			categoriesToHide =
-				preferences.GetStringList (Preferences.HideInAllCategory);
-			Application.Preferences.SettingChanged += OnSettingChanged;
-		}
-		
-		void OnSettingChanged (Preferences preferences, string settingKey)
-		{
-			if (settingKey.CompareTo (Preferences.HideInAllCategory) != 0)
-				return;
-			
-			categoriesToHide =
-				preferences.GetStringList (Preferences.HideInAllCategory);
-		}
+			if (x == null && y == null)
+				return 0;
+			else if (x == null)
+				return -1;
+			else if (y == null)
+				return 1;
 
-		#region IComparable implementation
-		public override int CompareTo (ICategory other)
-		{
-			return -1;
+			bool isSameDate = true;
+			if (x.CompletionDate.Year != y.CompletionDate.Year
+			    || x.CompletionDate.DayOfYear != y.CompletionDate.DayOfYear)
+				isSameDate = false;
+			
+			if (!isSameDate) {
+				if (x.CompletionDate == DateTime.MinValue) {
+					// No completion date set for some reason.  Since we already
+					// tested to see if the dates were the same above, we know
+					// that the passed-in task has a CompletionDate set, so the
+					// passed-in task should be "higher" in the sort.
+					return 1;
+				} else if (y.CompletionDate == DateTime.MinValue) {
+					// "this" task has a completion date and should evaluate
+					// higher than the passed-in task which doesn't have a
+					// completion date.
+					return -1;
+				}
+				
+				return x.CompletionDate.CompareTo (y.CompletionDate);
+			}
+			
+			// The completion dates are the same, so no sort based on other things.
+			return x.CompareToByPriorityAndName (y);
 		}
-		#endregion
 	}
 }

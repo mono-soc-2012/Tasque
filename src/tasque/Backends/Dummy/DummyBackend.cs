@@ -27,100 +27,32 @@
 // THE SOFTWARE.
 
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
-using Tasque.Backends;
 using Tasque.Backends.Dummy.Gtk;
 
 namespace Tasque.Backends.Dummy
 {
 	public class DummyBackend : Backend
 	{
-		/// <summary>
-		/// Keep track of the Gtk.TreeIters for the tasks so that they can
-		/// be referenced later.
-		///
-		/// Key   = Task ID
-		/// Value = Gtk.TreeIter in taskStore
-		/// </summary>
-		int newTaskId;
-		bool initialized;
-		bool configured = true;
-
-		public event BackendInitializedHandler BackendInitialized;
-		public event BackendSyncStartedHandler BackendSyncStarted;
-		public event BackendSyncFinishedHandler BackendSyncFinished;
-		
-		Category homeCategory;
-		Category workCategory;
-		Category projectsCategory;
-		
-		public DummyBackend () : base ()
-		{
-			initialized = false;
-			newTaskId = 0;
-		}
+		public DummyBackend () : base ("Debugging System") {}
 		
 		#region Public Properties
-		public string Name { get { return "Debugging System"; } }
-		
-		/// <value>
-		/// All the tasks including ITaskDivider items.
-		/// </value>
-		public IEnumerable SortedTasks { get; private set; }
-		
-		/// <value>
-		/// This returns all the task lists (categories) that exist.
-		/// </value>
-		public IEnumerable SortedCategories { get; private set; }
-		
-		public ObservableCollection<ICategory> Categories { get; private set; }
-		
 		/// <value>
 		/// Indication that the dummy backend is configured
 		/// </value>
-		public bool Configured { get { return configured; } }
+		public override bool Configured { get { return true; } }
 		
 		/// <value>
 		/// Inidication that the backend is initialized
 		/// </value>
-		public bool Initialized { get { return initialized; } }		
-		#endregion // Public Properties
+		public override bool Initialized { get { return initialized; } }		
+		#endregion
 		
-		#region Public Methods
-		public Task CreateTask (string taskName, ICategory category)
-		{
-			// not sure what to do here with the category
-			DummyTask task = new DummyTask (this, newTaskId, taskName);
-			
-			// Determine and set the task category
-			if (category == null || category is AllCategory)
-				task.Category = workCategory; // Default to work
-			else
-				task.Category = category;
-			
-			tasks.Add (task);
-			newTaskId++;
-			
-			return task;
-		}
+		#region Public Methods		
+		public override void Refresh () {}
 		
-		public void DeleteTask (Task task)
+		public override void Initialize ()
 		{
-		}
-		
-		public void Refresh ()
-		{
-		}
-		
-		public void Initialize ()
-		{
-			//
-			// Add in the "All" Category
-			//
-			AllCategory allCategory = new AllCategory ();
-			Categories.Add (allCategory);
-			
 			//
 			// Add in some fake categories
 			//
@@ -136,95 +68,60 @@ namespace Tasque.Backends.Dummy
 			//
 			// Add in some fake tasks
 			//
-			
-			DummyTask task = new DummyTask (this, newTaskId, "Buy some nails");
-			projectsCategory.Add (task);
+			var task = CreateTask ("Buy some nails", projectsCategory);
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.Medium;
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "Call Roger");
-			homeCategory.Add (task);
+			task = CreateTask ("Call Roger", homeCategory);
 			task.DueDate = DateTime.Now.AddDays (-1);
 			task.Complete ();
 			task.CompletionDate = task.DueDate;
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "Replace burnt out lightbulb");
-			homeCategory.Add (task);
+			task = CreateTask ("Replace burnt out lightbulb", homeCategory);
 			task.DueDate = DateTime.Now;
 			task.Priority = TaskPriority.Low;
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "File taxes");
-			homeCategory.Add (task);
+			task = CreateTask ("File taxes", homeCategory);
 			task.DueDate = new DateTime (2008, 4, 1);
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "Purchase lumber");
-			projectsCategory.Add (task);
+			task = CreateTask ("Purchase lumber", projectsCategory);
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.High;
-			tasks.Add (task);
-			newTaskId++;
 						
-			task = new DummyTask (this, newTaskId, "Estimate drywall requirements");
-			projectsCategory.Add (task);
+			task = CreateTask ("Estimate drywall requirements", new Category [] { projectsCategory, workCategory });
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.Low;
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "Borrow framing nailer from Ben");
-			projectsCategory.Add (task);
+			task = CreateTask ("Borrow framing nailer from Ben", new Category [] { projectsCategory, homeCategory });
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.High;
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "Call for an insulation estimate");
-			projectsCategory.Add (task);
+			task = CreateTask ("Call for an insulation estimate", projectsCategory);
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.Medium;
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "Pay storage rental fee");
-			homeCategory.Add (task);
+			task = CreateTask ("Pay storage rental fee", homeCategory);
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.None;
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "Place carpet order");
+			task = new DummyTask ("Place carpet order");
 			projectsCategory.Add (task);
 			task.Priority = TaskPriority.None;
-			tasks.Add (task);
-			newTaskId++;
 			
-			task = new DummyTask (this, newTaskId, "Test task overdue");
+			task = new DummyTask ("Test task overdue");
 			workCategory.Add (task);
+			projectsCategory.Add (task);
 			task.DueDate = DateTime.Now.AddDays (-89);
 			task.Priority = TaskPriority.None;
 			task.Complete ();
-			tasks.Add (task);
-			newTaskId++;
 			
 			initialized = true;
-			if (BackendInitialized != null) {
-				BackendInitialized ();
-			}		
+			OnBackendInitialized ();
 		}
 
-		public void Cleanup ()
-		{
-		}
+		public override void Cleanup () {}
 		
-		public IBackendPreferences Preferences
+		public override IBackendPreferences Preferences
 		{
 			get {
 				// TODO: Replace this with returning null once things are going
@@ -232,8 +129,19 @@ namespace Tasque.Backends.Dummy
 				return new DummyPreferences ();
 			}
 		}
-		#endregion // Public Methods
-		
+		#endregion
+
+		protected override Task CreateTaskCore (string taskName)
+		{
+			return new DummyTask (taskName);
+		}
+
+		bool initialized;
+
 		ObservableCollection<Task> tasks;
+
+		Category homeCategory;
+		Category projectsCategory;
+		Category workCategory;
 	}
 }

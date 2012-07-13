@@ -9,7 +9,7 @@ using Tasque;
 
 namespace Tasque.Backends.Sqlite
 {
-	public class SqliteNote : INote
+	public class SqliteNote : TaskNote
 	{
 		private int id;
 		private string text;

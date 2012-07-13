@@ -9,7 +9,7 @@ namespace Tasque
 {
 	public class NoteWidget : Gtk.Notebook
 	{
-		private INote note;
+		private TaskNote note;
 		private string text;
 		
 		private Gtk.Widget viewPage;
@@ -33,7 +33,7 @@ namespace Tasque
 		private Gtk.Button saveButton;
 				
 		#region Constructors
-		public NoteWidget (INote note)
+		public NoteWidget (TaskNote note)
 		{
 			this.KeyPressEvent += OnNoteWidgetKeyPressed;
 			this.note = note;
@@ -71,7 +71,7 @@ namespace Tasque
 		#endregion // Events
 		
 		#region Properties
-		public INote Note
+		public TaskNote Note
 		{
 			get { return note; }
 			set { 

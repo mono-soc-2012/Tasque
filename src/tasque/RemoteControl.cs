@@ -85,7 +85,7 @@ namespace Tasque
 		public string CreateTask (string categoryName, string taskName,
 						bool enterEditMode, bool parseDate)
 		{
-			var categories = Application.Backend.Categories;
+			var categories = Application.Backend.Categories2;
 			
 			//
 			// Validate the input parameters.  Don't allow null or empty strings
@@ -97,7 +97,7 @@ namespace Tasque
 			//
 			// Look for the specified category
 			//
-			ICategory category = null;
+			Category category = null;
 			categories.SingleOrDefault (c => c.Name.ToLower () == categoryName.ToLower ());
 			
 			if (category == null)
@@ -153,13 +153,13 @@ namespace Tasque
 		public string[] GetCategoryNames ()
 		{
 			List<string> categories = new List<string> ();
-			var model = Application.Backend.SortedCategories;
+			var model = Application.Backend.Categories;
 			
 			foreach (var item in model) {
 				if (item is AllCategory)
 					continue;
 				
-				categories.Add (((ICategory)item).Name);
+				categories.Add (((Category)item).Name);
 			}
 			
 			return categories.ToArray ();
@@ -179,7 +179,7 @@ namespace Tasque
 		/// </returns>
 		public string[] GetTaskIds ()
 		{
-			var model = Application.Backend.Tasks;
+			var model = Application.Backend.Tasks2;
 
 			if (model == null)
 				return new string[0];
@@ -266,14 +266,8 @@ namespace Tasque
 			if (task == null)
 				return false;
 			
-			var categories = Application.Backend.Categories;
-			var cat = categories.SingleOrDefault (c => c.Name == categoryName);
-			if (cat != null) {
-				task.Category = cat;
-				return true;
-			}
-
-			return false;
+			var categories = Application.Backend.Categories2;
+			return categories.Contains (task.Category);
 		}
 		
 		/// <summary>
@@ -449,7 +443,7 @@ namespace Tasque
 		/// </returns>
 		private Task GetTaskById (string id)
 		{
-			return Application.Backend.Tasks.SingleOrDefault (f => f.Id == id);
+			return Application.Backend.Tasks2.SingleOrDefault (f => f.Id == id);
 		}
 	}
 }
