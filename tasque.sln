@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeModelListAdapter", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform.Tests", "src\ObservableTransformCollections\CollectionTransform.Tests\CollectionTransform.Tests.csproj", "{0EFB56A9-B582-465B-AC9D-7609ABC121EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libtasqueui", "src\libtasqueui\libtasqueui.csproj", "{DB8F01D5-0161-48E0-B68A-14AEFD22328F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		GnomeDebug|Any CPU = GnomeDebug|Any CPU
@@ -170,6 +172,26 @@ Global
 		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkMacDebug|Any CPU.ActiveCfg = GtkMacDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkMacDebug|Any CPU.Build.0 = GtkMacDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkMacRelease|Any CPU.ActiveCfg = GtkMacRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkMacRelease|Any CPU.Build.0 = GtkMacRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF} = {69B26AD3-1E26-4C96-84AA-F525297377FF}

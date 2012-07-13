@@ -158,6 +158,9 @@
     <None Include="..\src\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
       <Link>TreeModelListAdapter.csproj</Link>
     </None>
+    <None Include="..\src\libtasqueui\libtasqueui.csproj">
+      <Link>libtasqueui.csproj</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SetDataAtBuildTime.cs" />
