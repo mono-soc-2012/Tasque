@@ -44,11 +44,11 @@ namespace Tasque
 
 			Name = name;
 
-			tasks = new NotifyCollection<Task> ();
-			Tasks = new ReadOnlyNotifyCollection<Task> (tasks);
+			tasks = new SortedNotifyCollection<Task> ();
+			Tasks = new ReadOnlySortedNotifyCollection<Task> (tasks);
 
 			categoriesChangedSources = new List<INotifyCollectionChanged> ();
-			Categories = new NotifyCollection<Category> ();
+			Categories = new SortedNotifyCollection<Category> ();
 			Categories.CollectionChanged += HandleCategoriesChanged;
 		}
 
@@ -56,7 +56,7 @@ namespace Tasque
 		/// <value>
 		/// This returns all the ICategory items from the backend.
 		/// </value>
-		public NotifyCollection<Category> Categories { get; private set; }
+		public SortedNotifyCollection<Category> Categories { get; private set; }
 
 		/// <value>
 		/// Indication that the backend has enough information
@@ -88,7 +88,7 @@ namespace Tasque
 		/// <value>
 		/// All the tasks provided by the backend.
 		/// </value>
-		public ReadOnlyNotifyCollection<Task> Tasks { get; private set; }
+		public ReadOnlySortedNotifyCollection<Task> Tasks { get; private set; }
 		#endregion
 		
 		#region Methods
@@ -237,6 +237,6 @@ namespace Tasque
 		}
 
 		List<INotifyCollectionChanged> categoriesChangedSources;
-		NotifyCollection<Task> tasks;
+		SortedNotifyCollection<Task> tasks;
 	}
 }

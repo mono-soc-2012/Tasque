@@ -24,16 +24,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Tasque
 {
 	public abstract class Task : IComparable<Task>, INotifyPropertyChanged
 	{
-		protected Task (string name)
+		protected Task (string name, TaskNoteSupport noteSupport)
 		{
 			Name = name;
+			notes = new ObservableCollection<TaskNote> ();
+			Notes = new ReadOnlyObservableCollection<TaskNote> (notes);
+
+			NoteSupport = noteSupport;
 		}
 		
 		#region Properties
@@ -51,9 +55,31 @@ namespace Tasque
 			}
 		}
 		
-		public abstract DateTime DueDate { get; set; }
+		public DateTime DueDate
+		{
+			get { return dueDate; }
+			set {
+				if (value != dueDate) {
+					Logger.Debug ("Setting new task due date");
+					dueDate = value;
+					OnDueDateChanged ();
+					OnPropertyChanged ("DueDate");
+				}
+			}
+		}
 		
-		public abstract DateTime CompletionDate { get; set; }
+		public DateTime CompletionDate
+		{
+			get { return completionDate; }
+			protected set {
+				if (value != completionDate) {
+					Logger.Debug ("Setting new task completion date");
+					completionDate = value;
+					OnCompletionDateChanged ();
+					OnPropertyChanged ("CompletionDate");
+				}
+			}
+		}
 
 		public bool HasNotes { get { return Notes.Count > 0; } }
 
@@ -63,13 +89,33 @@ namespace Tasque
 
 		public bool IsDueDateSet { get { return DueDate != DateTime.MinValue; } }
 
-		public abstract ReadOnlyObservableCollection<TaskNote> Notes { get; }
+		public ReadOnlyObservableCollection<TaskNote> Notes { get; private set; }
 
-		public abstract TaskPriority Priority { get; set; }
+		public TaskPriority Priority
+		{
+			get { return priority; }
+			set {
+				if (value != priority) {
+					Logger.Debug ("Setting new task priority");
+					priority = value;
+					OnPriorityChanged ();
+					OnPropertyChanged ("Priority");
+				}
+			}
+		}
 
-		public abstract TaskState State { get; }
+		public TaskState State {
+			get { return state; }
+			protected set {
+				if (state != value) {
+					state = value;
+					OnStateChanged ();
+					OnPropertyChanged ("State");
+				}
+			}
+		}
 
-		public abstract TaskNoteSupport TaskNoteSupport { get; }
+		public TaskNoteSupport NoteSupport { get; private set; }
 		#endregion
 		
 		#region Methods
@@ -80,10 +126,11 @@ namespace Tasque
 			if (note == null)
 				throw new ArgumentNullException ("note");
 
-			if (Notes.Contains (note))
+			if (notes.Contains (note))
 				return;
 
-			OnAddNote ();
+			OnAddNote (note);
+			notes.Add (note);
 		}
 
 		public int CompareTo (Task task)
@@ -118,21 +165,35 @@ namespace Tasque
 
 		public abstract void Complete ();
 
-		public abstract TaskNote CreateNote(string text);
-
 		public abstract void Delete ();
 
-		public abstract bool DeleteNote(TaskNote note);
+		public bool RemoveNote (TaskNote note)
+		{
+			if (notes.Contains (note))
+				OnRemoveNote (note);
 
-		protected abstract void OnAddNote ();
+			return notes.Remove (note);
+		}
+
+		protected virtual void OnAddNote (TaskNote note) {}
+
+		protected virtual void OnCompletionDateChanged () {}
+
+		protected virtual void OnDueDateChanged () {}
 
 		protected virtual void OnNameChanged () {}
+
+		protected virtual void OnPriorityChanged () {}
 
 		protected void OnPropertyChanged (string propertyName)
 		{
 			if (PropertyChanged != null)
 				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
+
+		protected virtual void OnRemoveNote (TaskNote note) {}
+
+		protected virtual void OnStateChanged () {}
 		#endregion
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -163,6 +224,11 @@ namespace Tasque
 			return Name.CompareTo (task.Name);
 		}
 
+		DateTime completionDate;
+		DateTime dueDate;
 		string name;
+		ObservableCollection<TaskNote> notes;
+		TaskPriority priority;
+		TaskState state;
 	}
 }

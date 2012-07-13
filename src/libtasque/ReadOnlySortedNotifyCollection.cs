@@ -31,10 +31,10 @@ using System.ComponentModel;
 
 namespace Tasque
 {
-	public class ReadOnlyNotifyCollection<T> : ICollection<T>, INotifyCollectionChanged
+	public class ReadOnlySortedNotifyCollection<T> : ICollection<T>, INotifyCollectionChanged
 		where T : INotifyPropertyChanged, IComparable<T>
 	{
-		public ReadOnlyNotifyCollection (NotifyCollection<T> source)
+		public ReadOnlySortedNotifyCollection (SortedNotifyCollection<T> source)
 		{
 			if (source == null)
 				throw new ArgumentNullException ("source");
@@ -92,6 +92,6 @@ namespace Tasque
 		}
 		#endregion
 
-		NotifyCollection<T> items;
+		SortedNotifyCollection<T> items;
 	}
 }

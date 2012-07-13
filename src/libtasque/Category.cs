@@ -28,7 +28,7 @@ using System.ComponentModel;
 
 namespace Tasque
 {
-	public class Category : NotifyCollection<Task>, IComparable<Category>, INotifyPropertyChanged
+	public class Category : SortedNotifyCollection<Task>, IComparable<Category>, INotifyPropertyChanged
 	{
 		public Category (string name)
 		{

@@ -26,77 +26,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
 using Tasque;
-using System.Collections.ObjectModel;
 
 namespace Tasque.Backends.Dummy
 {
 	public class DummyTask : Task
 	{
-		public DummyTask(string name) : base (name)
-		{
-			notes = new ObservableCollection<TaskNote> ();
-			Notes = new ReadOnlyObservableCollection<TaskNote> (notes);
-		}
-		
-		#region Public Properties
-		public override DateTime CompletionDate
-		{
-			get { return completionDate; }
-			set {
-				if (value != completionDate) {
-					Logger.Debug ("Setting new task completion date");
-					completionDate = value;
-					OnPropertyChanged ("CompletionDate");
-				}
-			}
-		}
-
-		public override DateTime DueDate
-		{
-			get { return dueDate; }
-			set {
-				if (value != dueDate) {
-					Logger.Debug ("Setting new task due date");
-					dueDate = value;
-					OnPropertyChanged ("DueDate");
-				}
-			}
-		}
-
-		public override ReadOnlyObservableCollection<TaskNote> Notes { get; private set; }
-
-		public override TaskPriority Priority
-		{
-			get { return priority; }
-			set {
-				if (value != priority) {
-					Logger.Debug ("Setting new task priority");
-					priority = value;
-					OnPropertyChanged ("Priority");
-				}
-			}
-		}
-
-		public override TaskState State {
-			get { return state; }
-			set {
-				if (state != value) {
-					state = value;
-					OnPropertyChanged ("State");
-				}
-			}
-		}
-
-		public override TaskNoteSupport TaskNoteSupport { get { return TaskNoteSupport.Multiple; } }
-		#endregion
+		public DummyTask(string name) : base (name, TaskNoteSupport.Multiple) {}
 		
 		#region Public Methods
 		public override void Activate ()
 		{
 			Logger.Debug ("DummyTask.Activate ()");
-			completionDate = DateTime.MinValue;
+			CompletionDate = DateTime.MinValue;
 			State = TaskState.Active;
 		}
 		
@@ -112,30 +54,6 @@ namespace Tasque.Backends.Dummy
 			Logger.Debug ("DummyTask.Delete ()");
 			State = TaskState.Deleted;
 		}
-		
-		public override TaskNote CreateNote(string text)
-		{
-			if (text == null)
-				throw new ArgumentNullException ("text");
-
-			var note = new TaskNote (text);
-			notes.Add (note);
-			return note;
-		}
-		
-		public override void DeleteNote(TaskNote note)
-		{
-		}
-
-		public override void SaveNote(TaskNote note)
-		{
-		}
 		#endregion
-
-		DateTime completionDate;
-		DateTime dueDate;
-		ObservableCollection<TaskNote> notes;
-		TaskPriority priority;
-		TaskState state;
 	}
 }

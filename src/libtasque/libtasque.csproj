@@ -164,14 +164,13 @@
     <Compile Include="TaskNote.cs" />
     <Compile Include="TaskNoteSupport.cs" />
     <Compile Include="TaskCompletionDateComparer.cs" />
-    <Compile Include="NotifyCollection.cs" />
-    <Compile Include="ReadOnlyNotifyCollection.cs" />
+    <Compile Include="SortedNotifyCollection.cs" />
+    <Compile Include="ReadOnlySortedNotifyCollection.cs" />
+    <Compile Include="Logger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="Mono.Posix" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DateFormatters\" />
@@ -208,10 +207,4 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(DocsSourcesFile)" DestinationFolder="$(OutputPath)" />
   </Target>
-  <ItemGroup>
-    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
-      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
-      <Name>CollectionView</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

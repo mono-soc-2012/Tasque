@@ -32,10 +32,10 @@ using System.ComponentModel;
 
 namespace Tasque
 {
-	public class NotifyCollection<T> : ICollection<T>, INotifyCollectionChanged
+	public class SortedNotifyCollection<T> : ICollection<T>, INotifyCollectionChanged
 		where T : INotifyPropertyChanged, IComparable<T>
 	{
-		public NotifyCollection ()
+		public SortedNotifyCollection ()
 		{
 			items = new ObservableCollection<T> ();
 		}
