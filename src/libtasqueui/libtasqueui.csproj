@@ -149,6 +149,9 @@
     <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="Legacy\TrayModel.cs" />
     <Compile Include="Preferences.cs" />
+    <Compile Include="Legacy\DueDateCategory.cs" />
+    <Compile Include="Legacy\DueDateConverter.cs" />
+    <Compile Include="Legacy\TaskComparer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -156,13 +159,13 @@
     <Folder Include="Legacy\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
-      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
-      <Name>CollectionView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\libtasque\libtasque.csproj">
       <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
       <Name>libtasque</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
+      <Name>CollectionView</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

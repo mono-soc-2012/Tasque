@@ -1,5 +1,5 @@
 // 
-// MainWindowModel.cs
+// TaskComparer.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,45 +23,31 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System.ComponentModel;
-using CollectionTransforms;
+using System;
+using System.Collections.Generic;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class MainWindowModel : ViewModelBase
-	{
-		public MainWindowModel (Backend backend, Preferences preferences)
-		{
-			this.preferences = preferences;
-			preferences.PropertyChanged += HandlePreferencesPropertyChanged;
+    public class TaskComparer : Comparer<Task>
+    {
+        public TaskComparer(TaskCompletionDateComparer completedComparer)
+        {
+            this.completedComparer = completedComparer;
+        }
 
-			tasks = new ListCollectionView<Task> (backend.Tasks);
-			SetFilter ();
-			tasks.GroupDescriptions.Add (new PropertyGroupDescription ("IsComplete"));
-			var dueDateDesc = new PropertyGroupDescription("DueDate");
-            dueDateDesc.Converter = new DueDateConverter();
-            tasks.GroupDescriptions.Add(dueDateDesc);
-			tasks.CustomSort = new TaskComparer(new TaskCompletionDateComparer());
-		}
+        public override int Compare(Task x, Task y)
+        {
+            var result = x.IsComplete.CompareTo(y.IsComplete);
 
-		void HandlePreferencesPropertyChanged (object sender, PropertyChangedEventArgs e)
-		{
-			switch (e.PropertyName) {
-			case "ShowCompletedTasks":
-				SetFilter ();
-				break;
-			}
-		}
+            if (result != 0)
+                return -result;
 
-		void SetFilter ()
-		{
-			if (preferences.ShowCompletedTasks)
-				tasks.Filter = null;
-			else
-				tasks.Filter = task => !task.IsComplete;
-		}
+            if (x.IsComplete)
+                return -completedComparer.Compare(x, y);
+            else
+                return x.CompareTo(y);
+        }
 
-		Preferences preferences;
-		ListCollectionView<Task> tasks;
-	}
+        TaskCompletionDateComparer completedComparer;
+    }
 }

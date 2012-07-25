@@ -1,5 +1,5 @@
 // 
-// MainWindowModel.cs
+// DueDateConverter.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,45 +23,33 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System.ComponentModel;
+using System;
+using System.Globalization;
 using CollectionTransforms;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class MainWindowModel : ViewModelBase
-	{
-		public MainWindowModel (Backend backend, Preferences preferences)
-		{
-			this.preferences = preferences;
-			preferences.PropertyChanged += HandlePreferencesPropertyChanged;
+    public class DueDateConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var today = DateTime.Today;
+            var tomorrow = DateTime.Today.AddDays(1);
 
-			tasks = new ListCollectionView<Task> (backend.Tasks);
-			SetFilter ();
-			tasks.GroupDescriptions.Add (new PropertyGroupDescription ("IsComplete"));
-			var dueDateDesc = new PropertyGroupDescription("DueDate");
-            dueDateDesc.Converter = new DueDateConverter();
-            tasks.GroupDescriptions.Add(dueDateDesc);
-			tasks.CustomSort = new TaskComparer(new TaskCompletionDateComparer());
-		}
+            var dueDate = ((DateTime)value).Date;
+            if (dueDate < today)
+                return DueDateCategory.Overdue;
+            else if (dueDate == today)
+                return DueDateCategory.Today;
+            else if (dueDate == tomorrow)
+                return DueDateCategory.Tomorrow;
+            else
+                return DueDateCategory.Future;
+        }
 
-		void HandlePreferencesPropertyChanged (object sender, PropertyChangedEventArgs e)
-		{
-			switch (e.PropertyName) {
-			case "ShowCompletedTasks":
-				SetFilter ();
-				break;
-			}
-		}
-
-		void SetFilter ()
-		{
-			if (preferences.ShowCompletedTasks)
-				tasks.Filter = null;
-			else
-				tasks.Filter = task => !task.IsComplete;
-		}
-
-		Preferences preferences;
-		ListCollectionView<Task> tasks;
-	}
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
