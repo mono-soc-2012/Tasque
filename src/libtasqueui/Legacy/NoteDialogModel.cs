@@ -1,5 +1,5 @@
 // 
-// NativeApplication.cs
+// NoteDialogModel.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,40 +24,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Diagnostics;
-
-namespace Tasque
+namespace Tasque.UIModel.Legacy
 {
-	public abstract class NativeApplication
+	public class NoteDialogModel
 	{
-		public abstract string ConfDir { get; }
-
-		public void Exit (int exitcode)
+		public NoteDialogModel ()
 		{
-			OnExit (exitcode);
-
-			if (Exiting != null)
-				Exiting (this, EventArgs.Empty);
-
-			Environment.Exit (exitcode);
 		}
-
-		public abstract void Initialize (string[] args);
-
-		public virtual void InitializeIdle () {}
-
-		protected virtual void OnExit (int exitCode) {}
-
-		public virtual void OpenUrlInBrowser (string url)
-		{
-			Process.Start (url);
-		}
-
-		public abstract void QuitMainLoop ();
-
-		public abstract void StartMainLoop ();
-
-		public event EventHandler Exiting;
 	}
 }
 

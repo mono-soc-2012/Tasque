@@ -214,7 +214,6 @@
     <Compile Include="Backends\Dummy\DummyTask.cs" />
     <Compile Include="CellRendererDate.cs" />
     <Compile Include="CompletedTaskGroup.cs" />
-    <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="DateButton.cs" />
     <Compile Include="NoteDialog.cs" />
     <Compile Include="NoteWidget.cs" />
@@ -222,8 +221,6 @@
     <Compile Include="PreferencesDialog.cs" />
     <Compile Include="TaskCalendar.cs" />
     <Compile Include="TaskGroup.cs" />
-    <Compile Include="TaskGroupModel.cs" />
-    <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
@@ -269,6 +266,10 @@
     <ProjectReference Include="..\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
       <Project>{95B669DC-0F9F-4C26-B31E-34CFA54112E8}</Project>
       <Name>TreeModelListAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libtasqueui\libtasqueui.csproj">
+      <Project>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</Project>
+      <Name>libtasqueui</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,5 @@
 // 
-// NativeApplication.cs
+// ViewModelBase.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,41 +23,19 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.Diagnostics;
+using System.ComponentModel;
 
-namespace Tasque
+namespace Tasque.UIModel
 {
-	public abstract class NativeApplication
+	public abstract class ViewModelBase : INotifyPropertyChanged
 	{
-		public abstract string ConfDir { get; }
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		public void Exit (int exitcode)
+		protected void OnPropertyChanged (string propertyName)
 		{
-			OnExit (exitcode);
-
-			if (Exiting != null)
-				Exiting (this, EventArgs.Empty);
-
-			Environment.Exit (exitcode);
+			if (PropertyChanged != null)
+				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
-
-		public abstract void Initialize (string[] args);
-
-		public virtual void InitializeIdle () {}
-
-		protected virtual void OnExit (int exitCode) {}
-
-		public virtual void OpenUrlInBrowser (string url)
-		{
-			Process.Start (url);
-		}
-
-		public abstract void QuitMainLoop ();
-
-		public abstract void StartMainLoop ();
-
-		public event EventHandler Exiting;
 	}
 }
 

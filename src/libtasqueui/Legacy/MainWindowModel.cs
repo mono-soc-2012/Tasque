@@ -1,5 +1,5 @@
 // 
-// NativeApplication.cs
+// MainWindowModel.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,41 +23,40 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.Diagnostics;
+using System.ComponentModel;
+using CollectionTransforms;
 
-namespace Tasque
+namespace Tasque.UIModel.Legacy
 {
-	public abstract class NativeApplication
+	public class MainWindowModel : ViewModelBase
 	{
-		public abstract string ConfDir { get; }
-
-		public void Exit (int exitcode)
+		public MainWindowModel (Backend backend, Preferences preferences)
 		{
-			OnExit (exitcode);
+			this.preferences = preferences;
+			preferences.PropertyChanged += HandlePreferencesPropertyChanged;
 
-			if (Exiting != null)
-				Exiting (this, EventArgs.Empty);
-
-			Environment.Exit (exitcode);
+			tasks = new CollectionView<Task> (backend.Tasks);
+			SetFilter ();
 		}
 
-		public abstract void Initialize (string[] args);
-
-		public virtual void InitializeIdle () {}
-
-		protected virtual void OnExit (int exitCode) {}
-
-		public virtual void OpenUrlInBrowser (string url)
+		void HandlePreferencesPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
-			Process.Start (url);
+			switch (e.PropertyName) {
+			case "ShowCompletedTasks":
+				SetFilter ();
+				break;
+			}
 		}
 
-		public abstract void QuitMainLoop ();
+		void SetFilter ()
+		{
+			if (preferences.ShowCompletedTasks)
+				tasks.Filter = null;
+			else
+				tasks.Filter = task => !task.IsComplete;
+		}
 
-		public abstract void StartMainLoop ();
-
-		public event EventHandler Exiting;
+		Preferences preferences;
+		CollectionView<Task> tasks;
 	}
 }
-

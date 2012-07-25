@@ -138,12 +138,52 @@
     <Compile Include="..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <Compile Include="INativeApplication.cs" />
     <Compile Include="NativeApplication.cs" />
+=======
+=======
+>>>>>>> Stashed changes
+    <Compile Include="NativeApplication.cs" />
+    <Compile Include="Legacy\MainWindowModel.cs" />
+    <Compile Include="Legacy\PreferencesDialogModel.cs" />
+    <Compile Include="Legacy\AboutDialogModel.cs" />
+    <Compile Include="Legacy\NoteDialogModel.cs" />
+    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="TaskGroupModel.cs" />
+    <Compile Include="CompletedTaskGroupModel.cs" />
+    <Compile Include="TaskGroupModelFactory.cs" />
+    <Compile Include="Legacy\TrayModel.cs" />
+    <Compile Include="Preferences.cs" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Properties\" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <Folder Include="Gtk2\" />
+=======
+=======
+>>>>>>> Stashed changes
+    <Folder Include="Legacy\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
+      <Name>CollectionView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libtasque\libtasque.csproj">
+      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
+      <Name>libtasque</Name>
+    </ProjectReference>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

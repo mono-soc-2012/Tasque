@@ -1,5 +1,5 @@
 // 
-// NativeApplication.cs
+// Preferences.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,40 +24,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Diagnostics;
+using System.ComponentModel;
 
-namespace Tasque
+namespace Tasque.UIModel
 {
-	public abstract class NativeApplication
+	public class Preferences : INotifyPropertyChanged
 	{
-		public abstract string ConfDir { get; }
-
-		public void Exit (int exitcode)
-		{
-			OnExit (exitcode);
-
-			if (Exiting != null)
-				Exiting (this, EventArgs.Empty);
-
-			Environment.Exit (exitcode);
+		public bool ShowCompletedTasks {
+			get { return showCompletedTasks; }
+			set {
+				if (value != showCompletedTasks) {
+					showCompletedTasks = value;
+					OnPropertyChanged ("ShowCompletedTasks");
+				}
+			}
 		}
 
-		public abstract void Initialize (string[] args);
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		public virtual void InitializeIdle () {}
-
-		protected virtual void OnExit (int exitCode) {}
-
-		public virtual void OpenUrlInBrowser (string url)
+		protected void OnPropertyChanged (string propertyName)
 		{
-			Process.Start (url);
+			if (PropertyChanged != null)
+				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
 
-		public abstract void QuitMainLoop ();
-
-		public abstract void StartMainLoop ();
-
-		public event EventHandler Exiting;
+		bool showCompletedTasks;
 	}
 }
 
