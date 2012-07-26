@@ -118,6 +118,7 @@ namespace Tasque
 		/// <summary>
 		/// Create a new task.
 		/// </summary>
+		[Obsolete]
 		public Task CreateTask (string taskName, Category category)
 		{
 			if (category == null)
@@ -126,6 +127,7 @@ namespace Tasque
 			return CreateTask (taskName, new Category [] { category });
 		}
 		
+		[Obsolete]
 		public Task CreateTask (string taskName, IEnumerable<Category> categories)
 		{
 			if (taskName == null)
@@ -151,6 +153,7 @@ namespace Tasque
 			return task;
 		}
 		
+		[Obsolete]
 		public void DeleteTask (Task task)
 		{
 			if (task == null)
