@@ -138,7 +138,7 @@ namespace Tasque
 			bool isEmpty = true;
 			foreach (var cat in categories) {
 				if (cat == null)
-					throw new ArgumentException ("One of the provided categories is null.","categories");
+					throw new ArgumentException ("One of the provided categories is null.", "categories");
 
 				cat.Add (task);
 				isEmpty = false;
@@ -149,6 +149,15 @@ namespace Tasque
 					"impossible to add an item.", "categories");
 
 			return task;
+		}
+		
+		public void DeleteTask (Task task)
+		{
+			if (task == null)
+				throw new ArgumentNullException ("task");
+			
+			foreach (var cat in Categories)
+				cat.Remove (task);
 		}
 
 		/// <summary>
