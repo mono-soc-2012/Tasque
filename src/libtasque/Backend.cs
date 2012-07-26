@@ -49,6 +49,13 @@ namespace Tasque
 
 			categoriesChangedSources = new List<INotifyCollectionChanged> ();
 			Categories = new SortedNotifyCollection<Category> ();
+			
+			// create default category here, because it is required for the model to be there. Overwrite
+			// default category preferably in child class constructor with more appropriate value
+			var defaultCategory = new Category ("Default");
+			Categories.Add (defaultCategory);
+			DefaultCategory = defaultCategory;
+			
 			Categories.CollectionChanged += HandleCategoriesChanged;
 		}
 
@@ -64,6 +71,17 @@ namespace Tasque
 		/// be shown so the user can configure the backend.
 		/// </value>
 		public abstract bool Configured { get; }
+		
+		public Category DefaultCategory {
+			get { return defaultCategory; }
+			set {
+				if (value == null)
+					throw new ArgumentNullException ("value");
+				if (!Categories.Contains (value))
+					throw new ArgumentException ("Value must be an element of Backend.Categories.", "value");
+				defaultCategory = value;
+			}
+		}
 
 		/// <value>
 		/// Inidication that the backend is initialized
@@ -237,6 +255,7 @@ namespace Tasque
 		}
 
 		List<INotifyCollectionChanged> categoriesChangedSources;
+		Category defaultCategory;
 		SortedNotifyCollection<Task> tasks;
 	}
 }
