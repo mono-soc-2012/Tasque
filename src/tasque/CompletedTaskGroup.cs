@@ -3,28 +3,42 @@
 //
 // To change standard headers go to Edit->Preferences->Coding->Standard Headers
 //
-
+// 
+// CompletedTaskGroup.cs
+//  
+// Author:
+//       Antonius Riha <antoniusriha@gmail.com>
+// 
+// Copyright (c) 2012 Antonius Riha
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 using System;
 using Gtk;
 using Mono.Unix;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 using CollectionTransforms;
 using System.ComponentModel;
+using Tasque.UIModel.Legacy;
 
 namespace Tasque
 {
-	public enum ShowCompletedRange : uint
-	{
-		Yesterday = 0,
-		Last7Days,
-		LastMonth,
-		LastYear,
-		All
-	}
-	
 	public class CompletedTaskGroup : TaskGroup
 	{
 		/// <summary>
@@ -41,7 +55,7 @@ namespace Tasque
 		
 		Category selectedCategory;
 		HScale rangeSlider;
-		ShowCompletedRange currentRange;
+		CompletionDateRange currentRange;
 		
 		public CompletedTaskGroup (string groupName, DateTime rangeStart,
 								   DateTime rangeEnd, IEnumerable tasks)
@@ -78,7 +92,7 @@ namespace Tasque
 				Application.Preferences.Get (Preferences.CompletedTasksRange);
 			if (rangeStr == null) {
 				// Set a default value of All
-				rangeStr = ShowCompletedRange.All.ToString ();
+				rangeStr = CompletionDateRange.All.ToString ();
 				Application.Preferences.Set (Preferences.CompletedTasksRange,
 											 rangeStr);
 			}
@@ -125,7 +139,7 @@ namespace Tasque
 		
 		private void OnRangeSliderChanged (object sender, EventArgs args)
 		{
-			ShowCompletedRange range = (ShowCompletedRange)(uint)rangeSlider.Value;
+			CompletionDateRange range = (CompletionDateRange)(uint)rangeSlider.Value;
 			
 			// If the value is different than what we already have, adjust it in
 			// the UI and set the preference.
@@ -142,38 +156,38 @@ namespace Tasque
 		private void OnFormatRangeSliderValue (object sender,
 											   FormatValueArgs args)
 		{
-			ShowCompletedRange range = (ShowCompletedRange)args.Value;
+			CompletionDateRange range = (CompletionDateRange)args.Value;
 			args.RetVal = GetTranslatedRangeValue (range);
 		}
 		
-		private ShowCompletedRange ParseRange (string rangeStr)
+		private CompletionDateRange ParseRange (string rangeStr)
 		{
 			switch (rangeStr) {
 			case "Yesterday":
-				return ShowCompletedRange.Yesterday;
+				return CompletionDateRange.Yesterday;
 			case "Last7Days":
-				return ShowCompletedRange.Last7Days;
+				return CompletionDateRange.Last7Days;
 			case "LastMonth":
-				return ShowCompletedRange.LastMonth;
+				return CompletionDateRange.LastMonth;
 			case "LastYear":
-				return ShowCompletedRange.LastYear;
+				return CompletionDateRange.LastYear;
 			}
 			
 			// If the string doesn't match for some reason just return the
 			// default, which is All.
-			return ShowCompletedRange.All;
+			return CompletionDateRange.All;
 		}
 		
-		private string GetTranslatedRangeValue (ShowCompletedRange range)
+		private string GetTranslatedRangeValue (CompletionDateRange range)
 		{
 			switch (range) {
-			case ShowCompletedRange.Yesterday:
+			case CompletionDateRange.Yesterday:
 				return Catalog.GetString ("Yesterday");
-			case ShowCompletedRange.Last7Days:
+			case CompletionDateRange.Last7Days:
 				return Catalog.GetString ("Last 7 Days");
-			case ShowCompletedRange.LastMonth:
+			case CompletionDateRange.LastMonth:
 				return Catalog.GetString ("Last Month");
-			case ShowCompletedRange.LastYear:
+			case CompletionDateRange.LastYear:
 				return Catalog.GetString ("Last Year");
 			}
 			
@@ -186,22 +200,22 @@ namespace Tasque
 			DateTime today = DateTime.Now;
 			
 			switch (currentRange) {
-			case ShowCompletedRange.Yesterday:
+			case CompletionDateRange.Yesterday:
 				date = today.AddDays (-1);
 				date = new DateTime (date.Year, date.Month, date.Day,
 									 0, 0, 0);
 				break;
-			case ShowCompletedRange.Last7Days:
+			case CompletionDateRange.Last7Days:
 				date = today.AddDays (-7);
 				date = new DateTime (date.Year, date.Month, date.Day,
 									 0, 0, 0);
 				break;
-			case ShowCompletedRange.LastMonth:
+			case CompletionDateRange.LastMonth:
 				date = today.AddMonths (-1);
 				date = new DateTime (date.Year, date.Month, date.Day,
 									 0, 0, 0);
 				break;
-			case ShowCompletedRange.LastYear:
+			case CompletionDateRange.LastYear:
 				date = today.AddYears (-1);
 				date = new DateTime (date.Year, date.Month, date.Day,
 									 0, 0, 0);

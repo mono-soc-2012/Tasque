@@ -1,5 +1,5 @@
 // 
-// TaskComparer.cs
+// ITimeAware.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,30 +24,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
 
-namespace Tasque.UIModel.Legacy
+namespace Tasque.UIModel
 {
-    public class TaskComparer : Comparer<Task>
-    {
-        public TaskComparer(TaskCompletionDateComparer completedComparer)
-        {
-            this.completedComparer = completedComparer;
-        }
-
-        public override int Compare(Task x, Task y)
-        {
-            var result = x.IsComplete.CompareTo(y.IsComplete);
-
-            if (result != 0)
-                return result;
-
-            if (x.IsComplete)
-                return -completedComparer.Compare(x, y);
-            else
-                return x.CompareTo(y);
-        }
-
-        TaskCompletionDateComparer completedComparer;
-    }
+	public interface ITimeAware
+	{
+		void OnDayChanged ();
+	}
 }

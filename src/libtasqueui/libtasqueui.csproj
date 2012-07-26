@@ -148,10 +148,15 @@
     <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="Legacy\TrayModel.cs" />
-    <Compile Include="Preferences.cs" />
     <Compile Include="Legacy\DueDateCategory.cs" />
     <Compile Include="Legacy\DueDateConverter.cs" />
     <Compile Include="Legacy\TaskComparer.cs" />
+    <Compile Include="Legacy\CompletionDateRange.cs" />
+    <Compile Include="Legacy\Preferences.cs" />
+    <Compile Include="ITimeAware.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="CommandBase.cs" />
+    <Compile Include="Legacy\TaskCommands.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

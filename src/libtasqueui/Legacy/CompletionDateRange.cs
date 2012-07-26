@@ -1,5 +1,5 @@
 // 
-// TaskComparer.cs
+// CompletionDateRange.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,31 +23,15 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.Collections.Generic;
 
 namespace Tasque.UIModel.Legacy
 {
-    public class TaskComparer : Comparer<Task>
-    {
-        public TaskComparer(TaskCompletionDateComparer completedComparer)
-        {
-            this.completedComparer = completedComparer;
-        }
-
-        public override int Compare(Task x, Task y)
-        {
-            var result = x.IsComplete.CompareTo(y.IsComplete);
-
-            if (result != 0)
-                return result;
-
-            if (x.IsComplete)
-                return -completedComparer.Compare(x, y);
-            else
-                return x.CompareTo(y);
-        }
-
-        TaskCompletionDateComparer completedComparer;
-    }
+	public enum CompletionDateRange
+	{
+		Yesterday,
+		Last7Days,
+		LastMonth,
+		LastYear,
+		All
+	}
 }

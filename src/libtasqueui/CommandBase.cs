@@ -1,5 +1,5 @@
 // 
-// TaskComparer.cs
+// CommandBase.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,30 +24,55 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
 
-namespace Tasque.UIModel.Legacy
+namespace Tasque.UIModel
 {
-    public class TaskComparer : Comparer<Task>
-    {
-        public TaskComparer(TaskCompletionDateComparer completedComparer)
-        {
-            this.completedComparer = completedComparer;
-        }
-
-        public override int Compare(Task x, Task y)
-        {
-            var result = x.IsComplete.CompareTo(y.IsComplete);
-
-            if (result != 0)
-                return result;
-
-            if (x.IsComplete)
-                return -completedComparer.Compare(x, y);
-            else
-                return x.CompareTo(y);
-        }
-
-        TaskCompletionDateComparer completedComparer;
-    }
+	public abstract class CommandBase : ICommand
+	{
+		public bool CanExecute {
+			get { return canExecute; }
+			private set {
+				if (value != canExecute) {
+					canExecute = value;
+					if (CanExecuteChanged != null)
+						CanExecuteChanged (this, EventArgs.Empty);
+				}
+			}
+		}
+		
+		public string ErrorMessage { get; private set; }
+		
+		public abstract void Execute ();
+		
+		public event EventHandler CanExecuteChanged;
+		
+		protected void SetCanExecute ()
+		{
+			ErrorMessage = null;
+			CanExecute = true;
+		}
+		
+		protected void UnsetCanExecute (string reason)
+		{
+			if (reason == null)
+				throw new ArgumentNullException ("reason");
+			
+			ErrorMessage = reason;
+			CanExecute = false;
+		}
+		
+		bool canExecute;
+		
+		#region Explicit
+		bool ICommand.CanExecute (object parameter)
+		{
+			return CanExecute;
+		}
+		
+		void ICommand.Execute (object parameter)
+		{
+			Execute ();
+		}
+		#endregion
+	}
 }

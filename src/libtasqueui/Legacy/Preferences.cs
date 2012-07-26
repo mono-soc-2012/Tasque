@@ -26,16 +26,36 @@
 using System;
 using System.ComponentModel;
 
-namespace Tasque.UIModel
+namespace Tasque.UIModel.Legacy
 {
 	public class Preferences : INotifyPropertyChanged
 	{
+		public CompletionDateRange CompletionDateRange {
+			get { return completionDateRange; }
+			set {
+				if (value != completionDateRange) {
+					completionDateRange = value;
+					OnPropertyChanged ("CompletionDateRange");
+				}
+			}
+		}
+		
 		public bool ShowCompletedTasks {
 			get { return showCompletedTasks; }
 			set {
 				if (value != showCompletedTasks) {
 					showCompletedTasks = value;
 					OnPropertyChanged ("ShowCompletedTasks");
+				}
+			}
+		}
+		
+		public Category SelectedCategory {
+			get { return selectedCategory; }
+			set {
+				if (value != selectedCategory) {
+					selectedCategory = value;
+					OnPropertyChanged ("SelectedCategory");
 				}
 			}
 		}
@@ -48,7 +68,8 @@ namespace Tasque.UIModel
 				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
 
+		CompletionDateRange completionDateRange;
 		bool showCompletedTasks;
+		Category selectedCategory;
 	}
 }
-
