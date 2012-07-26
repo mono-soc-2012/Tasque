@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{69B26AD3-1E26-4C96-84AA-F525297377FF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ObservableTransformCollections", "ObservableTransformCollections", "{69B26AD3-1E26-4C96-84AA-F525297377FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform", "src\ObservableTransformCollections\CollectionTransform\CollectionTransform.csproj", "{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}"
 EndProject
