@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">MonoMacDebug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoWin32Manifest>True</NoWin32Manifest>
+    <RootNamespace>Tasque</RootNamespace>
+    <AssemblyName>Tasque</AssemblyName>
+    <ReleaseVersion>0.1.10</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacRelease|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\LinuxRelease</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="OSXApplication.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\data\osx\Contents\Info.plist">
+      <Link>osx\Contents\Info.plist</Link>
+    </None>
+    <None Include="..\..\data\osx\Contents\Resources\tasque.icns">
+      <Link>osx\Contents\Resources\tasque.icns</Link>
+    </None>
+    <None Include="..\..\data\osx\Contents\MacOS\Tasque">
+      <Link>osx\Contents\MacOS\Tasque</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="osx\Contents\Resources\" />
+    <Folder Include="osx\Contents\MacOS\" />
+  </ItemGroup>
+</Project>

@@ -75,27 +75,6 @@
     <WarningLevel>4</WarningLevel>
     <Optimize>false</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkMacDebug|AnyCPU' ">
-    <OutputPath>lib</OutputPath>
-    <DebugType>full</DebugType>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-    <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkMacRelease|AnyCPU' ">
-    <OutputPath>lib</OutputPath>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
-      </CustomCommands>
-    </CustomCommands>
-    <DebugType>none</DebugType>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacDebug|AnyCPU' ">
     <OutputPath>lib</OutputPath>
     <DebugType>full</DebugType>
@@ -130,10 +109,7 @@
       <Link>libtasque.csproj</Link>
     </None>
     <None Include="..\src\RtmNet\RtmNet.csproj">
-      <Link>RtmNet.csproj</Link>
-    </None>
-    <None Include="..\src\tasque\tasque.csproj">
-      <Link>tasque.csproj</Link>
+      <Link>Libraries\RtmNet.csproj</Link>
     </None>
     <None Include="fixautotoolsbuild.sh" />
     <None Include="CommonAssemblyInfo.cs" />
@@ -147,16 +123,37 @@
       <Link>tests.csproj</Link>
     </None>
     <None Include="..\src\ObservableTransformCollections\CollectionTransform\CollectionTransform.csproj">
-      <Link>CollectionTransform.csproj</Link>
+      <Link>Libraries\ObservableCollectionTransforms\CollectionTransform.csproj</Link>
     </None>
     <None Include="..\src\ObservableTransformCollections\CollectionTransform.Tests\CollectionTransform.Tests.csproj">
-      <Link>CollectionTransform.Tests.csproj</Link>
+      <Link>Libraries\ObservableCollectionTransforms\CollectionTransform.Tests.csproj</Link>
     </None>
     <None Include="..\src\ObservableTransformCollections\CollectionView\CollectionView.csproj">
-      <Link>CollectionView.csproj</Link>
+      <Link>Libraries\ObservableCollectionTransforms\CollectionView.csproj</Link>
     </None>
     <None Include="..\src\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
-      <Link>TreeModelListAdapter.csproj</Link>
+      <Link>Libraries\ObservableCollectionTransforms\TreeModelListAdapter.csproj</Link>
+    </None>
+    <None Include="..\.gitignore">
+      <Link>.gitignore</Link>
+    </None>
+    <None Include="..\src\Addins\DummyBackend\DummyBackend.csproj">
+      <Link>Addins\DummyBackend.csproj</Link>
+    </None>
+    <None Include="..\src\Addins\HiveminderBackend\HiveminderBackend.csproj">
+      <Link>Addins\HiveminderBackend.csproj</Link>
+    </None>
+    <None Include="..\src\Addins\RtmBackend\RtmBackend.csproj">
+      <Link>Addins\RtmBackend.csproj</Link>
+    </None>
+    <None Include="..\src\Addins\SqliteBackend\SqliteBackend.csproj">
+      <Link>Addins\SqliteBackend.csproj</Link>
+    </None>
+    <None Include="..\src\Tasque.Gtk\Tasque.Gtk.csproj">
+      <Link>Tasque.Gtk.csproj</Link>
+    </None>
+    <None Include="..\src\Tasque.MonoMac\Tasque.MonoMac.csproj">
+      <Link>Tasque.MonoMac.csproj</Link>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -195,4 +192,9 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Addins\" />
+    <Folder Include="Libraries\" />
+    <Folder Include="Libraries\ObservableCollectionTransforms\" />
+  </ItemGroup>
 </Project>
