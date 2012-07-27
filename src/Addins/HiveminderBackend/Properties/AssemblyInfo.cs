@@ -23,13 +23,8 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
-// Information about this assembly is defined by the following attributes. 
-// Change them to the values specific to your project.
-
-[assembly: AssemblyTitle("tasque")]
-[assembly: AssemblyDescription("Simple Tasque Management")]
+[assembly: AssemblyTitle("HiveminderBackend")]
+[assembly: AssemblyDescription("Hiveminder backend for Tasque")]
 [assembly: AssemblyCopyright("MIT")]

@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputType>WinExe</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>tasque</AssemblyName>
+    <AssemblyName>Tasque</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <NoWin32Manifest>True</NoWin32Manifest>
     <RootNamespace>Tasque</RootNamespace>
@@ -83,52 +83,6 @@
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkMacDebug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;OSX</DefineConstants>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkMacRelease|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <DefineConstants>TRACE;OSX</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacDebug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacRelease|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -167,37 +121,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\data\osx\Contents\Info.plist">
-      <Link>data\osx\Contents\Info.plist</Link>
-    </None>
-    <None Include="..\..\data\osx\Contents\MacOS\Tasque">
-      <Link>data\osx\Contents\MacOS\Tasque</Link>
-    </None>
-    <None Include="..\..\data\osx\Contents\Resources\tasque.icns">
-      <Link>data\osx\Contents\Resources\tasque.icns</Link>
-    </None>
     <None Include="..\..\data\sounds\notify.wav">
       <Link>data\sounds\notify.wav</Link>
     </None>
-    <None Include="Backends\Hiveminder\HmBackend.cs" />
-    <None Include="Backends\Hiveminder\HmCategory.cs" />
-    <None Include="Backends\Hiveminder\HmNote.cs" />
-    <None Include="Backends\Hiveminder\HmPreferencesWidget.cs" />
-    <None Include="Backends\Hiveminder\HmTask.cs" />
-    <None Include="Backends\Hiveminder\service\Group.cs" />
-    <None Include="Backends\Hiveminder\service\Hiveminder.cs" />
-    <None Include="Backends\Hiveminder\service\HiveminderException.cs" />
-    <None Include="Backends\Hiveminder\service\Task.cs" />
-    <None Include="Backends\Sqlite\Database.cs" />
-    <None Include="Backends\Sqlite\SqliteBackend.cs" />
-    <None Include="Backends\Sqlite\SqliteCategory.cs" />
-    <None Include="Backends\Sqlite\SqliteNote.cs" />
-    <None Include="Backends\Sqlite\SqliteTask.cs" />
-    <None Include="Backends\Rtm\RtmBackend.cs" />
-    <None Include="Backends\Rtm\RtmCategory.cs" />
-    <None Include="Backends\Rtm\RtmNote.cs" />
-    <None Include="Backends\Rtm\RtmPreferencesWidget.cs" />
-    <None Include="Backends\Rtm\RtmTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -208,9 +134,6 @@
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
     <Compile Include="Application.cs" />
-    <Compile Include="Backends\Dummy\DummyBackend.cs" />
-    <Compile Include="Backends\Dummy\DummyNote.cs" />
-    <Compile Include="Backends\Dummy\DummyTask.cs" />
     <Compile Include="CellRendererDate.cs" />
     <Compile Include="CompletedTaskGroup.cs" />
     <Compile Include="DateButton.cs" />
@@ -223,7 +146,6 @@
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="Backends\Dummy\Gtk\DummyPreferences.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
     <Compile Include="GnomeApplication.cs" />
@@ -235,36 +157,16 @@
   <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' or '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' or '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ">
     <Compile Include="GtkApplication.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ">
-    <Compile Include="OSXApplication.cs" />
-  </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="data\" />
     <Folder Include="data\icons\" />
-    <Folder Include="data\osx\" />
     <Folder Include="data\sounds\" />
-    <Folder Include="data\osx\Contents\" />
-    <Folder Include="data\osx\Contents\MacOS\" />
-    <Folder Include="data\osx\Contents\Resources\" />
-    <Folder Include="Backends\Dummy\Gtk\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libtasque\libtasque.csproj">
       <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
       <Name>libtasque</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RtmNet\RtmNet.csproj">
-      <Project>{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}</Project>
-      <Name>RtmNet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
-      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
-      <Name>CollectionView</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
-      <Project>{95B669DC-0F9F-4C26-B31E-34CFA54112E8}</Project>
-      <Name>TreeModelListAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\libtasqueui\libtasqueui.csproj">
       <Project>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</Project>

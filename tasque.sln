@@ -3,32 +3,41 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "build", "build\build.csproj", "{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tasque", "src\tasque\tasque.csproj", "{B19B9840-669D-4984-9772-E1F55193A67F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasque.Gtk", "src\Tasque.Gtk\Tasque.Gtk.csproj", "{B19B9840-669D-4984-9772-E1F55193A67F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libtasque", "src\libtasque\libtasque.csproj", "{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtmNet", "src\RtmNet\RtmNet.csproj", "{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{6DC908EC-E7C2-46CD-A21D-832C0D81D946}"
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "translation", "po\translation.mdproj", "{A8D75EEC-63FE-4A18-8ACF-120870056E4E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D8032D6D-255B-422E-A98D-78F30B74336E}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libtasqueui", "src\libtasqueui\libtasqueui.csproj", "{DB8F01D5-0161-48E0-B68A-14AEFD22328F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ObservableTransformCollections", "ObservableTransformCollections", "{69B26AD3-1E26-4C96-84AA-F525297377FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasque.MonoMac", "src\Tasque.MonoMac\Tasque.MonoMac.csproj", "{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Addins", "Addins", "{EECEC2EF-0F00-49F1-814F-3140F45C4F71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyBackend", "src\Addins\DummyBackend\DummyBackend.csproj", "{91F6578A-2993-40A4-BE49-64028923EB87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtmBackend", "src\Addins\RtmBackend\RtmBackend.csproj", "{545C0208-DE58-42F1-B818-0B57293B7831}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteBackend", "src\Addins\SqliteBackend\SqliteBackend.csproj", "{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiveminderBackend", "src\Addins\HiveminderBackend\HiveminderBackend.csproj", "{B3107E6C-08DD-4264-A8D5-467BD96F33CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{8F06BE43-859E-4A2D-B620-7CEDFF408F39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ObservableCollectionTransforms", "ObservableCollectionTransforms", "{575AA970-031A-4E4A-8409-75D749D3C23E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform", "src\ObservableTransformCollections\CollectionTransform\CollectionTransform.csproj", "{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform.Tests", "src\ObservableTransformCollections\CollectionTransform.Tests\CollectionTransform.Tests.csproj", "{0EFB56A9-B582-465B-AC9D-7609ABC121EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionView", "src\ObservableTransformCollections\CollectionView\CollectionView.csproj", "{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeModelListAdapter", "src\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj", "{95B669DC-0F9F-4C26-B31E-34CFA54112E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform.Tests", "src\ObservableTransformCollections\CollectionTransform.Tests\CollectionTransform.Tests.csproj", "{0EFB56A9-B582-465B-AC9D-7609ABC121EB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libtasqueui", "src\libtasqueui\libtasqueui.csproj", "{DB8F01D5-0161-48E0-B68A-14AEFD22328F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtmNet", "src\RtmNet\RtmNet.csproj", "{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,8 +47,6 @@ Global
 		GtkLinuxRelease|Any CPU = GtkLinuxRelease|Any CPU
 		GtkWinDebug|Any CPU = GtkWinDebug|Any CPU
 		GtkWinRelease|Any CPU = GtkWinRelease|Any CPU
-		GtkMacDebug|Any CPU = GtkMacDebug|Any CPU
-		GtkMacRelease|Any CPU = GtkMacRelease|Any CPU
 		MonoMacDebug|Any CPU = MonoMacDebug|Any CPU
 		MonoMacRelease|Any CPU = MonoMacRelease|Any CPU
 	EndGlobalSection
@@ -52,10 +59,6 @@ Global
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
-		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkMacDebug|Any CPU.ActiveCfg = GtkMacDebug|Any CPU
-		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkMacDebug|Any CPU.Build.0 = GtkMacDebug|Any CPU
-		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkMacRelease|Any CPU.ActiveCfg = GtkMacRelease|Any CPU
-		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkMacRelease|Any CPU.Build.0 = GtkMacRelease|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
@@ -64,10 +67,64 @@ Global
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
 		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
 		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.GnomeDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.GnomeRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.GtkLinuxDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.GtkLinuxRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.GtkWinDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.GtkWinRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{545C0208-DE58-42F1-B818-0B57293B7831}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
 		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
@@ -76,10 +133,6 @@ Global
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkMacDebug|Any CPU.ActiveCfg = GtkMacDebug|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkMacDebug|Any CPU.Build.0 = GtkMacDebug|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkMacRelease|Any CPU.ActiveCfg = GtkMacRelease|Any CPU
-		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkMacRelease|Any CPU.Build.0 = GtkMacRelease|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{6DC908EC-E7C2-46CD-A21D-832C0D81D946}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
@@ -96,10 +149,6 @@ Global
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
-		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkMacDebug|Any CPU.ActiveCfg = GtkMacDebug|Any CPU
-		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkMacDebug|Any CPU.Build.0 = GtkMacDebug|Any CPU
-		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkMacRelease|Any CPU.ActiveCfg = GtkMacRelease|Any CPU
-		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkMacRelease|Any CPU.Build.0 = GtkMacRelease|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
@@ -116,10 +165,6 @@ Global
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
-		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkMacDebug|Any CPU.ActiveCfg = GtkMacDebug|Any CPU
-		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkMacDebug|Any CPU.Build.0 = GtkMacDebug|Any CPU
-		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkMacRelease|Any CPU.ActiveCfg = GtkMacRelease|Any CPU
-		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkMacRelease|Any CPU.Build.0 = GtkMacRelease|Any CPU
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
@@ -128,10 +173,66 @@ Global
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
 		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
 		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
@@ -140,10 +241,6 @@ Global
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkMacDebug|Any CPU.ActiveCfg = GtkMacDebug|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkMacDebug|Any CPU.Build.0 = GtkMacDebug|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkMacRelease|Any CPU.ActiveCfg = GtkMacRelease|Any CPU
-		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkMacRelease|Any CPU.Build.0 = GtkMacRelease|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
@@ -160,18 +257,28 @@ Global
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkMacDebug|Any CPU.ActiveCfg = GtkMacDebug|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkMacDebug|Any CPU.Build.0 = GtkMacDebug|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkMacRelease|Any CPU.ActiveCfg = GtkMacRelease|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkMacRelease|Any CPU.Build.0 = GtkMacRelease|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
@@ -180,10 +287,6 @@ Global
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
-		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkMacDebug|Any CPU.ActiveCfg = GtkMacDebug|Any CPU
-		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkMacDebug|Any CPU.Build.0 = GtkMacDebug|Any CPU
-		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkMacRelease|Any CPU.ActiveCfg = GtkMacRelease|Any CPU
-		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkMacRelease|Any CPU.Build.0 = GtkMacRelease|Any CPU
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
@@ -194,13 +297,19 @@ Global
 		{DB8F01D5-0161-48E0-B68A-14AEFD22328F}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF} = {69B26AD3-1E26-4C96-84AA-F525297377FF}
-		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92} = {69B26AD3-1E26-4C96-84AA-F525297377FF}
-		{95B669DC-0F9F-4C26-B31E-34CFA54112E8} = {69B26AD3-1E26-4C96-84AA-F525297377FF}
-		{0EFB56A9-B582-465B-AC9D-7609ABC121EB} = {69B26AD3-1E26-4C96-84AA-F525297377FF}
+		{91F6578A-2993-40A4-BE49-64028923EB87} = {EECEC2EF-0F00-49F1-814F-3140F45C4F71}
+		{545C0208-DE58-42F1-B818-0B57293B7831} = {EECEC2EF-0F00-49F1-814F-3140F45C4F71}
+		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A} = {EECEC2EF-0F00-49F1-814F-3140F45C4F71}
+		{B3107E6C-08DD-4264-A8D5-467BD96F33CA} = {EECEC2EF-0F00-49F1-814F-3140F45C4F71}
+		{575AA970-031A-4E4A-8409-75D749D3C23E} = {8F06BE43-859E-4A2D-B620-7CEDFF408F39}
+		{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7} = {8F06BE43-859E-4A2D-B620-7CEDFF408F39}
+		{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF} = {575AA970-031A-4E4A-8409-75D749D3C23E}
+		{0EFB56A9-B582-465B-AC9D-7609ABC121EB} = {575AA970-031A-4E4A-8409-75D749D3C23E}
+		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92} = {575AA970-031A-4E4A-8409-75D749D3C23E}
+		{95B669DC-0F9F-4C26-B31E-34CFA54112E8} = {575AA970-031A-4E4A-8409-75D749D3C23E}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = src\tasque\tasque.csproj
+		StartupItem = src\Tasque.Gtk\Tasque.Gtk.csproj
 		Policies = $0
 		$0.StandardHeader = $1
 		$1.Text = @\n${FileName}\n \nAuthor:\n      ${AuthorName} <${AuthorEmail}>\n\nCopyright (c) ${Year} ${CopyrightHolder}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.

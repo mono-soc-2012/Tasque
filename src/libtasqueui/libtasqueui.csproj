@@ -83,28 +83,6 @@
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkMacDebug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkMacRelease|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
-      </CustomCommands>
-    </CustomCommands>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -156,12 +134,16 @@
     <Compile Include="ITimeAware.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="CommandBase.cs" />
-    <Compile Include="Legacy\TaskCommands.cs" />
+    <Compile Include="Legacy\MainWindowTopPanelModel.cs" />
+    <Compile Include="Legacy\MainWindowContextMenuModel.cs" />
+    <Compile Include="Legacy\Commands\ComponentCommands.cs" />
+    <Compile Include="Legacy\Commands\TaskCommands.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="Legacy\" />
+    <Folder Include="Legacy\Commands\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libtasque\libtasque.csproj">

@@ -120,4 +120,39 @@ namespace Tasque.UIModel.Legacy
 		Backend backend;
 		Task task;
 	}
+	
+	class EditTaskNameCommand : CommandBase
+	{
+		public string Name {
+			get { return name; }
+			set {
+				if (value != name) {
+					
+				}
+			}
+		}
+		
+		public Task Task {
+			get { return task; }
+			set {
+				if (value == task)
+					return;
+				
+				task = value;
+				if (value == null)
+					UnsetCanExecute ("Task can't be null.");
+				else
+					SetCanExecute ();
+			}
+		}
+		
+		public override void Execute ()
+		{
+			if (CanExecute)
+				;
+		}
+		
+		string name;
+		Task task;
+	}
 }

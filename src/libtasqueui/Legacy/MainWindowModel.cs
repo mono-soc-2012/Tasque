@@ -30,78 +30,36 @@ namespace Tasque.UIModel.Legacy
 {
 	public class MainWindowModel : ViewModelBase, ITimeAware
 	{
-		public MainWindowModel (Backend backend, Preferences preferences)
+		internal MainWindowModel ()
 		{
-			if (backend == null)
+			if (Backend == null)
 				throw new ArgumentNullException ("backend");
-			if (preferences == null)
+			if (Preferences == null)
 				throw new ArgumentNullException ("preferences");
 			
 			UpdateCompletionDateRangeCompareDates ();
 			
-			this.backend = backend;
-			this.preferences = preferences;
+			this.Backend = Backend;
+			this.Preferences = Preferences;
 			
-			Categories = new ReadOnlySortedNotifyCollection<Category> (backend.Categories);
-			
-			tasks = new ListCollectionView<Task> (backend.Tasks);
-			tasks.Filter = Filter;
-			tasks.GroupDescriptions.Add (new PropertyGroupDescription ("IsComplete"));
+			Tasks = new ListCollectionView<Task> (Backend.Tasks);
+			Tasks.Filter = Filter;
+			Tasks.GroupDescriptions.Add (new PropertyGroupDescription ("IsComplete"));
 			var dueDateDesc = new PropertyGroupDescription("DueDate");
             dueDateDesc.Converter = new DueDateConverter();
-            tasks.GroupDescriptions.Add(dueDateDesc);
-			tasks.CustomSort = new TaskComparer(new TaskCompletionDateComparer());
+            Tasks.GroupDescriptions.Add(dueDateDesc);
+			Tasks.CustomSort = new TaskComparer(new TaskCompletionDateComparer());
 			
-			addTaskCommand = new AddTaskCommand (backend);
-			
+			topPanel = new MainWindowTopPanelModel (this);
 		}
 		
 		public CompletionDateRange CompletionDateRange {
-			get { return preferences.CompletionDateRange; }
+			get { return Preferences.CompletionDateRange; }
 			set {
-				preferences.CompletionDateRange = value;
-				tasks.Refresh ();
+				Preferences.CompletionDateRange = value;
+				Tasks.Refresh ();
 			}
 		}
-		
-		public ReadOnlySortedNotifyCollection<Category> Categories { get; private set; }
-		
-		public Category SelectedCategory {
-			get { return preferences.SelectedCategory; }
-			set {
-				if (value != null && !Categories.Contains (value))
-					value = null;
-				preferences.SelectedCategory = value;
-				tasks.Refresh ();
-				OnPropertyChanged ("SelectedCategory");
-			}
-		}
-		
-		public ICommand AddTask { get { return addTaskCommand; } }
-		
-		public string NewTaskName {
-			get { return newTaskName; }
-			set {
-				if (value != newTaskName) {
-					newTaskName = value;
-					addTaskCommand.TaskName = value;
-					OnPropertyChanged ("NewTaskName");
-				}
-			}
-		}
-		
-		public Category NewTaskCategory {
-			get { return newTaskCategory; }
-			set {
-				if (value != newTaskCategory) {
-					newTaskCategory = value;
-					addTaskCommand.Category = value;
-					OnPropertyChanged ("NewTaskCategory");
-				}
-			}
-		}
-		
-		public ICommand RemoveTask { get { throw new NotImplementedException (); } }
 		
 		public string Status {
 			get { return status; }
@@ -113,16 +71,34 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
+		public Task SelectedTask {
+			get { return selectedTask; }
+			set {
+				if (value != selectedTask) {
+					selectedTask = value;
+					OnPropertyChanged ("SelectedTask");
+				}
+			}
+		}
+		
+		public ICommand ShowContextMenu { get { throw new NotImplementedException (); } }
+		
 		public void OnDayChanged ()
 		{
 			UpdateCompletionDateRangeCompareDates ();
-			tasks.Refresh ();
+			Tasks.Refresh ();
 		}
+		
+		internal Backend Backend { get; private set; }
+		
+		internal Preferences Preferences { get; private set; }
+		
+		internal ListCollectionView<Task> Tasks { get; private set; }
 		
 		bool Filter (Task task)
 		{
 			// account for selected category
-			var selectedCategory = SelectedCategory;
+			var selectedCategory = topPanel.SelectedCategory;
 			if (selectedCategory != null && !selectedCategory.Contains (task))
 				return false;
 			
@@ -130,7 +106,7 @@ namespace Tasque.UIModel.Legacy
 			if (!task.IsComplete)
 				return true;
 			
-			if (!preferences.ShowCompletedTasks)
+			if (!Preferences.ShowCompletedTasks)
 				return false;
 			
 			// account for completion date range setting
@@ -160,10 +136,6 @@ namespace Tasque.UIModel.Legacy
 			yesterday = today.AddDays (-1);
 		}
 		
-		Backend backend;
-		Preferences preferences;
-		ListCollectionView<Task> tasks;
-		
 		DateTime aYearAgo;
 		DateTime aMonthAgo;
 		DateTime aWeekAgo;
@@ -171,10 +143,9 @@ namespace Tasque.UIModel.Legacy
 		
 		string status;
 		
-		AddTaskCommand addTaskCommand;
-		string newTaskName;
-		Category newTaskCategory;
+		MainWindowTopPanelModel topPanel;
+		MainWindowContextMenuModel contextMenu;
 		
-		RemoveTaskCommand removeTaskCommand;
+		Task selectedTask;
 	}
 }
