@@ -144,6 +144,14 @@
       <Project>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</Project>
       <Name>libtasqueui</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
+      <Name>CollectionView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
+      <Project>{95B669DC-0F9F-4C26-B31E-34CFA54112E8}</Project>
+      <Name>TreeModelListAdapter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

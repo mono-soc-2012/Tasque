@@ -4,6 +4,7 @@
 using System;
 using Mono.Unix;
 using Gtk;
+using System.Diagnostics;
 
 namespace Tasque
 {

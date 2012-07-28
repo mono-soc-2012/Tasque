@@ -36,6 +36,7 @@ using System.Collections;
 using CollectionTransforms;
 using System.ComponentModel;
 using Tasque.UIModel.Legacy;
+using System.Collections.Generic;
 
 namespace Tasque
 {
@@ -46,7 +47,7 @@ namespace Tasque
 		/// completed tasks in reverse order (i.e., most recently completed tasks
 		/// at the top of the list).
 		/// </summary>
-		static IEnumerable GetSortedTasks (IEnumerable tasks)
+		static IEnumerable<Task> GetSortedTasks (IEnumerable<Task> tasks)
 		{
 			var cv = new CollectionView<Task> (tasks);
 			cv.SortDescriptions.Add (new SortDescription ("CompletionDate", ListSortDirection.Descending));
@@ -58,7 +59,7 @@ namespace Tasque
 		CompletionDateRange currentRange;
 		
 		public CompletedTaskGroup (string groupName, DateTime rangeStart,
-								   DateTime rangeEnd, IEnumerable tasks)
+								   DateTime rangeEnd, IEnumerable<Task> tasks)
 			: base (groupName, rangeStart, rangeEnd, GetSortedTasks (tasks))
 		{
 			// Don't hide this group when it's empty because then the range
@@ -108,7 +109,7 @@ namespace Tasque
 
 		protected override TaskGroupModel CreateModel (DateTime rangeStart,
 		                                               DateTime rangeEnd,
-		                                               IEnumerable tasks)
+		                                               IEnumerable<Task> tasks)
 		{
 			return new CompletedTaskGroupModel (rangeStart, rangeEnd, tasks);
 		}
@@ -130,7 +131,7 @@ namespace Tasque
 			
 			string cat = Application.Preferences.Get (Preferences.SelectedCategoryKey);
 			if (cat != null) {
-				var categories = Application.Backend.Categories2;
+				var categories = Application.Backend.Categories;
 				foundCategory = categories.SingleOrDefault (c => c.Name == cat);
 			}
 			

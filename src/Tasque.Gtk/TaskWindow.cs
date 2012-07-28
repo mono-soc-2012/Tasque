@@ -34,7 +34,7 @@ using Gdk;
 using Gtk;
 using Mono.Unix;
 
-using Tasque.Backends;
+using Tasque;
 using CollectionTransforms;
 using System.Collections;
 

@@ -24,8 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections;
 using CollectionTransforms;
+using System.Collections.Generic;
 
 namespace Tasque
 {
@@ -46,7 +46,7 @@ namespace Tasque
 		
 		public DateTime TimeRangeEnd { get; private set; }
 		
-		public TaskGroupModel (DateTime rangeStart, DateTime rangeEnd, IEnumerable tasks)
+		public TaskGroupModel (DateTime rangeStart, DateTime rangeEnd, IEnumerable<Task> tasks)
 			: base (tasks)
 		{
 			TimeRangeStart = rangeStart;
