@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">GnomeDebug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">GtkLinuxDebug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -10,29 +10,6 @@
     <RootNamespace>Tasque</RootNamespace>
     <AssemblyName>tasque</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeDebug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeRelease|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
