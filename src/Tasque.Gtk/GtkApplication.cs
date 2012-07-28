@@ -24,30 +24,29 @@
 //      Sandy Armstrong <sanfordarmstrong@gmail.com>
 //      Antonius Riha <antoniusriha@gmail.com>
 // 
-
 using System;
 using System.IO;
-using Gtk;
+using System.Diagnostics;
 using Mono.Unix;
+using Gtk;
 
 namespace Tasque
 {
 	public class GtkApplication : NativeApplication
 	{
-		private string confDir;
-
 		public GtkApplication ()
 		{
 			confDir = Path.Combine (
-				Environment.GetFolderPath (
-				Environment.SpecialFolder.ApplicationData),
-				"tasque");
+				Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData), "tasque");
 			if (!Directory.Exists (confDir))
 				Directory.CreateDirectory (confDir);
 		}
+		
+		public override string ConfDir { get { return confDir; } }
 
 		public override void Initialize (string[] args)
 		{
+			Catalog.Init ("tasque", GlobalDefines.LocaleDir);
 			Gtk.Application.Init ();
 		}
 		
@@ -60,22 +59,16 @@ namespace Tasque
 		{
 			Gtk.Application.Quit ();
 		}
-
-		public override string ConfDir
-		{
-			get
-			{
-				return confDir;
-			}
-		}
-
+		
 		public override void OpenUrlInBrowser (string url)
 		{
 			try {
-				System.Diagnostics.Process.Start (url);
+				Process.Start (url);
 			} catch (Exception e) {
 				Trace.TraceError ("Error opening url [{0}]:\n{1}", url, e.ToString ());
 			}
 		}
+
+		string confDir;
 	}
 }
