@@ -74,7 +74,7 @@ namespace Tasque.Backends.HmBackend
 		public override DateTime CompletionDate
 		{
 			get {return DateTime.Now;}
-			set {Logger.Info ("Not implemented");}
+			set {Trace.TraceInformation ("Not implemented");}
 		}
 		
 		public override bool IsComplete 
@@ -139,7 +139,7 @@ namespace Tasque.Backends.HmBackend
 		public override Category Category
 		{
 			get {return null;} 
-			set { Logger.Info ("Not implemented");}
+			set { Trace.TraceInformation ("Not implemented");}
 		}
 		
 		public override List<TaskNote> Notes
@@ -161,7 +161,7 @@ namespace Tasque.Backends.HmBackend
 		public uint TimerID
 		{
 			get { return 0; }
-			set {Logger.Info ("Not implemented"); }
+			set {Trace.TraceInformation ("Not implemented"); }
 		}
 
 		public string GroupId
@@ -208,7 +208,7 @@ namespace Tasque.Backends.HmBackend
 		#region Methods	
 		public override void Activate ()
 		{
-			Logger.Info ("Activate : Not implemented");
+			Trace.TraceInformation ("Activate : Not implemented");
 		}
 		
 		/// <summary>
@@ -216,7 +216,7 @@ namespace Tasque.Backends.HmBackend
 		/// </summary>
 		public override void Inactivate ()
 		{
-			Logger.Info ("Inactivate " + Name);
+			Trace.TraceInformation ("Inactivate " + Name);
 			this.task.IsComplete = true;
 			this.backend.UpdateTask (this);
 		}
@@ -226,7 +226,7 @@ namespace Tasque.Backends.HmBackend
 		/// </summary>
 		public override void Complete ()
 		{
-                       Logger.Debug ("Complete : " + Name);
+                       Debug.WriteLine ("Complete : " + Name);
                        this.task.IsComplete = true;
 		       this.backend.UpdateTask (this);
 		}
@@ -236,7 +236,7 @@ namespace Tasque.Backends.HmBackend
 		/// </summary>
 		public override void Delete ()
 		{
-			Logger.Info ("Delete : Not implemented");
+			Trace.TraceInformation ("Delete : Not implemented");
 		}
 		
 		/// <summary>
@@ -247,7 +247,7 @@ namespace Tasque.Backends.HmBackend
 		/// </param>
 		public override TaskNote CreateNote(string text)
 		{
-			Logger.Debug ("CreateNote : " + text);
+			Debug.WriteLine ("CreateNote : " + text);
 
 			HmNote hmNote = new HmNote (this.task);
 			hmNote.Text = text;
@@ -268,7 +268,7 @@ namespace Tasque.Backends.HmBackend
 		/// </param>
 		public override void DeleteNote(TaskNote note)
 		{
-		       Logger.Debug ("DeleteNote : " + note.Text);
+		       Debug.WriteLine ("DeleteNote : " + note.Text);
 
 		       foreach(HmNote hmNote in notes) {
 			       if(string.Equals (hmNote.Text, note.Text)) {
@@ -289,7 +289,7 @@ namespace Tasque.Backends.HmBackend
 		/// </param>
 		public override void SaveNote(TaskNote note)
 		{		
-			Logger.Debug ("SaveNote : " + note.Text);
+			Debug.WriteLine ("SaveNote : " + note.Text);
 
 			HmNote hmNote = new HmNote (this.task);
 			hmNote.Text = note.Text;

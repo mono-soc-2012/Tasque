@@ -6,11 +6,8 @@
     <ProjectGuid>{B19B9840-669D-4984-9772-E1F55193A67F}</ProjectGuid>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputType>WinExe</OutputType>
-    <NoStandardLibraries>false</NoStandardLibraries>
-    <AssemblyName>Tasque</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <NoWin32Manifest>True</NoWin32Manifest>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Tasque.Gtk</AssemblyName>
     <RootNamespace>Tasque</RootNamespace>
     <ReleaseVersion>0.1.10</ReleaseVersion>
   </PropertyGroup>
@@ -146,6 +143,7 @@
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="WindowsSingleInstanceSolution.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
     <Compile Include="GnomeApplication.cs" />

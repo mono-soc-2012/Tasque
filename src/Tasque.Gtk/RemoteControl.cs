@@ -117,7 +117,7 @@ namespace Tasque
 				if (taskDueDate != DateTime.MinValue)
 					task.DueDate = taskDueDate;
 			} catch (Exception e) {
-				Logger.Error ("Exception calling Application.Backend.CreateTask from RemoteControl: {0}", e.Message);
+				Trace.TraceError ("Exception calling Application.Backend.CreateTask from RemoteControl: {0}", e.Message);
 				return string.Empty;
 			}
 			

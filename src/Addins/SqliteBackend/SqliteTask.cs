@@ -22,7 +22,7 @@ namespace Tasque.Backends.Sqlite
 		public SqliteTask(SqliteBackend backend, string name)
 		{
 			this.backend = backend;
-			Logger.Debug("Creating New Task Object : {0} (id={1})", name, id);
+			Debug.WriteLine("Creating New Task Object : {0} (id={1})", name, id);
 			name = backend.SanitizeText (name);
 			this.name = name;
 			this.dueDate =  Database.FromDateTime(DateTime.MinValue);
@@ -182,7 +182,7 @@ namespace Tasque.Backends.Sqlite
 		#region Public Methods
 		public override void Activate ()
 		{
-			// Logger.Debug ("SqliteTask.Activate ()");
+			// Debug.WriteLine ("SqliteTask.Activate ()");
 			CompletionDate = DateTime.MinValue;
 			LocalState = TaskState.Active;
 			backend.UpdateTask (this);
@@ -190,7 +190,7 @@ namespace Tasque.Backends.Sqlite
 		
 		public override void Inactivate ()
 		{
-			// Logger.Debug ("SqliteTask.Inactivate ()");
+			// Debug.WriteLine ("SqliteTask.Inactivate ()");
 			CompletionDate = DateTime.Now;
 			LocalState = TaskState.Inactive;
 			backend.UpdateTask (this);
@@ -198,7 +198,7 @@ namespace Tasque.Backends.Sqlite
 		
 		public override void Complete ()
 		{
-			//Logger.Debug ("SqliteTask.Complete ()");
+			//Debug.WriteLine ("SqliteTask.Complete ()");
 			CompletionDate = DateTime.Now;
 			LocalState = TaskState.Completed;
 			backend.UpdateTask (this);
@@ -206,14 +206,14 @@ namespace Tasque.Backends.Sqlite
 		
 		public override void Delete ()
 		{
-			//Logger.Debug ("SqliteTask.Delete ()");
+			//Debug.WriteLine ("SqliteTask.Delete ()");
 			LocalState = TaskState.Deleted;
 			backend.UpdateTask (this);
 		}
 		
 		public override TaskNote CreateNote(string text)
 		{
-			Logger.Debug("Creating New Note Object : {0} (id={1})", text, id);
+			Debug.WriteLine("Creating New Note Object : {0} (id={1})", text, id);
 			text = backend.SanitizeText (text);
 			string command = String.Format("INSERT INTO Notes (Task, Text) VALUES ('{0}','{1}'); SELECT last_insert_rowid();", id, text);
 			int taskId = Convert.ToInt32 (backend.Database.ExecuteScalar(command));

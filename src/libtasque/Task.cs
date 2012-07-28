@@ -26,6 +26,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Tasque
 {
@@ -60,7 +61,7 @@ namespace Tasque
 			get { return dueDate; }
 			set {
 				if (value != dueDate) {
-					Logger.Debug ("Setting new task due date");
+					Debug.WriteLine ("Setting new task due date");
 					dueDate = value;
 					OnDueDateChanged ();
 					OnPropertyChanged ("DueDate");
@@ -73,7 +74,7 @@ namespace Tasque
 			get { return completionDate; }
 			protected set {
 				if (value != completionDate) {
-					Logger.Debug ("Setting new task completion date");
+					Debug.WriteLine ("Setting new task completion date");
 					completionDate = value;
 					OnCompletionDateChanged ();
 					OnPropertyChanged ("CompletionDate");
@@ -96,7 +97,7 @@ namespace Tasque
 			get { return priority; }
 			set {
 				if (value != priority) {
-					Logger.Debug ("Setting new task priority");
+					Debug.WriteLine ("Setting new task priority");
 					priority = value;
 					OnPriorityChanged ();
 					OnPropertyChanged ("Priority");

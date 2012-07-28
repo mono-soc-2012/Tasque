@@ -59,7 +59,7 @@ namespace Tasque
 				return ret.ScaleSimple (size, size, Gdk.InterpType.Bilinear);
 			} catch (ArgumentException) { }
 
-			Logger.Debug ("Unable to load icon '{0}'.", iconName);
+			Debug.WriteLine ("Unable to load icon '{0}'.", iconName);
 			return null;
 		}
 		

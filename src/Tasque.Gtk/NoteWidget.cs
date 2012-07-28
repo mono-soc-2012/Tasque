@@ -264,7 +264,7 @@ namespace Tasque
 			try {
 				DeleteButtonClicked (this, EventArgs.Empty);
 			} catch (Exception e) {
-				Logger.Warn ("Exception in NoteWidget.DeleteButtonClicked handler: {0}", e.Message);
+				Trace.TraceWarning ("Exception in NoteWidget.DeleteButtonClicked handler: {0}", e.Message);
 			}
 		}
 		
@@ -285,7 +285,7 @@ namespace Tasque
 			try {
 				EditCanceled (this, EventArgs.Empty);
 			} catch (Exception e) {
-				Logger.Warn ("Exception in NoteWidget.DeleteButtonClicked handler: {0}", e.Message);
+				Trace.TraceWarning ("Exception in NoteWidget.DeleteButtonClicked handler: {0}", e.Message);
 			}
 		}
 		
@@ -304,7 +304,7 @@ namespace Tasque
 				try {
 					TextChanged (this, EventArgs.Empty);
 				} catch (Exception e) {
-					Logger.Debug ("Exception in NoteWidget.TextChanged handler: {0}", e.Message);
+					Debug.WriteLine ("Exception in NoteWidget.TextChanged handler: {0}", e.Message);
 				}
 			}
 		}

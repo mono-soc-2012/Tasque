@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeModelListAdapter", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtmNet", "src\RtmNet\RtmNet.csproj", "{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tasque", "src\tasque\tasque.csproj", "{A70BD496-A280-4EF5-BBE8-254E0CA89C62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		GnomeDebug|Any CPU = GnomeDebug|Any CPU
@@ -233,6 +235,22 @@ Global
 		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
 		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
 		{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GnomeRelease|Any CPU.Build.0 = GnomeRelease|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{A70BD496-A280-4EF5-BBE8-254E0CA89C62}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GnomeDebug|Any CPU.ActiveCfg = GnomeDebug|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GnomeDebug|Any CPU.Build.0 = GnomeDebug|Any CPU
 		{A8D75EEC-63FE-4A18-8ACF-120870056E4E}.GnomeRelease|Any CPU.ActiveCfg = GnomeRelease|Any CPU
@@ -309,7 +327,7 @@ Global
 		{95B669DC-0F9F-4C26-B31E-34CFA54112E8} = {575AA970-031A-4E4A-8409-75D749D3C23E}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = src\Tasque.Gtk\Tasque.Gtk.csproj
+		StartupItem = src\tasque\tasque.csproj
 		Policies = $0
 		$0.StandardHeader = $1
 		$1.Text = @\n${FileName}\n \nAuthor:\n      ${AuthorName} <${AuthorEmail}>\n\nCopyright (c) ${Year} ${CopyrightHolder}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.

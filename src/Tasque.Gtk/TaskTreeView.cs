@@ -524,15 +524,15 @@ namespace Tasque
 			// convert to milliseconds for more granularity
 			long timeout = timerSeconds * 1000;
 			
-			//Logger.Debug ("TaskTimerCellDataFunc ()\n\tNow.Ticks: {0}\n\tCompletionDate.Ticks: {1}",
+			//Debug.WriteLine ("TaskTimerCellDataFunc ()\n\tNow.Ticks: {0}\n\tCompletionDate.Ticks: {1}",
 			//				DateTime.Now.Ticks, task.CompletionDate.Ticks);
 			long elapsedTicks = DateTime.Now.Ticks - task.CompletionDate.Ticks;
-			//Logger.Debug ("\tElapsed Ticks: {0}", elapsedTicks);
+			//Debug.WriteLine ("\tElapsed Ticks: {0}", elapsedTicks);
 			long elapsedMillis = elapsedTicks / 10000;
-			//Logger.Debug ("\tElapsed Milliseconds: {0}", elapsedMillis);
+			//Debug.WriteLine ("\tElapsed Milliseconds: {0}", elapsedMillis);
 			
 			double percentComplete = (double)elapsedMillis / (double)timeout;
-			//Logger.Debug ("\tPercent Complete: {0}", percentComplete);
+			//Debug.WriteLine ("\tPercent Complete: {0}", percentComplete);
 			
 			Gdk.Pixbuf pixbuf = GetIconForPercentage (percentComplete * 100);
 			crp.Pixbuf = pixbuf;
@@ -549,10 +549,10 @@ namespace Tasque
 		
 		protected static int GetIconNumForPercentage (double timeoutPercent)
 		{
-			//Logger.Debug ("GetIconNumForPercentage: {0}", timeoutPercent);
+			//Debug.WriteLine ("GetIconNumForPercentage: {0}", timeoutPercent);
 			int numOfIcons = 12;
 			double percentIncrement = (double)100 / (double)numOfIcons;
-			//Logger.Debug ("\tpercentIncrement: {0}", percentIncrement);
+			//Debug.WriteLine ("\tpercentIncrement: {0}", percentIncrement);
 			
 			if (timeoutPercent < percentIncrement)
 				return 0;
@@ -589,12 +589,12 @@ namespace Tasque
 			Task task = model.GetValue (iter, 0) as Task;
 
 			if (task == null) {
-				Logger.Error ("FilterFunc: task at iter was null");
+				Trace.TraceError ("FilterFunc: task at iter was null");
 				return false;
 			}
 			
 			if (task.State == TaskState.Deleted) {
-				//Logger.Debug ("TaskTreeView.FilterFunc:\n\t{0}\n\t{1}\n\tReturning false", task.Name, task.State);  
+				//Debug.WriteLine ("TaskTreeView.FilterFunc:\n\t{0}\n\t{1}\n\tReturning false", task.Name, task.State);  
 				return false;
 			}
 			
@@ -608,7 +608,7 @@ namespace Tasque
 		#region EventHandlers
 		void OnTaskToggled (object sender, Gtk.ToggledArgs args)
 		{
-			Logger.Debug ("OnTaskToggled");
+			Debug.WriteLine ("OnTaskToggled");
 			Gtk.TreeIter iter;
 			Gtk.TreePath path = new Gtk.TreePath (args.Path);
 			if (!Model.GetIter (out iter, path))
@@ -638,7 +638,7 @@ namespace Tasque
 					// Read the inactivate timeout from a preference
 					int timeout =
 						Application.Preferences.GetInt (Preferences.InactivateTimeoutKey);
-					Logger.Debug ("Read timeout from prefs: {0}", timeout);
+					Debug.WriteLine ("Read timeout from prefs: {0}", timeout);
 					InactivateTimer timer =
 						new InactivateTimer (this, iter, task, (uint) timeout);
 					timer.StartTimer ();
@@ -717,7 +717,7 @@ namespace Tasque
 		void OnDateEdited (object sender, Gtk.EditedArgs args)
 		{
 			if (args.NewText == null) {
-				Logger.Debug ("New date text null, not setting date");
+				Debug.WriteLine ("New date text null, not setting date");
 				return;
 			}
 			
@@ -860,7 +860,7 @@ namespace Tasque
 
 			public static void CancelTimer(Task task)
 			{
-				Logger.Debug ("Timeout Canceled for task: " + task.Name);
+				Debug.WriteLine ("Timeout Canceled for task: " + task.Name);
 				InactivateTimer timer = null;
 				uint timerId = task.TimerID;
 				if(timerId != 0) {

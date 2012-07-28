@@ -133,7 +133,7 @@ namespace Tasque
 
 		private void OnButtonPressed(object o, ButtonPressEventArgs args)
 		{
-			//Logger.Debug("OnButtonPressed");
+			//Debug.WriteLine("OnButtonPressed");
 			if (popup != null) {
 				HideCalendar(false);
 			}
@@ -160,7 +160,7 @@ namespace Tasque
 
 		private void OnCalendarKeyPressed(object o, KeyPressEventArgs args)
 		{
-			//Logger.Debug("OnCalendarKeyPressed");
+			//Debug.WriteLine("OnCalendarKeyPressed");
 			switch (args.Event.Key) {
 			case Gdk.Key.Escape:
 				HideCalendar(false);

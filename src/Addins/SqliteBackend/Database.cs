@@ -116,7 +116,7 @@ namespace Tasque.Backends.Sqlite
 	        	dataReader.Close();
 	        	cmd.Dispose();
 			} catch (Exception e) {
-				Logger.Debug("Exception Thrown {0}", e);
+				Debug.WriteLine("Exception Thrown {0}", e);
 			}
         	return readString;
         }
@@ -132,7 +132,7 @@ namespace Tasque.Backends.Sqlite
 	        	else
 	        		dtValue = Database.ToDateTime(longValue);
 			} catch (Exception e) {
-				Logger.Debug("Exception Thrown {0}", e);
+				Debug.WriteLine("Exception Thrown {0}", e);
 				dtValue = DateTime.MinValue;
 			}
         	return dtValue;
@@ -152,7 +152,7 @@ namespace Tasque.Backends.Sqlite
 	        	dataReader.Close();
 	        	cmd.Dispose();
 			} catch (Exception e) {
-				Logger.Debug("Exception Thrown {0}", e);
+				Debug.WriteLine("Exception Thrown {0}", e);
 			}        	
         	return dtVal;
         }  
@@ -171,7 +171,7 @@ namespace Tasque.Backends.Sqlite
 	        	dataReader.Close();
 	        	cmd.Dispose();
 			} catch (Exception e) {
-				Logger.Debug("Exception Thrown {0}", e);
+				Debug.WriteLine("Exception Thrown {0}", e);
 			} 
         	return dtVal;
         }  

@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">GnomeDebug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Tasque.UIModel</RootNamespace>
-    <AssemblyName>libtasqueui</AssemblyName>
+    <ProjectGuid>{A70BD496-A280-4EF5-BBE8-254E0CA89C62}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Tasque</RootNamespace>
+    <AssemblyName>tasque</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeDebug|AnyCPU' ">
@@ -17,25 +17,20 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" command="mdoc update -o ${ProjectDir}/docs/sources ${TargetFile}" />
-        <Command type="AfterBuild" command="mdoc assemble -o ${TargetDir}/libtasque ${ProjectDir}/docs/sources" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GnomeRelease|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>bin\LinuxRelease</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
+        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -44,20 +39,21 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>DEBUG;TRACE;GTKLINUX</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>bin\LinuxRelease</OutputPath>
+    <DefineConstants>TRACE;GTKLINUX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
+        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -66,20 +62,21 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>DEBUG;TRACE;WIN32</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinRelease|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>bin\LinuxRelease</OutputPath>
+    <DefineConstants>TRACE;WIN32</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
+        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -88,20 +85,21 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
+    <DefineConstants>DEBUG;TRACE;OSX</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacRelease|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>bin\LinuxRelease</OutputPath>
+    <DefineConstants>TRACE;OSX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
+        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
+        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -116,45 +114,24 @@
     <Compile Include="..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
-    <Compile Include="Legacy\MainWindowModel.cs" />
-    <Compile Include="Legacy\PreferencesDialogModel.cs" />
-    <Compile Include="Legacy\AboutDialogModel.cs" />
-    <Compile Include="Legacy\NoteDialogModel.cs" />
-    <Compile Include="ViewModelBase.cs" />
-    <Compile Include="TaskGroupModel.cs" />
-    <Compile Include="CompletedTaskGroupModel.cs" />
-    <Compile Include="TaskGroupModelFactory.cs" />
-    <Compile Include="Legacy\TrayModel.cs" />
-    <Compile Include="Legacy\DueDateCategory.cs" />
-    <Compile Include="Legacy\DueDateConverter.cs" />
-    <Compile Include="Legacy\TaskComparer.cs" />
-    <Compile Include="Legacy\CompletionDateRange.cs" />
-    <Compile Include="Legacy\Preferences.cs" />
-    <Compile Include="ITimeAware.cs" />
-    <Compile Include="ICommand.cs" />
-    <Compile Include="CommandBase.cs" />
-    <Compile Include="Legacy\MainWindowTopPanelModel.cs" />
-    <Compile Include="Legacy\MainWindowContextMenuModel.cs" />
-    <Compile Include="Legacy\Commands\ComponentCommands.cs" />
-    <Compile Include="Legacy\Commands\TaskCommands.cs" />
-    <Compile Include="Legacy\NativeApplication.cs" />
-    <Compile Include="Legacy\IRemoteInstance.cs" />
-    <Compile Include="UICommand.cs" />
+    <Compile Include="Program.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Legacy\" />
-    <Folder Include="Legacy\Commands\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libtasque\libtasque.csproj">
-      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
-      <Name>libtasque</Name>
+    <ProjectReference Include="..\Tasque.MonoMac\Tasque.MonoMac.csproj">
+      <Project>{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}</Project>
+      <Name>Tasque.MonoMac</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
-      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
-      <Name>CollectionView</Name>
+    <ProjectReference Include="..\Tasque.Gtk\Tasque.Gtk.csproj">
+      <Project>{B19B9840-669D-4984-9772-E1F55193A67F}</Project>
+      <Name>Tasque.Gtk</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libtasqueui\libtasqueui.csproj">
+      <Project>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</Project>
+      <Name>libtasqueui</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

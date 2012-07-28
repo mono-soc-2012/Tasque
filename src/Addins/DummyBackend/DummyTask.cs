@@ -37,21 +37,21 @@ namespace Tasque.Backends.Dummy
 		#region Public Methods
 		public override void Activate ()
 		{
-			Logger.Debug ("DummyTask.Activate ()");
+			Debug.WriteLine ("DummyTask.Activate ()");
 			CompletionDate = DateTime.MinValue;
 			State = TaskState.Active;
 		}
 		
 		public override void Complete ()
 		{
-			Logger.Debug ("DummyTask.Complete ()");
+			Debug.WriteLine ("DummyTask.Complete ()");
 			CompletionDate = DateTime.Now;
 			State = TaskState.Completed;
 		}
 		
 		public override void Delete ()
 		{
-			Logger.Debug ("DummyTask.Delete ()");
+			Debug.WriteLine ("DummyTask.Delete ()");
 			State = TaskState.Deleted;
 		}
 		#endregion

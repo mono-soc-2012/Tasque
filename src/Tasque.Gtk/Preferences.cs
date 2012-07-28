@@ -289,7 +289,7 @@ namespace Tasque
 		       Console.WriteLine(doc.OuterXml);
 */
 			} catch (Exception e) {
-				Logger.Debug("Exception thrown in Preferences {0}", e);
+				Debug.WriteLine("Exception thrown in Preferences {0}", e);
 				return;
 			}
 
@@ -309,7 +309,7 @@ namespace Tasque
 				try {
 					SettingChanged (this, settingKey);
 				} catch (Exception e) {
-					Logger.Warn ("Exception calling SettingChangedHandlers for setting '{0}': {1}",
+					Trace.TraceWarning ("Exception calling SettingChangedHandlers for setting '{0}': {1}",
 								 settingKey,
 								 e.Message);
 				}

@@ -1,5 +1,5 @@
 // 
-// AssemblyInfo.cs
+// Program.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,8 +23,49 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System.Reflection;
+using System;
+using System.Diagnostics;
+using Tasque.UIModel.Legacy;
 
-[assembly: AssemblyTitle("Tasque.Gtk")]
-[assembly: AssemblyDescription("Gtk# UI for Tasque")]
-[assembly: AssemblyCopyright("MIT")]
+namespace Tasque
+{
+	class Program
+	{
+		static NativeApplication CreateApplication ()
+		{
+			NativeApplication app;
+#if OSX
+			app = new OSXApplication ();
+#else
+			app = new GtkApplication ();
+#endif
+			return app;
+		}
+		
+		static void Main (string[] args)
+		{
+			try {
+				lock (lockObject) {
+					if (application != null)
+						return;
+					
+					application = CreateApplication ();
+				}
+				
+				application.Initialize (args);
+				application.StartMainLoop ();
+			} catch (Exception e) {
+				Debug.WriteLine ("Exception is: {0}", e);
+				application.Exit (-1);
+			} finally {
+				lock (lockObject) {
+					if (application != null)
+						application.Dispose ();
+				}
+			}
+		}
+		
+		static NativeApplication application;
+		static object lockObject = new object ();
+	}
+}

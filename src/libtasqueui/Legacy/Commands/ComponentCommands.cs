@@ -59,4 +59,12 @@ namespace Tasque.UIModel.Legacy
 		Task task;
 		MainWindowContextMenuModel contextMenu;
 	}
+	
+	class ShowMainWindowCommand : CommandBase
+	{
+		public override void Execute ()
+		{
+			throw new System.NotImplementedException ();
+		}
+	}
 }

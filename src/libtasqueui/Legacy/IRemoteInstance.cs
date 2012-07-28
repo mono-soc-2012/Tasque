@@ -1,5 +1,5 @@
 // 
-// NativeApplication.cs
+// IRemoteInstance.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,41 +23,11 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.Diagnostics;
 
-namespace Tasque
+namespace Tasque.UIModel.Legacy
 {
-	public abstract class NativeApplication
+	public interface IRemoteInstance
 	{
-		public abstract string ConfDir { get; }
-
-		public void Exit (int exitcode)
-		{
-			OnExit (exitcode);
-
-			if (Exiting != null)
-				Exiting (this, EventArgs.Empty);
-
-			Environment.Exit (exitcode);
-		}
-
-		public abstract void Initialize (string[] args);
-
-		public virtual void InitializeIdle () {}
-
-		protected virtual void OnExit (int exitCode) {}
-
-		public virtual void OpenUrlInBrowser (string url)
-		{
-			Process.Start (url);
-		}
-
-		public abstract void QuitMainLoop ();
-
-		public abstract void StartMainLoop ();
-
-		public event EventHandler Exiting;
+		UICommand ShowMainWindow { get; }
 	}
 }
-
