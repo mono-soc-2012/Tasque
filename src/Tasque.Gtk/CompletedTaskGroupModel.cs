@@ -24,13 +24,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Tasque
 {
 	public class CompletedTaskGroupModel : TaskGroupModel
 	{
-		public CompletedTaskGroupModel (DateTime rangeStart, DateTime rangeEnd, IEnumerable tasks)
+		public CompletedTaskGroupModel (DateTime rangeStart, DateTime rangeEnd, IEnumerable<Task> tasks)
 			: base (rangeStart, rangeEnd, tasks)
 		{
 		}

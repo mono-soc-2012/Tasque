@@ -30,8 +30,9 @@ using System;
 using System.Collections.Generic;
 using Gtk;
 using Mono.Unix;
-using Tasque.Backends;
+using Tasque;
 using CollectionTransforms;
+using System.Diagnostics;
 
 namespace Tasque
 {
@@ -596,7 +597,7 @@ namespace Tasque
 			Backend backend = backendComboMap [selectedBackend];
 			filteredCategories = new CollectionView<Category> (backend.Categories);
 			// Filter out the AllCategory
-			filteredCategories.Filter = c => c != null && !(c is AllCategory);
+			filteredCategories.Filter = c => c != null && !(c == null);
 			var adapter = new TreeModelListAdapter<Category> (filteredCategories);
 			categoriesTree.Model = adapter;
 		}

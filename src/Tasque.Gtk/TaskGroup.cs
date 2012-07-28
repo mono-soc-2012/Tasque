@@ -29,6 +29,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using Gtk;
+using System.Collections.Generic;
 
 namespace Tasque
 {
@@ -49,7 +50,7 @@ namespace Tasque
 		
 		#region Constructor
 		public TaskGroup (string groupName, DateTime rangeStart,
-						  DateTime rangeEnd, IEnumerable tasks)
+						  DateTime rangeEnd, IEnumerable<Task> tasks)
 		{
 			hideWhenEmpty = true;
 						
@@ -353,7 +354,7 @@ namespace Tasque
 
 		protected virtual TaskGroupModel CreateModel (DateTime rangeStart,
 		                                               DateTime rangeEnd,
-		                                               IEnumerable tasks)
+		                                               IEnumerable<Task> tasks)
 		{
 			return new TaskGroupModel (rangeStart, rangeEnd, tasks);
 		}
@@ -384,7 +385,7 @@ namespace Tasque
 				Application.Preferences.Get (Preferences.SelectedCategoryKey);
 			
 			if (selectedCategoryName != null) {
-				var categories = Application.Backend.Categories2;
+				var categories = Application.Backend.Categories;
 				return categories.SingleOrDefault (c => c.Name == selectedCategoryName);
 			}
 			

@@ -24,13 +24,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Tasque
 {
 	public static class TaskGroupModelFactory
 	{
-		public static TaskGroupModel CreateTodayModel (IEnumerable tasks)
+		public static TaskGroupModel CreateTodayModel (IEnumerable<Task> tasks)
 		{
 			DateTime rangeStart = DateTime.Now;
 			rangeStart = new DateTime (rangeStart.Year, rangeStart.Month,
@@ -41,7 +41,7 @@ namespace Tasque
 			return new TaskGroupModel (rangeStart, rangeEnd, tasks);
 		}
 
-		public static TaskGroupModel CreateOverdueModel (IEnumerable tasks)
+		public static TaskGroupModel CreateOverdueModel (IEnumerable<Task> tasks)
 		{
 			DateTime rangeStart = DateTime.MinValue;
 			DateTime rangeEnd = DateTime.Now.AddDays (-1);
@@ -51,7 +51,7 @@ namespace Tasque
 			return new TaskGroupModel (rangeStart, rangeEnd, tasks);
 		}
 
-		public static TaskGroupModel CreateTomorrowModel (IEnumerable tasks)
+		public static TaskGroupModel CreateTomorrowModel (IEnumerable<Task> tasks)
 		{
 			DateTime rangeStart = DateTime.Now.AddDays (1);
 			rangeStart = new DateTime (rangeStart.Year, rangeStart.Month,
