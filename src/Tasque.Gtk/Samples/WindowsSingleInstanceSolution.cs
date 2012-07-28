@@ -26,7 +26,7 @@
 using System;
 using System.Threading;
 
-namespace ConsoleApplication9
+namespace Tasque.Samples
 {
     class Program
     {

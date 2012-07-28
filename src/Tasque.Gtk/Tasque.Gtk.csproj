@@ -121,6 +121,8 @@
     <None Include="..\..\data\sounds\notify.wav">
       <Link>data\sounds\notify.wav</Link>
     </None>
+    <None Include="Samples\Gtk3SingleInstanceSolution.cs" />
+    <None Include="Samples\WindowsSingleInstanceSolution.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -143,7 +145,6 @@
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="WindowsSingleInstanceSolution.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
     <Compile Include="GnomeApplication.cs" />
@@ -160,6 +161,7 @@
     <Folder Include="data\" />
     <Folder Include="data\icons\" />
     <Folder Include="data\sounds\" />
+    <Folder Include="Samples\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libtasque\libtasque.csproj">
