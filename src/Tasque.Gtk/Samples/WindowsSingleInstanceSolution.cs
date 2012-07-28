@@ -63,12 +63,12 @@ namespace Tasque.Samples
                 waitHandle = new EventWaitHandle(false, EventResetMode.AutoReset, waitHandleName);
                 Console.WriteLine("Event wait handle created");
 
-                var portier = new Thread(new ThreadStart(WaitForAnotherInstanceThread));
+                var portier = new Thread(new ThreadStart(WaitForAnotherInstance));
                 portier.Start();
             }
         }
 
-        static void WaitForAnotherInstanceThread()
+        static void WaitForAnotherInstance()
         {
             while (!exiting)
             {
