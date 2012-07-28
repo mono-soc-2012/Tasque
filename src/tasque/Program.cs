@@ -25,6 +25,9 @@
 // THE SOFTWARE.
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Text;
+using Mono.Unix.Native;
 using Tasque.UIModel.Legacy;
 
 namespace Tasque
@@ -41,6 +44,31 @@ namespace Tasque
 #endif
 			return app;
 		}
+		
+		#region Set process name
+		// From Banshee: Hyena/ApplicationContext.cs
+		[DllImport ("libc")] // Linux
+        static extern int prctl (int option, byte [] arg2, IntPtr arg3, IntPtr arg4, IntPtr arg5);
+
+        [DllImport ("libc")] // BSD
+        static extern void setproctitle (byte [] fmt, byte [] str_arg);
+
+        static void SetProcessName (string name)
+        {
+            if (Environment.OSVersion.Platform != PlatformID.Unix)
+                return;
+			
+			try {
+				var retVal = prctl (15 /* PR_SET_NAME */, Encoding.ASCII.GetBytes (name + "\0"),
+				                    IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+				if (retVal != 0)
+					throw new ApplicationException ("Error setting process name: " +
+                        Stdlib.GetLastError ());
+            } catch (EntryPointNotFoundException) {
+                setproctitle (Encoding.ASCII.GetBytes ("%s\0"), Encoding.ASCII.GetBytes (name + "\0"));
+            }
+        }
+		#endregion
 		
 		static void SetupDebugAndTrace ()
 		{
@@ -62,6 +90,9 @@ namespace Tasque
 				}
 				
 				SetupDebugAndTrace ();
+				
+				// Fix process name not set on Unix
+				SetProcessName ("Tasque");
 				
 				application.Initialize (args);
 				application.StartMainLoop ();
