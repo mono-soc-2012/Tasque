@@ -42,6 +42,15 @@ namespace Tasque
 			return app;
 		}
 		
+		static void SetupDebugAndTrace ()
+		{
+			var consoleTraceListener = new ConsoleTraceListener ();
+			Debug.Listeners.Add (consoleTraceListener);
+			Debug.AutoFlush = true;
+			Trace.Listeners.Add (consoleTraceListener);
+			Trace.AutoFlush = true;
+		}
+		
 		static void Main (string[] args)
 		{
 			try {
@@ -51,6 +60,8 @@ namespace Tasque
 					
 					application = CreateApplication ();
 				}
+				
+				SetupDebugAndTrace ();
 				
 				application.Initialize (args);
 				application.StartMainLoop ();
