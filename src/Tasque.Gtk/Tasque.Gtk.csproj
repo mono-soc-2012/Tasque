@@ -113,6 +113,7 @@
     <Compile Include="CellRendererDate.cs" />
     <Compile Include="CompletedTaskGroup.cs" />
     <Compile Include="DateButton.cs" />
+    <Compile Include="GtkApplication.cs" />
     <Compile Include="NoteDialog.cs" />
     <Compile Include="NoteWidget.cs" />
     <Compile Include="Preferences.cs" />
@@ -123,15 +124,9 @@
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' ">
-    <Compile Include="GnomeApplication.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GnomeDebug' or '$(Configuration)' == 'GnomeRelease' or '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
+  <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
     <Compile Include="RemoteControl.cs" />
     <Compile Include="RemoteControlProxy.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' or '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' or '$(Configuration)' == 'GtkMacDebug' or '$(Configuration)' == 'GtkMacRelease' ">
-    <Compile Include="GtkApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
