@@ -93,9 +93,6 @@
     <Compile Include="Legacy\AboutDialogModel.cs" />
     <Compile Include="Legacy\NoteDialogModel.cs" />
     <Compile Include="ViewModelBase.cs" />
-    <Compile Include="TaskGroupModel.cs" />
-    <Compile Include="CompletedTaskGroupModel.cs" />
-    <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="Legacy\TrayModel.cs" />
     <Compile Include="Legacy\DueDateCategory.cs" />
     <Compile Include="Legacy\DueDateConverter.cs" />
@@ -110,8 +107,10 @@
     <Compile Include="Legacy\Commands\ComponentCommands.cs" />
     <Compile Include="Legacy\Commands\TaskCommands.cs" />
     <Compile Include="Legacy\NativeApplication.cs" />
-    <Compile Include="Legacy\IRemoteInstance.cs" />
     <Compile Include="UICommand.cs" />
+    <Compile Include="TaskGroupModel.cs" />
+    <Compile Include="TaskGroupModelFactory.cs" />
+    <Compile Include="CompletedTaskGroupModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
