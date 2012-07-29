@@ -37,6 +37,7 @@ using Mono.Unix;
 using Tasque;
 using CollectionTransforms;
 using System.Collections;
+using Tasque.UIModel.Legacy;
 
 namespace Tasque
 {
@@ -1283,5 +1284,79 @@ namespace Tasque
 
 			fake_menu.Append (foo);
 		}
+		
+		////////////// ------- New implementation starts below ------- //////////////
+		
+		void Ctor (MainWindowModel mainWindowModel)
+		{
+			if (mainWindowModel == null)
+				throw new ArgumentNullException ("mainWindowModel");
+			vm = mainWindowModel;
+			mainWindowModel.Show.SetExecuteAction (ShowWindow, true);
+			mainWindowModel.Hide.SetExecuteAction (HideWindow, true);
+		}
+		
+		void ShowWindow ()
+		{
+			if (!Visible) {
+				var position = vm.Position;
+				if (!position.IsEmpty)
+					Move (position.X, position.Y);
+			}
+			Present ();
+			vm.Hide.CanExecute = true;
+		}
+		
+		void HideWindow ()
+		{
+			int x, y;
+			GetPosition (out x, out y);
+			vm.Position = new Point (x, y);
+			Hide ();
+			vm.Hide.CanExecute = false;
+		}
+		
+//		private static void ShowWindow(bool supportToggle)
+//		{
+//			if(taskWindow != null) {
+//				if(taskWindow.IsActive && supportToggle) {
+//					int x;
+//					int y;
+//
+//					taskWindow.GetPosition(out x, out y);
+//
+//					lastXPos = x;
+//					lastYPos = y;
+//
+//					taskWindow.Hide();
+//				} else {
+//					if(!taskWindow.Visible) {
+//						int x = lastXPos;
+//						int y = lastYPos;
+//
+//						if (x >= 0 && y >= 0)
+//							taskWindow.Move(x, y);						
+//					}
+//					taskWindow.Present();
+//				}
+//			} else if (Application.Backend != null) {
+//				TaskWindow.taskWindow = new TaskWindow(Application.Backend);
+//				if(lastXPos == 0 || lastYPos == 0)
+//				{
+//					lastXPos = Application.Preferences.GetInt("MainWindowLastXPos");
+//					lastYPos = Application.Preferences.GetInt("MainWindowLastYPos");				
+//				}
+//
+//				int x = lastXPos;
+//				int y = lastYPos;
+//
+//				if (x >= 0 && y >= 0)
+//					taskWindow.Move(x, y);						
+//
+//				taskWindow.ShowAll();
+//			}
+//		}
+		
+		MainWindowModel vm;
 	}
 }

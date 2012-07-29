@@ -81,6 +81,12 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
+		public UICommand Hide { get { return hide ?? (hide = new UICommand ()); } }
+		
+		public UICommand Show {	get { return show ?? (show = new UICommand ());	} }
+		
+		public Point Position { get; set; }
+		
 		public ICommand ShowContextMenu { get { throw new NotImplementedException (); } }
 		
 		public void OnDayChanged ()
@@ -147,5 +153,8 @@ namespace Tasque.UIModel.Legacy
 		MainWindowContextMenuModel contextMenu;
 		
 		Task selectedTask;
+		
+		UICommand hide;
+		UICommand show;
 	}
 }

@@ -1,5 +1,5 @@
 // 
-// UICommand.cs
+// Point.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,52 +23,21 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.Diagnostics;
 
 namespace Tasque.UIModel
 {
-	//DOCS: sealed so that protected SetCanExecute and UnsetCanExecute
-	// can't be invoked directly
-	public sealed class UICommand : CommandBase
+	public struct Point
 	{
-		new public bool CanExecute {
-			get { return base.CanExecute; }
-			set {
-				if (value && ExecuteAction == null)
-					throw new InvalidOperationException ("Can't set CanExecute to true " +
-					                                     "when ExecuteAction is null.");
-				
-				if (!value)
-					UnsetCanExecute (string.Empty);
-				else
-					SetCanExecute ();
-			}
-		}
-		
-		public Action ExecuteAction { get { return executeAction; } }
-		
-		public override void Execute ()
+		public Point (int x, int y)
 		{
-			if (CanExecute)
-				ExecuteAction ();
-			else
-				Debug.WriteLine ("Cannot execute: " + (string.IsNullOrWhiteSpace(ErrorMessage)
-				                                       ? "(none given)" : ErrorMessage));
+			X = x;
+			Y = y;
 		}
 		
-		//DOCS: sets canexecute to true
-		public void SetExecuteAction (Action executeAction)
-		{
-			this.executeAction = executeAction;
-		}
+		public bool IsEmpty { get { return X == 0 && Y == 0; } }
 		
-		public void SetExecuteAction (Action executeAction, bool canExecute)
-		{
-			SetExecuteAction (executeAction);
-			CanExecute = canExecute;
-		}
+		public int X { get; set; }
 		
-		Action executeAction;
+		public int Y { get; set; }
 	}
 }

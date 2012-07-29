@@ -111,6 +111,7 @@
     <Compile Include="TaskGroupModel.cs" />
     <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="CompletedTaskGroupModel.cs" />
+    <Compile Include="Point.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
