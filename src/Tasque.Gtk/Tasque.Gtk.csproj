@@ -128,7 +128,6 @@
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
     <Compile Include="RemoteControl.cs" />
-    <Compile Include="RemoteControlProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

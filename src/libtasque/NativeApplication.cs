@@ -42,7 +42,15 @@ namespace Tasque
 			Environment.Exit (exitcode);
 		}
 
-		public abstract void Initialize (string[] args);
+		public virtual void Initialize (string[] args)
+		{
+			if (IsRemoteInstanceRunning ()) {
+				Trace.TraceInformation ("Another instance of Tasque is already running.");
+				Exit (0);
+			}
+			
+			RemoteInstanceKnocked += delegate { ShowMainWindow (); };
+		}
 
 		public virtual void InitializeIdle () {}
 
@@ -59,6 +67,14 @@ namespace Tasque
 
 		public event EventHandler Exiting;
 
+		//DOCS: Tasque is a single instance app. If Tasque is already started in the current user's
+		// domain, don't start it again. Returns null if no instance found
+		protected abstract bool IsRemoteInstanceRunning ();
+
+		protected abstract void ShowMainWindow ();
+		
+		protected abstract event EventHandler RemoteInstanceKnocked;
+		
 		#region IDisposable implementation
 		public void Dispose ()
 		{

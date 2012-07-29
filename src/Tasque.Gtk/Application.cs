@@ -55,9 +55,7 @@ namespace Tasque
 		private static Tasque.Application application = null;
 		private static System.Object locker = new System.Object();
 		private NativeApplication nativeApp;
-#if !WIN32
-		private RemoteControl remoteControl;
-#endif
+
 		private Gtk.StatusIcon trayIcon;	
 		private Preferences preferences;
 		private Backend backend;
@@ -162,30 +160,7 @@ namespace Tasque
 
 			preferences = new Preferences (nativeApp.ConfDir);
 			
-#if !WIN32
-			// Register Tasque RemoteControl
-			try {
-				remoteControl = RemoteControlProxy.Register ();
-				if (remoteControl != null) {
-					Debug.Write ("Tasque remote control active.");
-				} else {
-					// If Tasque is already running, open the tasks window
-					// so the user gets some sort of feedback when they
-					// attempt to run Tasque again.
-					RemoteControl remote = null;
-					try {
-						remote = RemoteControlProxy.GetInstance ();
-						remote.ShowTasks ();
-					} catch {}
 
-					Debug.WriteLine ("Tasque is already running.  Exiting...");
-					System.Environment.Exit (0);
-				}
-			} catch (Exception e) {
-				Debug.WriteLine ("Tasque remote control disabled (DBus exception): {0}",
-				            e.Message);
-			}
-#endif
 			
 			string potentialBackendClassName = null;
 			
