@@ -51,9 +51,15 @@ namespace Tasque.UIModel.Legacy
 
 		public virtual void Initialize (string[] args)
 		{
-			var runningInstance = GetRemoteInstance ();
-			if (runningInstance != null && runningInstance.ShowMainWindow.CanExecute)
-				runningInstance.ShowMainWindow.Execute ();
+			if (IsRemoteInstanceRunning ()) {
+				Trace.TraceInformation ("Another instance of Tasque is already running.");
+				Exit (0);
+			}
+			
+			RemoteInstanceKnocked += delegate {
+				if (MainWindowModel != null && MainWindowModel.Show.CanExecute)
+					MainWindowModel.Show.Execute ();
+			};
 		}
 
 		public virtual void InitializeIdle () {}
@@ -72,10 +78,11 @@ namespace Tasque.UIModel.Legacy
 		public event EventHandler Exiting;
 
 		//DOCS: Tasque is a single instance app. If Tasque is already started in the current user's
-		// domain, don't start it again, but retreive the running instance and invoke its Show command.
-		// returns null if no instance found
-		protected abstract IRemoteInstance GetRemoteInstance ();
-
+		// domain, don't start it again. Returns null if no instance found
+		protected abstract bool IsRemoteInstanceRunning ();
+		
+		protected abstract event EventHandler RemoteInstanceKnocked;
+		
 		#region IDisposable implementation
 		public void Dispose ()
 		{
