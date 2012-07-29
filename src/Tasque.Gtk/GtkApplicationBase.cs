@@ -32,9 +32,9 @@ using Gtk;
 
 namespace Tasque
 {
-	public class GtkApplication : NativeApplication
-	{
-		public GtkApplication ()
+	public abstract class GtkApplicationBase : NativeApplication
+	{		
+		public GtkApplicationBase ()
 		{
 			confDir = Path.Combine (
 				Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData), "tasque");
@@ -70,59 +70,14 @@ namespace Tasque
 			}
 		}
 		
-		protected override bool IsRemoteInstanceRunning ()
-		{
-#if !WIN32
-			// Register Tasque RemoteControl
-			try {
-				remoteInstance = RemoteControl.Register ();
-				if (remoteInstance != null) {
-					remoteInstance.RemoteInstanceKnocked = HandleRemoteInstanceKnocked;
-					Debug.Write ("Tasque remote control active.");
-				} else {
-					// If Tasque is already running, open the tasks window
-					// so the user gets some sort of feedback when they
-					// attempt to run Tasque again.
-					RemoteControl remote = null;
-					try {
-						remote = RemoteControl.GetInstance ();
-						remote.KnockKnock ();
-					} catch {}
-
-					Debug.WriteLine ("Tasque is already running.  Exiting...");
-					return true;
-				}
-			} catch (Exception e) {
-				Debug.WriteLine ("Tasque remote control disabled (DBus exception): {0}", e.Message);
-			}
-			return false;
-#else
-			
-#endif
-		}
-
-		protected override void ShowMainWindow ()
-		{
-			TaskWindow.ShowWindow ();
-		}
-		
 		protected override event EventHandler RemoteInstanceKnocked;
 		
-		void HandleRemoteInstanceKnocked ()
+		protected void OnRemoteInstanceKnocked ()
 		{
 			if (RemoteInstanceKnocked != null)
 				RemoteInstanceKnocked (this, EventArgs.Empty);
 		}
 		
-		protected override void Dispose (bool disposing)
-		{
-			if (disposing)
-				remoteInstance.RemoteInstanceKnocked = null;
-		}
-
 		string confDir;
-#if !WIN32
-		RemoteControl remoteInstance;
-#endif
 	}
 }
