@@ -32,7 +32,7 @@ namespace Tasque
 	{
 		protected override void Dispose (bool disposing)
 		{
-			if (disposing)
+			if (disposing && remoteInstance != null)
 				remoteInstance = null;
 			
 			base.Dispose (disposing);

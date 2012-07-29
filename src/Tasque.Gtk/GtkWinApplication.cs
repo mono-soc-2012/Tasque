@@ -33,7 +33,7 @@ namespace Tasque
 	{
 		protected override void Dispose (bool disposing)
 		{
-			if (disposing) {
+			if (disposing && waitHandle != null) {
 				waitHandle.Dispose ();
 				waitHandle = null;
 			}
