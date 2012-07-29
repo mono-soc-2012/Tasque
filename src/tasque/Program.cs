@@ -39,8 +39,10 @@ namespace Tasque
 			NativeApplication app;
 #if OSX
 			app = new OSXApplication ();
+#elif WIN32
+			app = new GtkWinApplication ();
 #else
-			app = new GtkApplication ();
+			app = new GtkLinuxApplication ();
 #endif
 			return app;
 		}

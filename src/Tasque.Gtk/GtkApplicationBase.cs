@@ -33,9 +33,36 @@ using Tasque.UIModel.Legacy;
 
 namespace Tasque
 {
-	public class GtkApplication : NativeApplication
+	public abstract class GtkApplicationBase : NativeApplication
 	{
-		public GtkApplication ()
+		#region just copied
+		public UIManager UIManager
+		{
+			get { return uiManager; }
+		}
+		
+		#region implemented abstract members of Tasque.UIModel.Legacy.NativeApplication
+		public override Backend CurrentBackend {
+			get {
+				throw new System.NotImplementedException ();
+			}
+		}
+
+		public override System.Collections.ObjectModel.ReadOnlyCollection<Backend> AvailableBackends {
+			get {
+				throw new System.NotImplementedException ();
+			}
+		}
+
+		public override Tasque.UIModel.Legacy.MainWindowModel MainWindowModel {
+			get {
+				throw new System.NotImplementedException ();
+			}
+		}
+		#endregion
+		#endregion
+		
+		public GtkApplicationBase ()
 		{
 			confDir = Path.Combine (
 				Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData), "tasque");
@@ -73,88 +100,51 @@ namespace Tasque
 			}
 		}
 		
-		protected override bool IsRemoteInstanceRunning ()
-		{
-#if !WIN32
-			// Register Tasque RemoteControl
-			try {
-				remoteInstance = RemoteControl.Register ();
-				if (remoteInstance != null) {
-					remoteInstance.RemoteInstanceKnocked = HandleRemoteInstanceKnocked;
-					Debug.Write ("Tasque remote control active.");
-				} else {
-					// If Tasque is already running, open the tasks window
-					// so the user gets some sort of feedback when they
-					// attempt to run Tasque again.
-					RemoteControl remote = null;
-					try {
-						remote = RemoteControl.GetInstance ();
-						remote.KnockKnock ();
-					} catch {}
-
-					Debug.WriteLine ("Tasque is already running.  Exiting...");
-					return true;
-				}
-			} catch (Exception e) {
-				Debug.WriteLine ("Tasque remote control disabled (DBus exception): {0}", e.Message);
-			}
-			return false;
-#else
-			
-#endif
-		}
-		
 		protected override event EventHandler RemoteInstanceKnocked;
 		
-		void HandleRemoteInstanceKnocked ()
+		protected void OnRemoteInstanceKnocked ()
 		{
 			if (RemoteInstanceKnocked != null)
 				RemoteInstanceKnocked (this, EventArgs.Empty);
 		}
 		
-		protected override void Dispose (bool disposing)
-		{
-			if (disposing)
-				remoteInstance.RemoteInstanceKnocked = null;
-		}
-		
 		void RegisterUIManager ()
 		{
 			ActionGroup trayActionGroup = new ActionGroup ("Tray");
-			trayActionGroup.Add (new ActionEntry [] {
-				new ActionEntry ("NewTaskAction",
-				                 Stock.New,
-				                 Catalog.GetString ("New Task ..."),
-				                 null,
-				                 null,
-				                 OnNewTask),
-				
-				new ActionEntry ("ShowTasksAction",
-				                 null,
-				                 Catalog.GetString ("Show Tasks ..."),
-				                 null,
-				                 null,
-				                 OnShowTaskWindow),
-
-				new ActionEntry ("AboutAction",
-				                 Stock.About,
-				                 OnAbout),
-				
-				new ActionEntry ("PreferencesAction",
-				                 Stock.Preferences,
-				                 OnPreferences),
-				
-				new ActionEntry ("RefreshAction",
-				                 Stock.Execute,
-				                 Catalog.GetString ("Refresh Tasks ..."),
-				                 null,
-				                 null,
-				                 OnRefreshAction),
-				
-				new ActionEntry ("QuitAction",
-				                 Stock.Quit,
-				                 OnQuit)
-			});
+//			trayActionGroup.Add (new ActionEntry [] {
+//				new ActionEntry ("NewTaskAction",
+//				                 Stock.New,
+//				                 Catalog.GetString ("New Task ..."),
+//				                 null,
+//				                 null,
+//				                 OnNewTask),
+//				
+//				new ActionEntry ("ShowTasksAction",
+//				                 null,
+//				                 Catalog.GetString ("Show Tasks ..."),
+//				                 null,
+//				                 null,
+//				                 OnShowTaskWindow),
+//
+//				new ActionEntry ("AboutAction",
+//				                 Stock.About,
+//				                 OnAbout),
+//				
+//				new ActionEntry ("PreferencesAction",
+//				                 Stock.Preferences,
+//				                 OnPreferences),
+//				
+//				new ActionEntry ("RefreshAction",
+//				                 Stock.Execute,
+//				                 Catalog.GetString ("Refresh Tasks ..."),
+//				                 null,
+//				                 null,
+//				                 OnRefreshAction),
+//				
+//				new ActionEntry ("QuitAction",
+//				                 Stock.Quit,
+//				                 OnQuit)
+//			});
 			
 			uiManager = new UIManager ();
 			uiManager.AddUiFromString (MenuXml);
@@ -178,8 +168,5 @@ namespace Tasque
 ";
 		
 		string confDir;
-#if !WIN32
-		RemoteControl remoteInstance;
-#endif
 	}
 }

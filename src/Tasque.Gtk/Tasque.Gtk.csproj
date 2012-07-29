@@ -99,7 +99,6 @@
       <Link>data\sounds\notify.wav</Link>
     </None>
     <None Include="Samples\Gtk3SingleInstanceSolution.cs" />
-    <None Include="Samples\WindowsSingleInstanceSolution.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,7 +112,6 @@
     <Compile Include="CellRendererDate.cs" />
     <Compile Include="CompletedTaskGroup.cs" />
     <Compile Include="DateButton.cs" />
-    <Compile Include="GtkApplication.cs" />
     <Compile Include="NoteDialog.cs" />
     <Compile Include="NoteWidget.cs" />
     <Compile Include="Preferences.cs" />
@@ -123,8 +121,13 @@
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="GtkApplicationBase.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' ">
+    <Compile Include="GtkWinApplication.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
+    <Compile Include="GtkLinuxApplication.cs" />
     <Compile Include="RemoteControl.cs" />
   </ItemGroup>
   <ItemGroup>
