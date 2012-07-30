@@ -50,9 +50,11 @@ namespace Tasque.UIModel
 		
 		public override void Execute ()
 		{
-			if (CanExecute)
+			if (CanExecute) {
 				ExecuteAction ();
-			else
+				if (Executed != null)
+					Executed (this, EventArgs.Empty);
+			} else
 				Debug.WriteLine ("Cannot execute: " + (string.IsNullOrWhiteSpace(ErrorMessage)
 				                                       ? "(none given)" : ErrorMessage));
 		}
@@ -69,6 +71,8 @@ namespace Tasque.UIModel
 			SetExecuteAction (executeAction);
 			CanExecute = canExecute;
 		}
+		
+		public event EventHandler Executed;
 		
 		Action executeAction;
 	}
