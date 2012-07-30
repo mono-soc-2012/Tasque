@@ -151,6 +151,10 @@ namespace Tasque.UIModel.Legacy
 		
 		MainWindowTopPanelModel topPanel;
 		MainWindowContextMenuModel contextMenu;
+		TrayModel tray;
+		AboutDialogModel aboutDialog;
+		PreferencesDialogModel preferencesDialog;
+		NoteDialogModel noteDialog;
 		
 		Task selectedTask;
 		
