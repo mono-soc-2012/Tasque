@@ -1,5 +1,5 @@
 // 
-// TrayModel.cs
+// StatusIconTray.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,30 +23,39 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
+using Gtk;
+using Tasque.UIModel.Legacy;
 
-namespace Tasque.UIModel.Legacy
+namespace Tasque
 {
-	public class TrayModel : ViewModelBase
+	public class StatusIconTray : GtkTrayBase
 	{
-		public TrayModel ()
+		public StatusIconTray (TrayModel viewModel) : base (viewModel)
 		{
+			tray = new StatusIcon (Utilities.GetIcon (ViewModel.IconName));
+			tray.Visible = true;
+			tray.Activate += HandleActivate;
+			tray.PopupMenu += HandlePopupMenu;
+		}
+
+		void HandleActivate (object sender, System.EventArgs e)
+		{
+			
+		}
+
+		void HandlePopupMenu (object sender, PopupMenuArgs e)
+		{
+			var popupMenu = Menu;
+			
+			//TODO: incorp this logic into viewmodel
+//			bool backendItemsSensitive = (backend != null && backend.Initialized);
+//			uiManager.GetAction ("/TrayIconMenu/NewTaskAction").Sensitive = backendItemsSensitive;
+//			uiManager.GetAction ("/TrayIconMenu/RefreshAction").Sensitive = backendItemsSensitive;
+			
+			popupMenu.ShowAll(); // shows everything
+			tray.PresentMenu (popupMenu, (uint)e.Args [0], (uint)e.Args [1]);			
 		}
 		
-		public string IconName { get; private set; }
-		
-		public bool IsTaskWindowVisible { get; private set; }
-		
-		public UICommand NewTask { get { throw new NotImplementedException (); } }
-		
-		public UICommand Quit { get { throw new NotImplementedException (); } }
-		
-		public UICommand Refresh { get { throw new NotImplementedException (); } }
-		
-		public UICommand ShowAbout { get { throw new NotImplementedException (); } }
-		
-		public UICommand ShowPreferences { get { throw new NotImplementedException (); } }
-		
-		public UICommand ToggleTaskWindow { get { throw new NotImplementedException (); } }
+		StatusIcon tray;
 	}
 }

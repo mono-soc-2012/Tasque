@@ -93,6 +93,10 @@
       <Package>ndesk-dbus-glib-1.0</Package>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="appindicator-sharp, Version=0.2.0.0, Culture=neutral, PublicKeyToken=bcae265d1c7ab4c2">
+      <Private>False</Private>
+      <Package>appindicator-sharp-0.1</Package>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\data\sounds\notify.wav">
@@ -122,6 +126,9 @@
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="GtkApplicationBase.cs" />
+    <Compile Include="AppIndicatorTray.cs" />
+    <Compile Include="StatusIconTray.cs" />
+    <Compile Include="GtkTrayBase.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' ">
     <Compile Include="GtkWinApplication.cs" />

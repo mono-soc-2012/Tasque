@@ -108,65 +108,6 @@ namespace Tasque
 				RemoteInstanceKnocked (this, EventArgs.Empty);
 		}
 		
-		void RegisterUIManager ()
-		{
-			ActionGroup trayActionGroup = new ActionGroup ("Tray");
-//			trayActionGroup.Add (new ActionEntry [] {
-//				new ActionEntry ("NewTaskAction",
-//				                 Stock.New,
-//				                 Catalog.GetString ("New Task ..."),
-//				                 null,
-//				                 null,
-//				                 OnNewTask),
-//				
-//				new ActionEntry ("ShowTasksAction",
-//				                 null,
-//				                 Catalog.GetString ("Show Tasks ..."),
-//				                 null,
-//				                 null,
-//				                 OnShowTaskWindow),
-//
-//				new ActionEntry ("AboutAction",
-//				                 Stock.About,
-//				                 OnAbout),
-//				
-//				new ActionEntry ("PreferencesAction",
-//				                 Stock.Preferences,
-//				                 OnPreferences),
-//				
-//				new ActionEntry ("RefreshAction",
-//				                 Stock.Execute,
-//				                 Catalog.GetString ("Refresh Tasks ..."),
-//				                 null,
-//				                 null,
-//				                 OnRefreshAction),
-//				
-//				new ActionEntry ("QuitAction",
-//				                 Stock.Quit,
-//				                 OnQuit)
-//			});
-			
-			uiManager = new UIManager ();
-			uiManager.AddUiFromString (MenuXml);
-			uiManager.InsertActionGroup (trayActionGroup, 0);
-		}
-		
-		UIManager uiManager;
-		const string MenuXml = @"
-<ui>
-	<popup name=""TrayIconMenu"">
-		<menuitem action=""NewTaskAction""/>
-		<separator/>
-		<menuitem action=""PreferencesAction""/>
-		<menuitem action=""AboutAction""/>
-		<separator/>
-		<menuitem action=""RefreshAction""/>
-		<separator/>
-		<menuitem action=""QuitAction""/>
-	</popup>
-</ui>
-";
-		
 		string confDir;
 	}
 }

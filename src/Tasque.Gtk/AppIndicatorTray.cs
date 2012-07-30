@@ -1,5 +1,5 @@
 // 
-// TrayModel.cs
+// AppIndicatorTray.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,30 +23,37 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
+using Gtk;
+using AppIndicator;
+using Tasque.UIModel.Legacy;
 
-namespace Tasque.UIModel.Legacy
+namespace Tasque
 {
-	public class TrayModel : ViewModelBase
+	public class AppIndicatorTray : GtkTrayBase
 	{
-		public TrayModel ()
+		public AppIndicatorTray (TrayModel viewModel) : base (viewModel)
 		{
+			var appIndicator = new ApplicationIndicator ("TasqueTray", ViewModel.IconName,
+			                                             AppIndicator.Category.ApplicationStatus);
+			appIndicator.Status = Status.Active;
+			
+			viewModel.ToggleTaskWindow.Executed += delegate { UpdateToggleTaskWindowActionLabel (); };
+			
+			var menu = Menu;
+			var toggleTaskWindowMenuItem = new MenuItem ();
+			ToggleTaskWindowAction.ConnectProxy (toggleTaskWindowMenuItem);
+			UpdateToggleTaskWindowActionLabel ();
+			menu.Insert (toggleTaskWindowMenuItem, 0);
+			menu.Insert (new SeparatorMenuItem (), 1);
+			menu.ShowAll ();
+			
+			appIndicator.Menu = menu;
 		}
 		
-		public string IconName { get; private set; }
-		
-		public bool IsTaskWindowVisible { get; private set; }
-		
-		public UICommand NewTask { get { throw new NotImplementedException (); } }
-		
-		public UICommand Quit { get { throw new NotImplementedException (); } }
-		
-		public UICommand Refresh { get { throw new NotImplementedException (); } }
-		
-		public UICommand ShowAbout { get { throw new NotImplementedException (); } }
-		
-		public UICommand ShowPreferences { get { throw new NotImplementedException (); } }
-		
-		public UICommand ToggleTaskWindow { get { throw new NotImplementedException (); } }
+		void UpdateToggleTaskWindowActionLabel ()
+		{
+			ToggleTaskWindowAction.Label = ViewModel.IsTaskWindowVisible ? "Hide Task Window"
+				: "Show Task Window";
+		}
 	}
 }

@@ -111,16 +111,6 @@ namespace Tasque
 			}
 		}
 
-		public UIManager UIManager
-		{
-			get { return uiManager; }
-		}
-
-		public StatusIcon Tray
-		{
-			get { return trayIcon; }
-		}
-
 		public static Preferences Preferences
 		{
 			get { return Application.Instance.preferences; }
@@ -585,18 +575,7 @@ namespace Tasque
 			TaskWindow.ToggleWindowVisible ();
 		}
 
-		private void OnTrayIconPopupMenu (object sender, EventArgs args)
-		{
-			Menu popupMenu = (Menu) uiManager.GetWidget ("/TrayIconMenu");
-
-			bool backendItemsSensitive = (backend != null && backend.Initialized);
-			
-			uiManager.GetAction ("/TrayIconMenu/NewTaskAction").Sensitive = backendItemsSensitive;
-			uiManager.GetAction ("/TrayIconMenu/RefreshAction").Sensitive = backendItemsSensitive;
-
-			popupMenu.ShowAll(); // shows everything
-			popupMenu.Popup();
-		}		
+		
 
 		public static void Main(string[] args)
 		{
