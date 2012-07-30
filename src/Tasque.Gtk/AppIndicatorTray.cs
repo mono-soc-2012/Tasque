@@ -24,6 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using Gtk;
+using Mono.Unix;
 using AppIndicator;
 using Tasque.UIModel.Legacy;
 
@@ -52,8 +53,9 @@ namespace Tasque
 		
 		void UpdateToggleTaskWindowActionLabel ()
 		{
-			ToggleTaskWindowAction.Label = ViewModel.IsTaskWindowVisible ? "Hide Task Window"
-				: "Show Task Window";
+			ToggleTaskWindowAction.Label = ViewModel.IsTaskWindowVisible
+				? Catalog.GetString ("Hide Task Window")
+				: Catalog.GetString ("Show Task Window");
 		}
 	}
 }
