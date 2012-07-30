@@ -1292,8 +1292,8 @@ namespace Tasque
 			if (mainWindowModel == null)
 				throw new ArgumentNullException ("mainWindowModel");
 			vm = mainWindowModel;
-			mainWindowModel.Show.SetExecuteAction (ShowWindow, true);
-			mainWindowModel.Hide.SetExecuteAction (HideWindow, true);
+			mainWindowModel.Show.SetExecuteAction (ShowWindow);
+			mainWindowModel.Hide.SetExecuteAction (HideWindow);
 		}
 		
 		void ShowWindow ()

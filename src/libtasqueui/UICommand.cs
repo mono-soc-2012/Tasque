@@ -61,6 +61,7 @@ namespace Tasque.UIModel
 		public void SetExecuteAction (Action executeAction)
 		{
 			this.executeAction = executeAction;
+			CanExecute = true;
 		}
 		
 		public void SetExecuteAction (Action executeAction, bool canExecute)
