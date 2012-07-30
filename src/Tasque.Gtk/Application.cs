@@ -388,6 +388,12 @@ namespace Tasque
 
 		private void SetupTrayIcon ()
 		{
+			GtkTrayBase tray;
+#if APPINDICATOR
+			tray = new AppIndicatorTray (null);
+#else
+			tray = new StatusIconTray (null);
+#endif
 			trayIcon = new Gtk.StatusIcon();
 			trayIcon.Pixbuf = Utilities.GetIcon ("tasque-24", 24);
 			

@@ -140,6 +140,9 @@
     <None Include="..\src\tasque\tasque.csproj">
       <Link>tasque.csproj</Link>
     </None>
+    <None Include="..\INSTALL">
+      <Link>INSTALL</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SetDataAtBuildTime.cs" />

@@ -10,6 +10,7 @@
     <AssemblyName>Tasque.Gtk</AssemblyName>
     <RootNamespace>Tasque</RootNamespace>
     <ReleaseVersion>0.1.10</ReleaseVersion>
+    <EnableAppIndicator Condition=" '$(EnableAppIndicator)' == '' ">true</EnableAppIndicator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -17,6 +18,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;GTKLINUX</DefineConstants>
+    <DefineConstants Condition=" '$(EnableAppIndicator)' ">$(DefineConstants);APPINDICATOR</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
@@ -24,6 +26,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\LinuxRelease</OutputPath>
     <DefineConstants>TRACE;GTKLINUX</DefineConstants>
+    <DefineConstants Condition=" '$(EnableAppIndicator)' ">$(DefineConstants);APPINDICATOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
@@ -126,7 +129,6 @@
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="GtkApplicationBase.cs" />
-    <Compile Include="AppIndicatorTray.cs" />
     <Compile Include="StatusIconTray.cs" />
     <Compile Include="GtkTrayBase.cs" />
   </ItemGroup>
@@ -136,6 +138,9 @@
   <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
     <Compile Include="GtkLinuxApplication.cs" />
     <Compile Include="RemoteControl.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(EnableAppIndicator)' ">
+    <Compile Include="AppIndicatorTray.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
