@@ -37,6 +37,7 @@ using Mono.Unix;
 using Tasque;
 using CollectionTransforms;
 using System.Collections;
+using System.Diagnostics;
 
 namespace Tasque
 {

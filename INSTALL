@@ -15,6 +15,19 @@ opening the solution in Monodevelop. Otherwise Monodevelop will issue
 warnings about some missing projects. Those projects are fetched during build.
 
 
+AppIndicator:
+For the systray icon to work on the Unity desktop appindicator-sharp is needed.
+By default appindicator support is enabled. It can be switched off by adding
+
+	/property:EnableAppIndicator=false
+
+to the command line, thus yielding
+
+	xbuild /property:Configuration=GtkLinuxDebug /property:EnableAppIndicator=false tasque.sln
+
+as the build command.
+
+
 Instructions below are deprecated.
 --------------------------------------------------------
 

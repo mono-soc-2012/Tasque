@@ -10,6 +10,7 @@
     <AssemblyName>Tasque.Gtk</AssemblyName>
     <RootNamespace>Tasque</RootNamespace>
     <ReleaseVersion>0.1.10</ReleaseVersion>
+    <EnableAppIndicator Condition=" '$(EnableAppIndicator)' == '' ">true</EnableAppIndicator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -17,6 +18,7 @@
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;GTKLINUX</DefineConstants>
+    <DefineConstants Condition=" '$(EnableAppIndicator)' ">$(DefineConstants);APPINDICATOR</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
@@ -24,6 +26,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\LinuxRelease</OutputPath>
     <DefineConstants>TRACE;GTKLINUX</DefineConstants>
+    <DefineConstants Condition=" '$(EnableAppIndicator)' ">$(DefineConstants);APPINDICATOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
@@ -87,13 +90,16 @@
     </Reference>
     <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
       <Private>False</Private>
-      <Package>notify-sharp</Package>
     </Reference>
     <Reference Include="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
       <Private>False</Private>
       <Package>ndesk-dbus-glib-1.0</Package>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="appindicator-sharp, Version=0.2.0.0, Culture=neutral, PublicKeyToken=bcae265d1c7ab4c2">
+      <Private>False</Private>
+      <Package>appindicator-sharp-0.1</Package>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\data\sounds\notify.wav">
@@ -126,6 +132,8 @@
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="GtkApplicationBase.cs" />
+    <Compile Include="StatusIconTray.cs" />
+    <Compile Include="GtkTray.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' ">
     <Compile Include="GtkWinApplication.cs" />
@@ -133,6 +141,9 @@
   <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
     <Compile Include="GtkLinuxApplication.cs" />
     <Compile Include="RemoteControl.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(EnableAppIndicator)' ">
+    <Compile Include="AppIndicatorTray.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
