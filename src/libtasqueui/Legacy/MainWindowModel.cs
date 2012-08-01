@@ -30,17 +30,17 @@ namespace Tasque.UIModel.Legacy
 {
 	public class MainWindowModel : ViewModelBase, ITimeAware
 	{
-		internal MainWindowModel ()
+		internal MainWindowModel (Preferences preferences)
 		{
-			if (Backend == null)
-				throw new ArgumentNullException ("backend");
-			if (Preferences == null)
+			if (preferences == null)
 				throw new ArgumentNullException ("preferences");
 			
 			UpdateCompletionDateRangeCompareDates ();
 			
-			this.Backend = Backend;
-			this.Preferences = Preferences;
+			Preferences = preferences;
+			showCompletedTasks = preferences.GetBool (Preferences.ShowCompletedTasksKey);
+			completionDateRange = GetCompletionDateRange ();
+			preferences.SettingChanged += HandleSettingChanged;
 			
 			Tasks = new ListCollectionView<Task> (Backend.Tasks);
 			Tasks.Filter = Filter;
@@ -52,12 +52,28 @@ namespace Tasque.UIModel.Legacy
 			
 			topPanel = new MainWindowTopPanelModel (this);
 		}
+
+		void HandleSettingChanged (Preferences preferences, string settingKey)
+		{
+			switch (settingKey) {
+			case Preferences.ShowCompletedTasksKey:
+				showCompletedTasks = preferences.GetBool (settingKey);
+				Tasks.Refresh ();
+				OnPropertyChanged ("ShowCompletedTasks");
+				break;
+			case Preferences.CompletedTasksRange:
+				completionDateRange = GetCompletionDateRange ();
+				Tasks.Refresh ();
+				OnPropertyChanged ("CompletionDateRange");
+				break;
+			}
+		}
 		
 		public CompletionDateRange CompletionDateRange {
-			get { return Preferences.CompletionDateRange; }
+			get { return completionDateRange; }
 			set {
-				Preferences.CompletionDateRange = value;
-				Tasks.Refresh ();
+				if (value != completionDateRange)
+					Preferences.Set (Preferences.CompletedTasksRange, value.ToString ());
 			}
 		}
 		
@@ -81,6 +97,8 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
+		public bool ShowCompletedTasks { get { return showCompletedTasks; } }
+		
 		public UICommand Hide { get { return hide ?? (hide = new UICommand ()); } }
 		
 		public UICommand Show {	get { return show ?? (show = new UICommand ());	} }
@@ -95,7 +113,7 @@ namespace Tasque.UIModel.Legacy
 			Tasks.Refresh ();
 		}
 		
-		internal Backend Backend { get; private set; }
+		internal Backend Backend { get; set; }
 		
 		internal Preferences Preferences { get; private set; }
 		
@@ -112,7 +130,7 @@ namespace Tasque.UIModel.Legacy
 			if (!task.IsComplete)
 				return true;
 			
-			if (!Preferences.ShowCompletedTasks)
+			if (!showCompletedTasks)
 				return false;
 			
 			// account for completion date range setting
@@ -131,6 +149,12 @@ namespace Tasque.UIModel.Legacy
 			default:
 				return true;
 			}
+		}
+		
+		void GetCompletionDateRange ()
+		{
+			return (CompletionDateRange)Enum.Parse (typeof (CompletionDateRange),
+			                                        Preferences.Get (Preferences.CompletedTasksRange));
 		}
 		
 		void UpdateCompletionDateRangeCompareDates ()
@@ -160,5 +184,8 @@ namespace Tasque.UIModel.Legacy
 		
 		UICommand hide;
 		UICommand show;
+		
+		bool showCompletedTasks;
+		CompletionDateRange completionDateRange;
 	}
 }

@@ -24,8 +24,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Tasque.UIModel.Legacy
 {
@@ -60,6 +60,8 @@ namespace Tasque.UIModel.Legacy
 				if (MainWindowModel != null && MainWindowModel.Show.CanExecute)
 					MainWindowModel.Show.Execute ();
 			};
+			
+			preferences = new Preferences ();
 		}
 
 		public virtual void InitializeIdle () {}
@@ -97,5 +99,7 @@ namespace Tasque.UIModel.Legacy
 			Dispose (false);
 		}
 		#endregion
+		
+		Preferences preferences;
 	}
 }

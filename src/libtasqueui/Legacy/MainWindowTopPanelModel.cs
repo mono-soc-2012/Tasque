@@ -23,6 +23,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System.Linq;
 using CollectionTransforms;
 
 namespace Tasque.UIModel.Legacy
@@ -32,21 +33,34 @@ namespace Tasque.UIModel.Legacy
 		internal MainWindowTopPanelModel (MainWindowModel mainWindowModel)
 		{
 			tasks = mainWindowModel.Tasks;
-			preferences = mainWindowModel.Preferences;
+			
 			Categories = new ReadOnlySortedNotifyCollection<Category> (mainWindowModel.Backend.Categories);
+			
+			preferences = mainWindowModel.Preferences;
+			selectedCategory = GetSelectedCategory ();
+			preferences.SettingChanged += HandleSettingChanged;
+			
 			addTaskCommand = new AddTaskCommand (mainWindowModel.Backend);
+		}
+
+		void HandleSettingChanged (Preferences preferences, string settingKey)
+		{
+			switch (settingKey) {
+			case Preferences.SelectedCategoryKey:
+				selectedCategory = GetSelectedCategory ();
+				tasks.Refresh ();
+				OnPropertyChanged ("SelectedCategory");
+				break;
+			}
 		}
 		
 		public ReadOnlySortedNotifyCollection<Category> Categories { get; private set; }
 		
 		public Category SelectedCategory {
-			get { return preferences.SelectedCategory; }
+			get { return selectedCategory; }
 			set {
-				if (value != null && !Categories.Contains (value))
-					value = null;
-				preferences.SelectedCategory = value;
-				tasks.Refresh ();
-				OnPropertyChanged ("SelectedCategory");
+				if (value != selectedCategory)
+					preferences.Set (Preferences.SelectedCategoryKey, value.Name);
 			}
 		}
 		
@@ -72,9 +86,17 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
+		void GetSelectedCategory ()
+		{
+			var selectedCategoryName = preferences.Get (Preferences.SelectedCategoryKey);
+			return Categories.SingleOrDefault (c => c.Name == selectedCategoryName);
+		}
+		
 		Preferences preferences;
 		ListCollectionView<Task> tasks;
 		
 		AddTaskCommand addTaskCommand;
+		
+		Category selectedCategory;
 	}
 }

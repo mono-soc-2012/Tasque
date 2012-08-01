@@ -121,7 +121,6 @@
     <Compile Include="DateButton.cs" />
     <Compile Include="NoteDialog.cs" />
     <Compile Include="NoteWidget.cs" />
-    <Compile Include="Preferences.cs" />
     <Compile Include="PreferencesDialog.cs" />
     <Compile Include="TaskCalendar.cs" />
     <Compile Include="TaskGroup.cs" />

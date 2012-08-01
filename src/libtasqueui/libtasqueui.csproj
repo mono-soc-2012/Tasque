@@ -79,6 +79,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,7 +99,6 @@
     <Compile Include="Legacy\DueDateConverter.cs" />
     <Compile Include="Legacy\TaskComparer.cs" />
     <Compile Include="Legacy\CompletionDateRange.cs" />
-    <Compile Include="Legacy\Preferences.cs" />
     <Compile Include="ITimeAware.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="CommandBase.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="Point.cs" />
+    <Compile Include="Legacy\Preferences.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
