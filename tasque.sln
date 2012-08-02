@@ -26,6 +26,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HiveminderBackend", "src\Addins\HiveminderBackend\HiveminderBackend.csproj", "{B3107E6C-08DD-4264-A8D5-467BD96F33CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{8F06BE43-859E-4A2D-B620-7CEDFF408F39}"
+	ProjectSection(SolutionItems) = preProject
+		src\Options.cs = src\Options.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ObservableCollectionTransforms", "ObservableCollectionTransforms", "{575AA970-031A-4E4A-8409-75D749D3C23E}"
 EndProject

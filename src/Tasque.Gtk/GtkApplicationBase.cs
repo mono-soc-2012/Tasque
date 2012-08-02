@@ -62,23 +62,14 @@ namespace Tasque
 		#endregion
 		#endregion
 		
-		public GtkApplicationBase ()
-		{
-			confDir = Path.Combine (
-				Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData), "tasque");
-			if (!Directory.Exists (confDir))
-				Directory.CreateDirectory (confDir);
-		}
-		
 		public override string ConfDir { get { return confDir; } }
-
-		public override void Initialize (string[] args)
+		
+		protected override void OnInitialize ()
 		{
-			base.Initialize (args);
 //			Catalog.Init ("tasque", GlobalDefines.LocaleDir);
 			Gtk.Application.Init ();
-			
-			RegisterUIManager ();
+			GLib.Idle.Add (InitializeIdle);
+			GLib.Timeout.Add (60000, CheckForDaySwitch);
 		}
 		
 		public override void StartMainLoop ()

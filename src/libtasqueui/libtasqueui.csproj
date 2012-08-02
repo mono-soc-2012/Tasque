@@ -80,6 +80,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="Mono.Posix" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +114,9 @@
     <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Legacy\Preferences.cs" />
+    <Compile Include="..\Options.cs">
+      <Link>Options.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
