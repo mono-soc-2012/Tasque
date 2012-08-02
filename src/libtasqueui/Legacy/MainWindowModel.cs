@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 using System;
 using CollectionTransforms;
+using System.Collections.ObjectModel;
 
 namespace Tasque.UIModel.Legacy
 {
@@ -44,11 +45,8 @@ namespace Tasque.UIModel.Legacy
 			
 			Tasks = new ListCollectionView<Task> (Backend.Tasks);
 			Tasks.Filter = Filter;
-			Tasks.GroupDescriptions.Add (new PropertyGroupDescription ("IsComplete"));
-			var dueDateDesc = new PropertyGroupDescription("DueDate");
-            dueDateDesc.Converter = new DueDateConverter();
-            Tasks.GroupDescriptions.Add(dueDateDesc);
-			Tasks.CustomSort = new TaskComparer(new TaskCompletionDateComparer());
+			Tasks.GroupDescriptions.Add (new PropertyGroupDescription (null, new TaskGroupConverter ()));
+			Tasks.CustomSort = new TaskComparer (new TaskCompletionDateComparer());
 			
 			topPanel = new MainWindowTopPanelModel (this);
 		}
@@ -98,6 +96,26 @@ namespace Tasque.UIModel.Legacy
 		}
 		
 		public bool ShowCompletedTasks { get { return showCompletedTasks; } }
+
+		public ReadOnlyObservableCollection<Task> OverdueTasks {
+			get { throw new NotImplementedException (); }
+		}
+		
+		public ReadOnlyObservableCollection<Task> TodayTasks {
+			get { throw new NotImplementedException (); }
+		}
+		
+		public ReadOnlyObservableCollection<Task> TomorrowTasks {
+			get { throw new NotImplementedException (); }
+		}
+		
+		public ReadOnlyObservableCollection<Task> FutureTasks {
+			get { throw new NotImplementedException (); }
+		}
+		
+		public ReadOnlyObservableCollection<Task> CompletedTasks {
+			get { throw new NotImplementedException (); }
+		}
 		
 		public UICommand Hide { get { return hide ?? (hide = new UICommand ()); } }
 		

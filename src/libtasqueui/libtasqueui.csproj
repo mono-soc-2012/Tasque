@@ -96,8 +96,6 @@
     <Compile Include="Legacy\NoteDialogModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="Legacy\TrayModel.cs" />
-    <Compile Include="Legacy\DueDateCategory.cs" />
-    <Compile Include="Legacy\DueDateConverter.cs" />
     <Compile Include="Legacy\TaskComparer.cs" />
     <Compile Include="Legacy\CompletionDateRange.cs" />
     <Compile Include="ITimeAware.cs" />
@@ -117,6 +115,8 @@
     <Compile Include="..\Options.cs">
       <Link>Options.cs</Link>
     </Compile>
+    <Compile Include="Legacy\TaskGroupConverter.cs" />
+    <Compile Include="Legacy\TaskGroup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -1,5 +1,5 @@
 // 
-// DueDateCategory.cs
+// TaskGroupConverter.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,14 +23,36 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
+using System.Globalization;
+using CollectionTransforms;
 
 namespace Tasque.UIModel.Legacy
 {
-    public enum DueDateCategory
-    {
-        Overdue,
-        Today,
-        Tomorrow,
-        Future
-    }
+	public class TaskGroupConverter : IValueConverter
+	{
+		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var task = (Task)value;
+			if (task.IsComplete)
+				return TaskGroup.Completed;
+			
+			var today = DateTime.Today;
+            var tomorrow = DateTime.Today.AddDays (1);
+			var dueDate = task.DueDate.Date;
+            if (dueDate < today)
+                return TaskGroup.Overdue;
+            else if (dueDate == today)
+                return TaskGroup.Today;
+            else if (dueDate == tomorrow)
+                return TaskGroup.Tomorrow;
+            else
+                return TaskGroup.Future;
+		}
+
+		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException ();
+		}
+	}
 }
