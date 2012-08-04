@@ -1,5 +1,5 @@
 // 
-// Category.cs
+// ObservableSet.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,41 +24,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Tasque
 {
-	public class Category : ObservableSet<Task>, IComparable<Category>
+	public class ObservableSet<T> : ObservableCollection<T>
 	{
-		public Category (string name)
+		protected override void InsertItem (int index, T item)
 		{
-			Name = name;
-		}
-
-		public string Name {
-			get { return name; }
-			set {
-				if (value == null)
-					throw new ArgumentNullException ("name");
-
-				if (value == name) {
-					name = value;
-					OnNameChanged ();
-					OnPropertyChanged (new PropertyChangedEventArgs ("Name"));
-				}
-			}
+			if (item == null)
+				throw new ArgumentNullException ("item");
+			
+			if (Contains (item))
+				return;
+			
+			base.InsertItem (index, item);
 		}
 		
-		public virtual int CompareTo (Category other)
+		protected override void SetItem (int index, T item)
 		{
-			if (other == null)
-				return 1;
-			
-			return Name.CompareTo (other.Name);
+			if (Contains (item))
+				RemoveAt (index);
+			else
+				base.SetItem (index, item);
 		}
-
-		protected virtual void OnNameChanged () {}
-
-		string name;
 	}
 }

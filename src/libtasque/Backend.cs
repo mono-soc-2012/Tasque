@@ -44,11 +44,11 @@ namespace Tasque
 
 			Name = name;
 
-			tasks = new SortedNotifyCollection<Task> ();
-			Tasks = new ReadOnlySortedNotifyCollection<Task> (tasks);
+			tasks = new ObservableSet<Task> ();
+			Tasks = new ReadOnlyObservableSet<Task> (tasks);
 
 			categoriesChangedSources = new List<INotifyCollectionChanged> ();
-			Categories = new SortedNotifyCollection<Category> ();
+			Categories = new ObservableSet<Category> ();
 			
 			// create default category here, because it is required for the model to be there. Overwrite
 			// default category preferably in child class constructor with more appropriate value
@@ -63,7 +63,7 @@ namespace Tasque
 		/// <value>
 		/// This returns all the ICategory items from the backend.
 		/// </value>
-		public SortedNotifyCollection<Category> Categories { get; private set; }
+		public ObservableSet<Category> Categories { get; private set; }
 
 		/// <value>
 		/// Indication that the backend has enough information
@@ -106,7 +106,7 @@ namespace Tasque
 		/// <value>
 		/// All the tasks provided by the backend.
 		/// </value>
-		public ReadOnlySortedNotifyCollection<Task> Tasks { get; private set; }
+		public ReadOnlyObservableSet<Task> Tasks { get; private set; }
 		#endregion
 		
 		#region Methods
@@ -268,6 +268,6 @@ namespace Tasque
 
 		List<INotifyCollectionChanged> categoriesChangedSources;
 		Category defaultCategory;
-		SortedNotifyCollection<Task> tasks;
+		ObservableSet<Task> tasks;
 	}
 }

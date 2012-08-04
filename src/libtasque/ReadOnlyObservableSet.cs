@@ -1,5 +1,5 @@
 // 
-// Category.cs
+// ReadOnlyObservableSet.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,42 +23,18 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace Tasque
 {
-	public class Category : ObservableSet<Task>, IComparable<Category>
+	public class ReadOnlyObservableSet<T> : ReadOnlyObservableCollection<T>
 	{
-		public Category (string name)
-		{
-			Name = name;
-		}
-
-		public string Name {
-			get { return name; }
-			set {
-				if (value == null)
-					throw new ArgumentNullException ("name");
-
-				if (value == name) {
-					name = value;
-					OnNameChanged ();
-					OnPropertyChanged (new PropertyChangedEventArgs ("Name"));
-				}
-			}
-		}
+		public ReadOnlyObservableSet (ObservableSet<T> source) : base (source) {}
 		
-		public virtual int CompareTo (Category other)
-		{
-			if (other == null)
-				return 1;
-			
-			return Name.CompareTo (other.Name);
+		public new event NotifyCollectionChangedEventHandler CollectionChanged {
+			add { base.CollectionChanged += value; }
+			remove { base.CollectionChanged -= value; }
 		}
-
-		protected virtual void OnNameChanged () {}
-
-		string name;
 	}
 }

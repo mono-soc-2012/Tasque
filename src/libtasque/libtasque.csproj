@@ -112,8 +112,8 @@
     <Compile Include="TaskNote.cs" />
     <Compile Include="TaskNoteSupport.cs" />
     <Compile Include="TaskCompletionDateComparer.cs" />
-    <Compile Include="SortedNotifyCollection.cs" />
-    <Compile Include="ReadOnlySortedNotifyCollection.cs" />
+    <Compile Include="ObservableSet.cs" />
+    <Compile Include="ReadOnlyObservableSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
