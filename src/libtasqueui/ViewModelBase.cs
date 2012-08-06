@@ -23,19 +23,32 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+using System;
 using System.ComponentModel;
 
 namespace Tasque.UIModel
 {
-	public abstract class ViewModelBase : INotifyPropertyChanged
+	public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
 	{
+		public void Dispose ()
+		{
+			Dispose (true);
+			GC.SuppressFinalize (this);
+		}
+		
+		protected virtual void Dispose (bool disposing) {}
+		
+		~ViewModelBase ()
+		{
+			Dispose (false);
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		protected void OnPropertyChanged (string propertyName)
+		protected virtual void OnPropertyChanged (string propertyName)
 		{
 			if (PropertyChanged != null)
 				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
 	}
 }
-
