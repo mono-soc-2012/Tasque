@@ -158,13 +158,13 @@ Global
 		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
-		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
-		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
-		{91F6578A-2993-40A4-BE49-64028923EB87}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{91F6578A-2993-40A4-BE49-64028923EB87}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
 		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{95B669DC-0F9F-4C26-B31E-34CFA54112E8}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
@@ -221,8 +221,8 @@ Global
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
-		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
+		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
+		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
