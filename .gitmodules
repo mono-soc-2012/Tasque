@@ -1,3 +1,6 @@
 [submodule "ObservableTransformCollections"]
 	path = src/ObservableTransformCollections
 	url = git://github.com/antoniusriha/ObservableTransformCollections.git
+[submodule "CrossCommand"]
+	path = src/CrossCommand
+	url = git://github.com/antoniusriha/CrossCommand.git
