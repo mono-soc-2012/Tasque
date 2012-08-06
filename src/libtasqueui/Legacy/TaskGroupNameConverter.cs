@@ -1,5 +1,5 @@
 // 
-// TaskGroupConverter.cs
+// TaskGroupNameConverter.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,32 +25,36 @@
 // THE SOFTWARE.
 using System;
 using System.Globalization;
-using CollectionTransforms;
+using Mono.Unix;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class TaskGroupConverter : IValueConverter
+	public class TaskGroupNameConverter : ValueConverter<TaskGroupName, string>
 	{
-		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
+		public override string Convert (TaskGroupName value, object parameter, CultureInfo culture)
 		{
-			var task = (Task)value;
-			if (task.IsComplete)
-				return TaskGroupName.Completed;
-			
-			var today = DateTime.Today;
-            var tomorrow = DateTime.Today.AddDays (1);
-			var dueDate = task.DueDate.Date;
-            if (dueDate < today)
-                return TaskGroupName.Overdue;
-            else if (dueDate == today)
-                return TaskGroupName.Today;
-            else if (dueDate == tomorrow)
-                return TaskGroupName.Tomorrow;
-            else
-                return TaskGroupName.Future;
+			var taskGroupNameText = "";
+			switch (value) {
+			case TaskGroupName.Completed:
+				Catalog.GetString ("Completed");
+				break;
+			case TaskGroupName.Future:
+				Catalog.GetString ("Future");
+				break;
+			case TaskGroupName.Overdue:
+				Catalog.GetString ("Overdue");
+				break;
+			case TaskGroupName.Today:
+				Catalog.GetString ("Today");
+				break;
+			case TaskGroupName.Tomorrow:
+				Catalog.GetString ("Tomorrow");
+				break;
+			}
+			return taskGroupNameText;
 		}
 
-		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
+		public override TaskGroupName ConvertBack (string value, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException ();
 		}

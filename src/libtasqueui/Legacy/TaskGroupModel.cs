@@ -1,5 +1,5 @@
 // 
-// TaskGroupConverter.cs
+// TaskGroupModel.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,35 +24,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Globalization;
-using CollectionTransforms;
+using System.Collections.ObjectModel;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class TaskGroupConverter : IValueConverter
+	public class TaskGroupModel : ViewModelBase
 	{
-		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
+		public TaskGroupModel (TaskGroupName groupName, ReadOnlyObservableCollection<Task> tasks)
 		{
-			var task = (Task)value;
-			if (task.IsComplete)
-				return TaskGroupName.Completed;
+			if (tasks == null)
+				throw new ArgumentNullException ("tasks");
+			Tasks = tasks;
 			
-			var today = DateTime.Today;
-            var tomorrow = DateTime.Today.AddDays (1);
-			var dueDate = task.DueDate.Date;
-            if (dueDate < today)
-                return TaskGroupName.Overdue;
-            else if (dueDate == today)
-                return TaskGroupName.Today;
-            else if (dueDate == tomorrow)
-                return TaskGroupName.Tomorrow;
-            else
-                return TaskGroupName.Future;
+			var taskGroupNameConverter = new TaskGroupNameConverter ();
+			Title = taskGroupNameConverter.Convert (groupName, null, null);
 		}
-
-		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException ();
-		}
+		
+		public ReadOnlyObservableCollection<Task> Tasks { get; private set; }
+		
+		public string Title { get; private set; }
 	}
 }

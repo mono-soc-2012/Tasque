@@ -1,5 +1,5 @@
 // 
-// TaskGroupConverter.cs
+// CompletionDateRangeConverter.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,32 +25,36 @@
 // THE SOFTWARE.
 using System;
 using System.Globalization;
-using CollectionTransforms;
+using Mono.Unix;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class TaskGroupConverter : IValueConverter
+	public class CompletionDateRangeConverter : ValueConverter<CompletionDateRange, string>
 	{
-		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
+		public override string Convert (CompletionDateRange value, object parameter, CultureInfo culture)
 		{
-			var task = (Task)value;
-			if (task.IsComplete)
-				return TaskGroupName.Completed;
-			
-			var today = DateTime.Today;
-            var tomorrow = DateTime.Today.AddDays (1);
-			var dueDate = task.DueDate.Date;
-            if (dueDate < today)
-                return TaskGroupName.Overdue;
-            else if (dueDate == today)
-                return TaskGroupName.Today;
-            else if (dueDate == tomorrow)
-                return TaskGroupName.Tomorrow;
-            else
-                return TaskGroupName.Future;
+			var complDateText = "";
+			switch (value) {
+			case CompletionDateRange.All:
+				complDateText = Catalog.GetString ("All");
+				break;
+			case CompletionDateRange.Last7Days:
+				complDateText = Catalog.GetString ("Last 7 days");
+				break;
+			case CompletionDateRange.LastMonth:
+				complDateText = Catalog.GetString ("Last month");
+				break;
+			case CompletionDateRange.LastYear:
+				complDateText = Catalog.GetString ("Last year");
+				break;
+			case CompletionDateRange.Yesterday:
+				complDateText = Catalog.GetString ("Yesterday");
+				break;
+			}
+			return complDateText;
 		}
 
-		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
+		public override CompletionDateRange ConvertBack (string value, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException ();
 		}

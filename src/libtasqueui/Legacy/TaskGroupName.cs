@@ -1,5 +1,5 @@
 // 
-// TaskGroupConverter.cs
+// TaskGroup.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -23,36 +23,15 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using System.Globalization;
-using CollectionTransforms;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class TaskGroupConverter : IValueConverter
+	public enum TaskGroupName
 	{
-		public object Convert (object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			var task = (Task)value;
-			if (task.IsComplete)
-				return TaskGroupName.Completed;
-			
-			var today = DateTime.Today;
-            var tomorrow = DateTime.Today.AddDays (1);
-			var dueDate = task.DueDate.Date;
-            if (dueDate < today)
-                return TaskGroupName.Overdue;
-            else if (dueDate == today)
-                return TaskGroupName.Today;
-            else if (dueDate == tomorrow)
-                return TaskGroupName.Tomorrow;
-            else
-                return TaskGroupName.Future;
-		}
-
-		public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException ();
-		}
+		Overdue,
+		Today,
+		Tomorrow,
+		Future,
+		Completed
 	}
 }

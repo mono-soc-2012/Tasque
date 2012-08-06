@@ -104,18 +104,20 @@
     <Compile Include="Legacy\Commands\ComponentCommands.cs" />
     <Compile Include="Legacy\Commands\TaskCommands.cs" />
     <Compile Include="Legacy\NativeApplication.cs" />
-    <Compile Include="TaskGroupModel.cs" />
     <Compile Include="TaskGroupModelFactory.cs" />
-    <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Legacy\Preferences.cs" />
     <Compile Include="..\Options.cs">
       <Link>Options.cs</Link>
     </Compile>
     <Compile Include="Legacy\TaskGroupConverter.cs" />
-    <Compile Include="Legacy\TaskGroup.cs" />
+    <Compile Include="Legacy\TaskGroupModel.cs" />
+    <Compile Include="Legacy\CompletedTaskGroupModel.cs" />
+    <Compile Include="Legacy\TaskGroupName.cs" />
     <Compile Include="IValueConverter.cs" />
     <Compile Include="ValueConverter.cs" />
+    <Compile Include="Legacy\CompletionDateRangeConverter.cs" />
+    <Compile Include="Legacy\TaskGroupNameConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
