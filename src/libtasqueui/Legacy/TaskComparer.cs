@@ -30,22 +30,18 @@ namespace Tasque.UIModel.Legacy
 {
     public class TaskComparer : Comparer<Task>
     {
-        public TaskComparer(TaskCompletionDateComparer completedComparer)
+        public TaskComparer()
         {
-            this.completedComparer = completedComparer;
+			completedComparer = new TaskCompletionDateComparer ();
         }
 
         public override int Compare(Task x, Task y)
         {
             var result = x.IsComplete.CompareTo(y.IsComplete);
-
             if (result != 0)
                 return result;
 
-            if (x.IsComplete)
-                return -completedComparer.Compare(x, y);
-            else
-                return x.CompareTo(y);
+			return x.IsComplete ? -completedComparer.Compare (x, y) : x.CompareTo (y);
         }
 
         TaskCompletionDateComparer completedComparer;

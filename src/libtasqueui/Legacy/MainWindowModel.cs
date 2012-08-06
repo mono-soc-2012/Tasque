@@ -46,7 +46,7 @@ namespace Tasque.UIModel.Legacy
 			Tasks = new ListCollectionView<Task> (Backend.Tasks);
 			Tasks.Filter = Filter;
 			Tasks.GroupDescriptions.Add (new PropertyGroupDescription (null, new TaskGroupConverter ()));
-			Tasks.CustomSort = new TaskComparer (new TaskCompletionDateComparer());
+			Tasks.CustomSort = new TaskComparer ();
 			
 			topPanel = new MainWindowTopPanelModel (this);
 		}
