@@ -114,6 +114,8 @@
     </Compile>
     <Compile Include="Legacy\TaskGroupConverter.cs" />
     <Compile Include="Legacy\TaskGroup.cs" />
+    <Compile Include="IValueConverter.cs" />
+    <Compile Include="ValueConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
