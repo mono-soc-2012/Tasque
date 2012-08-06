@@ -99,14 +99,11 @@
     <Compile Include="Legacy\TaskComparer.cs" />
     <Compile Include="Legacy\CompletionDateRange.cs" />
     <Compile Include="ITimeAware.cs" />
-    <Compile Include="ICommand.cs" />
-    <Compile Include="CommandBase.cs" />
     <Compile Include="Legacy\MainWindowTopPanelModel.cs" />
     <Compile Include="Legacy\MainWindowContextMenuModel.cs" />
     <Compile Include="Legacy\Commands\ComponentCommands.cs" />
     <Compile Include="Legacy\Commands\TaskCommands.cs" />
     <Compile Include="Legacy\NativeApplication.cs" />
-    <Compile Include="UICommand.cs" />
     <Compile Include="TaskGroupModel.cs" />
     <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="CompletedTaskGroupModel.cs" />
@@ -132,6 +129,10 @@
     <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
       <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
       <Name>CollectionView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossCommand\CrossCommand\CrossCommand.csproj">
+      <Project>{1F7F8DA9-F2C0-4E17-980E-42E4282F6A1C}</Project>
+      <Name>CrossCommand</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

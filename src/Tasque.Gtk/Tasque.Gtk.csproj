@@ -165,6 +165,10 @@
       <Project>{95B669DC-0F9F-4C26-B31E-34CFA54112E8}</Project>
       <Name>TreeModelListAdapter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CrossCommand\Gtk.Commands\Gtk.Commands.csproj">
+      <Project>{05098600-5315-41BB-860D-4E43A8138E83}</Project>
+      <Name>Gtk.Commands</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
