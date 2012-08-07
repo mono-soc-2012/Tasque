@@ -35,8 +35,8 @@ namespace Tasque.UIModel.Legacy
 {
 	public abstract class NativeApplication : IDisposable
 	{
-		protected NativeApplication ()
-			: this (Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData), "tasque")) {}
+		protected NativeApplication () : this (Path.Combine (Environment.GetFolderPath (
+			Environment.SpecialFolder.ApplicationData), "tasque")) {}
 		
 		protected NativeApplication (string confDir)
 		{
@@ -48,7 +48,7 @@ namespace Tasque.UIModel.Legacy
 				Directory.CreateDirectory (confDir);
 		}
 		
-		public Backend CurrentBackend { get; }
+		public Backend CurrentBackend { get; private set; }
 		
 		public ReadOnlyCollection<Backend> AvailableBackends { get; }
 		
@@ -92,8 +92,40 @@ namespace Tasque.UIModel.Legacy
 		
 		protected virtual void OnInitialize () {}
 
-		public virtual void InitializeIdle () {}
+		public virtual void InitializeIdle ()
+		{
+			if (customBackend != null)
+				CurrentBackend = customBackend;
+			else {
+				// Check to see if the user has a preference of which backend
+				// to use.  If so, use it, otherwise, pop open the preferences
+				// dialog so they can choose one.
+				string backendTypeString = preferences.Get (Preferences.CurrentBackend);
+				Debug.WriteLine ("CurrentBackend specified in Preferences: {0}", backendTypeString);
+				if (backendTypeString != null && availableBackends.ContainsKey (backendTypeString))
+					CurrentBackend = availableBackends [backendTypeString];
+			}
+			
+			SetupTray (new TrayModel ());
+			
+			if (CurrentBackend == null) {
+				// Pop open the preferences dialog so the user can choose a
+				// backend service to use.
+				Application.ShowPreferences ();
+			} else if (!quietStart) {
+				TaskWindow.ShowWindow ();
+			}
+			if (backend == null || !backend.Configured){
+				GLib.Timeout.Add(1000, new GLib.TimeoutHandler(RetryBackend));
+			}
 
+			nativeApp.InitializeIdle ();
+			
+			return false;
+		}
+		
+		protected abstract void SetupTray (TrayModel trayModel);
+		
 		protected virtual void OnExit (int exitCode) {}
 
 		public virtual void OpenUrlInBrowser (string url)
@@ -179,14 +211,15 @@ namespace Tasque.UIModel.Legacy
 			try {
 				types = asm.GetTypes ();
 			} catch (Exception e) {
-				Trace.TraceWarning ("Exception reading types from assembly '{0}': {1}", asm.ToString (), e.Message);
+				Trace.TraceWarning ("Exception reading types from assembly '{0}': {1}",
+				                    asm.ToString (), e.Message);
 				return backends;
 			}
 			
 			foreach (var type in types) {
 				if (!type.IsClass)
 					continue; // Skip non-class types
-				if (type.GetInterface ("Tasque.Backends.IBackend") == null)
+				if (type.GetType ("Tasque.Backend") == null)
 					continue;
 				
 				Debug.WriteLine ("Found Available Backend: {0}", type.ToString ());
@@ -234,6 +267,49 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
+		void SetBackend (Backend value)
+		{
+			bool changingBackend = false;
+			if (this.backend != null) {
+				UnhookFromTooltipTaskGroupModels ();
+				changingBackend = true;
+				// Cleanup the old backend
+				try {
+					Debug.WriteLine ("Cleaning up backend: {0}",
+					              this.backend.Name);
+					this.backend.Cleanup ();
+				} catch (Exception e) {
+					Trace.TraceWarning ("Exception cleaning up '{0}': {1}",
+					             this.backend.Name,
+					             e);
+				}
+			}
+				
+			// Initialize the new backend
+			this.backend = value;
+			if (this.backend == null) {
+				RefreshTrayIconTooltip ();
+				return;
+			}
+				
+			Trace.TraceInformation ("Using backend: {0} ({1})",
+			             this.backend.Name,
+			             this.backend.GetType ().ToString ());
+			this.backend.Initialize();
+			
+			if (!changingBackend) {
+				TaskWindow.Reinitialize (!this.quietStart);
+			} else {
+				TaskWindow.Reinitialize (true);
+			}
+
+			RebuildTooltipTaskGroupModels ();
+			RefreshTrayIconTooltip ();
+			
+			Debug.WriteLine("Configuration status: {0}",
+			             this.backend.Configured.ToString());
+		}
+
 		void SetCustomBackend ()
 		{
 			// See if a specific backend is specified
@@ -257,5 +333,7 @@ namespace Tasque.UIModel.Legacy
 		bool quietStart;
 		
 		Dictionary<string, Backend> availableBackends;
+		
+		TrayModel tray;
 	}
 }

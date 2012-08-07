@@ -34,7 +34,7 @@ namespace Tasque.UIModel.Legacy
 		{
 			tasks = mainWindowModel.Tasks;
 			
-			Categories = new ReadOnlySortedNotifyCollection<Category> (mainWindowModel.Backend.Categories);
+			Categories = new ReadOnlyObservableSet<Category> (mainWindowModel.Backend.Categories);
 			
 			preferences = mainWindowModel.Preferences;
 			selectedCategory = GetSelectedCategory ();
@@ -54,7 +54,7 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
-		public ReadOnlySortedNotifyCollection<Category> Categories { get; private set; }
+		public ReadOnlyObservableSet<Category> Categories { get; private set; }
 		
 		public Category SelectedCategory {
 			get { return selectedCategory; }

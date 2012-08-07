@@ -24,8 +24,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using CollectionTransforms;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using CollectionTransforms;
+using CrossCommand;
 
 namespace Tasque.UIModel.Legacy
 {
@@ -40,7 +42,6 @@ namespace Tasque.UIModel.Legacy
 			
 			Preferences = preferences;
 			showCompletedTasks = preferences.GetBool (Preferences.ShowCompletedTasksKey);
-			completionDateRange = GetCompletionDateRange ();
 			preferences.SettingChanged += HandleSettingChanged;
 			
 			Tasks = new ListCollectionView<Task> (Backend.Tasks);
@@ -52,7 +53,22 @@ namespace Tasque.UIModel.Legacy
 			
 			topPanel = new MainWindowTopPanelModel (this);
 		}
-
+		
+		public ReadOnlyObservableCollection<TaskGroupModel> Groups {
+			get {
+				if (groups == null) {
+					privateGroups = new ObservableCollection<TaskGroupModel> ();
+					foreach (CollectionViewGroup<Task> group in Tasks.Groups)
+						privateGroups.Add (CreateGroupModel (group));
+					
+					groups = new ReadOnlyObservableCollection<TaskGroupModel> (privateGroups);
+					((INotifyCollectionChanged)Tasks.Groups).CollectionChanged += HandleGroupsChanged;
+				}
+				
+				return groups;
+			}
+		}
+		
 		void HandleSettingChanged (Preferences preferences, string settingKey)
 		{
 			switch (settingKey) {
@@ -61,19 +77,17 @@ namespace Tasque.UIModel.Legacy
 				Tasks.Refresh ();
 				OnPropertyChanged ("ShowCompletedTasks");
 				break;
-			case Preferences.CompletedTasksRange:
-				completionDateRange = GetCompletionDateRange ();
-				Tasks.Refresh ();
-				OnPropertyChanged ("CompletionDateRange");
-				break;
 			}
 		}
 		
-		public CompletionDateRange CompletionDateRange {
-			get { return completionDateRange; }
+		bool isVisible;
+		public bool IsVisible {
+			get { return isVisible; }
 			set {
-				if (value != completionDateRange)
-					Preferences.Set (Preferences.CompletedTasksRange, value.ToString ());
+				if (value != isVisible) {
+					isVisible = value;
+					OnPropertyChanged ("IsVisible");
+				}
 			}
 		}
 		
@@ -98,30 +112,10 @@ namespace Tasque.UIModel.Legacy
 		}
 		
 		public bool ShowCompletedTasks { get { return showCompletedTasks; } }
-
-		public ReadOnlyObservableCollection<Task> OverdueTasks {
-			get { throw new NotImplementedException (); }
-		}
 		
-		public ReadOnlyObservableCollection<Task> TodayTasks {
-			get { throw new NotImplementedException (); }
-		}
+		public RelayCommand Hide { get { return hide ?? (hide = new RelayCommand ()); } }
 		
-		public ReadOnlyObservableCollection<Task> TomorrowTasks {
-			get { throw new NotImplementedException (); }
-		}
-		
-		public ReadOnlyObservableCollection<Task> FutureTasks {
-			get { throw new NotImplementedException (); }
-		}
-		
-		public ReadOnlyObservableCollection<Task> CompletedTasks {
-			get { throw new NotImplementedException (); }
-		}
-		
-		public UICommand Hide { get { return hide ?? (hide = new UICommand ()); } }
-		
-		public UICommand Show {	get { return show ?? (show = new UICommand ());	} }
+		public RelayCommand Show {	get { return show ?? (show = new RelayCommand ());	} }
 		
 		public Point Position { get; set; }
 		
@@ -153,8 +147,9 @@ namespace Tasque.UIModel.Legacy
 			if (!showCompletedTasks)
 				return false;
 			
-			// account for completion date range setting
-			var complDateRange = CompletionDateRange;
+			// account for completion date range setting.
+			//NOTE: the following code fails if showCompletedTasks is true. This is not good class design
+			var complDateRange = completedTaskGroupModel.CompletionDateRange;
 			switch (complDateRange) {
 			case CompletionDateRange.All:
 				return true;
@@ -171,10 +166,30 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
-		void GetCompletionDateRange ()
+		TaskGroupModel CreateGroupModel (CollectionViewGroup<Task> group)
 		{
-			return (CompletionDateRange)Enum.Parse (typeof (CompletionDateRange),
-			                                        Preferences.Get (Preferences.CompletedTasksRange));
+			TaskGroupModel groupModel;
+			var groupName = (TaskGroupName)group.Name;
+			if (groupName == TaskGroupName.Completed)
+				groupModel = new CompletedTaskGroupModel (group.Items, Preferences);
+			else
+				groupModel = new TaskGroupModel (groupName, group.Items);
+			return groupModel;
+		}
+		
+		void HandleGroupsChanged (object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action) {
+			case NotifyCollectionChangedAction.Add:
+				var newGroup = (CollectionViewGroup<Task>)e.NewItems [0];
+				var newIndex = e.NewStartingIndex < 0 ? privateGroups.Count : e.NewStartingIndex;
+				privateGroups.Insert (newIndex, CreateGroupModel (newGroup));
+				break;
+			case NotifyCollectionChangedAction.Remove:
+				var oldIndex = e.OldStartingIndex < 0 ? privateGroups.Count - 1 : e.OldStartingIndex;
+				privateGroups.RemoveAt (oldIndex);
+				break;
+			}
 		}
 		
 		void UpdateCompletionDateRangeCompareDates ()
@@ -186,10 +201,7 @@ namespace Tasque.UIModel.Legacy
 			yesterday = today.AddDays (-1);
 		}
 		
-		DateTime aYearAgo;
-		DateTime aMonthAgo;
-		DateTime aWeekAgo;
-		DateTime yesterday;
+		DateTime aYearAgo, aMonthAgo, aWeekAgo, yesterday;
 		
 		string status;
 		
@@ -202,10 +214,12 @@ namespace Tasque.UIModel.Legacy
 		
 		Task selectedTask;
 		
-		UICommand hide;
-		UICommand show;
+		RelayCommand hide, show;
 		
 		bool showCompletedTasks;
-		CompletionDateRange completionDateRange;
+		CompletedTaskGroupModel completedTaskGroupModel;
+		
+		ObservableCollection<TaskGroupModel> privateGroups;
+		ReadOnlyObservableCollection<TaskGroupModel> groups;
 	}
 }

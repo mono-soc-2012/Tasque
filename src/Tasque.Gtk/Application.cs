@@ -102,49 +102,6 @@ namespace Tasque
 			get { return Application.Instance.preferences; }
 		}
 
-		private void SetBackend (Backend value)
-		{
-			bool changingBackend = false;
-			if (this.backend != null) {
-				UnhookFromTooltipTaskGroupModels ();
-				changingBackend = true;
-				// Cleanup the old backend
-				try {
-					Debug.WriteLine ("Cleaning up backend: {0}",
-					              this.backend.Name);
-					this.backend.Cleanup ();
-				} catch (Exception e) {
-					Trace.TraceWarning ("Exception cleaning up '{0}': {1}",
-					             this.backend.Name,
-					             e);
-				}
-			}
-				
-			// Initialize the new backend
-			this.backend = value;
-			if (this.backend == null) {
-				RefreshTrayIconTooltip ();
-				return;
-			}
-				
-			Trace.TraceInformation ("Using backend: {0} ({1})",
-			             this.backend.Name,
-			             this.backend.GetType ().ToString ());
-			this.backend.Initialize();
-			
-			if (!changingBackend) {
-				TaskWindow.Reinitialize (!this.quietStart);
-			} else {
-				TaskWindow.Reinitialize (true);
-			}
-
-			RebuildTooltipTaskGroupModels ();
-			RefreshTrayIconTooltip ();
-			
-			Debug.WriteLine("Configuration status: {0}",
-			             this.backend.Configured.ToString());
-		}
-
 		private bool InitializeIdle()
 		{
 			if (customBackend != null) {
@@ -270,47 +227,6 @@ namespace Tasque
 				model.CollectionChanged += OnTooltipModelChanged;
 			}
 		}
-		
-		private void RefreshTrayIconTooltip ()
-		{
-			if (trayIcon == null) {
-				return;
-			}
-
-			StringBuilder sb = new StringBuilder ();
-			if (overdue_tasks != null) {
-				int count =  overdue_tasks.Count;
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task is Overdue\n", "{0} tasks are Overdue\n", count), count));
-				}
-			}
-			
-			if (today_tasks != null) {
-				int count =  today_tasks.Count;
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Today\n", "{0} tasks for Today\n", count), count));
-				}
-			}
-
-			if (tomorrow_tasks != null) {
-				int count =  tomorrow_tasks.Count;
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Tomorrow\n", "{0} tasks for Tomorrow\n", count), count));
-				}
-			}
-
-			if (sb.Length == 0) {
-				// Translators: This is the status icon's tooltip. When no tasks are overdue, due today, or due tomorrow, it displays this fun message
-				trayIcon.Tooltip = Catalog.GetString ("Tasque Rocks");
-				return;
-			}
-
-			trayIcon.Tooltip = sb.ToString ().TrimEnd ('\n');
-		}
-
 
 		private void OnPreferences (object sender, EventArgs args)
 		{

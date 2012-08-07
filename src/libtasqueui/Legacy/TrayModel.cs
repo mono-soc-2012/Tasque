@@ -24,29 +24,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using CrossCommand;
 
 namespace Tasque.UIModel.Legacy
 {
 	public class TrayModel : ViewModelBase
 	{
-		public TrayModel ()
+		public TrayModel (NativeApplication application)
 		{
+			if (application == null)
+				throw new ArgumentNullException ("application");
+			
+			
 		}
 		
-		public string IconName { get; private set; }
+		public string IconName { get { return "tasque"; } }
 		
-		public bool IsTaskWindowVisible { get; private set; }
+		public bool IsTaskWindowVisible { get { return application.MainWindowModel.IsVisible; } }
 		
-		public UICommand NewTask { get { throw new NotImplementedException (); } }
+		public ICommand NewTask { get { throw new NotImplementedException (); } }
 		
-		public UICommand Quit { get { throw new NotImplementedException (); } }
+		public ICommand Quit { get { throw new NotImplementedException (); } }
 		
-		public UICommand Refresh { get { throw new NotImplementedException (); } }
+		public ICommand Refresh { get { throw new NotImplementedException (); } }
 		
-		public UICommand ShowAbout { get { throw new NotImplementedException (); } }
+		public ICommand ShowAbout { get { throw new NotImplementedException (); } }
 		
-		public UICommand ShowPreferences { get { throw new NotImplementedException (); } }
+		public ICommand ShowPreferences { get { throw new NotImplementedException (); } }
 		
-		public UICommand ToggleTaskWindow { get { throw new NotImplementedException (); } }
+		public ICommand ToggleTaskWindow { get { throw new NotImplementedException (); } }
+		
+		NativeApplication application;
 	}
 }

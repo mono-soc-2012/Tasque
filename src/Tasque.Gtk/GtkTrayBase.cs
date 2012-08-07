@@ -27,6 +27,7 @@ using System;
 using Mono.Unix;
 using Gtk;
 using Tasque.UIModel.Legacy;
+using System.Text;
 
 namespace Tasque
 {
@@ -84,6 +85,43 @@ namespace Tasque
 			uiManager = new UIManager ();
 			uiManager.AddUiFromString (MenuXml);
 			uiManager.InsertActionGroup (trayActionGroup, 0);
+		}
+		
+		
+		void RefreshTrayIconTooltip ()
+		{
+			var sb = new StringBuilder ();
+			if (overdue_tasks != null) {
+				int count =  overdue_tasks.Count;
+
+				if (count > 0) {
+					sb.Append (String.Format (Catalog.GetPluralString ("{0} task is Overdue\n", "{0} tasks are Overdue\n", count), count));
+				}
+			}
+			
+			if (today_tasks != null) {
+				int count =  today_tasks.Count;
+
+				if (count > 0) {
+					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Today\n", "{0} tasks for Today\n", count), count));
+				}
+			}
+
+			if (tomorrow_tasks != null) {
+				int count =  tomorrow_tasks.Count;
+
+				if (count > 0) {
+					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Tomorrow\n", "{0} tasks for Tomorrow\n", count), count));
+				}
+			}
+
+			if (sb.Length == 0) {
+				// Translators: This is the status icon's tooltip. When no tasks are overdue, due today, or due tomorrow, it displays this fun message
+				trayIcon.Tooltip = Catalog.GetString ("Tasque Rocks");
+				return;
+			}
+
+			trayIcon.Tooltip = sb.ToString ().TrimEnd ('\n');
 		}
 		
 		UIManager uiManager;
