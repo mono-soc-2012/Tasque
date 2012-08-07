@@ -44,9 +44,11 @@ namespace Tasque.UIModel.Legacy
 			preferences.SettingChanged += HandleSettingChanged;
 			
 			Tasks = new ListCollectionView<Task> (Backend.Tasks);
-			Tasks.Filter = Filter;
-			Tasks.GroupDescriptions.Add (new PropertyGroupDescription (null, new TaskGroupConverter ()));
-			Tasks.CustomSort = new TaskComparer ();
+			using (Tasks.DeferRefresh ()) {
+				Tasks.Filter = Filter;
+				Tasks.GroupDescriptions.Add (new PropertyGroupDescription (null, new TaskGroupConverter ()));
+				Tasks.CustomSort = new TaskComparer ();
+			}
 			
 			topPanel = new MainWindowTopPanelModel (this);
 		}
