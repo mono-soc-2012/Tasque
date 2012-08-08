@@ -116,6 +116,7 @@
     <Compile Include="ValueConverter.cs" />
     <Compile Include="Legacy\CompletionDateRangeConverter.cs" />
     <Compile Include="Legacy\TaskGroupNameConverter.cs" />
+    <Compile Include="Legacy\TaskModel.cs" />
     <Compile Include="Legacy\TaskContextMenuModel.cs" />
     <Compile Include="Legacy\SettingGroupModel.cs" />
     <Compile Include="ViewModel.cs" />
