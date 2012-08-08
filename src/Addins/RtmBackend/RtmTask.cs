@@ -4,6 +4,7 @@
 using System;
 using RtmNet;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Tasque.Backends.RtmBackend
 {
