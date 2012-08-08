@@ -30,10 +30,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Mono.Options;
+using CrossCommand;
+using System.ComponentModel;
 
 namespace Tasque.UIModel.Legacy
 {
-	public abstract class NativeApplication : IDisposable
+	public abstract class NativeApplication : INotifyPropertyChanged, IDisposable
 	{
 		protected NativeApplication () : this (Path.Combine (Environment.GetFolderPath (
 			Environment.SpecialFolder.ApplicationData), "tasque")) {}
@@ -46,15 +48,67 @@ namespace Tasque.UIModel.Legacy
 			ConfDir = confDir;
 			if (!Directory.Exists (confDir))
 				Directory.CreateDirectory (confDir);
+			
+			viewModelRoot = new ViewModelRoot ();
 		}
 		
 		public Backend CurrentBackend { get; private set; }
 		
 		public ReadOnlyCollection<Backend> AvailableBackends { get; }
 		
-		public MainWindowModel MainWindowModel { get; }
-		
 		protected string ConfDir { get; private set; }
+		
+		public MainWindowModel MainWindowModel {
+			get { return mainWindowModel; }
+			private set {
+				if (value != mainWindowModel) {
+					mainWindowModel = value;
+					OnPropertyChanged ("MainWindowModel");
+				}
+			}
+		}
+		MainWindowModel mainWindowModel;
+		
+		public RelayCommand ShowMainWindow {
+			get { return showMainWindow ?? (showMainWindow = new RelayCommand ()); }
+		}
+		
+		public PreferencesDialogModel PreferencesDialogModel {
+			get { return preferencesDialogModel; }
+			private set {
+				if (value != preferencesDialogModel) {
+					preferencesDialogModel = value;
+					OnPropertyChanged ("PreferencesDialogModel");
+				}
+			}
+		}
+		PreferencesDialogModel preferencesDialogModel;
+		
+		public RelayCommand ShowPreferencesDialog {
+			get { return showPreferencesDialog ?? (showPreferencesDialog = new RelayCommand ()); }
+		}
+		
+		public AboutDialogModel AboutDialogModel { get; private set; }
+		
+		public ICommand ShowAboutDialog {
+			get {
+				if (showAboutDialog == null) {
+					showAboutDialog = new RelayCommand () {
+						ExecuteAction = delegate {
+							if (AboutDialogModel == null)
+								AboutDialogModel = new AboutDialogModel ("tasque-24", viewModelRoot);
+							OnPropertyChanged ("AboutDialogModel");
+						}
+					};
+				}
+				
+				return showAboutDialog;
+			}
+		}
+		
+		RelayCommand showAboutDialog;
+		
+		RelayCommand showPreferencesDialog;
 
 		public void Exit (int exitcode)
 		{
@@ -157,6 +211,16 @@ namespace Tasque.UIModel.Legacy
 		~NativeApplication ()
 		{
 			Dispose (false);
+		}
+		#endregion
+
+		#region INotifyPropertyChanged implementation
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void OnPropertyChanged (string propertyName)
+		{
+			if (PropertyChanged != null)
+				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
 		#endregion
 		
@@ -335,5 +399,14 @@ namespace Tasque.UIModel.Legacy
 		Dictionary<string, Backend> availableBackends;
 		
 		TrayModel tray;
+		
+		RelayCommand showMainWindow;
+		
+		ViewModelRoot viewModelRoot;
+		
+		class ViewModelRoot : ViewModel
+		{
+			internal ViewModelRoot () : base (null) {}
+		}
 	}
 }

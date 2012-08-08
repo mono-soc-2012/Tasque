@@ -24,13 +24,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.ObjectModel;
+using Mono.Unix;
+
 namespace Tasque.UIModel.Legacy
 {
-	public class AboutDialogModel
+	public class AboutDialogModel : ViewModel
 	{
-		public AboutDialogModel ()
+		internal AboutDialogModel (string iconName, ViewModel parent) : base (parent)
 		{
+			IconName = iconName;
+		}
+		
+		public ReadOnlyCollection<string> Authors { get { return GlobalDefines.Authors; } }
+		
+		public string CopyrightInfo { get { return GlobalDefines.CopyrightInfo; } }		
+		
+		public string Description { get { return "A useful task list."; } }
+		
+		public string IconName { get; private set; }
+		
+		public string License { get { return GlobalDefines.License; } }
+		
+		public string Version { get { return GlobalDefines.Version; } }
+		
+		public string WebsiteUrl { get { return GlobalDefines.Website; } }
+		
+		public ReadOnlyCollection<string> Translators {
+			get {
+				var translators = Catalog.GetString ("translator-credits");
+				if (translators == "translator-credits")
+					translators = null;
+				return translators ?? string.Empty;
+			}
 		}
 	}
 }
-
