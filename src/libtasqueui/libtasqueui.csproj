@@ -117,6 +117,7 @@
     <Compile Include="Legacy\CompletionDateRangeConverter.cs" />
     <Compile Include="Legacy\TaskGroupNameConverter.cs" />
     <Compile Include="Legacy\TaskContextMenuModel.cs" />
+    <Compile Include="Legacy\SettingGroupModel.cs" />
     <Compile Include="ViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
