@@ -93,7 +93,6 @@
     <Compile Include="Legacy\MainWindowModel.cs" />
     <Compile Include="Legacy\PreferencesDialogModel.cs" />
     <Compile Include="Legacy\AboutDialogModel.cs" />
-    <Compile Include="Legacy\NoteDialogModel.cs" />
     <Compile Include="Legacy\TrayModel.cs" />
     <Compile Include="Legacy\TaskComparer.cs" />
     <Compile Include="Legacy\CompletionDateRange.cs" />
@@ -120,6 +119,8 @@
     <Compile Include="Legacy\TaskContextMenuModel.cs" />
     <Compile Include="Legacy\SettingGroupModel.cs" />
     <Compile Include="ViewModel.cs" />
+    <Compile Include="Legacy\NotesDialogModel.cs" />
+    <Compile Include="Legacy\NoteModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
