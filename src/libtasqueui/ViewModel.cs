@@ -1,5 +1,5 @@
 // 
-// ViewModelBase.cs
+// ViewModel.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -24,13 +24,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using CrossCommand;
 
 namespace Tasque.UIModel
 {
-	public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
+	public abstract class ViewModel : INotifyPropertyChanged
 	{
-		public void Dispose ()
+		internal ViewModel (ViewModel parent)
+		{
+			this.parent = parent;
+			if (parent != null)
+				parent.Children.Add (this);
+		}
+		
+		public ICommand Close {
+			get {
+				if (close == null) {
+					close = new RelayCommand () {
+						ExecuteAction = delegate {
+							foreach (var child in Children)
+								child.Close.Execute (null);
+							
+							parent.Children.Remove (this);
+							Dispose ();
+							if (Closed != null)
+								Closed (this, EventArgs.Empty);
+						}
+					};
+				}
+				return close;
+			}
+		}
+		
+		protected virtual void OnClose () {}
+		
+		void Dispose ()
 		{
 			Dispose (true);
 			GC.SuppressFinalize (this);
@@ -38,7 +68,7 @@ namespace Tasque.UIModel
 		
 		protected virtual void Dispose (bool disposing) {}
 		
-		~ViewModelBase ()
+		~ViewModel ()
 		{
 			Dispose (false);
 		}
@@ -50,5 +80,15 @@ namespace Tasque.UIModel
 			if (PropertyChanged != null)
 				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
+		
+		internal Collection<ViewModel> Children {
+			get { return children ?? (children = new Collection<ViewModel> ()); }
+		}
+		
+		internal event EventHandler Closed;
+		
+		Collection<ViewModel> children;
+		RelayCommand close;
+		ViewModel parent;
 	}
 }
