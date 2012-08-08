@@ -31,7 +31,7 @@ using CrossCommand;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class MainWindowModel : ViewModelBase, ITimeAware
+	public class MainWindowModel : ViewModel, ITimeAware
 	{
 		internal MainWindowModel (Preferences preferences)
 		{
@@ -206,11 +206,11 @@ namespace Tasque.UIModel.Legacy
 		string status;
 		
 		MainWindowTopPanelModel topPanel;
-		MainWindowContextMenuModel contextMenu;
+		TaskContextMenuModel contextMenu;
 		TrayModel tray;
 		AboutDialogModel aboutDialog;
 		PreferencesDialogModel preferencesDialog;
-		NoteDialogModel noteDialog;
+		NotesDialogModel noteDialog;
 		
 		Task selectedTask;
 		

@@ -28,7 +28,7 @@ using CollectionTransforms;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class MainWindowTopPanelModel : ViewModelBase
+	public class MainWindowTopPanelModel : ViewModel
 	{
 		internal MainWindowTopPanelModel (MainWindowModel mainWindowModel)
 		{

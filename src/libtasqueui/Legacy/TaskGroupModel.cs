@@ -28,7 +28,7 @@ using System.Collections.ObjectModel;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class TaskGroupModel : ViewModelBase
+	public class TaskGroupModel : ViewModel
 	{
 		public TaskGroupModel (TaskGroupName groupName, ReadOnlyObservableCollection<Task> tasks)
 		{

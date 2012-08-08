@@ -28,7 +28,7 @@ using CrossCommand;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class TrayModel : ViewModelBase
+	public class TrayModel : ViewModel
 	{
 		public TrayModel (NativeApplication application)
 		{
