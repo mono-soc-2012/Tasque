@@ -99,7 +99,6 @@
     <Compile Include="Legacy\CompletionDateRange.cs" />
     <Compile Include="ITimeAware.cs" />
     <Compile Include="Legacy\MainWindowTopPanelModel.cs" />
-    <Compile Include="Legacy\MainWindowContextMenuModel.cs" />
     <Compile Include="Legacy\Commands\ComponentCommands.cs" />
     <Compile Include="Legacy\Commands\TaskCommands.cs" />
     <Compile Include="Legacy\NativeApplication.cs" />
@@ -117,6 +116,7 @@
     <Compile Include="ValueConverter.cs" />
     <Compile Include="Legacy\CompletionDateRangeConverter.cs" />
     <Compile Include="Legacy\TaskGroupNameConverter.cs" />
+    <Compile Include="Legacy\TaskContextMenuModel.cs" />
     <Compile Include="ViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,5 @@
 // 
-// MainWindowContextMenuModel.cs
+// TaskContextMenuModel.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -27,9 +27,9 @@ using System;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class MainWindowContextMenuModel : ViewModelBase
+	public class TaskContextMenuModel : ViewModel
 	{
-		public MainWindowContextMenuModel (MainWindowModel mainWindowModel)
+		public TaskContextMenuModel (MainWindowModel mainWindowModel)
 		{
 			removeTaskCommand = new RemoveTaskCommand (Backend);
 		}
