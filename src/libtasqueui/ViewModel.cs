@@ -40,6 +40,7 @@ namespace Tasque.UIModel
 				parent.Children.Add (this);
 		}
 		
+		#region Close Command
 		public ICommand Close {
 			get {
 				if (close == null) {
@@ -61,6 +62,10 @@ namespace Tasque.UIModel
 		
 		protected virtual void OnClose () {}
 		
+		internal event EventHandler Closed;
+		#endregion
+		
+		#region IDisposable
 		void Dispose ()
 		{
 			Dispose (true);
@@ -73,7 +78,7 @@ namespace Tasque.UIModel
 		{
 			Dispose (false);
 		}
-
+		#endregion
 		
 		#region Object Service
 		//DOCS: Provides a service for descendants to retrieve an object instance
@@ -103,6 +108,7 @@ namespace Tasque.UIModel
 		}
 		#endregion
 		
+		#region INotifyPropertyChanged
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		protected virtual void OnPropertyChanged (string propertyName)
@@ -110,12 +116,11 @@ namespace Tasque.UIModel
 			if (PropertyChanged != null)
 				PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
 		}
+		#endregion
 		
 		internal Collection<ViewModel> Children {
 			get { return children ?? (children = new Collection<ViewModel> ()); }
 		}
-		
-		internal event EventHandler Closed;
 		
 		Collection<ViewModel> children;
 		RelayCommand close;
