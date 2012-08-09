@@ -121,6 +121,7 @@
     <Compile Include="ViewModel.cs" />
     <Compile Include="Legacy\NotesDialogModel.cs" />
     <Compile Include="Legacy\NoteModel.cs" />
+    <Compile Include="Legacy\DueDateOptionsModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
