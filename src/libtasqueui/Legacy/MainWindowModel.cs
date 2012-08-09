@@ -38,6 +38,9 @@ namespace Tasque.UIModel.Legacy
 			if (preferences == null)
 				throw new ArgumentNullException ("preferences");
 			
+			// register objects in object service
+			AddObjectToObjectService (new DueDateOptionsModel (this));
+			
 			UpdateCompletionDateRangeCompareDates ();
 			
 			Preferences = preferences;

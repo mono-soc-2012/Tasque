@@ -24,6 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CrossCommand;
@@ -73,6 +74,35 @@ namespace Tasque.UIModel
 			Dispose (false);
 		}
 
+		
+		#region Object Service
+		//DOCS: Provides a service for descendants to retrieve an object instance
+		// of a class, which has a one-to-one relation with the MainWindow, though
+		// it is used multiple times by various descendants (better solution appreciated).
+		protected object GetObjectFromAncestor (Type objectType)
+		{
+			if (registeredObjects.ContainsKey (objectType))
+				return registeredObjects [objectType];
+			
+			return parent == null ? null : parent.GetObjectFromAncestor (objectType);
+		}
+		
+		protected void AddObjectToObjectService (object obj)
+		{
+			if (obj == null)
+				throw new ArgumentNullException ("obj");
+			
+			if (registeredObjects == null)
+				registeredObjects = new Dictionary<Type, object> ();
+			registeredObjects.Add (obj.GetType (), obj);
+		}
+		
+		protected bool RemoveObjectFromObjectService (object obj)
+		{
+			return obj == null ? false : registeredObjects.Remove (obj);
+		}
+		#endregion
+		
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		protected virtual void OnPropertyChanged (string propertyName)
@@ -90,5 +120,6 @@ namespace Tasque.UIModel
 		Collection<ViewModel> children;
 		RelayCommand close;
 		ViewModel parent;
+		Dictionary<Type, object> registeredObjects;
 	}
 }
