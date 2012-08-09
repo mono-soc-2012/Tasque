@@ -121,7 +121,7 @@ namespace Tasque.UIModel.Legacy
 		
 		public ICommand ShowContextMenu { get { throw new NotImplementedException (); } }
 		
-		public void OnDayChanged ()
+		void ITimeAware.OnDayChanged ()
 		{
 			UpdateCompletionDateRangeCompareDates ();
 			Tasks.Refresh ();
