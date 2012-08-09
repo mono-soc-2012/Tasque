@@ -39,6 +39,53 @@ namespace Tasque.UIModel.Legacy
 			task.PropertyChanged += HandleTaskPropertyChanged;
 		}
 		
+		#region DueDate
+		public DateTime DueDate { get { return task.DueDate; } }
+		
+		public DueDateOptionsModel DueDateOptions { get; private set; }
+		
+		public ICommand ShowDueDateOptions {
+			get {
+				if (showDueDateOptions == null) {
+					showDueDateOptions = new RelayCommand () {
+						CanExecuteAction = delegate { return !task.IsComplete; },
+						ExecuteAction = delegate {
+							var optionsModel = GetObjectFromAncestor (
+								typeof (DueDateOptionsModel)) as DueDateOptionsModel;
+							DueDateOptions = optionsModel ?? new DueDateOptionsModel (this);
+							DueDateOptions.OptionSelected += HandleDueDateOptionSelected;
+							OnPropertyChanged ("DueDateOptions");
+						}
+					};
+				}
+				return showDueDateOptions;
+			}
+		}
+
+		void HandleDueDateOptionSelected (object sender, EventArgs e)
+		{
+			DueDateOptions.OptionSelected -= HandleDueDateOptionSelected;
+			task.DueDate = DueDateOptions.SelectedOption;
+		}
+		#endregion
+		
+		#region IsComplete
+		public ICommand ToogleIsComplete {
+			get {
+				if (toggleIsComplete == null) {
+					toggleIsComplete = new RelayCommand () {
+						ExecuteAction = delegate {
+							if (task.IsComplete)
+								task.Activate ();
+							else
+								task.Complete ();
+						}
+					};
+				}
+				return toggleIsComplete;
+			}
+		}
+		
 		public bool IsComplete {
 			get { return task.IsComplete; }
 			set {
@@ -51,36 +98,75 @@ namespace Tasque.UIModel.Legacy
 					task.Activate ();
 			}
 		}
+		#endregion
 		
-		public DateTime DueDate {
-			get { return task.DueDate; }
+		#region Name
+		public string Name {
+			get { return name; }
+			set {
+				if (value != name) {
+					name = value;
+					OnPropertyChanged ("Name");
+				}
+			}
 		}
 		
-		public string Name { get { return task.Name; } set { task.Name = value; } }
+		public ICommand SaveName {
+			get {
+				if (saveName == null) {
+					saveName = new RelayCommand () {
+						CanExecuteAction = delegate { return !string.IsNullOrWhiteSpace (Name); },
+						ExecuteAction = delegate { task.Name = name; }
+					};
+				}
+				return saveName;
+			}
+		}
 		
-		public int Priority { get { return (int)task.Priority; } set { task.Priority = value; } }
+		public ICommand CancelChangeName {
+			get {
+				if (cancelChangeName == null) {
+					cancelChangeName = new RelayCommand () {
+						ExecuteAction = delegate { Name = task.Name; }
+					};
+				}
+				return cancelChangeName;
+			}
+		}
+		#endregion
 		
+		#region Notes
 		public NotesDialogModel NotesDialogModel { get; private set; }
 		
-		public ICommand ShowNoteDialog {
+		public string NotesIcon { get { return "hicolor_animations_16x16_notebook"; } }
+		
+		public ICommand ShowNotesDialog {
 			get {
-				if (showNoteDialog == null) {
-					showNoteDialog = new RelayCommand () {
+				if (showNotesDialog == null) {
+					showNotesDialog = new RelayCommand () {
 						ExecuteAction = delegate {
-							NotesDialogModel = new NotesDialogModel ();
+							NotesDialogModel = new NotesDialogModel (task, this);
+							NotesDialogModel.Closed += delegate { NotesDialogModel = null; };
+							OnPropertyChanged ("NotesDialogModel");
 						}
 					};
 				}
-				return showNoteDialog;
+				return showNotesDialog;
 			}
 		} 
+		#endregion
+		
+		#region Priority
+		public int Priority { get { return (int)task.Priority; } set { task.Priority = value; } }
+		#endregion
 		
 		void HandleTaskPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{
 			OnPropertyChanged (e.PropertyName);
 		}
 		
-		RelayCommand showNoteDialog;
+		string name;
+		RelayCommand toggleIsComplete, saveName, cancelChangeName, showNotesDialog, showDueDateOptions;
 		Task task;
 	}
 }
