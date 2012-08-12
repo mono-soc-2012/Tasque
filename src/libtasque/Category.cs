@@ -56,6 +56,11 @@ namespace Tasque
 			
 			return Name.CompareTo (other.Name);
 		}
+		
+		public override string ToString ()
+		{
+			return Name;
+		}
 
 		protected virtual void OnNameChanged () {}
 
