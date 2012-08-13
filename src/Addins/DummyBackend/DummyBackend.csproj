@@ -7,6 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{91F6578A-2993-40A4-BE49-64028923EB87}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
     <RootNamespace>DummyBackend</RootNamespace>
     <AssemblyName>DummyBackend</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>
@@ -15,7 +16,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +24,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,7 +32,6 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,7 +40,6 @@
   <ItemGroup>
     <Compile Include="Gtk\DummyPreferences.cs" />
     <Compile Include="DummyBackend.cs" />
-    <Compile Include="DummyNote.cs" />
     <Compile Include="DummyTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\..\build\CommonAssemblyInfo.cs">
