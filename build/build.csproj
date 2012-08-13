@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">GtkLinuxDebug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}</ProjectGuid>
     <ReleaseVersion>0.1.10</ReleaseVersion>
     <OutputType>Library</OutputType>
+    <OutputPath>lib</OutputPath>
     <AssemblyName>Tasque.Build</AssemblyName>
     <RootNamespace>Tasque.Build</RootNamespace>
     <Website>https://live.gnome.org/Tasque</Website>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxDebug|AnyCPU' ">
-    <OutputPath>lib</OutputPath>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
     <WarningLevel>4</WarningLevel>
     <Optimize>false</Optimize>
@@ -21,56 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
-    <OutputPath>lib</OutputPath>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
-      </CustomCommands>
-    </CustomCommands>
-    <DebugType>none</DebugType>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinDebug|AnyCPU' ">
-    <OutputPath>lib</OutputPath>
-    <DebugType>full</DebugType>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-    <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinRelease|AnyCPU' ">
-    <OutputPath>lib</OutputPath>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
-      </CustomCommands>
-    </CustomCommands>
-    <DebugType>none</DebugType>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacDebug|AnyCPU' ">
-    <OutputPath>lib</OutputPath>
-    <DebugType>full</DebugType>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>false</Optimize>
-    <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacRelease|AnyCPU' ">
-    <OutputPath>lib</OutputPath>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
-      </CustomCommands>
-    </CustomCommands>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <WarningLevel>4</WarningLevel>
     <Optimize>false</Optimize>

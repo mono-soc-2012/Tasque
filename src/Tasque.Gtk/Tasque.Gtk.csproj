@@ -1,64 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">GtkLinuxDebug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">LinuxDebug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B19B9840-669D-4984-9772-E1F55193A67F}</ProjectGuid>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
     <AssemblyName>Tasque.Gtk</AssemblyName>
     <RootNamespace>Tasque</RootNamespace>
     <ReleaseVersion>0.1.10</ReleaseVersion>
     <EnableAppIndicator Condition=" '$(EnableAppIndicator)' == '' ">true</EnableAppIndicator>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxDebug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;GTKLINUX</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LINUX</DefineConstants>
     <DefineConstants Condition=" '$(EnableAppIndicator)' ">$(DefineConstants);APPINDICATOR</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'LinuxRelease|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <DefineConstants>TRACE;GTKLINUX</DefineConstants>
+    <DefineConstants>TRACE;LINUX</DefineConstants>
     <DefineConstants Condition=" '$(EnableAppIndicator)' ">$(DefineConstants);APPINDICATOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinDebug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WinDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WIN32</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;WIN</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinRelease|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WinRelease|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <DefineConstants>TRACE;WIN32</DefineConstants>
+    <DefineConstants>TRACE;WIN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -106,6 +89,18 @@
       <Link>data\sounds\notify.wav</Link>
     </None>
     <None Include="Samples\Gtk3SingleInstanceSolution.cs" />
+    <None Include="Application.cs" />
+    <None Include="CellRendererDate.cs" />
+    <None Include="CompletedTaskGroup.cs" />
+    <None Include="DateButton.cs" />
+    <None Include="NoteDialog.cs" />
+    <None Include="NoteWidget.cs" />
+    <None Include="PreferencesDialog.cs" />
+    <None Include="TaskCalendar.cs" />
+    <None Include="TaskGroup.cs" />
+    <None Include="TaskTreeView.cs" />
+    <None Include="TaskWindow.cs" />
+    <None Include="GtkWinApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,31 +110,13 @@
     <Compile Include="..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
-    <Compile Include="Application.cs" />
-    <Compile Include="CellRendererDate.cs" />
-    <Compile Include="CompletedTaskGroup.cs" />
-    <Compile Include="DateButton.cs" />
-    <Compile Include="NoteDialog.cs" />
-    <Compile Include="NoteWidget.cs" />
-    <Compile Include="PreferencesDialog.cs" />
-    <Compile Include="TaskCalendar.cs" />
-    <Compile Include="TaskGroup.cs" />
-    <Compile Include="TaskTreeView.cs" />
-    <Compile Include="TaskWindow.cs" />
-    <Compile Include="Utilities.cs" />
-    <Compile Include="GtkApplicationBase.cs" />
-    <Compile Include="StatusIconTray.cs" />
-    <Compile Include="GtkTrayBase.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' ">
-    <Compile Include="GtkWinApplication.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
     <Compile Include="GtkLinuxApplication.cs" />
+    <Compile Include="GtkApplicationBase.cs" />
     <Compile Include="RemoteControl.cs" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(EnableAppIndicator)' ">
     <Compile Include="AppIndicatorTray.cs" />
+    <Compile Include="StatusIconTray.cs" />
+    <Compile Include="GtkTray.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -149,25 +126,25 @@
     <Folder Include="Samples\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libtasque\libtasque.csproj">
-      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
-      <Name>libtasque</Name>
+    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
+      <Name>CollectionView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossCommand\CrossCommand\CrossCommand.csproj">
+      <Project>{1F7F8DA9-F2C0-4E17-980E-42E4282F6A1C}</Project>
+      <Name>CrossCommand</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CrossCommand\Gtk.Commands\Gtk.Commands.csproj">
+      <Project>{05098600-5315-41BB-860D-4E43A8138E83}</Project>
+      <Name>Gtk.Commands</Name>
     </ProjectReference>
     <ProjectReference Include="..\libtasqueui\libtasqueui.csproj">
       <Project>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</Project>
       <Name>libtasqueui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
-      <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
-      <Name>CollectionView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
       <Project>{95B669DC-0F9F-4C26-B31E-34CFA54112E8}</Project>
       <Name>TreeModelListAdapter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CrossCommand\Gtk.Commands\Gtk.Commands.csproj">
-      <Project>{05098600-5315-41BB-860D-4E43A8138E83}</Project>
-      <Name>Gtk.Commands</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

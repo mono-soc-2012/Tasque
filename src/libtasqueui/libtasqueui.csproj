@@ -1,81 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">GtkLinuxDebug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
     <RootNamespace>Tasque.UIModel</RootNamespace>
     <AssemblyName>libtasqueui</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxDebug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
-      </CustomCommands>
-    </CustomCommands>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinDebug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinRelease|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
-      </CustomCommands>
-    </CustomCommands>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacDebug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacRelease|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="Build" command="echo &quot;building...&quot;" />
-        <Command type="Clean" command="echo &quot;cleaning...&quot;" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -130,10 +79,10 @@
     <Folder Include="Legacy\Commands\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\libtasque\libtasque.csproj">
-      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
-      <Name>libtasque</Name>
-    </ProjectReference>
+    <None Include="Legacy\Commands\ComponentCommands.cs" />
+    <None Include="Legacy\Commands\TaskCommands.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
       <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
       <Name>CollectionView</Name>
@@ -142,9 +91,9 @@
       <Project>{1F7F8DA9-F2C0-4E17-980E-42E4282F6A1C}</Project>
       <Name>CrossCommand</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Legacy\Commands\ComponentCommands.cs" />
-    <None Include="Legacy\Commands\TaskCommands.cs" />
+    <ProjectReference Include="..\libtasque\libtasque.csproj">
+      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
+      <Name>libtasque</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

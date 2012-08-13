@@ -7,6 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A70BD496-A280-4EF5-BBE8-254E0CA89C62}</ProjectGuid>
     <OutputType>WinExe</OutputType>
+    <OutputPath>bin</OutputPath>
     <RootNamespace>Tasque</RootNamespace>
     <AssemblyName>tasque</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>
@@ -15,70 +16,43 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;GTKLINUX</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
     <DefineConstants>TRACE;GTKLINUX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WIN32</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;GTKWIN</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkWinRelease|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
-    <DefineConstants>TRACE;WIN32</DefineConstants>
+    <DefineConstants>TRACE;GTKWIN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;OSX</DefineConstants>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'MonoMacRelease|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\LinuxRelease</OutputPath>
     <DefineConstants>TRACE;OSX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="BeforeBuild" command="./autogen.sh --prefix=${SolutionDir}/build/bin/" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Build" command="make" workingdir="${SolutionDir}" externalConsole="true" />
-        <Command type="Clean" command="make clean" workingdir="${SolutionDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -99,17 +73,17 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tasque.MonoMac\Tasque.MonoMac.csproj">
-      <Project>{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}</Project>
-      <Name>Tasque.MonoMac</Name>
+    <ProjectReference Include="..\libtasqueui\libtasqueui.csproj">
+      <Project>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</Project>
+      <Name>libtasqueui</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tasque.Gtk\Tasque.Gtk.csproj">
       <Project>{B19B9840-669D-4984-9772-E1F55193A67F}</Project>
       <Name>Tasque.Gtk</Name>
     </ProjectReference>
-    <ProjectReference Include="..\libtasqueui\libtasqueui.csproj">
-      <Project>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</Project>
-      <Name>libtasqueui</Name>
+    <ProjectReference Include="..\Tasque.MonoMac\Tasque.MonoMac.csproj">
+      <Project>{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}</Project>
+      <Name>Tasque.MonoMac</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
