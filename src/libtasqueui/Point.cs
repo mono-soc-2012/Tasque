@@ -30,14 +30,16 @@ namespace Tasque.UIModel
 	{
 		public Point (int x, int y)
 		{
-			X = x;
-			Y = y;
+			this.x = x;
+			this.y = y;
 		}
 		
 		public bool IsEmpty { get { return X == 0 && Y == 0; } }
 		
-		public int X { get; set; }
+		public int X { get { return x; } }
 		
-		public int Y { get; set; }
+		public int Y { get { return y; } }
+		
+		int x, y;
 	}
 }

@@ -30,17 +30,13 @@ namespace Tasque.UIModel.Legacy
 {
 	public class TrayModel : ViewModel
 	{
-		public TrayModel (NativeApplication application)
+		public TrayModel (ViewModel parent) : base (parent)
 		{
-			if (application == null)
-				throw new ArgumentNullException ("application");
-			
-			
 		}
 		
 		public string IconName { get { return "tasque"; } }
 		
-		public bool IsTaskWindowVisible { get { return application.MainWindowModel.IsVisible; } }
+		public bool IsTaskWindowVisible { get { return false; } }
 		
 		public ICommand NewTask { get { throw new NotImplementedException (); } }
 		
@@ -53,7 +49,5 @@ namespace Tasque.UIModel.Legacy
 		public ICommand ShowPreferences { get { throw new NotImplementedException (); } }
 		
 		public ICommand ToggleTaskWindow { get { throw new NotImplementedException (); } }
-		
-		NativeApplication application;
 	}
 }

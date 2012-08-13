@@ -24,20 +24,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mono.Unix;
-using CrossCommand.Generic;
 
 namespace Tasque.UIModel.Legacy
 {
-	public class DueDateOptionsModel : ViewModel, IEnumerable<string>, ITimeAware
+	public class DueDateOptionsModel : OptionsModel<DateTime>, ITimeAware
 	{
 		internal DueDateOptionsModel (ViewModel parent) : base (parent)
 		{
-			options = new Option [10];
-			options [8] = new Option (Catalog.GetString ("No Date"), DateTime.MinValue);
-			options [9] = new Option (Catalog.GetString ("Choose Date..."), CustomDate);
 			UpdateDateOptions ();
 		}
 		
@@ -51,46 +45,16 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
-		public ICommand<Option> SelectOption {
-			get {
-				if (selectOption == null) {
-					selectOption = new RelayCommand<Option> () {
-						CanExecuteAction = (option) => {
-							return option != options [9] || customDate != DateTime.MinValue;
-						},
-						ExecuteAction = (option) => {
-							SelectedOption = option;
-							if (OptionSelected != null)
-								OptionSelected (this, EventArgs.Empty);
-							Close.Execute (null);
-						}
-					};
-				}
-				return selectOption;
-			}
-		}
-		
-		public IEnumerator<string> GetEnumerator ()
+		protected override bool CanExecuteSelectOption (OptionItem parameter)
 		{
-			foreach (var item in options)
-				yield return item;
-		}
-		
-		IEnumerator IEnumerable.GetEnumerator ()
-		{
-			return GetEnumerator ();
+			return parameter != parameter [9] || customDate != DateTime.MinValue;
 		}
 		
 		protected override void OnClose ()
 		{
 			customDate = DateTime.MinValue;
-			SelectedOption = null;
 			base.OnClose ();
 		}
-		
-		internal Option SelectedOption { get; private set; }
-		
-		internal event EventHandler OptionSelected;
 		
 		void ITimeAware.OnDayChanged ()
 		{
@@ -99,39 +63,42 @@ namespace Tasque.UIModel.Legacy
 		
 		void UpdateDateOptions ()
 		{
-			var today = DateTime.Today;	
-			options [0] = new Option (today.ToString (Catalog.GetString ("M/d - "))
-				+ Catalog.GetString ("Today"), today);
+			ProtectedOptions.Clear ();
+			
+			var today = DateTime.Today;
+			ProtectedOptions.Add (today, new DueDateOption (today.ToString (
+				Catalog.GetString ("M/d - ")) + Catalog.GetString ("Today")));
 			
 			var tomorrow = today.AddDays (1);
-			options [1] = new Option (tomorrow.ToString (Catalog.GetString ("M/d - "))
-				+ Catalog.GetString ("Tomorrow"), tomorrow);
-			
-			var nextWeek = today.AddDays (7);
-			options [7] = new Option (nextWeek.ToString (Catalog.GetString ("M/d - "))
-				+ Catalog.GetString ("In 1 Week"), nextWeek);
+			ProtectedOptions.Add (tomorrow, new DueDateOption (
+				tomorrow.ToString (Catalog.GetString ("M/d - ")) + Catalog.GetString ("Tomorrow")));
 			
 			for (int i = 2; i < 7; i++) {
 				var date = today.AddDays (i);
-				options [i] = new Option (date.ToString (Catalog.GetString ("M/d - ddd")), date);
+				ProtectedOptions.Add (date, new DueDateOption (date.ToString (
+					Catalog.GetString ("M/d - ddd"))));
 			}
+			
+			var nextWeek = today.AddDays (7);
+			ProtectedOptions.Add (new DueDateOption (nextWeek, nextWeek.ToString (
+				Catalog.GetString ("M/d - ")) + Catalog.GetString ("In 1 Week")));
+			
+			ProtectedOptions.Add (new DueDateOption (DateTime.MinValue, Catalog.GetString ("No Date")));
+			ProtectedOptions.Add (new DueDateOption (customDate, Catalog.GetString ("Choose Date...")));
 		}
 		
 		DateTime customDate;
-		Option [] options;
-		RelayCommand<Option> selectOption;
 		
-		public class Option 
+		public class DueDateOption : OptionItem
 		{
-			internal Option (string text, DateTime date)
+			internal DueDateOption (DateTime date, string text) : base (date, null)
 			{
-				Text = text;
-				Date = date;
+				this.text = text;
 			}
 			
-			internal DateTime Date { get; private set; }
+			public override string Text { get { return text; } }
 			
-			public string Text { get; private set; }
+			string text;
 		}
 	}
 }

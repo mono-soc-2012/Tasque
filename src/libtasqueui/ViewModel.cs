@@ -104,7 +104,7 @@ namespace Tasque.UIModel
 		
 		protected bool RemoveObjectFromObjectService (object obj)
 		{
-			return obj == null ? false : registeredObjects.Remove (obj);
+			return obj == null ? false : registeredObjects.Remove (obj.GetType ());
 		}
 		#endregion
 		

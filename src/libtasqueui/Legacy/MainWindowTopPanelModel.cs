@@ -25,22 +25,25 @@
 // THE SOFTWARE.
 using System.Linq;
 using CollectionTransforms;
+using CrossCommand;
+using System.Collections.ObjectModel;
+using System;
+using CrossCommand.Generic;
 
 namespace Tasque.UIModel.Legacy
 {
 	public class MainWindowTopPanelModel : ViewModel
 	{
-		internal MainWindowTopPanelModel (MainWindowModel mainWindowModel)
+		internal MainWindowTopPanelModel (MainWindowModel mainWindowModel, ViewModel parent)
+			: base (parent)
 		{
 			tasks = mainWindowModel.Tasks;
 			
-			Categories = new ReadOnlyObservableSet<Category> (mainWindowModel.Backend.Categories);
+//			Categories = new ReadOnlyObservableSet<Category> (mainWindowModel.Backend.Categories);
 			
 			preferences = mainWindowModel.Preferences;
-			selectedCategory = GetSelectedCategory ();
+//			selectedCategory = GetSelectedCategory ();
 			preferences.SettingChanged += HandleSettingChanged;
-			
-			addTaskCommand = new AddTaskCommand (mainWindowModel.Backend);
 		}
 
 		void HandleSettingChanged (Preferences preferences, string settingKey)
@@ -54,49 +57,87 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
-		public ReadOnlyObservableSet<Category> Categories { get; private set; }
+		#region Categories
+		public OptionsModel<Category> Categories { get; private set; }
 		
 		public Category SelectedCategory {
 			get { return selectedCategory; }
-			set {
+			private set {
 				if (value != selectedCategory)
 					preferences.Set (Preferences.SelectedCategoryKey, value.Name);
 			}
 		}
 		
-		public ICommand AddTask { get { return addTaskCommand; } }
+		public ICommand ShowCategories {
+			get {
+				return showCategories ?? (showCategories = new RelayCommand () {
+					ExecuteAction = delegate {
+						var cats = new Category [categories.Count + 1];
+						cats [0] = null; // All category
+						categories.CopyTo (cats, 1); // other categories
+						Categories = new OptionsModel<Category> (cats, null, this);
+						Categories.OptionSelected += delegate {
+							SelectedCategory = Categories.SelectedOption.Value;
+						};
+					}
+				});
+			}
+		}
+		#endregion
 		
-		public string NewTaskName {
-			get { return addTaskCommand.TaskName; }
-			set {
-				if (value != addTaskCommand.TaskName) {
-					addTaskCommand.TaskName = value;
-					OnPropertyChanged ("NewTaskName");
-				}
+		#region Add task
+		public ICommand AddTask {
+			get {
+				return addTask ?? (addTask = new RelayCommand () {
+					CanExecuteAction = delegate {
+						return false;
+					}
+				});
 			}
 		}
 		
-		public Category NewTaskCategory {
-			get { return addTaskCommand.Category; }
-			set {
-				if (value != addTaskCommand.Category) {
-					addTaskCommand.Category = value;
-					OnPropertyChanged ("NewTaskCategory");
-				}
+		
+		
+		public ICommand<Category> AddTaskToCategory {
+			get {
+				throw new NotImplementedException ();
 			}
 		}
 		
-		void GetSelectedCategory ()
+//		public string NewTaskName {
+//			get { return addTaskCommand.TaskName; }
+//			set {
+//				if (value != addTaskCommand.TaskName) {
+//					addTaskCommand.TaskName = value;
+//					OnPropertyChanged ("NewTaskName");
+//				}
+//			}
+//		}
+		
+//		public Category NewTaskCategory {
+//			get { return addTaskCommand.Category; }
+//			set {
+//				if (value != addTaskCommand.Category) {
+//					addTaskCommand.Category = value;
+//					OnPropertyChanged ("NewTaskCategory");
+//				}
+//			}
+//		}
+		#endregion
+		
+		Category GetSelectedCategory ()
 		{
 			var selectedCategoryName = preferences.Get (Preferences.SelectedCategoryKey);
-			return Categories.SingleOrDefault (c => c.Name == selectedCategoryName);
+			return categories.SingleOrDefault (c => c.Name == selectedCategoryName);
 		}
 		
 		Preferences preferences;
 		ListCollectionView<Task> tasks;
 		
-		AddTaskCommand addTaskCommand;
+		RelayCommand addTask;
 		
 		Category selectedCategory;
+		ReadOnlyObservableCollection<Category> categories;
+		RelayCommand showCategories;
 	}
 }

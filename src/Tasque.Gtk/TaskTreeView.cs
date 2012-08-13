@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Gtk;
 using Mono.Unix;
+using System.Diagnostics;
 
 namespace Tasque
 {

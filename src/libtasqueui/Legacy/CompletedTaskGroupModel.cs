@@ -32,8 +32,8 @@ namespace Tasque.UIModel.Legacy
 {
 	public class CompletedTaskGroupModel : TaskGroupModel, IValueConverter<CompletionDateRange, string>
 	{
-		public CompletedTaskGroupModel (ReadOnlyObservableCollection<Task> tasks,
-		    Preferences preferences) : base (TaskGroupName.Completed, tasks)
+		public CompletedTaskGroupModel (ReadOnlyObservableCollection<object> tasks,
+			Preferences preferences, ViewModel parent) : base (TaskGroupName.Completed, tasks, parent)
 		{
 			if (preferences == null)
 				throw new ArgumentNullException ("preferences");

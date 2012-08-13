@@ -98,10 +98,7 @@
     <Compile Include="Legacy\CompletionDateRange.cs" />
     <Compile Include="ITimeAware.cs" />
     <Compile Include="Legacy\MainWindowTopPanelModel.cs" />
-    <Compile Include="Legacy\Commands\ComponentCommands.cs" />
-    <Compile Include="Legacy\Commands\TaskCommands.cs" />
     <Compile Include="Legacy\NativeApplication.cs" />
-    <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Legacy\Preferences.cs" />
     <Compile Include="..\Options.cs">
@@ -121,7 +118,10 @@
     <Compile Include="ViewModel.cs" />
     <Compile Include="Legacy\NotesDialogModel.cs" />
     <Compile Include="Legacy\NoteModel.cs" />
+    <Compile Include="Legacy\ViewModelRoot.cs" />
     <Compile Include="Legacy\DueDateOptionsModel.cs" />
+    <Compile Include="OptionsModel.cs" />
+    <Compile Include="Legacy\TaskGroupModelFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -142,5 +142,9 @@
       <Project>{1F7F8DA9-F2C0-4E17-980E-42E4282F6A1C}</Project>
       <Name>CrossCommand</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Legacy\Commands\ComponentCommands.cs" />
+    <None Include="Legacy\Commands\TaskCommands.cs" />
   </ItemGroup>
 </Project>

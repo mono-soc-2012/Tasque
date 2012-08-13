@@ -33,13 +33,16 @@ namespace Tasque.UIModel.Legacy
 {
 	public class MainWindowModel : ViewModel, ITimeAware
 	{
-		internal MainWindowModel (Preferences preferences)
+		internal MainWindowModel (Preferences preferences, ViewModel parent) : base (parent)
 		{
 			if (preferences == null)
 				throw new ArgumentNullException ("preferences");
 			
 			// register objects in object service
 			AddObjectToObjectService (new DueDateOptionsModel (this));
+			AddObjectToObjectService (new OptionsModel<TaskPriority> (new TaskPriority [] {
+				TaskPriority.High, TaskPriority.Medium, TaskPriority.Low, TaskPriority.None
+			}, null, this));
 			
 			UpdateCompletionDateRangeCompareDates ();
 			
@@ -54,7 +57,7 @@ namespace Tasque.UIModel.Legacy
 				Tasks.CustomSort = new TaskComparer ();
 			}
 			
-			topPanel = new MainWindowTopPanelModel (this);
+			topPanel = new MainWindowTopPanelModel (this, this);
 		}
 		
 		public ReadOnlyObservableCollection<TaskGroupModel> Groups {
@@ -174,9 +177,9 @@ namespace Tasque.UIModel.Legacy
 			TaskGroupModel groupModel;
 			var groupName = (TaskGroupName)group.Name;
 			if (groupName == TaskGroupName.Completed)
-				groupModel = new CompletedTaskGroupModel (group.Items, Preferences);
+				groupModel = new CompletedTaskGroupModel (group.Items, Preferences, this);
 			else
-				groupModel = new TaskGroupModel (groupName, group.Items);
+				groupModel = new TaskGroupModel (groupName, group.Items, this);
 			return groupModel;
 		}
 		

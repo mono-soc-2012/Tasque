@@ -26,7 +26,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Tasque
+namespace Tasque.UIModel.Legacy
 {
 	public static class TaskGroupModelFactory
 	{

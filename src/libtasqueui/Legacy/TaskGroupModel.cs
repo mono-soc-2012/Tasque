@@ -30,7 +30,8 @@ namespace Tasque.UIModel.Legacy
 {
 	public class TaskGroupModel : ViewModel
 	{
-		public TaskGroupModel (TaskGroupName groupName, ReadOnlyObservableCollection<Task> tasks)
+		public TaskGroupModel (TaskGroupName groupName, ReadOnlyObservableCollection<object> tasks,
+		                       ViewModel parent) : base (parent)
 		{
 			if (tasks == null)
 				throw new ArgumentNullException ("tasks");
@@ -40,7 +41,7 @@ namespace Tasque.UIModel.Legacy
 			Title = taskGroupNameConverter.Convert (groupName, null, null);
 		}
 		
-		public ReadOnlyObservableCollection<Task> Tasks { get; private set; }
+		public ReadOnlyObservableCollection<object> Tasks { get; private set; }
 		
 		public string Title { get; private set; }
 	}

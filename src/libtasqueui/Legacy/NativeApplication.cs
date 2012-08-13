@@ -54,62 +54,10 @@ namespace Tasque.UIModel.Legacy
 		
 		public Backend CurrentBackend { get; private set; }
 		
-		public ReadOnlyCollection<Backend> AvailableBackends { get; }
+		public ReadOnlyCollection<Backend> AvailableBackends { get; private set; }
 		
 		protected string ConfDir { get; private set; }
 		
-		public MainWindowModel MainWindowModel {
-			get { return mainWindowModel; }
-			private set {
-				if (value != mainWindowModel) {
-					mainWindowModel = value;
-					OnPropertyChanged ("MainWindowModel");
-				}
-			}
-		}
-		MainWindowModel mainWindowModel;
-		
-		public RelayCommand ShowMainWindow {
-			get { return showMainWindow ?? (showMainWindow = new RelayCommand ()); }
-		}
-		
-		public PreferencesDialogModel PreferencesDialogModel {
-			get { return preferencesDialogModel; }
-			private set {
-				if (value != preferencesDialogModel) {
-					preferencesDialogModel = value;
-					OnPropertyChanged ("PreferencesDialogModel");
-				}
-			}
-		}
-		PreferencesDialogModel preferencesDialogModel;
-		
-		public RelayCommand ShowPreferencesDialog {
-			get { return showPreferencesDialog ?? (showPreferencesDialog = new RelayCommand ()); }
-		}
-		
-		public AboutDialogModel AboutDialogModel { get; private set; }
-		
-		public ICommand ShowAboutDialog {
-			get {
-				if (showAboutDialog == null) {
-					showAboutDialog = new RelayCommand () {
-						ExecuteAction = delegate {
-							if (AboutDialogModel == null)
-								AboutDialogModel = new AboutDialogModel ("tasque-24", viewModelRoot);
-							OnPropertyChanged ("AboutDialogModel");
-						}
-					};
-				}
-				
-				return showAboutDialog;
-			}
-		}
-		
-		RelayCommand showAboutDialog;
-		
-		RelayCommand showPreferencesDialog;
-
 		public void Exit (int exitcode)
 		{
 			OnExit (exitcode);
@@ -127,10 +75,10 @@ namespace Tasque.UIModel.Legacy
 				Exit (0);
 			}
 			
-			RemoteInstanceKnocked += delegate {
-				if (MainWindowModel != null && MainWindowModel.Show.CanExecute)
-					MainWindowModel.Show.Execute ();
-			};
+//			RemoteInstanceKnocked += delegate {
+//				if (MainWindowModel != null && MainWindowModel.Show.CanExecute)
+//					MainWindowModel.Show.Execute ();
+//			};
 			
 			preferences = new Preferences (ConfDir);
 			
@@ -160,22 +108,22 @@ namespace Tasque.UIModel.Legacy
 					CurrentBackend = availableBackends [backendTypeString];
 			}
 			
-			SetupTray (new TrayModel ());
+//			SetupTray (new TrayModel ());
+//			
+//			if (CurrentBackend == null) {
+//				// Pop open the preferences dialog so the user can choose a
+//				// backend service to use.
+//				Application.ShowPreferences ();
+//			} else if (!quietStart) {
+//				TaskWindow.ShowWindow ();
+//			}
+//			if (backend == null || !backend.Configured){
+//				GLib.Timeout.Add(1000, new GLib.TimeoutHandler(RetryBackend));
+//			}
+//
+//			nativeApp.InitializeIdle ();
 			
-			if (CurrentBackend == null) {
-				// Pop open the preferences dialog so the user can choose a
-				// backend service to use.
-				Application.ShowPreferences ();
-			} else if (!quietStart) {
-				TaskWindow.ShowWindow ();
-			}
-			if (backend == null || !backend.Configured){
-				GLib.Timeout.Add(1000, new GLib.TimeoutHandler(RetryBackend));
-			}
-
-			nativeApp.InitializeIdle ();
-			
-			return false;
+//			return false;
 		}
 		
 		protected abstract void SetupTray (TrayModel trayModel);
@@ -283,7 +231,7 @@ namespace Tasque.UIModel.Legacy
 			foreach (var type in types) {
 				if (!type.IsClass)
 					continue; // Skip non-class types
-				if (type.GetType ("Tasque.Backend") == null)
+				if (Type.GetType ("Tasque.Backend") == null)
 					continue;
 				
 				Debug.WriteLine ("Found Available Backend: {0}", type.ToString ());
@@ -305,7 +253,7 @@ namespace Tasque.UIModel.Legacy
 		
 		void ParseArgs (string[] args)
 		{
-			bool showHelp;
+			bool showHelp = false;
 			var p = new OptionSet () {
 				{ "q|quiet", "hide the Tasque window upon start.", v => quietStart = true },
 				{ "b|backend=", "the name of the {BACKEND} to use.", v => potentialBackendClassName = v },
@@ -334,44 +282,44 @@ namespace Tasque.UIModel.Legacy
 		void SetBackend (Backend value)
 		{
 			bool changingBackend = false;
-			if (this.backend != null) {
-				UnhookFromTooltipTaskGroupModels ();
-				changingBackend = true;
-				// Cleanup the old backend
-				try {
-					Debug.WriteLine ("Cleaning up backend: {0}",
-					              this.backend.Name);
-					this.backend.Cleanup ();
-				} catch (Exception e) {
-					Trace.TraceWarning ("Exception cleaning up '{0}': {1}",
-					             this.backend.Name,
-					             e);
-				}
-			}
+//			if (this.backend != null) {
+//				UnhookFromTooltipTaskGroupModels ();
+//				changingBackend = true;
+//				// Cleanup the old backend
+//				try {
+//					Debug.WriteLine ("Cleaning up backend: {0}",
+//					              this.backend.Name);
+//					this.backend.Cleanup ();
+//				} catch (Exception e) {
+//					Trace.TraceWarning ("Exception cleaning up '{0}': {1}",
+//					             this.backend.Name,
+//					             e);
+//				}
+//			}
 				
 			// Initialize the new backend
-			this.backend = value;
-			if (this.backend == null) {
-				RefreshTrayIconTooltip ();
-				return;
-			}
-				
-			Trace.TraceInformation ("Using backend: {0} ({1})",
-			             this.backend.Name,
-			             this.backend.GetType ().ToString ());
-			this.backend.Initialize();
-			
-			if (!changingBackend) {
-				TaskWindow.Reinitialize (!this.quietStart);
-			} else {
-				TaskWindow.Reinitialize (true);
-			}
-
-			RebuildTooltipTaskGroupModels ();
-			RefreshTrayIconTooltip ();
-			
-			Debug.WriteLine("Configuration status: {0}",
-			             this.backend.Configured.ToString());
+//			this.backend = value;
+//			if (this.backend == null) {
+//				RefreshTrayIconTooltip ();
+//				return;
+//			}
+//				
+//			Trace.TraceInformation ("Using backend: {0} ({1})",
+//			             this.backend.Name,
+//			             this.backend.GetType ().ToString ());
+//			this.backend.Initialize();
+//			
+//			if (!changingBackend) {
+//				TaskWindow.Reinitialize (!this.quietStart);
+//			} else {
+//				TaskWindow.Reinitialize (true);
+//			}
+//
+//			RebuildTooltipTaskGroupModels ();
+//			RefreshTrayIconTooltip ();
+//			
+//			Debug.WriteLine("Configuration status: {0}",
+//			             this.backend.Configured.ToString());
 		}
 
 		void SetCustomBackend ()
@@ -400,13 +348,6 @@ namespace Tasque.UIModel.Legacy
 		
 		TrayModel tray;
 		
-		RelayCommand showMainWindow;
-		
 		ViewModelRoot viewModelRoot;
-		
-		class ViewModelRoot : ViewModel
-		{
-			internal ViewModelRoot () : base (null) {}
-		}
 	}
 }

@@ -65,7 +65,7 @@ namespace Tasque.UIModel.Legacy
 		void HandleDueDateOptionSelected (object sender, EventArgs e)
 		{
 			DueDateOptions.OptionSelected -= HandleDueDateOptionSelected;
-			task.DueDate = DueDateOptions.SelectedOption;
+			task.DueDate = DueDateOptions.SelectedOption.Value;
 		}
 		#endregion
 		
@@ -157,7 +157,30 @@ namespace Tasque.UIModel.Legacy
 		#endregion
 		
 		#region Priority
-		public int Priority { get { return (int)task.Priority; } set { task.Priority = value; } }
+		public OptionsModel<TaskPriority> PriorityOptions { get; private set; }
+		
+		public int Priority { get { return (int)task.Priority; } }
+		
+		public ICommand ShowPriorityOptions {
+			get {
+				return setPriority ?? (setPriority = new RelayCommand () {
+					CanExecuteAction = delegate { return !task.IsComplete; },
+					ExecuteAction = delegate {
+						var optionsModel = GetObjectFromAncestor (
+							typeof (OptionsModel<TaskPriority>)) as OptionsModel<TaskPriority>;
+						PriorityOptions = optionsModel ?? new OptionsModel<TaskPriority> (this);
+						PriorityOptions.OptionSelected += HandlePriorityOptionSelected;
+						OnPropertyChanged ("PriorityOptions");
+					}
+				});
+			}
+		}
+		
+		void HandlePriorityOptionSelected (object sender, EventArgs e)
+		{
+			PriorityOptions.OptionSelected -= HandlePriorityOptionSelected;
+			task.Priority = PriorityOptions.SelectedOption.Value;			
+		}
 		#endregion
 		
 		void HandleTaskPropertyChanged (object sender, PropertyChangedEventArgs e)
@@ -166,7 +189,9 @@ namespace Tasque.UIModel.Legacy
 		}
 		
 		string name;
-		RelayCommand toggleIsComplete, saveName, cancelChangeName, showNotesDialog, showDueDateOptions;
+		int priority;
+		RelayCommand toggleIsComplete, saveName, setPriority,
+			cancelChangeName, showNotesDialog, showDueDateOptions;
 		Task task;
 	}
 }

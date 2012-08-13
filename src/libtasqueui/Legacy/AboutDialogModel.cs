@@ -50,7 +50,7 @@ namespace Tasque.UIModel.Legacy
 		
 		public string WebsiteUrl { get { return GlobalDefines.Website; } }
 		
-		public ReadOnlyCollection<string> Translators {
+		public string Translators {
 			get {
 				var translators = Catalog.GetString ("translator-credits");
 				if (translators == "translator-credits")

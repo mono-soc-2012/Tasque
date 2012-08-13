@@ -29,22 +29,22 @@ namespace Tasque.UIModel.Legacy
 {
 	public class TaskContextMenuModel : ViewModel
 	{
-		public TaskContextMenuModel (MainWindowModel mainWindowModel)
+		public TaskContextMenuModel (MainWindowModel mainWindowModel, ViewModel parent) : base (parent)
 		{
-			removeTaskCommand = new RemoveTaskCommand (Backend);
+//			removeTaskCommand = new RemoveTaskCommand (Backend);
 		}
 		
-		public ICommand EditTask { get; private set; }
+//		public ICommand EditTask { get; private set; }
+//		
+//		public ICommand RemoveTask { get { return removeTaskCommand; } }
 		
-		public ICommand RemoveTask { get { return removeTaskCommand; } }
+//		public void Show (Task selectedTask)
+//		{
+//			if (selectedTask == null)
+//				throw new ArgumentNullException ("selectedTask");
+//			removeTaskCommand.Task = selectedTask;
+//		}
 		
-		public void Show (Task selectedTask)
-		{
-			if (selectedTask == null)
-				throw new ArgumentNullException ("selectedTask");
-			removeTaskCommand.Task = selectedTask;
-		}
-		
-		RemoveTaskCommand removeTaskCommand;
+//		RemoveTaskCommand removeTaskCommand;
 	}
 }
