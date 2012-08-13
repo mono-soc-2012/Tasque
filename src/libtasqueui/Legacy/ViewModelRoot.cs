@@ -58,7 +58,7 @@ namespace Tasque.UIModel.Legacy
 				return showPreferencesDialog ?? (showPreferencesDialog = new RelayCommand () {
 					ExecuteAction = delegate {
 						if (PreferencesDialogModel == null)
-							PreferencesDialogModel = new PreferencesDialogModel (this);
+						PreferencesDialogModel = new PreferencesDialogModel (this);
 						OnPropertyChanged ("PreferencesDialogModel");
 					}
 				});

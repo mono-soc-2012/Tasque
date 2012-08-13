@@ -30,6 +30,7 @@ using System.Collections;
 using System.Linq;
 using Gtk;
 using System.Collections.Generic;
+using Tasque.UIModel.Legacy;
 
 namespace Tasque
 {

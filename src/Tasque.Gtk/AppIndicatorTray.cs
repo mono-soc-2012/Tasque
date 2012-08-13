@@ -30,13 +30,14 @@ using Tasque.UIModel.Legacy;
 
 namespace Tasque
 {
-	public class AppIndicatorTray : GtkTrayBase
+	public class AppIndicatorTray : GtkTray
 	{
 		public AppIndicatorTray (TrayModel viewModel) : base (viewModel)
 		{
-			var appIndicator = new ApplicationIndicator ("TasqueTray", ViewModel.IconName,
+			appIndicator = new ApplicationIndicator ("TasqueTray", ViewModel.IconName,
 			                                             AppIndicator.Category.ApplicationStatus);
 			appIndicator.Status = Status.Active;
+			
 			
 			viewModel.ToggleTaskWindow.Executed += delegate { UpdateToggleTaskWindowActionLabel (); };
 			
@@ -57,5 +58,7 @@ namespace Tasque
 				? Catalog.GetString ("Hide Task Window")
 				: Catalog.GetString ("Show Task Window");
 		}
+
+		ApplicationIndicator appIndicator;
 	}
 }

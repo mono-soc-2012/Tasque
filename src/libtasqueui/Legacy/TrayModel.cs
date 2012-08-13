@@ -48,6 +48,6 @@ namespace Tasque.UIModel.Legacy
 		
 		public ICommand ShowPreferences { get { throw new NotImplementedException (); } }
 		
-		public ICommand ToggleTaskWindow { get { throw new NotImplementedException (); } }
+		public Command ToggleTaskWindow { get { throw new NotImplementedException (); } }
 	}
 }

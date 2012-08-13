@@ -56,5 +56,10 @@ namespace Tasque.Backends.Dummy
 			State = TaskState.Deleted;
 		}
 		#endregion
+
+		internal void SetCompletionDate (DateTime date)
+		{
+			CompletionDate = date;
+		}
 	}
 }

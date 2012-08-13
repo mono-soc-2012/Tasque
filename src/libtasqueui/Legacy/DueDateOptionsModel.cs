@@ -47,7 +47,7 @@ namespace Tasque.UIModel.Legacy
 		
 		protected override bool CanExecuteSelectOption (OptionItem parameter)
 		{
-			return parameter != parameter [9] || customDate != DateTime.MinValue;
+			return parameter != Options [9] || customDate != DateTime.MinValue;
 		}
 		
 		protected override void OnClose ()
@@ -66,16 +66,16 @@ namespace Tasque.UIModel.Legacy
 			ProtectedOptions.Clear ();
 			
 			var today = DateTime.Today;
-			ProtectedOptions.Add (today, new DueDateOption (today.ToString (
+			ProtectedOptions.Add (new DueDateOption (today, today.ToString (
 				Catalog.GetString ("M/d - ")) + Catalog.GetString ("Today")));
 			
 			var tomorrow = today.AddDays (1);
-			ProtectedOptions.Add (tomorrow, new DueDateOption (
-				tomorrow.ToString (Catalog.GetString ("M/d - ")) + Catalog.GetString ("Tomorrow")));
+			ProtectedOptions.Add (new DueDateOption (tomorrow, tomorrow.ToString (
+				Catalog.GetString ("M/d - ")) + Catalog.GetString ("Tomorrow")));
 			
 			for (int i = 2; i < 7; i++) {
 				var date = today.AddDays (i);
-				ProtectedOptions.Add (date, new DueDateOption (date.ToString (
+				ProtectedOptions.Add (new DueDateOption (date, date.ToString (
 					Catalog.GetString ("M/d - ddd"))));
 			}
 			

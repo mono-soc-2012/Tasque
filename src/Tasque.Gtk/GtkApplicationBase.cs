@@ -25,51 +25,30 @@
 //      Antonius Riha <antoniusriha@gmail.com>
 // 
 using System;
-using System.IO;
 using System.Diagnostics;
-using Mono.Unix;
-using Gtk;
 using Tasque.UIModel.Legacy;
 
 namespace Tasque
 {
 	public abstract class GtkApplicationBase : NativeApplication
 	{
-		#region just copied
-		public UIManager UIManager
+		protected override void SetupTray (TrayModel trayModel)
 		{
-			get { return uiManager; }
+			Tray = GtkTray.CreateTray (trayModel);
 		}
-		
-		#region implemented abstract members of Tasque.UIModel.Legacy.NativeApplication
-		public override Backend CurrentBackend {
-			get {
-				throw new System.NotImplementedException ();
-			}
-		}
-
-		public override System.Collections.ObjectModel.ReadOnlyCollection<Backend> AvailableBackends {
-			get {
-				throw new System.NotImplementedException ();
-			}
-		}
-
-		public override Tasque.UIModel.Legacy.MainWindowModel MainWindowModel {
-			get {
-				throw new System.NotImplementedException ();
-			}
-		}
-		#endregion
-		#endregion
-		
-		public override string ConfDir { get { return confDir; } }
 		
 		protected override void OnInitialize ()
 		{
 //			Catalog.Init ("tasque", GlobalDefines.LocaleDir);
 			Gtk.Application.Init ();
-			GLib.Idle.Add (InitializeIdle);
-			GLib.Timeout.Add (60000, CheckForDaySwitch);
+			GLib.Idle.Add (delegate {
+				InitializeIdle ();
+				return false;
+			});
+			GLib.Timeout.Add (60000, delegate {
+				CheckForDaySwitch ();
+				return true;
+			});
 		}
 		
 		public override void StartMainLoop ()
@@ -91,6 +70,8 @@ namespace Tasque
 			}
 		}
 		
+		protected GtkTray Tray { get; private set; }
+		
 		protected override event EventHandler RemoteInstanceKnocked;
 		
 		protected void OnRemoteInstanceKnocked ()
@@ -98,7 +79,5 @@ namespace Tasque
 			if (RemoteInstanceKnocked != null)
 				RemoteInstanceKnocked (this, EventArgs.Empty);
 		}
-		
-		string confDir;
 	}
 }

@@ -28,11 +28,11 @@ using Tasque.UIModel.Legacy;
 
 namespace Tasque
 {
-	public class StatusIconTray : GtkTrayBase
+	public class StatusIconTray : GtkTray
 	{
 		public StatusIconTray (TrayModel viewModel) : base (viewModel)
 		{
-			tray = new StatusIcon (Utilities.GetIcon (ViewModel.IconName));
+			tray = new StatusIcon (Utilities.GetIcon (ViewModel.IconName, 16));
 			tray.Visible = true;
 			tray.Activate += HandleActivate;
 			tray.PopupMenu += HandlePopupMenu;

@@ -74,7 +74,7 @@ namespace Tasque.Backends.Dummy
 			task = CreateTask ("Call Roger", homeCategory);
 			task.DueDate = DateTime.Now.AddDays (-1);
 			task.Complete ();
-			task.CompletionDate = task.DueDate;
+			((DummyTask)task).SetCompletionDate (task.DueDate);
 			
 			task = CreateTask ("Replace burnt out lightbulb", homeCategory);
 			task.DueDate = DateTime.Now;

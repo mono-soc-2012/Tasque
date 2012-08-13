@@ -26,9 +26,9 @@
 using System;
 namespace Tasque.UIModel.Legacy
 {
-	public class PreferencesDialogModel
+	public class PreferencesDialogModel : ViewModel
 	{
-		public PreferencesDialogModel ()
+		public PreferencesDialogModel (ViewModel parent) : base (parent)
 		{
 		}
 	}

@@ -63,8 +63,6 @@ namespace Tasque
 		private PreferencesDialog preferencesDialog;
 		private bool quietStart = false;
 		
-		private DateTime currentDay = DateTime.Today;
-		
 		/// <value>
 		/// Keep track of the available backends.  The key is the Type name of
 		/// the backend.
@@ -75,19 +73,19 @@ namespace Tasque
 
 
 
-		public static Backend Backend
-		{ 
-			get { return Application.Instance.backend; }
-			set { Application.Instance.SetBackend (value); }
-		}
+//		public static Backend Backend
+//		{ 
+//			get { return Application.Instance.backend; }
+//			set { Application.Instance.SetBackend (value); }
+//		}
 		
-		public static List<Backend> AvailableBackends
-		{
-			get {
-				return new List<Backend> (Application.Instance.availableBackends.Values);
-			}
-//			get { return Application.Instance.availableBackends; }
-		}
+//		public static List<Backend> AvailableBackends
+//		{
+//			get {
+////				return new List<Backend> (Application.Instance.availableBackends.Values);
+//			}
+////			get { return Application.Instance.availableBackends; }
+//		}
 
 		public NativeApplication NativeApplication
 		{
@@ -151,26 +149,11 @@ namespace Tasque
 			}
 		}
 		
-		private bool CheckForDaySwitch ()
-		{
-			if (DateTime.Today != currentDay) {
-				Debug.WriteLine ("Day has changed, reloading tasks");
-				currentDay = DateTime.Today;
-				// Reinitialize window according to new date
-				if (TaskWindow.IsOpen)
-					TaskWindow.Reinitialize (true);
-				
-				UnhookFromTooltipTaskGroupModels ();
-				RebuildTooltipTaskGroupModels ();
-				RefreshTrayIconTooltip ();
-			}
-			
-			return true;
-		}
+
 
 		private void SetupTrayIcon ()
 		{
-			GtkTrayBase tray;
+			GtkTray tray;
 #if APPINDICATOR
 			tray = new AppIndicatorTray (null);
 #else

@@ -45,6 +45,8 @@ namespace Tasque.UIModel.Legacy
 			if (confDir == null)
 				throw new ArgumentNullException ("confDir");
 			
+			currentDay = DateTime.Today;
+			
 			ConfDir = confDir;
 			if (!Directory.Exists (confDir))
 				Directory.CreateDirectory (confDir);
@@ -338,6 +340,22 @@ namespace Tasque.UIModel.Legacy
 			}
 		}
 		
+		protected void CheckForDaySwitch ()
+		{
+			if (DateTime.Today != currentDay) {
+				Debug.WriteLine ("Day has changed, reloading tasks");
+				currentDay = DateTime.Today;
+				
+				// Reinitialize window according to new date
+//				if (TaskWindow.IsOpen)
+//					TaskWindow.Reinitialize (true);
+				
+//				UnhookFromTooltipTaskGroupModels ();
+//				RebuildTooltipTaskGroupModels ();
+//				RefreshTrayIconTooltip ();
+			}
+		}
+		
 		Preferences preferences;
 		
 		Backend customBackend;
@@ -349,5 +367,7 @@ namespace Tasque.UIModel.Legacy
 		TrayModel tray;
 		
 		ViewModelRoot viewModelRoot;
+		
+		DateTime currentDay;
 	}
 }

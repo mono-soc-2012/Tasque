@@ -1,5 +1,5 @@
 // 
-// GtkTrayBase.cs
+// GtkTray.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -27,13 +27,21 @@ using System;
 using Mono.Unix;
 using Gtk;
 using Tasque.UIModel.Legacy;
-using System.Text;
 
 namespace Tasque
 {
-	public class GtkTrayBase
+	public class GtkTray
 	{
-		public GtkTrayBase (TrayModel viewModel)
+		public static GtkTray CreateTray (TrayModel viewModel)
+		{
+#if APPINDICATOR
+			return new AppIndicatorTray (viewModel);
+#else
+			return new StatusIconTray (viewModel);
+#endif
+		}
+
+		public GtkTray (TrayModel viewModel)
 		{
 			if (viewModel == null)
 				throw new ArgumentNullException ("viewModel");
@@ -41,12 +49,12 @@ namespace Tasque
 			
 			var newTask = viewModel.NewTask;
 			newTask.CanExecuteChanged += delegate {
-				UIManager.GetAction ("/TrayIconMenu/NewTaskAction").Sensitive = newTask.CanExecute;
+				UIManager.GetAction ("/TrayIconMenu/NewTaskAction").Sensitive = newTask.CanExecute (null);
 			};
 			
 			var refresh = viewModel.Refresh;
 			refresh.CanExecuteChanged += delegate {
-				UIManager.GetAction ("/TrayIconMenu/RefreshAction").Sensitive = refresh.CanExecute;
+				UIManager.GetAction ("/TrayIconMenu/RefreshAction").Sensitive = refresh.CanExecute (null);
 			};
 		}
 		
@@ -69,18 +77,18 @@ namespace Tasque
 			ActionGroup trayActionGroup = new ActionGroup ("Tray");
 			trayActionGroup.Add (new ActionEntry [] {
 				new ActionEntry ("NewTaskAction", Stock.New, Catalog.GetString ("New Task ..."),
-				                 null, null, delegate { ViewModel.NewTask.Execute (); }),
-				new ActionEntry ("AboutAction", Stock.About, delegate { ViewModel.ShowAbout.Execute (); }),
+				                 null, null, delegate { ViewModel.NewTask.Execute (null); }),
+				new ActionEntry ("AboutAction", Stock.About, delegate { ViewModel.ShowAbout.Execute (null); }),
 				new ActionEntry ("PreferencesAction", Stock.Preferences,
-				                 delegate { ViewModel.ShowPreferences.Execute (); }),
+				                 delegate { ViewModel.ShowPreferences.Execute (null); }),
 				new ActionEntry ("RefreshAction", Stock.Execute, Catalog.GetString ("Refresh Tasks ..."),
-				                 null, null, delegate { ViewModel.Refresh.Execute (); }),
-				new ActionEntry ("QuitAction", Stock.Quit, delegate { ViewModel.Quit.Execute (); })
+				                 null, null, delegate { ViewModel.Refresh.Execute (null); }),
+				new ActionEntry ("QuitAction", Stock.Quit, delegate { ViewModel.Quit.Execute (null); })
 			});
 			
 			ToggleTaskWindowAction = new Gtk.Action ("ToggleTaskWindowAction", null);
 			ToggleTaskWindowAction.ActionGroup = trayActionGroup;
-			ToggleTaskWindowAction.Activated += delegate { ViewModel.ToggleTaskWindow.Execute (); };
+			ToggleTaskWindowAction.Activated += delegate { ViewModel.ToggleTaskWindow.Execute (null); };
 			
 			uiManager = new UIManager ();
 			uiManager.AddUiFromString (MenuXml);
@@ -90,38 +98,38 @@ namespace Tasque
 		
 		void RefreshTrayIconTooltip ()
 		{
-			var sb = new StringBuilder ();
-			if (overdue_tasks != null) {
-				int count =  overdue_tasks.Count;
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task is Overdue\n", "{0} tasks are Overdue\n", count), count));
-				}
-			}
-			
-			if (today_tasks != null) {
-				int count =  today_tasks.Count;
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Today\n", "{0} tasks for Today\n", count), count));
-				}
-			}
-
-			if (tomorrow_tasks != null) {
-				int count =  tomorrow_tasks.Count;
-
-				if (count > 0) {
-					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Tomorrow\n", "{0} tasks for Tomorrow\n", count), count));
-				}
-			}
-
-			if (sb.Length == 0) {
-				// Translators: This is the status icon's tooltip. When no tasks are overdue, due today, or due tomorrow, it displays this fun message
-				trayIcon.Tooltip = Catalog.GetString ("Tasque Rocks");
-				return;
-			}
-
-			trayIcon.Tooltip = sb.ToString ().TrimEnd ('\n');
+//			var sb = new StringBuilder ();
+//			if (overdue_tasks != null) {
+//				int count =  overdue_tasks.Count;
+//
+//				if (count > 0) {
+//					sb.Append (String.Format (Catalog.GetPluralString ("{0} task is Overdue\n", "{0} tasks are Overdue\n", count), count));
+//				}
+//			}
+//			
+//			if (today_tasks != null) {
+//				int count =  today_tasks.Count;
+//
+//				if (count > 0) {
+//					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Today\n", "{0} tasks for Today\n", count), count));
+//				}
+//			}
+//
+//			if (tomorrow_tasks != null) {
+//				int count =  tomorrow_tasks.Count;
+//
+//				if (count > 0) {
+//					sb.Append (String.Format (Catalog.GetPluralString ("{0} task for Tomorrow\n", "{0} tasks for Tomorrow\n", count), count));
+//				}
+//			}
+//
+//			if (sb.Length == 0) {
+//				// Translators: This is the status icon's tooltip. When no tasks are overdue, due today, or due tomorrow, it displays this fun message
+//				trayIcon.Tooltip = Catalog.GetString ("Tasque Rocks");
+//				return;
+//			}
+//
+//			trayIcon.Tooltip = sb.ToString ().TrimEnd ('\n');
 		}
 		
 		UIManager uiManager;

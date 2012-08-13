@@ -36,7 +36,7 @@ namespace Tasque.UIModel
 		internal OptionsModel (ViewModel parent) : this (null, parent) {}
 		
 		internal OptionsModel (IValueConverter<T, string> converter, ViewModel parent)
-			: this (new OptionItem [] {}, converter, parent) {}
+			: this (new T [] {}, converter, parent) {}
 		
 		internal OptionsModel (IEnumerable<T> optionValues, IValueConverter<T, string> converter,
 		                       ViewModel parent) : base (parent)
@@ -102,7 +102,7 @@ namespace Tasque.UIModel
 			}
 			
 			public virtual string Text {
-				get { return converter == null ? Value.ToString () : converter.Convert (Value); }
+				get { return converter == null ? Value.ToString () : converter.Convert (Value, null, null); }
 			}
 			
 			internal T Value { get; private set; }
