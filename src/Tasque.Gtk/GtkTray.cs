@@ -176,7 +176,7 @@ namespace Tasque
 				new ActionEntry ("QuitAction", Stock.Quit, delegate { Application.Instance.Quit (); })
 			});
 			
-			ToggleTaskWindowAction = new Gtk.Action ("ToggleTaskWindowAction", "Toggle Task Window");
+			ToggleTaskWindowAction = new Gtk.Action ("ToggleTaskWindowAction", Catalog.GetString ("Toggle Task Window"));
 			ToggleTaskWindowAction.ActionGroup = trayActionGroup;
 			ToggleTaskWindowAction.Activated += delegate { TaskWindow.ToggleWindowVisible (); };
 			
