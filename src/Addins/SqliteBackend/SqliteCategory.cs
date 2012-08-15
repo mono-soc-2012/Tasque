@@ -48,7 +48,7 @@ namespace Tasque.Backends.Sqlite
 			this.backend = backend;
 			string command = String.Format("INSERT INTO Categories (Name, ExternalID) values ('{0}', '{1}'); SELECT last_insert_rowid();", name, string.Empty);
 			this.id = Convert.ToInt32 (backend.Database.ExecuteScalar(command));
-			//Logger.Debug("Inserted category named: {0} with id {1}", name, id);
+			//Debug.WriteLine("Inserted category named: {0} with id {1}", name, id);
 		}
 		
 		public SqliteCategory (SqliteBackend backend, int id)

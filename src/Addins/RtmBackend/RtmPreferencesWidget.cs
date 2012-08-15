@@ -91,10 +91,10 @@ namespace Tasque.Backends.RtmBackend
 		{
 			string authToken = Tasque.Application.Preferences.Get(Preferences.AuthTokenKey);
 			if (authToken == null || authToken.Trim() == "") {
-				Logger.Debug("Rtm: Not authorized");
+				Debug.WriteLine("Rtm: Not authorized");
 				isAuthorized = false;
 			} else {
-				Logger.Debug("Rtm: Authorized");
+				Debug.WriteLine("Rtm: Authorized");
 				isAuthorized = true;
 			}
 		}
@@ -108,28 +108,28 @@ namespace Tasque.Backends.RtmBackend
 					try {
 						url = rtmBackend.GetAuthUrl();
 					} catch (Exception) {
-						Logger.Debug ("Failed to get auth URL from Remember the Milk. Try again later.");
+						Debug.WriteLine ("Failed to get auth URL from Remember the Milk. Try again later.");
 						authButton.Label = Catalog.GetString ("Remember the Milk not responding. Try again later.");
 						return;
 					}
-					Logger.Debug("Launching browser to authorize with Remember the Milk");
+					Debug.WriteLine("Launching browser to authorize with Remember the Milk");
 					try {
 						Application.Instance.NativeApplication.OpenUrlInBrowser (url);
 						authRequested = true;
 						authButton.Label = Catalog.GetString ("Click Here After Authorizing");
 					} catch (Exception ex) {
-						Logger.Error ("Exception opening URL: {0}",ex.Message);
+						Trace.TraceError ("Exception opening URL: {0}",ex.Message);
 						authButton.Label = Catalog.GetString ("Set the default browser and try again");						
 					}			
 				} else if (!isAuthorized && authRequested) {
 					authButton.Label = Catalog.GetString ("Processing...");
 					try {
 						rtmBackend.FinishedAuth();
-						Logger.Debug("Successfully authorized with Remember the Milk");
+						Debug.WriteLine("Successfully authorized with Remember the Milk");
 						isAuthorized = true;
 						authRequested = false;
 					} catch (RtmNet.RtmApiException) {
-						Logger.Debug("Failed to authorize with Remember the Milk");
+						Debug.WriteLine("Failed to authorize with Remember the Milk");
 						isAuthorized = false;
 						authRequested = true;
 						authButton.Label = Catalog.GetString ("Failed, Try Again");

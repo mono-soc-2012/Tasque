@@ -40,10 +40,13 @@ using Gtk;
 using Gdk;
 using Mono.Unix;
 using Mono.Unix.Native;
+using Tasque.UIModel.Legacy;
+using System.Diagnostics;
+
+
 #if ENABLE_NOTIFY_SHARP
 using Notifications;
 #endif
-using Tasque.Backends;
 
 namespace Tasque
 {
@@ -51,8 +54,8 @@ namespace Tasque
 	{
 		private static Tasque.Application application = null;
 		private static System.Object locker = new System.Object();
-		private INativeApplication nativeApp;
-#if !WIN32 && !OSX
+		private NativeApplication nativeApp;
+#if !WIN32
 		private RemoteControl remoteControl;
 #endif
 		private Gtk.StatusIcon trayIcon;	
@@ -116,7 +119,7 @@ namespace Tasque
 			}
 		}
 
-		public INativeApplication NativeApplication
+		public NativeApplication NativeApplication
 		{
 			get
 			{
@@ -148,9 +151,7 @@ namespace Tasque
 
 		private void Init(string[] args)
 		{
-#if OSX
-			nativeApp = new OSXApplication ();
-#elif WIN32 || GTKLINUX
+#if WIN32 || GTKLINUX
 			nativeApp = new GtkApplication ();
 #else
 			nativeApp = new GnomeApplication ();
@@ -161,12 +162,12 @@ namespace Tasque
 
 			preferences = new Preferences (nativeApp.ConfDir);
 			
-#if !WIN32 && !OSX
+#if !WIN32
 			// Register Tasque RemoteControl
 			try {
 				remoteControl = RemoteControlProxy.Register ();
 				if (remoteControl != null) {
-					Logger.Debug ("Tasque remote control active.");
+					Debug.Write ("Tasque remote control active.");
 				} else {
 					// If Tasque is already running, open the tasks window
 					// so the user gets some sort of feedback when they
@@ -177,11 +178,11 @@ namespace Tasque
 						remote.ShowTasks ();
 					} catch {}
 
-					Logger.Debug ("Tasque is already running.  Exiting...");
+					Debug.WriteLine ("Tasque is already running.  Exiting...");
 					System.Environment.Exit (0);
 				}
 			} catch (Exception e) {
-				Logger.Debug ("Tasque remote control disabled (DBus exception): {0}",
+				Debug.WriteLine ("Tasque remote control disabled (DBus exception): {0}",
 				            e.Message);
 			}
 #endif
@@ -193,7 +194,7 @@ namespace Tasque
 					
 				case "--quiet":
 					quietStart = true;
-					Logger.Debug ("Starting quietly");
+					Debug.WriteLine ("Starting quietly");
 					break;
 					
 				case "--backend":
@@ -214,7 +215,7 @@ namespace Tasque
 			
 			// See if a specific backend is specified
 			if (potentialBackendClassName != null) {
-				Logger.Debug ("Backend specified: " +
+				Debug.WriteLine ("Backend specified: " +
 				              potentialBackendClassName);
 				
 				customBackend = null;
@@ -223,7 +224,7 @@ namespace Tasque
 					customBackend = (Backend)
 						asm.CreateInstance (potentialBackendClassName);
 				} catch (Exception e) {
-					Logger.Warn ("Backend specified on args not found: {0}\n\t{1}",
+					Trace.TraceWarning ("Backend specified on args not found: {0}\n\t{1}",
 						potentialBackendClassName, e.Message);
 				}
 			}
@@ -253,19 +254,19 @@ namespace Tasque
 			
 			// Look through the assemblies located in the same directory as
 			// Tasque.exe.
-			Logger.Debug ("Tasque.exe location:  {0}", tasqueAssembly.Location);
+			Debug.WriteLine ("Tasque.exe location:  {0}", tasqueAssembly.Location);
 			
 			DirectoryInfo loadPathInfo =
 				Directory.GetParent (tasqueAssembly.Location);
-			Logger.Info ("Searching for Backend DLLs in: {0}", loadPathInfo.FullName);
+			Trace.TraceInformation ("Searching for Backend DLLs in: {0}", loadPathInfo.FullName);
 			
 			foreach (FileInfo fileInfo in loadPathInfo.GetFiles ("*.dll")) {
-				Logger.Info ("\tReading {0}", fileInfo.FullName);
+				Trace.TraceInformation ("\tReading {0}", fileInfo.FullName);
 				Assembly asm = null;
 				try {
 					asm = Assembly.LoadFile (fileInfo.FullName);
 				} catch (Exception e) {
-					Logger.Debug ("Exception loading {0}: {1}",
+					Debug.WriteLine ("Exception loading {0}: {1}",
 								  fileInfo.FullName,
 								  e.Message);
 					continue;
@@ -279,7 +280,7 @@ namespace Tasque
 				if (availableBackends.ContainsKey (typeId))
 					continue;
 				
-				Logger.Debug ("Storing '{0}' = '{1}'", typeId, backend.Name);
+				Debug.WriteLine ("Storing '{0}' = '{1}'", typeId, backend.Name);
 				availableBackends [typeId] = backend;
 			}
 		}
@@ -293,7 +294,7 @@ namespace Tasque
 			try {
 				types = asm.GetTypes ();
 			} catch (Exception e) {
-				Logger.Warn ("Exception reading types from assembly '{0}': {1}",
+				Trace.TraceWarning ("Exception reading types from assembly '{0}': {1}",
 					asm.ToString (), e.Message);
 				return backends;
 			}
@@ -304,14 +305,14 @@ namespace Tasque
 				if (type.GetInterface ("Tasque.Backends.IBackend") == null) {
 					continue;
 				}
-				Logger.Debug ("Found Available Backend: {0}", type.ToString ());
+				Debug.WriteLine ("Found Available Backend: {0}", type.ToString ());
 				
 				Backend availableBackend = null;
 				try {
 					availableBackend = (Backend)
 						asm.CreateInstance (type.ToString ());
 				} catch (Exception e) {
-					Logger.Warn ("Could not instantiate {0}: {1}",
+					Trace.TraceWarning ("Could not instantiate {0}: {1}",
 								 type.ToString (),
 								 e.Message);
 					continue;
@@ -333,11 +334,11 @@ namespace Tasque
 				changingBackend = true;
 				// Cleanup the old backend
 				try {
-					Logger.Debug ("Cleaning up backend: {0}",
+					Debug.WriteLine ("Cleaning up backend: {0}",
 					              this.backend.Name);
 					this.backend.Cleanup ();
 				} catch (Exception e) {
-					Logger.Warn ("Exception cleaning up '{0}': {1}",
+					Trace.TraceWarning ("Exception cleaning up '{0}': {1}",
 					             this.backend.Name,
 					             e);
 				}
@@ -350,7 +351,7 @@ namespace Tasque
 				return;
 			}
 				
-			Logger.Info ("Using backend: {0} ({1})",
+			Trace.TraceInformation ("Using backend: {0} ({1})",
 			             this.backend.Name,
 			             this.backend.GetType ().ToString ());
 			this.backend.Initialize();
@@ -364,7 +365,7 @@ namespace Tasque
 			RebuildTooltipTaskGroupModels ();
 			RefreshTrayIconTooltip ();
 			
-			Logger.Debug("Configuration status: {0}",
+			Debug.WriteLine("Configuration status: {0}",
 			             this.backend.Configured.ToString());
 		}
 
@@ -377,7 +378,7 @@ namespace Tasque
 				// to use.  If so, use it, otherwise, pop open the preferences
 				// dialog so they can choose one.
 				string backendTypeString = Preferences.Get (Preferences.CurrentBackend);
-				Logger.Debug ("CurrentBackend specified in Preferences: {0}", backendTypeString);
+				Debug.WriteLine ("CurrentBackend specified in Preferences: {0}", backendTypeString);
 				if (backendTypeString != null
 						&& availableBackends.ContainsKey (backendTypeString)) {
 					Application.Backend = availableBackends [backendTypeString];
@@ -408,7 +409,7 @@ namespace Tasque
 					backend.Initialize();
 				}
 			} catch (Exception e) {
-				Logger.Error("{0}", e.Message);
+				Trace.TraceError("{0}", e.Message);
 			}
 			if (backend == null || !backend.Configured) {
 				return true;
@@ -420,7 +421,7 @@ namespace Tasque
 		private bool CheckForDaySwitch ()
 		{
 			if (DateTime.Today != currentDay) {
-				Logger.Debug ("Day has changed, reloading tasks");
+				Debug.WriteLine ("Day has changed, reloading tasks");
 				currentDay = DateTime.Today;
 				// Reinitialize window according to new date
 				if (TaskWindow.IsOpen)
@@ -531,7 +532,7 @@ namespace Tasque
 
 		private void OnPreferences (object sender, EventArgs args)
 		{
-			Logger.Info ("OnPreferences called");
+			Trace.TraceInformation ("OnPreferences called");
 			if (preferencesDialog == null) {
 				preferencesDialog = new PreferencesDialog ();
 				preferencesDialog.Hidden += OnPreferencesDialogHidden;
@@ -603,7 +604,7 @@ namespace Tasque
 
 		private void OnQuit (object sender, EventArgs args)
 		{
-			Logger.Info ("OnQuit called - terminating application");
+			Trace.TraceInformation ("OnQuit called - terminating application");
 			if (backend != null) {
 				UnhookFromTooltipTaskGroupModels ();
 				backend.Cleanup();
@@ -645,7 +646,7 @@ namespace Tasque
 			} 
 			catch (Exception e)
 			{
-				Tasque.Logger.Debug("Exception is: {0}", e);
+				Debug.WriteLine("Exception is: {0}", e);
 				Instance.NativeApplication.Exit (-1);
 			}
 		}

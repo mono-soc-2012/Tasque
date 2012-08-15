@@ -98,9 +98,9 @@ namespace Tasque.Backends.HmBackend
 
 		void HandleRowChanged(object o, Gtk.RowChangedArgs args)
 		{
-			Logger.Debug ("Handle Row Changed : Task Modified.");
+			Debug.WriteLine ("Handle Row Changed : Task Modified.");
 			HmTask task = (HmTask) taskStore.GetValue (args.Iter, 0);
-			Logger.Debug (task.Name);
+			Debug.WriteLine (task.Name);
 			
 		}
 		
@@ -172,11 +172,11 @@ namespace Tasque.Backends.HmBackend
 		
 		public void Refresh()
 		{
-			Logger.Debug("Refreshing data...");
+			Debug.WriteLine("Refreshing data...");
 
 			runRefreshEvent.Set();
 			
-			Logger.Debug("Done refreshing data!");
+			Debug.WriteLine("Done refreshing data!");
 		}
 		
 		public void Initialize()
@@ -188,11 +188,11 @@ namespace Tasque.Backends.HmBackend
 				this.hm = new Hiveminder.Hiveminder(username, password);
 				configured = true;
 			} catch (HiveminderAuthException e) {
-				Logger.Debug (e.ToString());
-				Logger.Error ("Hiveminder authentication failed.");
+				Debug.WriteLine (e.ToString());
+				Trace.TraceError ("Hiveminder authentication failed.");
 			} catch (Exception e) {
-				Logger.Debug (e.ToString());
-				Logger.Error ("Unable to connect to Hiveminder");
+				Debug.WriteLine (e.ToString());
+				Trace.TraceError ("Unable to connect to Hiveminder");
 			}
 			//
 			// Add in the "All" Category
@@ -203,7 +203,7 @@ namespace Tasque.Backends.HmBackend
 			
 			runningRefreshThread = true;
 			if (refreshThread == null || refreshThread.ThreadState == ThreadState.Running) {
-				Logger.Debug ("RtmBackend refreshThread already running");
+				Debug.WriteLine ("RtmBackend refreshThread already running");
 			} else {
 				if (!refreshThread.IsAlive) {
 					refreshThread  = new Thread(RefreshThreadLoop);
@@ -217,7 +217,7 @@ namespace Tasque.Backends.HmBackend
 		{
 			Gtk.TreeIter iter;
 
-			Logger.Debug ("Fetching tasks");
+			Debug.WriteLine ("Fetching tasks");
 
 			HmTask[] tasks = HmTask.GetTasks (this.hm.DownloadTasks(), this);
 
@@ -227,7 +227,7 @@ namespace Tasque.Backends.HmBackend
 				taskStore.SetValue (iter, 0, task);				
 			}
 
-			Logger.Debug ("Fetching tasks Completed");
+			Debug.WriteLine ("Fetching tasks Completed");
 		}
 
 		public void RefreshCategories ()
@@ -241,7 +241,7 @@ namespace Tasque.Backends.HmBackend
 				categoryListStore.SetValue (iter, 0, category);
 			}
 
-		    Logger.Debug ("Fetching Categories");
+		    Debug.WriteLine ("Fetching Categories");
 		}
 
 		public void Cleanup()
@@ -373,7 +373,7 @@ namespace Tasque.Backends.HmBackend
 
 		public void UpdateTask (HmTask task)
 		{
-			Logger.Debug ("Updating task : " + task.Id);
+			Debug.WriteLine ("Updating task : " + task.Id);
 			this.hm.UpdateTask (task.RemoteTask);
 		}
 

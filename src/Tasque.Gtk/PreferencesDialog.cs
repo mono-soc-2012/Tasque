@@ -92,7 +92,7 @@ namespace Tasque
 
 		private void Init()
 		{
-			Logger.Debug("Called Preferences Init");
+			Debug.WriteLine("Called Preferences Init");
 			this.Icon = Utilities.GetIcon ("tasque-16", 16);
 			// Update the window title
 			this.Title = string.Format (Catalog.GetString ("Tasque Preferences"));
@@ -374,7 +374,7 @@ namespace Tasque
 
 		private void LoadPreferences()
 		{
-			Logger.Debug("Loading preferences");
+			Debug.WriteLine("Loading preferences");
 			categoriesToHide =
 				Application.Preferences.GetStringList (Preferences.HideInAllCategory);
 			//if (categoriesToHide == null || categoriesToHide.Count == 0)
@@ -434,11 +434,11 @@ namespace Tasque
 				if (backendComboMap.ContainsKey (selectedBackend)) {
 					// Cleanup old backend
 					Backend oldBackend = backendComboMap [selectedBackend];
-					Logger.Info ("Cleaning up '{0}'...", oldBackend.Name);
+					Trace.TraceInformation ("Cleaning up '{0}'...", oldBackend.Name);
 					try {
 						oldBackend.Cleanup ();
 					} catch (Exception e) {
-						Logger.Warn ("Exception cleaning up '{0}': {2}",
+						Trace.TraceWarning ("Exception cleaning up '{0}': {2}",
 									 oldBackend.Name,
 									 e.Message);
 						
@@ -532,7 +532,7 @@ namespace Tasque
 		
 		void OnCategoryToggled (object sender, Gtk.ToggledArgs args)
 		{
-			Logger.Debug ("OnCategoryToggled");
+			Debug.WriteLine ("OnCategoryToggled");
 			Gtk.TreeIter iter;
 			Gtk.TreePath path = new Gtk.TreePath (args.Path);
 			if (!categoriesTree.Model.GetIter (out iter, path))

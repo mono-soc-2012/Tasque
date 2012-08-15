@@ -27,6 +27,8 @@
 
 using System;
 using System.IO;
+using Gtk;
+using Mono.Unix;
 
 namespace Tasque
 {
@@ -72,7 +74,7 @@ namespace Tasque
 			try {
 				System.Diagnostics.Process.Start (url);
 			} catch (Exception e) {
-				Logger.Error ("Error opening url [{0}]:\n{1}", url, e.ToString ());
+				Trace.TraceError ("Error opening url [{0}]:\n{1}", url, e.ToString ());
 			}
 		}
 	}

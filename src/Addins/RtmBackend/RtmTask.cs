@@ -235,7 +235,7 @@ namespace Tasque.Backends.RtmBackend
 		/// </summary>
 		public override void Activate ()
 		{
-			Logger.Debug("Activating Task: " + Name);
+			Debug.WriteLine("Activating Task: " + Name);
 			state = TaskState.Active;
 			taskSeries.Task.Completed = DateTime.MinValue;
 			rtmBackend.UpdateTaskActive(this);
@@ -246,7 +246,7 @@ namespace Tasque.Backends.RtmBackend
 		/// </summary>
 		public override void Inactivate ()
 		{
-			Logger.Debug("Inactivating Task: " + Name);		
+			Debug.WriteLine("Inactivating Task: " + Name);		
 			state = TaskState.Inactive;
 			taskSeries.Task.Completed = DateTime.Now;
 			rtmBackend.UpdateTaskInactive(this);
@@ -257,7 +257,7 @@ namespace Tasque.Backends.RtmBackend
 		/// </summary>
 		public override void Complete ()
 		{
-			Logger.Debug("Completing Task: " + Name);			
+			Debug.WriteLine("Completing Task: " + Name);			
 			state = TaskState.Completed;
 			if(taskSeries.Task.Completed == DateTime.MinValue)
 				taskSeries.Task.Completed = DateTime.Now;

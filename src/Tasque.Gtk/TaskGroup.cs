@@ -308,9 +308,9 @@ namespace Tasque
 				pos++;
 			} while (model.IterNext (ref tempIter));
 
-//Logger.Debug ("pos: {0}", pos);
-//Logger.Debug ("height: {0}", height);			
-//Logger.Debug ("returning: {0}", pos * height + header.Requisition.Height + 10);
+//Debug.WriteLine ("pos: {0}", pos);
+//Debug.WriteLine ("height: {0}", height);			
+//Debug.WriteLine ("returning: {0}", pos * height + header.Requisition.Height + 10);
 			// + 10 is for the spacing added on when packing the header
 			return pos * height + header.Requisition.Height;
 		}
@@ -419,7 +419,7 @@ namespace Tasque
 		#region Event Handlers
 		void OnNumberOfTasksChanged (object sender, EventArgs args)
 		{
-			//Logger.Debug ("TaskGroup (\"{0}\").OnNumberOfTasksChanged ()", DisplayName);
+			//Debug.WriteLine ("TaskGroup (\"{0}\").OnNumberOfTasksChanged ()", DisplayName);
 			// Check to see whether this group should be hidden or shown.
 			if (treeView.GetNumberOfTasks () == 0
 				&& (!filteredTasks.ShowCompletedTasks || hideWhenEmpty))

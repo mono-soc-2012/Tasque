@@ -88,7 +88,7 @@ namespace Tasque
 		#region Public Methods
 		public void CreateNewNote()
 		{
-			Logger.Debug("Creating a new note");
+			Debug.WriteLine("Creating a new note");
 			NoteWidget noteWidget = new NoteWidget (null);
 			noteWidget.TextChanged += OnNoteTextChanged;
 			noteWidget.DeleteButtonClicked += OnDeleteButtonClicked;
@@ -120,8 +120,8 @@ namespace Tasque
 				task.DeleteNote(nWidget.Note);
 				targetVBox.Remove (nWidget);
 			} catch(Exception e) {
-				Logger.Debug("Unable to delete the note");
-				Logger.Debug(e.ToString());
+				Debug.WriteLine("Unable to delete the note");
+				Debug.WriteLine(e.ToString());
 			}
 		}
 
@@ -143,15 +143,15 @@ namespace Tasque
 					TaskNote note = task.CreateNote(nWidget.Text);
 					nWidget.Note = note;
 				} catch(Exception e) {
-					Logger.Debug("Unable to create a note");
-					Logger.Debug(e.ToString());
+					Debug.WriteLine("Unable to create a note");
+					Debug.WriteLine(e.ToString());
 				}
 			} else {
 				try {
 					task.SaveNote(nWidget.Note);
 				} catch(Exception e) {
-					Logger.Debug("Unable to save note");
-					Logger.Debug(e.ToString());
+					Debug.WriteLine("Unable to save note");
+					Debug.WriteLine(e.ToString());
 				}
 			}
 		}

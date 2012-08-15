@@ -223,10 +223,10 @@ namespace Tasque.Backends.Sqlite
 			if (task.State == TaskState.Deleted) {
 				taskIters.Remove (task.SqliteId);
 				if (!taskStore.Remove (ref iter)) {
-					Logger.Debug ("Successfully deleted from taskStore: {0}",
+					Debug.WriteLine ("Successfully deleted from taskStore: {0}",
 						task.Name);
 				} else {
-					Logger.Debug ("Problem removing from taskStore: {0}",
+					Debug.WriteLine ("Problem removing from taskStore: {0}",
 						task.Name);
 				}
 			} else {

@@ -25,6 +25,6 @@
 // THE SOFTWARE.
 using System.Reflection;
 
-[assembly: AssemblyTitle("Tasque")]
-[assembly: AssemblyDescription("Simple Tasque Management")]
+[assembly: AssemblyTitle("Tasque.Gtk")]
+[assembly: AssemblyDescription("Gtk# UI for Tasque")]
 [assembly: AssemblyCopyright("MIT")]

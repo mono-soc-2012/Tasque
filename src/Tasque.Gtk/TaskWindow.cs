@@ -489,7 +489,7 @@ namespace Tasque
 		public static void ShowStatus (string statusText, uint dwellTime)
 		{
 			if (taskWindow == null) {
-				Logger.Warn ("Cannot set status when taskWindow is null");
+				Trace.TraceWarning ("Cannot set status when taskWindow is null");
 				return;
 			}
 
@@ -588,39 +588,39 @@ namespace Tasque
 			
 			foreach (TaskGroup taskGroup in taskGroups) {
 				
-				//Logger.Debug("taskGroupHeights: {0}", taskGroupHeights);
+				//Debug.WriteLine("taskGroupHeights: {0}", taskGroupHeights);
 				TreePath start;
 				TreePath end;
 				if (taskGroup.TreeView.GetVisibleRange (out start, out end)) {
-					Logger.Debug ("TaskGroup '{0}' range: {1} - {2}",
+					Debug.WriteLine ("TaskGroup '{0}' range: {1} - {2}",
 						taskGroup.DisplayName,
 						start.ToString (),
 						end.ToString ());
 				} else {
-					Logger.Debug ("TaskGroup range not visible: {0}", taskGroup.DisplayName);
+					Debug.WriteLine ("TaskGroup range not visible: {0}", taskGroup.DisplayName);
 				}
 				
 				if (taskGroup.ContainsTask (task, out iter)) {
-					Logger.Debug ("Found new task group: {0}", taskGroup.DisplayName);
+					Debug.WriteLine ("Found new task group: {0}", taskGroup.DisplayName);
 					
 					// Get the header height
 					int headerHeight = taskGroup.HeaderHeight;
 				
 					// Get the total number items in the TaskGroup
 					int nChildren = taskGroup.GetNChildren(iter);
-					//Logger.Debug("n children: {0}", nChildren);
+					//Debug.WriteLine("n children: {0}", nChildren);
 
 					// Calculate size of each item
 					double itemSize = (double)(taskGroup.Requisition.Height-headerHeight) / nChildren;
-					//Logger.Debug("item size: {0}", itemSize);
+					//Debug.WriteLine("item size: {0}", itemSize);
 				
 					// Get the index of the new item within the TaskGroup
 					int newTaskIndex = taskGroup.GetIterIndex (iter);
-					//Logger.Debug("new task index: {0}", newTaskIndex);
+					//Debug.WriteLine("new task index: {0}", newTaskIndex);
 						
 					// Calculate the scrolling distance
 					double scrollDistance = (itemSize*newTaskIndex)+taskGroupHeights;
-					//Logger.Debug("Scroll distance = ({0}*{1})+{2}+{3}: {4}", itemSize, newTaskIndex, taskGroupHeights, headerHeight, scrollDistance);
+					//Debug.WriteLine("Scroll distance = ({0}*{1})+{2}+{3}: {4}", itemSize, newTaskIndex, taskGroupHeights, headerHeight, scrollDistance);
 	
 					//scroll to the new task
 					scrolledWindow.Vadjustment.Value = scrollDistance;
@@ -683,7 +683,7 @@ namespace Tasque
 			Gtk.TreeIter iter;
 			foreach (TaskGroup taskGroup in taskGroups) {
 				if (taskGroup.ContainsTask (task, out iter)) {
-					Logger.Debug ("Found new task group: {0}", taskGroup.DisplayName);
+					Debug.WriteLine ("Found new task group: {0}", taskGroup.DisplayName);
 					
 					// Get the header height
 					taskGroup.EnterEditMode (task, iter);
@@ -766,7 +766,7 @@ namespace Tasque
 			Task task = backend.CreateTask (taskText, category);
 			
 			if (task == null) {
-				Logger.Debug ("Error creating a new task!");
+				Debug.WriteLine ("Error creating a new task!");
 				// Show error status
 				status = Catalog.GetString ("Error creating a new task");
 				TaskWindow.ShowStatus (status);
@@ -835,7 +835,7 @@ namespace Tasque
 			Application.Preferences.SetInt("MainWindowWidth", width);
 			Application.Preferences.SetInt("MainWindowHeight", height);
 
-			Logger.Debug("WindowDeleted was called");
+			Debug.WriteLine("WindowDeleted was called");
 			taskWindow = null;
 		}
 
@@ -1102,7 +1102,7 @@ namespace Tasque
 					popupMenu.ShowAll();
 					popupMenu.Popup ();
 				
-					// Logger.Debug ("Right clicked on task: " + task.Name);
+					// Debug.WriteLine ("Right clicked on task: " + task.Name);
 					break;
 			}
 		}
@@ -1140,16 +1140,16 @@ namespace Tasque
 		{
 			NoteDialog dialog = sender as NoteDialog;
 			if (dialog == null) {
-				Logger.Warn ("OnNoteDialogHidden (), sender is not NoteDialog, it's: {0}", sender.GetType ().ToString ());
+				Trace.TraceWarning ("OnNoteDialogHidden (), sender is not NoteDialog, it's: {0}", sender.GetType ().ToString ());
 				return;
 			}
 			
 			if (!noteDialogs.ContainsKey (dialog.Task)) {
-				Logger.Warn ("Closed NoteDialog not found in noteDialogs");
+				Trace.TraceWarning ("Closed NoteDialog not found in noteDialogs");
 				return;
 			}
 			
-			Logger.Debug ("Removing NoteDialog from noteDialogs");
+			Debug.WriteLine ("Removing NoteDialog from noteDialogs");
 			noteDialogs.Remove (dialog.Task);
 			
 			dialog.Destroy ();
@@ -1169,7 +1169,7 @@ namespace Tasque
 		
 		private void OnBackendSyncFinished ()
 		{
-			Logger.Debug("Backend sync finished");
+			Debug.WriteLine("Backend sync finished");
 			if (Application.Backend.Configured) {
 				string now = DateTime.Now.ToString ();
 				// Translators: This status shows the date and time when the task list was last refreshed

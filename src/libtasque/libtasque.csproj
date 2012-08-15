@@ -144,7 +144,6 @@
     <Compile Include="TaskCompletionDateComparer.cs" />
     <Compile Include="SortedNotifyCollection.cs" />
     <Compile Include="ReadOnlySortedNotifyCollection.cs" />
-    <Compile Include="Logger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
