@@ -23,14 +23,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System;
 using System.Diagnostics;
 
 namespace Tasque
 {
-	public abstract class NativeApplication : INativeApplication
-	{
+	public abstract class NativeApplication : IDisposable
+	{		
 		public abstract string ConfDir { get; }
 
 		public void Exit (int exitcode)
@@ -59,6 +58,20 @@ namespace Tasque
 		public abstract void StartMainLoop ();
 
 		public event EventHandler Exiting;
+
+		#region IDisposable implementation
+		public void Dispose ()
+		{
+			Dispose (true);
+			GC.SuppressFinalize (this);
+		}
+		
+		protected virtual void Dispose (bool disposing) {}
+		
+		~NativeApplication ()
+		{
+			Dispose (false);
+		}
+		#endregion
 	}
 }
-
