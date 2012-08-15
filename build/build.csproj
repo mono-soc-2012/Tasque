@@ -155,6 +155,9 @@
     <None Include="..\src\Tasque.MonoMac\Tasque.MonoMac.csproj">
       <Link>Tasque.MonoMac.csproj</Link>
     </None>
+    <None Include="..\src\tasque\tasque.csproj">
+      <Link>tasque.csproj</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SetDataAtBuildTime.cs" />
