@@ -189,6 +189,10 @@ namespace Tasque
 		{
 			var backend = GtkApplication.Instance.Backend;
 			bool backendItemsSensitive = (backend != null && backend.Initialized);
+			
+			if (uiManager == null)
+				RegisterUIManager ();
+			
 			uiManager.GetAction ("/TrayIconMenu/NewTaskAction").Sensitive = backendItemsSensitive;
 			uiManager.GetAction ("/TrayIconMenu/RefreshAction").Sensitive = backendItemsSensitive;
 		}
