@@ -307,7 +307,8 @@ namespace Tasque
 			foreach (var type in types) {
 				if (!type.IsClass)
 					continue; // Skip non-class types
-				if (type.GetInterface ("Tasque.Backends.IBackend") == null)
+				
+				if (!typeof(Backend).IsAssignableFrom (type))
 					continue;
 				
 				Debug.WriteLine ("Found Available Backend: {0}", type);
