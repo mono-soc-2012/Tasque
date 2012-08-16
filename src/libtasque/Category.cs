@@ -41,7 +41,7 @@ namespace Tasque
 				if (value == null)
 					throw new ArgumentNullException ("name");
 
-				if (value == name) {
+				if (value != name) {
 					name = value;
 					OnNameChanged ();
 					OnPropertyChanged ("Name");
