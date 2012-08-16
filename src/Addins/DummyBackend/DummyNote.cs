@@ -34,6 +34,6 @@ namespace Tasque.Backends.Dummy
 {
 	public class DummyNote : TaskNote
 	{
-		public override string Text { get; set; }
+		public DummyNote (string text) : base (text) {}
 	}
 }

@@ -48,6 +48,7 @@
     <Compile Include="..\..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
+    <Compile Include="DummyNote.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
