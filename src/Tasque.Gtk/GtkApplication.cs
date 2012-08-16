@@ -65,7 +65,7 @@ namespace Tasque
 				return true;
 			});
 			
-			base.Initialize ();
+			base.OnInitialize ();
 		}
 		
 		protected override void OnInitializeIdle ()
