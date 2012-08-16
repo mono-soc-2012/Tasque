@@ -33,6 +33,23 @@ namespace Tasque
 {
 	public abstract class TaskNote
 	{
-		public abstract string Text { get; set; }
+		protected TaskNote (string text)
+		{
+			Text = text;
+		}
+		
+		public string Text {
+			get { return text; }
+			set {
+				if (value == null)
+					throw new System.ArgumentNullException ("text");
+				text = value;
+				OnTextChanged ();
+			}
+		}
+		
+		protected virtual void OnTextChanged () {}
+		
+		string text;
 	}
 }
