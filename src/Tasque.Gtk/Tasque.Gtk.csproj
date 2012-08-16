@@ -115,25 +115,21 @@
     <Compile Include="..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
-    <Compile Include="Application.cs" />
     <Compile Include="CellRendererDate.cs" />
     <Compile Include="CompletedTaskGroup.cs" />
-    <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="DateButton.cs" />
     <Compile Include="NoteDialog.cs" />
     <Compile Include="NoteWidget.cs" />
-    <Compile Include="Preferences.cs" />
     <Compile Include="PreferencesDialog.cs" />
     <Compile Include="TaskCalendar.cs" />
     <Compile Include="TaskGroup.cs" />
-    <Compile Include="TaskGroupModel.cs" />
     <Compile Include="TaskGroupModelFactory.cs" />
     <Compile Include="TaskTreeView.cs" />
     <Compile Include="TaskWindow.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="GtkApplicationBase.cs" />
     <Compile Include="StatusIconTray.cs" />
     <Compile Include="GtkTray.cs" />
+    <Compile Include="GtkApplication.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' ">
     <Compile Include="GtkWinApplication.cs" />

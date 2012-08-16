@@ -107,9 +107,9 @@
       <Project>{B19B9840-669D-4984-9772-E1F55193A67F}</Project>
       <Name>Tasque.Gtk</Name>
     </ProjectReference>
-    <ProjectReference Include="..\libtasqueui\libtasqueui.csproj">
-      <Project>{DB8F01D5-0161-48E0-B68A-14AEFD22328F}</Project>
-      <Name>libtasqueui</Name>
+    <ProjectReference Include="..\libtasque\libtasque.csproj">
+      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
+      <Name>libtasque</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -28,7 +28,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using Mono.Unix.Native;
-using Tasque.UIModel.Legacy;
 
 namespace Tasque
 {

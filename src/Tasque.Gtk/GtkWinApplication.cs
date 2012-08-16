@@ -29,7 +29,7 @@ using System.Threading;
 
 namespace Tasque
 {
-	public class GtkWinApplication : GtkApplicationBase
+	public class GtkWinApplication : GtkApplication
 	{
 		protected override void Dispose (bool disposing)
 		{
@@ -44,15 +44,15 @@ namespace Tasque
 		protected override bool IsRemoteInstanceRunning ()
 		{
 			try {
-				waitHandle = EventWaitHandle.OpenExisting(waitHandleName);
-				waitHandle.Set();
+				waitHandle = EventWaitHandle.OpenExisting (waitHandleName);
+				waitHandle.Set ();
 				return true;
 			} catch (WaitHandleCannotBeOpenedException) {
-				waitHandle = new EventWaitHandle(false, EventResetMode.AutoReset, waitHandleName);
-				Debug.WriteLine("EventWaitHandle created.");
+				waitHandle = new EventWaitHandle (false, EventResetMode.AutoReset, waitHandleName);
+				Debug.WriteLine ("EventWaitHandle created.");
 				
-				var porter = new Thread(new ThreadStart(WaitForAnotherInstance));
-				porter.Start();
+				var porter = new Thread (new ThreadStart (WaitForAnotherInstance));
+				porter.Start ();
 			}
 			return false;
 		}

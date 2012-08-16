@@ -44,14 +44,14 @@ namespace Tasque
 		protected GtkTray ()
 		{
 			UpdateBackend ();
-			Application.Instance.BackendChanged += HandleBackendChanged;
+			GtkApplication.Instance.BackendChanged += HandleBackendChanged;
 			RefreshTrayIconTooltip ();
 		}
 
 		#region IDisposable implementation
 		public void Dispose ()
 		{
-			var app = Application.Instance;
+			var app = GtkApplication.Instance;
 			if (app != null)
 				app.BackendChanged -= HandleBackendChanged;
 		}
@@ -61,9 +61,9 @@ namespace Tasque
 		{
 			var oldTooltip = Tooltip;
 			
-			var overdueTasks = Application.Instance.OverdueTasks;
-			var todayTasks = Application.Instance.TodayTasks;
-			var tomorrowTasks = Application.Instance.TomorrowTasks;
+			var overdueTasks = GtkApplication.Instance.OverdueTasks;
+			var todayTasks = GtkApplication.Instance.TodayTasks;
+			var tomorrowTasks = GtkApplication.Instance.TomorrowTasks;
 			
 			var sb = new StringBuilder ();
 			if (overdueTasks != null) {
@@ -168,12 +168,12 @@ namespace Tasque
 
 				new ActionEntry ("AboutAction", Stock.About, OnAbout),
 
-				new ActionEntry ("PreferencesAction", Stock.Preferences, delegate { Application.ShowPreferences (); }),
+				new ActionEntry ("PreferencesAction", Stock.Preferences, delegate { GtkApplication.Instance.ShowPreferences (); }),
 
 				new ActionEntry ("RefreshAction", Stock.Execute, Catalog.GetString ("Refresh Tasks ..."),
-				                 null, null, delegate { Application.Backend.Refresh(); }),
+				                 null, null, delegate { GtkApplication.Instance.Backend.Refresh(); }),
 
-				new ActionEntry ("QuitAction", Stock.Quit, delegate { Application.Instance.Quit (); })
+				new ActionEntry ("QuitAction", Stock.Quit, delegate { GtkApplication.Instance.Quit (); })
 			});
 			
 			ToggleTaskWindowAction = new Gtk.Action ("ToggleTaskWindowAction", Catalog.GetString ("Toggle Task Window"));
@@ -187,7 +187,7 @@ namespace Tasque
 
 		void UpdateActionSensitivity ()
 		{
-			var backend = Application.Backend;
+			var backend = GtkApplication.Instance.Backend;
 			bool backendItemsSensitive = (backend != null && backend.Initialized);
 			uiManager.GetAction ("/TrayIconMenu/NewTaskAction").Sensitive = backendItemsSensitive;
 			uiManager.GetAction ("/TrayIconMenu/RefreshAction").Sensitive = backendItemsSensitive;
@@ -197,7 +197,7 @@ namespace Tasque
 		{
 			if (backend != null)
 				backend.BackendInitialized -= HandleBackendInitialized;
-			backend = Application.Backend;
+			backend = GtkApplication.Instance.Backend;
 
 			if (backend != null)
 				backend.BackendInitialized += HandleBackendInitialized;

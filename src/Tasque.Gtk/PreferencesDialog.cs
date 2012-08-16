@@ -131,12 +131,12 @@ namespace Tasque
 			backendPage = null;
 			backendPageId = -1;
 			
-			if (Application.Backend != null) {
-				backendPage = (Widget)Application.Backend.Preferences;
+			if (GtkApplication.Instance.Backend != null) {
+				backendPage = (Widget)GtkApplication.Instance.Backend.Preferences;
 				if (backendPage != null) {
 					backendPage.Show ();
 					Label l =
-						new Label (GLib.Markup.EscapeText (Application.Backend.Name));
+						new Label (GLib.Markup.EscapeText (GtkApplication.Instance.Backend.Name));
 					l.UseMarkup = false;
 					l.UseUnderline = false;
 					l.Show ();
@@ -175,7 +175,7 @@ namespace Tasque
 			lblTodaysTaskColor.WidthRequest = 75;
 			lblTodaysTaskColor.Show ();
 
-			Preferences prefs = Application.Preferences;
+			Preferences prefs = GtkApplication.Instance.Preferences;
 			txtTodaysTaskColor = new Entry();
 			txtTodaysTaskColor.Text = prefs.Get (Preferences.TodayTaskTextColor);
 			txtTodaysTaskColor.Changed += OnTxtTodaysTaskColorChanged;
@@ -256,10 +256,10 @@ namespace Tasque
 			// Fill out the ComboBox
 			int i = 0;
 			selectedBackend = -1;
-			foreach (Backend backend in Application.AvailableBackends) {
+			foreach (Backend backend in GtkApplication.Instance.AvailableBackends) {
 				backendComboBox.AppendText (backend.Name);
 				backendComboMap [i] = backend;
-				if (backend == Application.Backend)
+				if (backend == GtkApplication.Instance.Backend)
 					selectedBackend = i;
 				i++;
 			}
@@ -300,7 +300,7 @@ namespace Tasque
 			VBox innerSectionVBox = new VBox (false, 6);
 			hbox = new HBox (false, 6);
 			
-			bool showCompletedTasks = Application.Preferences.GetBool (
+			bool showCompletedTasks = GtkApplication.Instance.Preferences.GetBool (
 											Preferences.ShowCompletedTasksKey);
 			showCompletedTasksCheckButton =
 				new CheckButton (Catalog.GetString ("Sh_ow completed tasks"));
@@ -377,7 +377,7 @@ namespace Tasque
 		{
 			Debug.WriteLine("Loading preferences");
 			categoriesToHide =
-				Application.Preferences.GetStringList (Preferences.HideInAllCategory);
+				GtkApplication.Instance.Preferences.GetStringList (Preferences.HideInAllCategory);
 			//if (categoriesToHide == null || categoriesToHide.Count == 0)
 			//	categoriesToHide = BuildNewCategoryList ();
 		}
@@ -386,7 +386,7 @@ namespace Tasque
 		{
 			// showCompletedTasksCheckbox delegate
 			showCompletedTasksCheckButton.Toggled += delegate {
-				Application.Preferences.SetBool (
+				GtkApplication.Instance.Preferences.SetBool (
 					Preferences.ShowCompletedTasksKey,
 					showCompletedTasksCheckButton.Active);
 			};
@@ -401,7 +401,7 @@ namespace Tasque
 		private void OnTxtTodaysTaskColorChanged (object sender, EventArgs args)
 		{
 			// Save the user preference
-			Application.Preferences.Set (Preferences.TodayTaskTextColor,
+			GtkApplication.Instance.Preferences.Set (Preferences.TodayTaskTextColor,
 			                             ((Entry) sender).Text);
 		}
 
@@ -414,7 +414,7 @@ namespace Tasque
 		private void OnTxtOverdueTaskColorChanged (object sender, EventArgs args)
 		{
 			// Save the user preference
-			Application.Preferences.Set (Preferences.OverdueTaskTextColor,
+			GtkApplication.Instance.Preferences.Set (Preferences.OverdueTaskTextColor,
 			                             ((Entry) sender).Text);
 		}
 
@@ -455,7 +455,7 @@ namespace Tasque
 			}
 			
 			// TODO: Set the new backend
-			Application.Backend = newBackend;
+			GtkApplication.Instance.Backend = newBackend;
 			
 			if (newBackend == null)
 				return;
@@ -480,11 +480,11 @@ namespace Tasque
 			}
 			
 			// Save the user preference
-			Application.Preferences.Set (Preferences.CurrentBackend,
+			GtkApplication.Instance.Preferences.Set (Preferences.CurrentBackend,
 										 newBackend.GetType ().ToString ());
 			
 			//categoriesToHide = BuildNewCategoryList ();
-			//Application.Preferences.SetStringList (Preferences.HideInAllCategory,
+			//GtkApplication.Instance.Preferences.SetStringList (Preferences.HideInAllCategory,
 			//									   categoriesToHide);
 			RebuildCategoryTree ();
 		}
@@ -551,7 +551,7 @@ namespace Tasque
 			else
 				categoriesToHide.Add (category.Name);
 			
-			Application.Preferences.SetStringList (Preferences.HideInAllCategory,
+			GtkApplication.Instance.Preferences.SetStringList (Preferences.HideInAllCategory,
 												   categoriesToHide);
 		}
 		
@@ -566,7 +566,7 @@ namespace Tasque
 		{
 			List<string> list = new List<string> ();
 			TreeModel model;
-			IBackend backend = Application.Backend;
+			IBackend backend = GtkApplication.Instance.Backend;
 			if (backend == null)
 				return list;
 			

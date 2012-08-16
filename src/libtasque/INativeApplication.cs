@@ -2,7 +2,7 @@ using System;
 
 namespace Tasque
 {
-	public interface INativeApplication
+	public interface IApplication
 	{
 		string ConfDir { get; }
 

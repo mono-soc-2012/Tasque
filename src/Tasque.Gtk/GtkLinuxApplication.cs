@@ -28,7 +28,7 @@ using System.Diagnostics;
 
 namespace Tasque
 {
-	public class GtkLinuxApplication : GtkApplicationBase
+	public class GtkLinuxApplication : GtkApplication
 	{
 		protected override void Dispose (bool disposing)
 		{

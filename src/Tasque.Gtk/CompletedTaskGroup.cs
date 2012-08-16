@@ -54,7 +54,7 @@ namespace Tasque
 			this.HideWhenEmpty = false;
 			
 			selectedCategory = GetSelectedCategory ();
-			Application.Preferences.SettingChanged += OnSelectedCategorySettingChanged;
+			GtkApplication.Instance.Preferences.SettingChanged += OnSelectedCategorySettingChanged;
 			
 			CreateRangeSlider ();
 			UpdateDateRanges ();
@@ -76,11 +76,11 @@ namespace Tasque
 			
 			// TODO: Set the initial value and range
 			string rangeStr =
-				Application.Preferences.Get (Preferences.CompletedTasksRange);
+				GtkApplication.Instance.Preferences.Get (Preferences.CompletedTasksRange);
 			if (rangeStr == null) {
 				// Set a default value of All
 				rangeStr = ShowCompletedRange.All.ToString ();
-				Application.Preferences.Set (Preferences.CompletedTasksRange,
+				GtkApplication.Instance.Preferences.Set (Preferences.CompletedTasksRange,
 											 rangeStr);
 			}
 			
@@ -115,9 +115,9 @@ namespace Tasque
 		{
 			Category foundCategory = null;
 			
-			string cat = Application.Preferences.Get (Preferences.SelectedCategoryKey);
+			string cat = GtkApplication.Instance.Preferences.Get (Preferences.SelectedCategoryKey);
 			if (cat != null) {
-				var categories = Application.Backend.Categories;
+				var categories = GtkApplication.Instance.Backend.Categories;
 				foundCategory = categories.SingleOrDefault (c => c.Name == cat);
 			}
 			
@@ -134,7 +134,7 @@ namespace Tasque
 				return;
 			
 			this.currentRange = range;
-			Application.Preferences.Set (Preferences.CompletedTasksRange,
+			GtkApplication.Instance.Preferences.Set (Preferences.CompletedTasksRange,
 										 range.ToString ());
 			
 			UpdateDateRanges ();

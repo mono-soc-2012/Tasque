@@ -37,4 +37,3 @@ namespace Tasque.Backends.Dummy.Gtk
 		}
 	}
 }
-

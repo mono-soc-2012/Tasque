@@ -63,9 +63,9 @@ namespace Tasque
 			filteredTasks = CreateModel (rangeStart, rangeEnd, tasks);
 
 			filteredTasks.ShowCompletedTasks = 
-				Application.Preferences.GetBool (
+				GtkApplication.Instance.Preferences.GetBool (
 					Preferences.ShowCompletedTasksKey);
-			Application.Preferences.SettingChanged += OnSettingChanged;
+			GtkApplication.Instance.Preferences.SettingChanged += OnSettingChanged;
 			
 			// TODO: Add something to watch events so that the group will
 			// automatically refilter and display/hide itself accordingly.
@@ -371,8 +371,7 @@ namespace Tasque
 		
 		/// <summary>
 		/// This returns the currently selected category.
-		/// TODO: This should really be moved as a method Application or
-		/// or something.
+		/// TODO: This should really be moved as a method GtkApplication or something.
 		/// </summary>
 		/// <returns>
 		/// A <see cref="ICategory"/>
@@ -382,10 +381,10 @@ namespace Tasque
 			// TODO: Move this code into some function in the backend/somewhere
 			// with the signature of GetCategoryForName (string catName):ICategory
 			string selectedCategoryName =
-				Application.Preferences.Get (Preferences.SelectedCategoryKey);
+				GtkApplication.Instance.Preferences.Get (Preferences.SelectedCategoryKey);
 			
 			if (selectedCategoryName != null) {
-				var categories = Application.Backend.Categories;
+				var categories = GtkApplication.Instance.Backend.Categories;
 				return categories.SingleOrDefault (c => c.Name == selectedCategoryName);
 			}
 			

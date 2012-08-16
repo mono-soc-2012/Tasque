@@ -105,8 +105,8 @@ namespace Tasque
 			// Update the window title
 			Title = string.Format ("Tasque");	
 
-			width = Application.Preferences.GetInt("MainWindowWidth");
-			height = Application.Preferences.GetInt("MainWindowHeight");
+			width = GtkApplication.Instance.Preferences.GetInt("MainWindowWidth");
+			height = GtkApplication.Instance.Preferences.GetInt("MainWindowHeight");
 			
 			if(width == -1)
 				width = 600;
@@ -186,7 +186,7 @@ namespace Tasque
 						Gtk.AccelFlags.Visible);
 			
 			globalKeys.AddAccelerator (delegate (object sender, EventArgs e) {
-				Application.Instance.Quit (); },
+				GtkApplication.Instance.Quit (); },
 						(uint) Gdk.Key.q,
 						Gdk.ModifierType.ControlMask,
 						Gtk.AccelFlags.Visible);
@@ -239,7 +239,7 @@ namespace Tasque
 				OnBackendInitialized();
 			}
 			
-			Application.Preferences.SettingChanged += OnSettingChanged;
+			GtkApplication.Instance.Preferences.SettingChanged += OnSettingChanged;
 		}
 
 		void PopulateWindow()
@@ -359,12 +359,12 @@ namespace Tasque
 			
 			// Set up the combo box (after the above to set the current filter)
 
-			var adapter = new TreeModelListAdapter<Category> (Application.Backend.Categories);
+			var adapter = new TreeModelListAdapter<Category> (GtkApplication.Instance.Backend.Categories);
 			categoryComboBox.Model = adapter;	
 
 			// Read preferences for the last-selected category and select it
 			string selectedCategoryName =
-				Application.Preferences.Get (Preferences.SelectedCategoryKey);
+				GtkApplication.Instance.Preferences.Get (Preferences.SelectedCategoryKey);
 			
 			categoryComboBox.Changed += OnCategoryChanged;
 			
@@ -398,10 +398,10 @@ namespace Tasque
 				lastXPos = x;
 				lastYPos = y;
 				
-				Application.Preferences.SetInt("MainWindowLastXPos", lastXPos);
-				Application.Preferences.SetInt("MainWindowLastYPos", lastYPos);
-				Application.Preferences.SetInt("MainWindowWidth", width);
-				Application.Preferences.SetInt("MainWindowHeight", height);	
+				GtkApplication.Instance.Preferences.SetInt("MainWindowLastXPos", lastXPos);
+				GtkApplication.Instance.Preferences.SetInt("MainWindowLastYPos", lastYPos);
+				GtkApplication.Instance.Preferences.SetInt("MainWindowWidth", width);
+				GtkApplication.Instance.Preferences.SetInt("MainWindowHeight", height);	
 			}
 
 		}
@@ -439,12 +439,12 @@ namespace Tasque
 					}
 					taskWindow.Present();
 				}
-			} else if (Application.Backend != null) {
-				TaskWindow.taskWindow = new TaskWindow(Application.Backend);
+			} else if (GtkApplication.Instance.Backend != null) {
+				TaskWindow.taskWindow = new TaskWindow(GtkApplication.Instance.Backend);
 				if(lastXPos == 0 || lastYPos == 0)
 				{
-					lastXPos = Application.Preferences.GetInt("MainWindowLastXPos");
-					lastYPos = Application.Preferences.GetInt("MainWindowLastYPos");				
+					lastXPos = GtkApplication.Instance.Preferences.GetInt("MainWindowLastXPos");
+					lastYPos = GtkApplication.Instance.Preferences.GetInt("MainWindowLastYPos");				
 				}
 
 				int x = lastXPos;
@@ -831,10 +831,10 @@ namespace Tasque
 			lastXPos = x;
 			lastYPos = y;
 			
-			Application.Preferences.SetInt("MainWindowLastXPos", lastXPos);
-			Application.Preferences.SetInt("MainWindowLastYPos", lastYPos);
-			Application.Preferences.SetInt("MainWindowWidth", width);
-			Application.Preferences.SetInt("MainWindowHeight", height);
+			GtkApplication.Instance.Preferences.SetInt("MainWindowLastXPos", lastXPos);
+			GtkApplication.Instance.Preferences.SetInt("MainWindowLastYPos", lastYPos);
+			GtkApplication.Instance.Preferences.SetInt("MainWindowWidth", width);
+			GtkApplication.Instance.Preferences.SetInt("MainWindowHeight", height);
 
 			Debug.WriteLine("WindowDeleted was called");
 			taskWindow = null;
@@ -922,7 +922,7 @@ namespace Tasque
 			// out of the entered task text.
 			DateTime taskDueDate = DateTime.MinValue;
 			string taskName;
-			if (Application.Preferences.GetBool (Preferences.ParseDateEnabledKey))
+			if (GtkApplication.Instance.Preferences.GetBool (Preferences.ParseDateEnabledKey))
 				TaskParser.Instance.TryParse (
 				                         enteredTaskText,
 				                         out taskName,
@@ -966,7 +966,7 @@ namespace Tasque
 					// the "All" category and if not, select the category
 					// specifically.
 					List<string> categoriesToHide =
-						Application.Preferences.GetStringList (
+						GtkApplication.Instance.Preferences.GetStringList (
 							Preferences.HideInAllCategory);
 					if (categoriesToHide != null && categoriesToHide.Contains (item.Category.Name)) {
 						SelectCategory (item.Category.Name);
@@ -999,7 +999,7 @@ namespace Tasque
 			completedTaskGroup.Refilter (category);
 			
 			// Save the selected category in preferences
-			Application.Preferences.Set (Preferences.SelectedCategoryKey,
+			GtkApplication.Instance.Preferences.Set (Preferences.SelectedCategoryKey,
 										 category.Name);
 		}
 		
@@ -1079,7 +1079,7 @@ namespace Tasque
 					 * here in order to enable changing categories. The list of available categories
 					 * is pre-filtered as to not contain the current category and the AllCategory.
 					 */
-					var cvCategories = new CollectionView<Category> (Application.Backend.Categories);
+					var cvCategories = new CollectionView<Category> (GtkApplication.Instance.Backend.Categories);
 					cvCategories.Filter = c => c != null && !(c is AllCategory) && !c.Equals(clickedTask.Category);
 
 					// The categories submenu is only created in case we actually provide at least one category.
@@ -1121,7 +1121,7 @@ namespace Tasque
 			if (clickedTask == null)
 				return;
 		
-			Application.Backend.DeleteTask(clickedTask);
+			GtkApplication.Instance.Backend.DeleteTask(clickedTask);
 			
 			status = Catalog.GetString ("Task deleted");
 			TaskWindow.ShowStatus (status);
@@ -1171,13 +1171,13 @@ namespace Tasque
 		private void OnBackendSyncFinished ()
 		{
 			Debug.WriteLine("Backend sync finished");
-			if (Application.Backend.Configured) {
+			if (GtkApplication.Instance.Backend.Configured) {
 				string now = DateTime.Now.ToString ();
 				// Translators: This status shows the date and time when the task list was last refreshed
 				status = string.Format (Catalog.GetString ("Tasks loaded: {0}"), now);
 				TaskWindow.lastLoadedTime = now;
 				TaskWindow.ShowStatus (status);
-				RebuildAddTaskMenu ((CollectionView<Category>)Application.Backend.Categories);
+				RebuildAddTaskMenu ((CollectionView<Category>)GtkApplication.Instance.Backend.Categories);
 				addTaskEntry.Sensitive = true;
 				categoryComboBox.Sensitive = true;
 				// Keep insensitive text color
