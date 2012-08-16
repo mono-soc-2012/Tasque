@@ -119,6 +119,11 @@ namespace Tasque
 			preferencesDialog.Present ();
 		}
 		
+		protected override void ShowMainWindow ()
+		{
+			TaskWindow.ShowWindow ();
+		}
+		
 		protected override void OnBackendChanged ()
 		{
 			if (backendWasNullBeforeChange)
