@@ -243,7 +243,7 @@ namespace Tasque
 			GtkApplication.Instance.Preferences.SettingChanged += OnSettingChanged;
 		}
 
-		void PopulateWindow()
+		void PopulateWindow ()
 		{
 			// Add in the groups
 			
@@ -265,7 +265,7 @@ namespace Tasque
 			overdueGroup.ButtonPressed += OnButtonPressed;
 			overdueGroup.Show ();
 			targetVBox.PackStart (overdueGroup, false, false, 0);
-			taskGroups.Add(overdueGroup);
+			taskGroups.Add (overdueGroup);
 			
 			//
 			// Today Group
@@ -360,8 +360,12 @@ namespace Tasque
 			
 			// Set up the combo box (after the above to set the current filter)
 
-			var adapter = new TreeModelListAdapter<Category> (GtkApplication.Instance.Backend.Categories);
-			categoryComboBox.Model = adapter;	
+			var categoryComboStore = new ListStore (typeof(string));
+			categoryComboStore.AppendValues (Catalog.GetString ("All"));
+			foreach (var item in GtkApplication.Instance.Backend.Categories)
+				categoryComboStore.AppendValues (item.Name);
+			
+			categoryComboBox.Model = categoryComboStore;	
 
 			// Read preferences for the last-selected category and select it
 			string selectedCategoryName =
@@ -636,20 +640,26 @@ namespace Tasque
 		#endregion // Public Methods
 		
 		#region Private Methods
-		void CategoryComboBoxDataFunc (Gtk.CellLayout layout,
-									   Gtk.CellRenderer renderer,
-									   Gtk.TreeModel model,
-									   Gtk.TreeIter iter)
+		void CategoryComboBoxDataFunc (CellLayout layout, CellRenderer renderer, TreeModel model, TreeIter iter)
 		{
-			Gtk.CellRendererText crt = renderer as Gtk.CellRendererText;
-			Category category = model.GetValue (iter, 0) as Category;
-
-			// CRG: What?  I added this check for null and we don't crash
-			// but I never see anything called unknown
-			if(category != null && category.Name != null) {
-				crt.Text =
-					string.Format ("{0} ({1})", category.Name, category.Count);
-			} else
+			var crt = renderer as CellRendererText;
+			var catName = model.GetValue (iter, 0) as string;
+			var backend = GtkApplication.Instance.Backend;
+			
+			int taskCount = 0;
+			if (model.GetPath (iter).Indices [0] == TreePath.NewFirst ().Indices [0])
+				taskCount = backend.Tasks.Count;
+			else {
+				var cat = backend.Categories.SingleOrDefault (c => c.Name == catName);
+				if (cat != null)
+					taskCount = cat.Count;
+				else
+					catName = null;
+			}
+			
+			if (catName != null)
+				crt.Text = string.Format ("{0} ({1})", catName, taskCount);
+			else
 				crt.Text = "unknown";
 		}
 		
@@ -697,7 +707,7 @@ namespace Tasque
 			Menu menu = new Menu ();
 			
 			foreach (var cat in categories) {
-				if (cat is AllCategory)
+				if (cat == null)
 					continue;
 				
 				var item = new CategoryMenuItem ((Category)cat);
@@ -709,39 +719,28 @@ namespace Tasque
 			addTaskButton.Menu = menu;
 		}
 		
-		private void SelectCategory (string categoryName)
+		void SelectCategory (string categoryName)
 		{
-			Gtk.TreeIter iter;
-			Gtk.TreeModel model = categoryComboBox.Model;
-			bool categoryWasSelected = false;
+			var model = categoryComboBox.Model;
 
-			if (categoryName != null) {
-				// Iterate through (yeah, I know this is gross!) and find the
-				// matching category
-				if (model.GetIterFirst (out iter)) {
-					do {
-						Category cat = model.GetValue (iter, 0) as Category;
-						if (cat == null)
-							continue; // Needed for some reason to prevent crashes from some backends
-						if (cat.Name.CompareTo (categoryName) == 0) {
-							categoryComboBox.SetActiveIter (iter);
-							categoryWasSelected = true;
-							break;
-						}
-					} while (model.IterNext (ref iter));
-				}
+			var cats = GtkApplication.Instance.Backend.Categories;
+			var cat = cats.SingleOrDefault (c => c.Name == categoryName);
+			int index = 0;
+			foreach (var item in cats) {
+				if (item == cat)
+					break;
+				index++;
 			}
 			
-			if (!categoryWasSelected) {
-				// Select the first item in the list (which should be the "All"
-				// category.
-				if (model.GetIterFirst (out iter)) {
-					// Make sure we can actually get a category
-					Category cat = model.GetValue (iter, 0) as Category;
-					if (cat != null)
-						categoryComboBox.SetActiveIter (iter);
-				}
-			}
+			TreeIter iter;
+			bool success = true;
+			if (cat != null)
+				success = model.GetIter (out iter, new TreePath (new int [] { index + 1 }));
+			else
+				model.GetIterFirst (out iter);
+			
+			if (success)
+				categoryComboBox.SetActiveIter (iter);
 		}
 		
 		private void ShowTaskNotes (Task task)
@@ -906,30 +905,28 @@ namespace Tasque
 
 		void OnAddTask (object sender, EventArgs args)
 		{
-			string enteredTaskText = addTaskEntry.Text.Trim ();
+			var enteredTaskText = addTaskEntry.Text.Trim ();
 			if (enteredTaskText.Length == 0)
 				return;
 			
-			Gtk.TreeIter iter;
+			TreeIter iter;
 			if (!categoryComboBox.GetActiveIter (out iter))
 				return;
 			
-			Category category =
-				categoryComboBox.Model.GetValue (iter, 0) as Category;
-		
-			// If enabled, attempt to parse due date information
-			// out of the entered task text.
-			DateTime taskDueDate = DateTime.MinValue;
+			var catName = categoryComboBox.Model.GetValue (iter, 0) as string;
+			Category cat = null;
+			if (categoryComboBox.Model.GetPath (iter).Indices [0] != TreePath.NewFirst ().Indices [0])
+				cat = GtkApplication.Instance.Backend.Categories.SingleOrDefault (c => c.Name == catName);
+				
+			// If enabled, attempt to parse due date information out of the entered task text.
+			var taskDueDate = DateTime.MinValue;
 			string taskName;
 			if (GtkApplication.Instance.Preferences.GetBool (Preferences.ParseDateEnabledKey))
-				TaskParser.Instance.TryParse (
-				                         enteredTaskText,
-				                         out taskName,
-				                         out taskDueDate);
+				TaskParser.Instance.TryParse (enteredTaskText, out taskName, out taskDueDate);
 			else
 				taskName = enteredTaskText;
 			
-			Task task = CreateTask (taskName, category);
+			var task = CreateTask (taskName, cat);
 			if (task == null)
 				return; // TODO: Explain error to user!
 			
@@ -941,11 +938,11 @@ namespace Tasque
 		
 		void OnNewTaskByCategory (object sender, EventArgs args)
 		{
-			string newTaskText = addTaskEntry.Text.Trim ();
+			var newTaskText = addTaskEntry.Text.Trim ();
 			if (newTaskText.Length == 0)
 				return;
 			
-			CategoryMenuItem item = sender as CategoryMenuItem;
+			var item = sender as CategoryMenuItem;
 			if (item == null)
 				return;
 			
@@ -954,40 +951,39 @@ namespace Tasque
 			// category and the selected category is not showing, we've got
 			// to switch the category first so the user will be able to edit
 			// the title of the task.
-			Gtk.TreeIter iter;
+			TreeIter iter;
 			if (categoryComboBox.GetActiveIter (out iter)) {
-				Category selectedCategory =
-					categoryComboBox.Model.GetValue (iter, 0) as Category;
 				
 				// Check to see if "All" is selected
-				if (selectedCategory is AllCategory) {
-					// See if the item.Category is currently being shown in
-					// the "All" category and if not, select the category
-					// specifically.
-					List<string> categoriesToHide =
-						GtkApplication.Instance.Preferences.GetStringList (
-							Preferences.HideInAllCategory);
-					if (categoriesToHide != null && categoriesToHide.Contains (item.Category.Name)) {
+				if (categoryComboBox.Model.GetPath (iter).Indices [0] == TreePath.NewFirst ().Indices [0]) {
+					// See if the item.Category is currently being shown in the "All" category
+					// and if not, select the category specifically.
+					var categoriesToHide = GtkApplication.Instance.Preferences.GetStringList (
+						Preferences.HideInAllCategory);
+					if (categoriesToHide != null && categoriesToHide.Contains (item.Category.Name))
 						SelectCategory (item.Category.Name);
-					}
-				} else if (selectedCategory.Name.CompareTo (item.Category.Name) != 0) {
-					SelectCategory (item.Category.Name);
+				} else {
+					var selCatName = categoryComboBox.Model.GetValue (iter, 0) as string;
+					if (selCatName != item.Category.Name)
+						SelectCategory (item.Category.Name);
 				}
 			}
 			
-			Task task = CreateTask (newTaskText, item.Category);
-			
+			var task = CreateTask (newTaskText, item.Category);
 			HighlightTask (task);
 		}
 		
 		void OnCategoryChanged (object sender, EventArgs args)
 		{
-			Gtk.TreeIter iter;
+			TreeIter iter;
 			if (!categoryComboBox.GetActiveIter (out iter))
 				return;
 			
-			Category category =
-				categoryComboBox.Model.GetValue (iter, 0) as Category;
+			Category category = null;
+			if (categoryComboBox.Model.GetPath (iter) != TreePath.NewFirst ()) {
+				var catName = categoryComboBox.Model.GetValue (iter, 0) as string;
+				category = GtkApplication.Instance.Backend.Categories.SingleOrDefault (c => c.Name == catName);
+			}
 				
 			// Update the TaskGroups so they can filter accordingly
 			overdueGroup.Refilter (category);
@@ -998,8 +994,8 @@ namespace Tasque
 			completedTaskGroup.Refilter (category);
 			
 			// Save the selected category in preferences
-			GtkApplication.Instance.Preferences.Set (Preferences.SelectedCategoryKey,
-										 category.Name);
+			string prefCatName = category == null ? "All" : category.Name;
+			GtkApplication.Instance.Preferences.Set (Preferences.SelectedCategoryKey, prefCatName);
 		}
 		
 		void OnRowActivated (object sender, Gtk.RowActivatedArgs args)
@@ -1079,7 +1075,7 @@ namespace Tasque
 					 * is pre-filtered as to not contain the current category and the AllCategory.
 					 */
 					var cvCategories = new CollectionView<Category> (GtkApplication.Instance.Backend.Categories);
-					cvCategories.Filter = c => c != null && !(c is AllCategory) && !c.Contains (clickedTask);
+					cvCategories.Filter = c => c != null && !(c == null) && !c.Contains (clickedTask);
 
 					// The categories submenu is only created in case we actually provide at least one category.
 					if (cvCategories.Count > 0) {

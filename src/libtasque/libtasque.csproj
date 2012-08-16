@@ -71,7 +71,6 @@
     <Compile Include="TaskGroupModel.cs" />
     <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="Application.cs" />
-    <Compile Include="AllCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

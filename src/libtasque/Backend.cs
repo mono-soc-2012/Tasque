@@ -136,9 +136,10 @@ namespace Tasque
 			var task = CreateTaskCore (taskName);
 
 			bool isEmpty = true;
-			foreach (var cat in categories) {
-				if (cat == null)
-					throw new ArgumentException ("One of the provided categories is null.", "categories");
+			foreach (var item in categories) {
+				Category cat = item;
+				if (item == null)
+					cat = defaultCategory;
 
 				cat.Add (task);
 				isEmpty = false;
@@ -171,7 +172,7 @@ namespace Tasque
 		public abstract void Refresh ();
 
 		protected abstract Task CreateTaskCore (string taskName);
-
+		
 		protected void OnBackendInitialized () {
 			if (BackendInitialized != null)
 				BackendInitialized (this, EventArgs.Empty);
