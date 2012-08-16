@@ -46,7 +46,6 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="DateFormatters\DayFormatter.cs" />
     <Compile Include="DateFormatters\DateSeparatedFormatter.cs" />
-    <Compile Include="INativeApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
@@ -56,7 +55,6 @@
     </Compile>
     <Compile Include="IBackendPreferences.cs" />
     <Compile Include="Backend.cs" />
-    <Compile Include="InternetMode.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="TaskNote.cs" />
