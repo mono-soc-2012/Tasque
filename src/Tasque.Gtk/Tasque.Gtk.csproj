@@ -114,12 +114,14 @@
     <Compile Include="GtkTray.cs" />
     <Compile Include="GtkApplication.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GtkWinDebug' or '$(Configuration)' == 'GtkWinRelease' ">
+  <ItemGroup Condition=" '$(Configuration)' == 'WinDebug' or '$(Configuration)' == 'WinRelease' ">
     <Compile Include="GtkWinApplication.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'GtkLinuxDebug' or '$(Configuration)' == 'GtkLinuxRelease' ">
+  <ItemGroup Condition=" '$(Configuration)' == 'LinuxDebug' or '$(Configuration)' == 'LinuxRelease' ">
     <Compile Include="GtkLinuxApplication.cs" />
     <Compile Include="RemoteControl.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(EnableAppIndicator)' ">
     <Compile Include="AppIndicatorTray.cs" />
   </ItemGroup>
   <ItemGroup>
