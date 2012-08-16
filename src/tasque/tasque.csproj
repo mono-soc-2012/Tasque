@@ -85,5 +85,9 @@
       <Project>{1F6FC2AE-0BB5-4536-939F-1D9FE893F7DD}</Project>
       <Name>Tasque.MonoMac</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Addins\DummyBackend\DummyBackend.csproj">
+      <Project>{91F6578A-2993-40A4-BE49-64028923EB87}</Project>
+      <Name>DummyBackend</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
