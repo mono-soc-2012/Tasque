@@ -132,7 +132,8 @@ namespace Tasque
 			foreach (var i in items) {
 				if (item.CompareTo (i) == -1)
 					break;
-				index++;
+				if (!Equals (item, i))
+					index++;
 			}
 			return index;
 		}
