@@ -23,7 +23,6 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System;
 using System.IO;
 using System.Text;
@@ -142,6 +141,9 @@ namespace Tasque.Build
 		}
 
 		[Required]
+		public ITaskItem DataDir { get; set; }
+		
+		[Required]
 		public ITaskItem GlobalDefinesFile { get; set; }
 
 		[Required]
@@ -167,6 +169,8 @@ namespace Tasque.Build
 			SetValue ("@website@", Website.ItemSpec);
 
 			SetValue ("@authors@", authors);
+			
+			SetValue ("@datadir@", DataDir.ItemSpec);
 
 			if (!WriteGlobalDefines ())
 				return false;

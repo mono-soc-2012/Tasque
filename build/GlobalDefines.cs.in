@@ -30,8 +30,8 @@ using System.Collections.ObjectModel;
 namespace Tasque {
 	static class GlobalDefines {
 		public const string Version = "@version@";
-//		public const string DataDir	= "@datadir@";
-//		public const string LocaleDir = "@datadir@/locale";
+		public const string DataDir	= "@datadir@";
+		public const string LocaleDir = "@datadir@/locale";
 //		public const string SoundDir = "@datadir@/tasque/sounds";
 		public const string CopyrightInfo = @"@copyrightinfo@";
 		public const string License = @"@license@";

@@ -28,6 +28,11 @@ to the command line, thus yielding
 as the build command.
 
 
+Other options:
+	/property:DataDir=pathToDataDir			(datadir contains resources, translation, ...)
+
+
+
 Instructions below are deprecated.
 --------------------------------------------------------
 

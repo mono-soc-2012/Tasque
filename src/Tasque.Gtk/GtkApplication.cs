@@ -53,7 +53,9 @@ namespace Tasque
 		
 		protected override void OnInitialize ()
 		{
-//			Catalog.Init ("tasque", GlobalDefines.LocaleDir);
+			Catalog.Init ("tasque", GlobalDefines.LocaleDir);
+			Trace.WriteLine ("Locale dir: " + GlobalDefines.LocaleDir);
+			
 			Gtk.Application.Init ();
 			GLib.Idle.Add (delegate {
 				InitializeIdle ();
