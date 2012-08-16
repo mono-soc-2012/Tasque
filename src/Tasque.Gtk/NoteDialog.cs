@@ -60,7 +60,7 @@ namespace Tasque
 			
 			VBox.PackStart (sw, true, true, 0);
 
-			if(task.SupportsMultipleNotes) {
+			if(task.NoteSupport == TaskNoteSupport.Multiple) {
 				addButton = new Gtk.Button(Gtk.Stock.Add);
 				addButton.Show();
 				this.ActionArea.PackStart(addButton);
@@ -116,7 +116,7 @@ namespace Tasque
 		{
 			NoteWidget nWidget = sender as NoteWidget;
 			try {
-				task.DeleteNote(nWidget.Note);
+				task.RemoveNote (nWidget.Note);
 				targetVBox.Remove (nWidget);
 			} catch(Exception e) {
 				Debug.WriteLine("Unable to delete the note");

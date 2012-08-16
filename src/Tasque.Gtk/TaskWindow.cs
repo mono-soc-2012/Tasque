@@ -38,6 +38,7 @@ using Tasque;
 using CollectionTransforms;
 using System.Collections;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Tasque
 {
@@ -236,7 +237,7 @@ namespace Tasque
 			backend.BackendSyncFinished += OnBackendSyncFinished;
 			// if the backend is already initialized, go ahead... initialize
 			if(backend.Initialized) {
-				OnBackendInitialized();
+				OnBackendInitialized(null, null);
 			}
 			
 			GtkApplication.Instance.Preferences.SettingChanged += OnSettingChanged;
@@ -647,9 +648,7 @@ namespace Tasque
 			// but I never see anything called unknown
 			if(category != null && category.Name != null) {
 				crt.Text =
-					string.Format ("{0} ({1})",
-								   category.Name,
-								   "HERE SHOULD BE THE TASK COUNT");
+					string.Format ("{0} ({1})", category.Name, category.Count);
 			} else
 				crt.Text = "unknown";
 		}
@@ -693,7 +692,7 @@ namespace Tasque
 			}
 		}
 		
-		void RebuildAddTaskMenu (CollectionView<Category> categories)
+		void RebuildAddTaskMenu (IEnumerable<Category> categories)
 		{
 			Menu menu = new Menu ();
 			
@@ -701,7 +700,7 @@ namespace Tasque
 				if (cat is AllCategory)
 					continue;
 				
-				CategoryMenuItem item = new CategoryMenuItem ((Category)cat);
+				var item = new CategoryMenuItem ((Category)cat);
 				item.Activated += OnNewTaskByCategory;
 				item.ShowAll ();
 				menu.Add (item);
@@ -1080,7 +1079,7 @@ namespace Tasque
 					 * is pre-filtered as to not contain the current category and the AllCategory.
 					 */
 					var cvCategories = new CollectionView<Category> (GtkApplication.Instance.Backend.Categories);
-					cvCategories.Filter = c => c != null && !(c is AllCategory) && !c.Equals(clickedTask.Category);
+					cvCategories.Filter = c => c != null && !(c is AllCategory) && !c.Contains (clickedTask);
 
 					// The categories submenu is only created in case we actually provide at least one category.
 					if (cvCategories.Count > 0) {
@@ -1156,19 +1155,19 @@ namespace Tasque
 			dialog.Destroy ();
 		}
 		
-		private void OnBackendInitialized()
+		private void OnBackendInitialized(object sender, EventArgs e)
 		{		
 			backend.BackendInitialized -= OnBackendInitialized;
 			PopulateWindow();
-			OnBackendSyncFinished (); // To update the statusbar
+			OnBackendSyncFinished (null, null); // To update the statusbar
 		}
 		
-		private void OnBackendSyncStarted ()
+		private void OnBackendSyncStarted (object sender, EventArgs e)
 		{
 			TaskWindow.ShowStatus (Catalog.GetString ("Loading tasks..."));
 		}
 		
-		private void OnBackendSyncFinished ()
+		private void OnBackendSyncFinished (object sender, EventArgs e)
 		{
 			Debug.WriteLine("Backend sync finished");
 			if (GtkApplication.Instance.Backend.Configured) {
@@ -1177,7 +1176,7 @@ namespace Tasque
 				status = string.Format (Catalog.GetString ("Tasks loaded: {0}"), now);
 				TaskWindow.lastLoadedTime = now;
 				TaskWindow.ShowStatus (status);
-				RebuildAddTaskMenu ((CollectionView<Category>)GtkApplication.Instance.Backend.Categories);
+				RebuildAddTaskMenu (GtkApplication.Instance.Backend.Categories);
 				addTaskEntry.Sensitive = true;
 				categoryComboBox.Sensitive = true;
 				// Keep insensitive text color
@@ -1203,12 +1202,14 @@ namespace Tasque
 			args.RetVal = false;
 		}
 
-		private void OnChangeCategory(object sender, EventArgs args)
+		private void OnChangeCategory (object sender, EventArgs args)
 		{
 			if (clickedTask == null)
 				return;
-
-			clickedTask.Category = ((CategoryMenuItem)sender).Category;
+			
+			var oldCategory = GtkApplication.Instance.Backend.Categories.Single (c => c.Contains (clickedTask));
+			oldCategory.Remove (clickedTask);
+			(((CategoryMenuItem)sender).Category).Add (clickedTask);
 		}
 		#endregion // Event Handlers
 		
