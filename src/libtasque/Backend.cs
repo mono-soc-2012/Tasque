@@ -254,12 +254,12 @@ namespace Tasque
 		void RegisterCategoriesChanged (INotifyCollectionChanged source)
 		{
 			categoriesChangedSources.Add (source);
-			source.CollectionChanged += HandleCategoriesChanged;
+			source.CollectionChanged += HandleTaskCollectionChanged;
 		}
 
 		void UnRegisterCategoriesChanged (INotifyCollectionChanged source)
 		{
-			source.CollectionChanged -= HandleCategoriesChanged;
+			source.CollectionChanged -= HandleTaskCollectionChanged;
 			categoriesChangedSources.Remove (source);
 		}
 
