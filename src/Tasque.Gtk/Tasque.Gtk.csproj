@@ -7,7 +7,7 @@
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputType>Library</OutputType>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>..\..\build\bin</OutputPath>
     <AssemblyName>Tasque.Gtk</AssemblyName>
     <RootNamespace>Tasque</RootNamespace>
     <ReleaseVersion>0.1.10</ReleaseVersion>
@@ -135,11 +135,11 @@
       <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
       <Name>libtasque</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+    <ProjectReference Include="..\ObservableTransformCollections\src\CollectionView\CollectionView.csproj">
       <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
       <Name>CollectionView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
+    <ProjectReference Include="..\ObservableTransformCollections\src\TreeModelListAdapter\TreeModelListAdapter.csproj">
       <Project>{95B669DC-0F9F-4C26-B31E-34CFA54112E8}</Project>
       <Name>TreeModelListAdapter</Name>
     </ProjectReference>

@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>..\..\build\bin</OutputPath>
     <RootNamespace>Tasque</RootNamespace>
     <AssemblyName>libtasque</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>
@@ -111,7 +111,7 @@
     <Copy SourceFiles="@(DocsSourcesFile)" DestinationFolder="$(OutputPath)" />
   </Target>
   <ItemGroup>
-    <ProjectReference Include="..\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+    <ProjectReference Include="..\ObservableTransformCollections\src\CollectionView\CollectionView.csproj">
       <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
       <Name>CollectionView</Name>
     </ProjectReference>

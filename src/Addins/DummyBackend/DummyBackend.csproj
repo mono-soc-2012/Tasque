@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{91F6578A-2993-40A4-BE49-64028923EB87}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>..\..\..\build\bin</OutputPath>
     <RootNamespace>DummyBackend</RootNamespace>
     <AssemblyName>DummyBackend</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>

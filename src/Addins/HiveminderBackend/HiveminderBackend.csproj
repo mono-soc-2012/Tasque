@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B3107E6C-08DD-4264-A8D5-467BD96F33CA}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <OutputPath>bin</OutputPath>
+    <OutputPath>..\..\..\build\bin</OutputPath>
     <RootNamespace>HiveminderBackend</RootNamespace>
     <AssemblyName>HiveminderBackend</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>

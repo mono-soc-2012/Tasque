@@ -30,13 +30,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ObservableCollectionTransforms", "ObservableCollectionTransforms", "{575AA970-031A-4E4A-8409-75D749D3C23E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform", "src\ObservableTransformCollections\CollectionTransform\CollectionTransform.csproj", "{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform", "src\ObservableTransformCollections\src\CollectionTransform\CollectionTransform.csproj", "{6CAD6147-9A67-42B7-BEAA-CAF4100B48CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform.Tests", "src\ObservableTransformCollections\CollectionTransform.Tests\CollectionTransform.Tests.csproj", "{0EFB56A9-B582-465B-AC9D-7609ABC121EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionTransform.Tests", "src\ObservableTransformCollections\tests\CollectionTransform.Tests\CollectionTransform.Tests.csproj", "{0EFB56A9-B582-465B-AC9D-7609ABC121EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionView", "src\ObservableTransformCollections\CollectionView\CollectionView.csproj", "{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionView", "src\ObservableTransformCollections\src\CollectionView\CollectionView.csproj", "{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeModelListAdapter", "src\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj", "{95B669DC-0F9F-4C26-B31E-34CFA54112E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeModelListAdapter", "src\ObservableTransformCollections\src\TreeModelListAdapter\TreeModelListAdapter.csproj", "{95B669DC-0F9F-4C26-B31E-34CFA54112E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RtmNet", "src\RtmNet\RtmNet.csproj", "{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}"
 EndProject
