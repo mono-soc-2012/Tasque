@@ -165,6 +165,8 @@ namespace Tasque
 		}
 
 		public abstract void Complete ();
+		
+		public abstract TaskNote CreateNote (string text);
 
 		public abstract void Delete ();
 

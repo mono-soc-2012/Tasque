@@ -55,5 +55,10 @@ namespace Tasque.Backends.Dummy
 			State = TaskState.Deleted;
 		}
 		#endregion
+		
+		public override TaskNote CreateNote (string text)
+		{
+			return new DummyNote (text);
+		}
 	}
 }

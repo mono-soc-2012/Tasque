@@ -137,20 +137,14 @@ namespace Tasque
 		{
 			NoteWidget nWidget = sender as NoteWidget;
 
-			// if null, add a note, else, modify it
-			if(nWidget.Note == null) {
+			// if null, add a note
+			if (nWidget.Note == null) {
 				try {
-					TaskNote note = task.CreateNote(nWidget.Text);
+					var note = task.CreateNote (nWidget.Text);
+					task.AddNote (note);
 					nWidget.Note = note;
 				} catch(Exception e) {
 					Debug.WriteLine("Unable to create a note");
-					Debug.WriteLine(e.ToString());
-				}
-			} else {
-				try {
-					task.SaveNote(nWidget.Note);
-				} catch(Exception e) {
-					Debug.WriteLine("Unable to save note");
 					Debug.WriteLine(e.ToString());
 				}
 			}
