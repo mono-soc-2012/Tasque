@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using Gtk;
 using Mono.Unix;
+using System.Diagnostics;
+using CollectionTransforms;
+using System.Collections.Specialized;
 
 namespace Tasque
 {
@@ -18,7 +21,7 @@ namespace Tasque
 		
 		private static Gdk.Pixbuf[] inactiveAnimPixbufs;
 		
-		private Gtk.TreeModelFilter modelFilter;
+		CollectionView<Task> modelFilter;
 		private Category filterCategory;	
 		private Task taskBeingEdited = null;
 		private bool toggled;
@@ -38,7 +41,7 @@ namespace Tasque
 		
 		public event EventHandler NumberOfTasksChanged;
 
-		public TaskTreeView (Gtk.TreeModel model)
+		public TaskTreeView (CollectionView<Task> model)
 			: base ()
 		{		
 
@@ -61,13 +64,12 @@ namespace Tasque
 			
 			filterCategory = null;
 			
-			modelFilter = new Gtk.TreeModelFilter (model, null);
-			modelFilter.VisibleFunc = FilterFunc;
+			modelFilter = new CollectionView<Task> (model);
+			modelFilter.Filter = FilterFunc;
 			
-			modelFilter.RowInserted += OnRowInsertedHandler;
-			modelFilter.RowDeleted += OnRowDeletedHandler;
+			modelFilter.CollectionChanged += HandleModelFilterChanged;
 			
-			//Model = modelFilter
+			Model = new TreeModelListAdapter<Task> (modelFilter);
 			
 			Selection.Mode = Gtk.SelectionMode.Single;
 			RulesHint = false;
@@ -249,6 +251,18 @@ namespace Tasque
 			AppendColumn (column);
 		}
 
+		void HandleModelFilterChanged (object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action) {
+			case NotifyCollectionChangedAction.Add:
+				OnRowInsertedHandler ();
+				break;
+			case NotifyCollectionChangedAction.Remove:
+				OnRowDeletedHandler ();
+				break;
+			}
+		}
+
 		void CellRenderer_EditingStarted (object o, EditingStartedArgs args)
 		{
 			if (!toggled)
@@ -303,13 +317,12 @@ namespace Tasque
 		public void Refilter (Category selectedCategory)
 		{
 			this.filterCategory = selectedCategory;
-			Model = modelFilter;
-			modelFilter.Refilter ();
+			modelFilter.Refresh ();
 		}
 		
 		public int GetNumberOfTasks ()
 		{
-			return modelFilter.IterNChildren ();
+			return modelFilter.Count;
 		}
 		#endregion // Public Methods
 		
@@ -582,12 +595,9 @@ namespace Tasque
 			return -1;
 		}
 		
-		protected virtual bool FilterFunc (Gtk.TreeModel model,
-										   Gtk.TreeIter iter)
+		protected virtual bool FilterFunc (Task task)
 		{
 			// Filter out deleted tasks
-			Task task = model.GetValue (iter, 0) as Task;
-
 			if (task == null) {
 				Trace.TraceError ("FilterFunc: task at iter was null");
 				return false;
@@ -601,7 +611,7 @@ namespace Tasque
 			if (filterCategory == null)
 				return true;
 			
-			return filterCategory.ContainsTask (task);
+			return filterCategory.Contains (task);
 		}
 		#endregion // Private Methods
 		
@@ -781,7 +791,7 @@ namespace Tasque
 			}
 		}
 		
-		void OnRowInsertedHandler (object sender, Gtk.RowInsertedArgs args)
+		void OnRowInsertedHandler ()
 		{
 			if (NumberOfTasksChanged == null)
 				return;
@@ -789,7 +799,7 @@ namespace Tasque
 			NumberOfTasksChanged (this, EventArgs.Empty);
 		}
 		
-		void OnRowDeletedHandler (object sender, Gtk.RowDeletedArgs args)
+		void OnRowDeletedHandler ()
 		{
 			if (NumberOfTasksChanged == null)
 				return;

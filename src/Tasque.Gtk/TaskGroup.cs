@@ -110,8 +110,7 @@ namespace Tasque
 			//
 			// Group TreeView
 			//
-			var adapter = new TreeModelListAdapter<Task> (filteredTasks);
-			treeView = new TaskTreeView (adapter);
+			treeView = new TaskTreeView (filteredTasks);
 			treeView.Show ();
 			PackStart (treeView, true, true, 0);
 			
