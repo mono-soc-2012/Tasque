@@ -139,17 +139,11 @@ Global
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.MonoMacRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}.MonoMacRelease|Any CPU.Build.0 = Release|Any CPU
 		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
-		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
-		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
 		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
-		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
-		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
 		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
-		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
 		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
-		{89054FCE-E9A3-47E5-8DEF-75FDB000F82A}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{91F6578A-2993-40A4-BE49-64028923EB87}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
@@ -216,17 +210,11 @@ Global
 		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacDebug|Any CPU.ActiveCfg = LinuxDebug|Any CPU
 		{B19B9840-669D-4984-9772-E1F55193A67F}.MonoMacRelease|Any CPU.ActiveCfg = LinuxRelease|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxDebug|Any CPU.ActiveCfg = GtkLinuxDebug|Any CPU
-		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxDebug|Any CPU.Build.0 = GtkLinuxDebug|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxRelease|Any CPU.ActiveCfg = GtkLinuxRelease|Any CPU
-		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkLinuxRelease|Any CPU.Build.0 = GtkLinuxRelease|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkWinDebug|Any CPU.ActiveCfg = GtkWinDebug|Any CPU
-		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkWinDebug|Any CPU.Build.0 = GtkWinDebug|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkWinRelease|Any CPU.ActiveCfg = GtkWinRelease|Any CPU
-		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.GtkWinRelease|Any CPU.Build.0 = GtkWinRelease|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.MonoMacDebug|Any CPU.ActiveCfg = MonoMacDebug|Any CPU
-		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.MonoMacDebug|Any CPU.Build.0 = MonoMacDebug|Any CPU
 		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.MonoMacRelease|Any CPU.ActiveCfg = MonoMacRelease|Any CPU
-		{B3107E6C-08DD-4264-A8D5-467BD96F33CA}.MonoMacRelease|Any CPU.Build.0 = MonoMacRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{91F6578A-2993-40A4-BE49-64028923EB87} = {EECEC2EF-0F00-49F1-814F-3140F45C4F71}

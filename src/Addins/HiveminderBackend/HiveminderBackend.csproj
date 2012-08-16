@@ -56,17 +56,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="service\Group.cs" />
-    <None Include="service\Hiveminder.cs" />
-    <None Include="service\HiveminderException.cs" />
-    <None Include="service\Task.cs" />
-    <None Include="HmBackend.cs" />
-    <None Include="HmCategory.cs" />
-    <None Include="HmNote.cs" />
-    <None Include="HmPreferencesWidget.cs" />
-    <None Include="HmTask.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\..\build\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
@@ -74,6 +63,15 @@
     <Compile Include="..\..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
+    <Compile Include="HmBackend.cs" />
+    <Compile Include="HmCategory.cs" />
+    <Compile Include="HmNote.cs" />
+    <Compile Include="HmPreferencesWidget.cs" />
+    <Compile Include="HmTask.cs" />
+    <Compile Include="service\Group.cs" />
+    <Compile Include="service\Hiveminder.cs" />
+    <Compile Include="service\HiveminderException.cs" />
+    <Compile Include="service\Task.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

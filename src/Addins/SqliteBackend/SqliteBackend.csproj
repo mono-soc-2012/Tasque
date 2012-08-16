@@ -56,13 +56,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="Database.cs" />
-    <None Include="SqliteBackend.cs" />
-    <None Include="SqliteCategory.cs" />
-    <None Include="SqliteNote.cs" />
-    <None Include="SqliteTask.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -73,5 +66,10 @@
     <Compile Include="..\..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
+    <Compile Include="Database.cs" />
+    <Compile Include="SqliteBackend.cs" />
+    <Compile Include="SqliteCategory.cs" />
+    <Compile Include="SqliteNote.cs" />
+    <Compile Include="SqliteTask.cs" />
   </ItemGroup>
 </Project>
