@@ -33,9 +33,9 @@ namespace Tasque
 {
 	class Program
 	{
-		static NativeApplication CreateApplication ()
+		static Application CreateApplication ()
 		{
-			NativeApplication app;
+			Application app;
 #if OSX
 			app = new OSXApplication ();
 #elif GTKWIN
@@ -108,7 +108,7 @@ namespace Tasque
 			}
 		}
 		
-		static NativeApplication application;
+		static Application application;
 		static object lockObject = new object ();
 	}
 }
