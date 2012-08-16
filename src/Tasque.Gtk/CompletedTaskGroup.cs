@@ -5,15 +5,12 @@
 //
 
 using System;
-using Gtk;
-using Mono.Unix;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Collections;
-using CollectionTransforms;
 using System.ComponentModel;
-using System.Collections.Generic;
+using System.Linq;
+using Mono.Unix;
+using Gtk;
+using CollectionTransforms;
 
 namespace Tasque
 {

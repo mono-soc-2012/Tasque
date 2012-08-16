@@ -27,6 +27,7 @@
 // THE SOFTWARE.
 using System;
 using Tasque;
+using System.Diagnostics;
 
 namespace Tasque.Backends.Dummy
 {
@@ -34,7 +35,6 @@ namespace Tasque.Backends.Dummy
 	{
 		public DummyTask(string name) : base (name, TaskNoteSupport.Multiple) {}
 		
-		#region Public Methods
 		public override void Activate ()
 		{
 			Debug.WriteLine ("DummyTask.Activate ()");
@@ -54,7 +54,6 @@ namespace Tasque.Backends.Dummy
 			Debug.WriteLine ("DummyTask.Delete ()");
 			State = TaskState.Deleted;
 		}
-		#endregion
 		
 		public override TaskNote CreateNote (string text)
 		{

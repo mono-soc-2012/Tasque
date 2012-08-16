@@ -71,7 +71,7 @@ namespace Tasque
 			try {
 				Process.Start (url);
 			} catch (Exception e) {
-				Trace.TraceError ("Error opening url [{0}]:\n{1}", url, e.ToString ());
+				Trace.TraceError ("Error opening url [{0}]:\n{1}", url, e);
 			}
 		}
 		
@@ -264,13 +264,13 @@ namespace Tasque
 			backends.AddRange (GetBackendsFromAssembly (tasqueAssembly));
 			
 			// Look through the assemblies located in the same directory as Tasque.exe.
-			Debug.WriteLine ("Tasque.exe location: {0}", tasqueAssembly.Location);
+			Debug.WriteLine ("Tasque.exe location: " + tasqueAssembly.Location);
 			
 			var loadPathInfo = Directory.GetParent (tasqueAssembly.Location);
-			Trace.TraceInformation ("Searching for Backend DLLs in: {0}", loadPathInfo.FullName);
+			Trace.TraceInformation ("Searching for Backend DLLs in: " + loadPathInfo.FullName);
 			
 			foreach (var fileInfo in loadPathInfo.GetFiles ("*.dll")) {
-				Trace.TraceInformation ("\tReading {0}", fileInfo.FullName);
+				Trace.TraceInformation ("\tReading " + fileInfo.FullName);
 				Assembly asm = null;
 				try {
 					asm = Assembly.LoadFile (fileInfo.FullName);
@@ -310,7 +310,7 @@ namespace Tasque
 				if (type.GetInterface ("Tasque.Backends.IBackend") == null)
 					continue;
 				
-				Debug.WriteLine ("Found Available Backend: {0}", type.ToString ());
+				Debug.WriteLine ("Found Available Backend: {0}", type);
 				
 				Backend availableBackend = null;
 				try {

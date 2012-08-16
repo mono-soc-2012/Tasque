@@ -1,8 +1,7 @@
 // NoteDialog.cs created with MonoDevelop
 // User: boyd at 5:24 PM 2/13/2008
-
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using Mono.Unix;
 
 namespace Tasque

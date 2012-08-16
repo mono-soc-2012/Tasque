@@ -35,6 +35,7 @@
 using System;
 using Gdk;
 using Mono.Unix;
+using System.Diagnostics;
 
 namespace Tasque
 {
