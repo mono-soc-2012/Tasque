@@ -115,12 +115,16 @@ namespace Tasque
 				}
 			}
 		}
+		
+		public uint TimerID { get; set; }
 
 		public TaskNoteSupport NoteSupport { get; private set; }
 		#endregion
 		
 		#region Methods
 		public abstract void Activate ();
+		
+		public abstract void Inactivate ();
 
 		public void AddNote (TaskNote note)
 		{

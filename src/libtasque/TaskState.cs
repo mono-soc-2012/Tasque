@@ -36,6 +36,13 @@ namespace Tasque
 		Active,
 		
 		/// <summary>
+		/// A task that's in limbo...the user has clicked that it should be
+		/// completed, but we're delaying so the user can get a visual of what's
+		/// gonna happen.  This feature ROCKS!
+		/// </summary>
+		Inactive,
+		
+		/// <summary>
 		/// A completed task.
 		/// </summary>
 		Completed,

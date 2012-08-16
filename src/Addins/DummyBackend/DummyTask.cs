@@ -42,6 +42,13 @@ namespace Tasque.Backends.Dummy
 			State = TaskState.Active;
 		}
 		
+		public override void Inactivate ()
+		{
+			Debug.WriteLine ("DummyTask.Inactivate ()");
+			CompletionDate = DateTime.Now;
+			State = TaskState.Inactive;
+		}
+		
 		public override void Complete ()
 		{
 			Debug.WriteLine ("DummyTask.Complete ()");
