@@ -108,7 +108,7 @@
     <None Include="docs\sources\ns-Tasque.xml" />
     <DocsSourcesFile Include="docs\libtasque.sources" />
   </ItemGroup>
-<!--  <Target Name="AfterBuild">
+  <!--  <Target Name="AfterBuild">
     <Copy SourceFiles="@(DocsSourcesFile)" DestinationFolder="$(OutputPath)" />
   </Target>-->
   <ItemGroup>

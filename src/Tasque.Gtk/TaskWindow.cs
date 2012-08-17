@@ -30,13 +30,11 @@
  *  DEALINGS IN THE SOFTWARE.
  */
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using Mono.Unix;
-using Gdk;
 using Gtk;
 using CollectionTransforms;
 
