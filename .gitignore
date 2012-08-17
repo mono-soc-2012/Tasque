@@ -32,6 +32,7 @@ bin/
 *.pdb
 *.mdb
 *.mo
+/build/GlobalDefines.cs
 
 # include binary dependencies
 !/src/tasque/lib/*
