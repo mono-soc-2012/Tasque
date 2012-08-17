@@ -149,4 +149,5 @@
     <Folder Include="Libraries\" />
     <Folder Include="Libraries\ObservableCollectionTransforms\" />
   </ItemGroup>
+  <Target Name="Clean" />
 </Project>
