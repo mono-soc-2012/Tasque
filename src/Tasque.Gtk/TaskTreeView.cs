@@ -66,10 +66,9 @@ namespace Tasque
 			
 			modelFilter = new CollectionView<Task> (model);
 			modelFilter.Filter = FilterFunc;
-			
 			modelFilter.CollectionChanged += HandleModelFilterChanged;
-			
 			Model = new TreeModelListAdapter<Task> (modelFilter);
+			modelFilter.IsObserving = true;
 			
 			Selection.Mode = Gtk.SelectionMode.Single;
 			RulesHint = false;

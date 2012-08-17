@@ -34,6 +34,7 @@ namespace Tasque
 		{
 			var cv = new CollectionView<Task> (tasks);
 			cv.SortDescriptions.Add (new SortDescription ("CompletionDate", ListSortDirection.Descending));
+			cv.IsObserving = true;
 			return cv;
 		}
 		

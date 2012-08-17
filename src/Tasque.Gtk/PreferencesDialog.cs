@@ -596,8 +596,9 @@ namespace Tasque
 			
 			Backend backend = backendComboMap [selectedBackend];
 			filteredCategories = new CollectionView<Category> (backend.Categories);
+			filteredCategories.IsObserving = true;
 			// Filter out the AllCategory
-			filteredCategories.Filter = c => c != null && !(c == null);
+			filteredCategories.Filter = c => c != null;
 			var adapter = new TreeModelListAdapter<Category> (filteredCategories);
 			categoriesTree.Model = adapter;
 		}

@@ -1075,8 +1075,9 @@ namespace Tasque
 					 * is pre-filtered as to not contain the current category and the AllCategory.
 					 */
 					var cvCategories = new CollectionView<Category> (GtkApplication.Instance.Backend.Categories);
-					cvCategories.Filter = c => c != null && !(c == null) && !c.Contains (clickedTask);
-
+					cvCategories.Filter = c => c != null && !c.Contains (clickedTask);
+					cvCategories.IsObserving = true;
+					
 					// The categories submenu is only created in case we actually provide at least one category.
 					if (cvCategories.Count > 0) {
 						Menu categoryMenu = new Menu();
