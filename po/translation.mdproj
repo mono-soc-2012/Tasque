@@ -10,7 +10,6 @@
     <relPath>locale</relPath>
     <outputType>RelativeToOutput</outputType>
     <packageName>tasque</packageName>
-    <ReleaseVersion>0.1.10</ReleaseVersion>
     <translations>
       <translations>
         <Translation isoCode="ca" />
@@ -54,5 +53,56 @@
       </projectInformations>
     </projectInformations>
   </PropertyGroup>
-  <Target Name="Build" />
+  <!--
+  Everything above is for the MD translation project serializer, and isn't really valid MSBuild.
+  The real MSBuild project is below. Need to update MD to serialize this instead.
+  -->
+  <PropertyGroup>
+    <Prefix Condition=" '$(Prefix)' == '' ">..\build\out\</Prefix>
+    <OutputPath>$(Prefix)\share\locale</OutputPath>
+    <ReleaseVersion>0.1.10</ReleaseVersion>
+  </PropertyGroup>
+  <UsingTask AssemblyFile="..\build\bin\Tasque.Build.dll" TaskName="Tasque.Build.CompileTranslations" />
+  <UsingTask AssemblyFile="..\build\bin\Tasque.Build.dll" TaskName="Tasque.Build.DeleteCompiledTranslations" />
+  <ItemGroup>
+    <GettextTranslation Include="ca.po" />
+    <GettextTranslation Include="ca@valencia.po" />
+    <GettextTranslation Include="cs.po" />
+    <GettextTranslation Include="da.po" />
+    <GettextTranslation Include="de.po" />
+    <GettextTranslation Include="el.po" />
+    <GettextTranslation Include="en_GB.po" />
+    <GettextTranslation Include="eo.po" />
+    <GettextTranslation Include="es.po" />
+    <GettextTranslation Include="et.po" />
+    <GettextTranslation Include="fi.po" />
+    <GettextTranslation Include="fr.po" />
+    <GettextTranslation Include="gl.po" />
+    <GettextTranslation Include="id.po" />
+    <GettextTranslation Include="it.po" />
+    <GettextTranslation Include="ja.po" />
+    <GettextTranslation Include="nb.po" />
+    <GettextTranslation Include="nds.po" />
+    <GettextTranslation Include="nl.po" />
+    <GettextTranslation Include="ru.po" />
+    <GettextTranslation Include="pl.po" />
+    <GettextTranslation Include="pt.po" />
+    <GettextTranslation Include="pt_BR.po" />
+    <GettextTranslation Include="ro.po" />
+    <GettextTranslation Include="sl.po" />
+    <GettextTranslation Include="sr.po" />
+    <GettextTranslation Include="sr@latin.po" />
+    <GettextTranslation Include="sv.po" />
+    <GettextTranslation Include="th.po" />
+    <GettextTranslation Include="tr.po" />
+    <GettextTranslation Include="zh_CN.po" />
+    <GettextTranslation Include="zh_TW.po" />
+  </ItemGroup>
+  <Target Name="Build">
+    <CompileTranslations GettextCatalogName="tasque" OutputPath="$(OutputPath)" TranslationSource="@(GettextTranslation)" />
+  </Target>
+  <Target Name="Clean">
+    <DeleteCompiledTranslations GettextCatalogName="tasque" OutputPath="$(OutputPath)" TranslationSource="@(GettextTranslation)" />
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
 </Project>

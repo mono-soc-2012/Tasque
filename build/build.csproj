@@ -98,6 +98,8 @@
   <ItemGroup>
     <Compile Include="SetDataAtBuildTime.cs" />
     <Compile Include="LoadGitSubmodules.cs" />
+    <Compile Include="CompileTranslations.cs" />
+    <Compile Include="DeleteCompiledTranslations.cs" />
     <Compile Include="BuildBinScript.cs" />
     <Compile Include="CheckPrefix.cs" />
   </ItemGroup>

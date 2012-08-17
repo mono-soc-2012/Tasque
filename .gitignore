@@ -31,6 +31,7 @@ bin/
 *.dll
 *.pdb
 *.mdb
+*.mo
 
 # include binary dependencies
 !/src/tasque/lib/*

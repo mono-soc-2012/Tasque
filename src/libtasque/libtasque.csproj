@@ -65,6 +65,7 @@
     <Compile Include="ReadOnlySortedNotifyCollection.cs" />
     <Compile Include="..\Options.cs">
       <Link>Options.cs</Link>
+      <Gettext-ScanForTranslations>false</Gettext-ScanForTranslations>
     </Compile>
     <Compile Include="Preferences.cs" />
     <Compile Include="TaskGroupModel.cs" />
