@@ -31,6 +31,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.SetDataAtBuildTime" />
   <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.LoadGitSubmodules" />
+  <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.CheckPrefix" />
   <ItemGroup>
     <None Include="build.csproj" />
     <None Include="..\tasque.sln">
@@ -96,6 +97,7 @@
   <ItemGroup>
     <Compile Include="SetDataAtBuildTime.cs" />
     <Compile Include="LoadGitSubmodules.cs" />
+    <Compile Include="CheckPrefix.cs" />
   </ItemGroup>
   <ItemGroup>
     <GlobalDefines Include="GlobalDefines.cs" />
@@ -115,6 +117,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <Target Name="AfterBuild">
+    <Message Text="Checking prefix..." />
+    <CheckPrefix Prefix="$(Prefix)" />
+    <Message Text="Finished checking prefix." />
     <Message Text="Setting up global definitions..." />
     <SetDataAtBuildTime AuthorsFile="@(Authors)" CopyingFile="@(License)" Prefix="$(Prefix)" GlobalDefinesFile="@(GlobalDefines)" GlobalDefinesFileIn="@(GlobalDefinesIn)" Version="$(ReleaseVersion)" Website="$(Website)" />
     <Message Text="Finished setting up global definitions." />
