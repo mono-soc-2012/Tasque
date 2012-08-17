@@ -2,9 +2,11 @@
  *  TargetWindow.cs
  *
  *  Copyright (C) 2007 Novell, Inc.
+ *  Copyright (C) 2012 Antonius Riha
  *  Written by:
  *		Calvin Gaisford <calvinrg@gmail.com>
  *		Boyd Timothy <btimothy@gmail.com>
+ *		Antonius Riha <antoniusriha@gmail.com>
  ****************************************************************************/
 
 /*  THIS FILE IS LICENSED UNDER THE MIT LICENSE AS OUTLINED IMMEDIATELY BELOW: 
@@ -27,18 +29,16 @@
  *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
  *  DEALINGS IN THE SOFTWARE.
  */
-
 using System;
-using System.Collections.Generic;
-using Gdk;
-using Gtk;
-using Mono.Unix;
-
-using Tasque;
-using CollectionTransforms;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
+using Mono.Unix;
+using Gdk;
+using Gtk;
+using CollectionTransforms;
 
 namespace Tasque
 {
@@ -362,8 +362,10 @@ namespace Tasque
 
 			var categoryComboStore = new ListStore (typeof(string));
 			categoryComboStore.AppendValues (Catalog.GetString ("All"));
-			foreach (var item in GtkApplication.Instance.Backend.Categories)
+			foreach (var item in GtkApplication.Instance.Backend.Categories) {
 				categoryComboStore.AppendValues (item.Name);
+				item.CollectionChanged += HandleCategoryTaskCollectionChanged;
+			}
 			
 			categoryComboBox.Model = categoryComboStore;	
 
@@ -376,6 +378,10 @@ namespace Tasque
 			SelectCategory (selectedCategoryName);
 		}
 
+		void HandleCategoryTaskCollectionChanged (object sender, NotifyCollectionChangedEventArgs e)
+		{
+			categoryComboBox.QueueDraw ();
+		}
 		
 		#region Public Methods
 		/// <summary>
