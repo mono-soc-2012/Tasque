@@ -151,7 +151,6 @@ namespace Tasque
 			about.Authors = authors;
 			about.TranslatorCredits = translators;
 			about.IconName = "tasque";
-			about.SetSizeRequest(300, 300);
 			about.Run ();
 			about.Destroy ();
 		}
