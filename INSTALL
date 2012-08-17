@@ -29,7 +29,8 @@ as the build command.
 
 
 Other options:
-	/property:DataDir=pathToDataDir			(datadir contains resources, translation, ...)
+	/property:Prefix=installationPrefix
+e.g. /usr/local; must be an absolute path; default is /<PathToTasqueRepository>/build/out/)
 
 
 

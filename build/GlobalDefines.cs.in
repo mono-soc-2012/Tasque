@@ -26,13 +26,17 @@
 // THE SOFTWARE.
 
 using System.Collections.ObjectModel;
+using System.IO;
 
-namespace Tasque {
-	static class GlobalDefines {
+namespace Tasque
+{
+	static class GlobalDefines
+	{
+		public const string Prefix = "@prefix@";
+		public static readonly string DataDir = Path.Combine (Prefix, "share");
+		public static readonly string LocaleDir = Path.Combine (DataDir, "locale");
+//		public static readonly string SoundDir = Path.Combine (DataDir, "tasque", "sounds");
 		public const string Version = "@version@";
-		public const string DataDir	= "@datadir@";
-		public const string LocaleDir = "@datadir@/locale";
-//		public const string SoundDir = "@datadir@/tasque/sounds";
 		public const string CopyrightInfo = @"@copyrightinfo@";
 		public const string License = @"@license@";
 		public const string Website = "@website@";

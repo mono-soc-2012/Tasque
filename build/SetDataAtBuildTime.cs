@@ -141,7 +141,7 @@ namespace Tasque.Build
 		}
 
 		[Required]
-		public ITaskItem DataDir { get; set; }
+		public ITaskItem Prefix { get; set; }
 		
 		[Required]
 		public ITaskItem GlobalDefinesFile { get; set; }
@@ -170,7 +170,7 @@ namespace Tasque.Build
 
 			SetValue ("@authors@", authors);
 			
-			SetValue ("@datadir@", DataDir.ItemSpec);
+			SetValue ("@prefix@", Prefix.ItemSpec);
 
 			if (!WriteGlobalDefines ())
 				return false;

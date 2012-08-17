@@ -12,7 +12,7 @@
     <AssemblyName>Tasque.Build</AssemblyName>
     <RootNamespace>Tasque.Build</RootNamespace>
     <Website>https://live.gnome.org/Tasque</Website>
-    <DataDir Condition=" '$(DataDir)' == '' ">$(MSBuildProjectDirectory)\data</DataDir>
+    <Prefix Condition=" '$(Prefix)' == '' ">$(MSBuildProjectDirectory)\out</Prefix>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -116,7 +116,7 @@
   </ItemGroup>
   <Target Name="AfterBuild">
     <Message Text="Setting up global definitions..." />
-    <SetDataAtBuildTime AuthorsFile="@(Authors)" CopyingFile="@(License)" DataDir="$(DataDir)" GlobalDefinesFile="@(GlobalDefines)" GlobalDefinesFileIn="@(GlobalDefinesIn)" Version="$(ReleaseVersion)" Website="$(Website)" />
+    <SetDataAtBuildTime AuthorsFile="@(Authors)" CopyingFile="@(License)" Prefix="$(Prefix)" GlobalDefinesFile="@(GlobalDefines)" GlobalDefinesFileIn="@(GlobalDefinesIn)" Version="$(ReleaseVersion)" Website="$(Website)" />
     <Message Text="Finished setting up global definitions." />
     <Message Text="Load submodules..." />
     <LoadGitSubmodules SolutionDirectory="$(MSBuildProjectDirectory)\.." />

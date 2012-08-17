@@ -7,7 +7,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <OutputPath>..\..\build\bin</OutputPath>
+    <Prefix Condition=" '$(Prefix)' == '' ">..\..\build\out\</Prefix>
+    <OutputPath>$(Prefix)\lib\tasque</OutputPath>
     <RootNamespace>Tasque</RootNamespace>
     <AssemblyName>libtasque</AssemblyName>
     <ReleaseVersion>0.1.10</ReleaseVersion>
