@@ -8,7 +8,7 @@
     <ProjectGuid>{7B2BA3AC-B9C7-4734-AF59-2750B5C3672B}</ProjectGuid>
     <ReleaseVersion>0.1.10</ReleaseVersion>
     <OutputType>Library</OutputType>
-    <OutputPath>lib</OutputPath>
+    <OutputPath>bin</OutputPath>
     <AssemblyName>Tasque.Build</AssemblyName>
     <RootNamespace>Tasque.Build</RootNamespace>
     <Website>https://live.gnome.org/Tasque</Website>
@@ -29,8 +29,8 @@
   </PropertyGroup>
   <!-- Project and tasks imports -->
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <UsingTask AssemblyFile="lib\Tasque.Build.dll" TaskName="Tasque.Build.SetDataAtBuildTime" />
-  <UsingTask AssemblyFile="lib\Tasque.Build.dll" TaskName="Tasque.Build.LoadGitSubmodules" />
+  <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.SetDataAtBuildTime" />
+  <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.LoadGitSubmodules" />
   <ItemGroup>
     <None Include="build.csproj" />
     <None Include="..\tasque.sln">
