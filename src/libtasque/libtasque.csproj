@@ -107,9 +107,9 @@
     <None Include="docs\sources\ns-Tasque.xml" />
     <DocsSourcesFile Include="docs\libtasque.sources" />
   </ItemGroup>
-  <Target Name="AfterBuild">
+<!--  <Target Name="AfterBuild">
     <Copy SourceFiles="@(DocsSourcesFile)" DestinationFolder="$(OutputPath)" />
-  </Target>
+  </Target>-->
   <ItemGroup>
     <ProjectReference Include="..\ObservableTransformCollections\src\CollectionView\CollectionView.csproj">
       <Project>{A5AAD70F-F4E8-4CAE-A000-01C2D0A10B92}</Project>
