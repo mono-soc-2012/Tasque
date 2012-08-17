@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec -a "Tasque" mono "@expanded_libdir@/@PACKAGE@/tasque.exe" "$@"

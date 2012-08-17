@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec -a "Tasque" mono "/home/antonius/Projects/GSoC2012/Tasque/build/bin/lib/tasque/tasque.exe" "$@"

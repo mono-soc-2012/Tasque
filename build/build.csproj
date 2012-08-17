@@ -31,6 +31,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.SetDataAtBuildTime" />
   <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.LoadGitSubmodules" />
+  <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.BuildBinScript" />
   <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.CheckPrefix" />
   <ItemGroup>
     <None Include="build.csproj" />
@@ -97,6 +98,7 @@
   <ItemGroup>
     <Compile Include="SetDataAtBuildTime.cs" />
     <Compile Include="LoadGitSubmodules.cs" />
+    <Compile Include="BuildBinScript.cs" />
     <Compile Include="CheckPrefix.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +112,9 @@
     <Authors Include="..\AUTHORS">
       <Link>AUTHORS</Link>
     </Authors>
+  </ItemGroup>
+  <ItemGroup>
+    <BinScriptIn Include="tasque.in" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Framework" />
@@ -126,6 +131,9 @@
     <Message Text="Load submodules..." />
     <LoadGitSubmodules SolutionDirectory="$(MSBuildProjectDirectory)\.." />
     <Message Text="Finished loading submodules." />
+    <Message Text="Installing bin script..." />
+    <BuildBinScript Prefix="$(Prefix)" BinScriptIn="@(BinScriptIn)" />
+    <Message Text="Finished installing bin script." />
   </Target>
   <ProjectExtensions>
     <MonoDevelop>
