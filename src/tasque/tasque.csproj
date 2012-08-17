@@ -19,6 +19,11 @@
     <Optimize>false</Optimize>
     <DefineConstants>DEBUG;TRACE;GTKLINUX</DefineConstants>
     <WarningLevel>4</WarningLevel>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="Execute" command="build/out/lib/tasque/tasque.exe" workingdir="${SolutionDir}" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GtkLinuxRelease|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
