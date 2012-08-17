@@ -1,53 +1,330 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2012-05-16 15:11:25+0200\n"
-"PO-Revision-Date: 2012-05-16 15:11:25+0200\n"
-"Last-Translator: antonius\n"
+"POT-Creation-Date: 2012-08-17 20:25:41+0200\n"
+"PO-Revision-Date: 2012-08-17 20:25:42+0200\n"
+"Last-Translator: Antonius Riha <antoniusriha@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: MonoDevelop Gettext addin\n"
 
-#: ../tasque/RemoteControl.cs:6
-msgid "New task created."
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "Yesterday"
 msgstr ""
 
-#: ../tasque/AllCategory.cs:2
-#: ../tasque/CompletedTaskGroup.cs:3
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
+msgid "Last 7 Days"
+msgstr ""
+
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
+msgid "Last Month"
+msgstr ""
+
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
+msgid "Last Year"
+msgstr ""
+
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
+#: ../src/Tasque.Gtk/TaskWindow.cs:15
 msgid "All"
 msgstr ""
 
-#: ../tasque/Application.cs:34
+#: ../src/Tasque.Gtk/NoteDialog.cs:1
+msgid "Notes for: {0:s}"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:8
+msgid "Tasque Preferences"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:8
+msgid "General"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:9
+msgid "Appearance"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:13
+msgid "Color Management"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:15
+msgid "Today:"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:21
+msgid "Overdue:"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
+msgid "Task Management System"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
+msgid "Task Filtering"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
+msgid "Sh_ow completed tasks"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
+msgid "Only _show these categories when \"All\" is selected:"
+msgstr ""
+
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
+msgid "Category"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:6
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
+msgid "Completed"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:6
+msgid "Priority"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7
+#: ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
+msgid "1"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7
+#: ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
+msgid "2"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7
+#: ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
+msgid "3"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7
+#: ../src/Tasque.Gtk/TaskTreeView.cs:22
+msgid "-"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:8
+msgid "Task Name"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:9
+msgid "Due Date"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
+msgid "M/d - "
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "Today"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "Tomorrow"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10
+#: ../src/Tasque.Gtk/TaskTreeView.cs:25
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
+msgid "M/d - ddd"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
+msgid "In 1 Week"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "No Date"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
+msgid "Choose Date..."
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:12
+msgid "Notes"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:12
+msgid "Timer"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:20
+msgid "Task Completed"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:25
+msgid "M/d/yy - ddd"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:26
+msgid "Action Canceled"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskTreeView.cs:36
+msgid "Completing Task In: {0}"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:6
+#: ../src/Tasque.Gtk/TaskWindow.cs:38
+#: ../src/Tasque.Gtk/TaskWindow.cs:44
+msgid "New task..."
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:6
+msgid "_Add"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:6
+msgid "_Add Task"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
+msgid "Overdue"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
+msgid "Next 7 Days"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
+msgid "Future"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:29
+#: ../src/Tasque.Gtk/TaskWindow.cs:56
+msgid "Tasks loaded: {0}"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:37
+msgid "Error creating a new task"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:37
+msgid "Task created successfully"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:50
+msgid "_Notes..."
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:51
+msgid "_Delete task"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:52
+msgid "_Edit task"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:54
+msgid "_Change category"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:54
+msgid "Task deleted"
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:56
+msgid "Loading tasks..."
+msgstr ""
+
+#: ../src/Tasque.Gtk/TaskWindow.cs:56
+msgid "Not connected."
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "Today, {0}"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "Yesterday, {0}"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "{0} days ago, {1}"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "{0} days ago"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "Tomorrow, {0}"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "In {0} days, {1}"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "In {0} days"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "MMMM d, h:mm tt"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "MMMM d"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "MMMM d yyyy, h:mm tt"
+msgstr ""
+
+#: ../src/Tasque.Gtk/Utilities.cs:7
+msgid "MMMM d yyyy"
+msgstr ""
+
+#: ../src/Tasque.Gtk/GtkTray.cs:8
 msgid "Tasque Rocks"
 msgstr ""
 
-#: ../tasque/Application.cs:40
+#: ../src/Tasque.Gtk/GtkTray.cs:14
 msgid "translator-credits"
 msgstr ""
 
-#: ../tasque/Application.cs:40
+#: ../src/Tasque.Gtk/GtkTray.cs:14
 msgid "A Useful Task List"
 msgstr ""
 
-#: ../tasque/Application.cs:40
+#: ../src/Tasque.Gtk/GtkTray.cs:14
 msgid "Tasque Project Homepage"
 msgstr ""
 
-#: ../tasque/Application.cs:55
+#: ../src/Tasque.Gtk/GtkTray.cs:15
 msgid "New Task ..."
 msgstr ""
 
-#: ../tasque/Application.cs:55
-msgid "Show Tasks ..."
-msgstr ""
-
-#: ../tasque/Application.cs:56
+#: ../src/Tasque.Gtk/GtkTray.cs:18
 msgid "Refresh Tasks ..."
 msgstr ""
 
-#: ../tasque/Application.cs:30
+#: ../src/Tasque.Gtk/GtkTray.cs:19
+msgid "Toggle Task Window"
+msgstr ""
+
+#: ../src/Tasque.Gtk/GtkTray.cs:4
 msgid ""
 "{0} task is Overdue\n"
 msgid_plural ""
@@ -55,7 +332,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../tasque/Application.cs:31
+#: ../src/Tasque.Gtk/GtkTray.cs:5
 msgid ""
 "{0} task for Today\n"
 msgid_plural ""
@@ -63,7 +340,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../tasque/Application.cs:33
+#: ../src/Tasque.Gtk/GtkTray.cs:7
 msgid ""
 "{0} task for Tomorrow\n"
 msgid_plural ""
@@ -71,402 +348,125 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:5
-msgid "Click Here to Connect"
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:5
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:6
-msgid "You are currently connected"
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:5
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:6
-msgid "You are currently connected as"
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:5
-msgid "You are not connected"
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:6
-msgid "Remember the Milk not responding. Try again later."
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:6
-msgid "Click Here After Authorizing"
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:6
-msgid "Set the default browser and try again"
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:6
-msgid "Processing..."
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:6
-msgid "Failed, Try Again"
-msgstr ""
-
-#: ../tasque/Backends/Rtm/RtmPreferencesWidget.cs:6
-msgid "Thank You"
-msgstr ""
-
-#: ../tasque/CompletedTaskGroup.cs:3
-#: ../tasque/Utilities.cs:50
-msgid "Yesterday"
-msgstr ""
-
-#: ../tasque/CompletedTaskGroup.cs:3
-msgid "Last 7 Days"
-msgstr ""
-
-#: ../tasque/CompletedTaskGroup.cs:3
-msgid "Last Month"
-msgstr ""
-
-#: ../tasque/CompletedTaskGroup.cs:3
-msgid "Last Year"
-msgstr ""
-
-#: ../tasque/NoteDialog.cs:2
-msgid "Notes for: {0:s}"
-msgstr ""
-
-#: ../tasque/OSXApplication.cs:8
-msgid "_File"
-msgstr ""
-
-#: ../tasque/OSXApplication.cs:8
-msgid "_Window"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:8
-msgid "Tasque Preferences"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:8
-msgid "General"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:9
-msgid "Appearance"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:13
-msgid "Color Management"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:15
-msgid "Today:"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:21
-msgid "Overdue:"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:29
-msgid "Task Management System"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:29
-msgid "Task Filtering"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:29
-msgid "Sh_ow completed tasks"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:29
-msgid "Only _show these categories when \"All\" is selected:"
-msgstr ""
-
-#: ../tasque/PreferencesDialog.cs:29
-msgid "Category"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:6
-#: ../tasque/TaskWindow.cs:15
-msgid "Completed"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:6
-msgid "Priority"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:7
-#: ../tasque/TaskTreeView.cs:21
-#: ../tasque/TaskTreeView.cs:28
-msgid "1"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:7
-#: ../tasque/TaskTreeView.cs:21
-#: ../tasque/TaskTreeView.cs:28
-msgid "2"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:7
-#: ../tasque/TaskTreeView.cs:21
-#: ../tasque/TaskTreeView.cs:28
-msgid "3"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:7
-#: ../tasque/TaskTreeView.cs:21
-msgid "-"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:8
-msgid "Task Name"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:9
-msgid "Due Date"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:10
-#: ../tasque/TaskTreeView.cs:29
-msgid "M/d - "
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:10
-#: ../tasque/TaskTreeView.cs:29
-#: ../tasque/TaskWindow.cs:15
-#: ../tasque/Utilities.cs:50
-msgid "Today"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:10
-#: ../tasque/TaskTreeView.cs:29
-#: ../tasque/TaskWindow.cs:15
-#: ../tasque/Utilities.cs:50
-msgid "Tomorrow"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:10
-#: ../tasque/TaskTreeView.cs:24
-#: ../tasque/TaskTreeView.cs:29
-msgid "M/d - ddd"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:10
-#: ../tasque/TaskTreeView.cs:29
-msgid "In 1 Week"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:10
-#: ../tasque/TaskTreeView.cs:29
-#: ../tasque/Utilities.cs:50
-msgid "No Date"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:10
-#: ../tasque/TaskTreeView.cs:29
-msgid "Choose Date..."
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:12
-msgid "Notes"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:12
-msgid "Timer"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:19
-msgid "Task Completed"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:24
-msgid "M/d/yy - ddd"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:26
-msgid "Action Canceled"
-msgstr ""
-
-#: ../tasque/TaskTreeView.cs:36
-msgid "Completing Task In: {0}"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:8
-#: ../tasque/TaskWindow.cs:41
-#: ../tasque/TaskWindow.cs:47
-msgid "New task..."
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:8
-msgid "_Add"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:8
-msgid "_Add Task"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:15
-msgid "Overdue"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:15
-msgid "Next 7 Days"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:15
-msgid "Future"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:31
-#: ../tasque/TaskWindow.cs:60
-msgid "Tasks loaded: {0}"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:40
-msgid "Error creating a new task"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:40
-msgid "Task created successfully"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:53
-msgid "_Notes..."
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:54
-msgid "_Delete task"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:55
-msgid "_Edit task"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:58
-msgid "_Change category"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:58
-msgid "Task deleted"
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:60
-msgid "Loading tasks..."
-msgstr ""
-
-#: ../tasque/TaskWindow.cs:60
-msgid "Not connected."
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "Today, {0}"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "Yesterday, {0}"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "{0} days ago, {1}"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "{0} days ago"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "Tomorrow, {0}"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "In {0} days, {1}"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "In {0} days"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "MMMM d, h:mm tt"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "MMMM d"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "MMMM d yyyy, h:mm tt"
-msgstr ""
-
-#: ../tasque/Utilities.cs:50
-msgid "MMMM d yyyy"
-msgstr ""
-
-#: ../libtasque/TaskParser.cs:6
+#: ../src/libtasque/TaskParser.cs:6
 msgid "th,st,nd,rd"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:7
+#: ../src/libtasque/TaskParser.cs:7
 msgid "today"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:8
+#: ../src/libtasque/TaskParser.cs:8
 msgid "tomorrow"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:9
+#: ../src/libtasque/TaskParser.cs:9
 msgid "month|months"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:10
+#: ../src/libtasque/TaskParser.cs:10
 msgid "week|weeks"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:11
+#: ../src/libtasque/TaskParser.cs:11
 msgid "year|years"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:12
+#: ../src/libtasque/TaskParser.cs:12
 msgid "day|days"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:24
+#: ../src/libtasque/TaskParser.cs:24
 msgid "due before|due by|due"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:24
+#: ../src/libtasque/TaskParser.cs:24
 msgid "next"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:24
+#: ../src/libtasque/TaskParser.cs:24
 msgid "on"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:24
+#: ../src/libtasque/TaskParser.cs:24
 msgid "in"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:26
+#: ../src/libtasque/TaskParser.cs:26
 msgid "u T"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:26
+#: ../src/libtasque/TaskParser.cs:26
 msgid "n w|n m|n y|n D"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:26
+#: ../src/libtasque/TaskParser.cs:26
 msgid "u o D|u M O|u M N|u O|u M"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:26
+#: ../src/libtasque/TaskParser.cs:26
 msgid "o D|o O"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:26
+#: ../src/libtasque/TaskParser.cs:26
 msgid "i N d|i d|i N w|i w|i N m|i m|i N y|i y"
 msgstr ""
 
-#: ../libtasque/TaskParser.cs:26
+#: ../src/libtasque/TaskParser.cs:26
 msgid "T|D|M O|M N|O|A"
+msgstr ""
+
+#: ../src/Options.cs:72
+msgid "OptionName"
+msgstr ""
+
+#: ../src/Tasque.MonoMac/OSXApplication.cs:8
+msgid "_File"
+msgstr ""
+
+#: ../src/Tasque.MonoMac/OSXApplication.cs:8
+msgid "_Window"
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+msgid "Click Here to Connect"
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "You are currently connected"
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "You are currently connected as"
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+msgid "You are not connected"
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Remember the Milk not responding. Try again later."
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Click Here After Authorizing"
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Set the default browser and try again"
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Processing..."
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Failed, Try Again"
+msgstr ""
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Thank You"
 msgstr ""
 

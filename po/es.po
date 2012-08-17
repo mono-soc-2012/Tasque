@@ -9,535 +9,470 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tasque HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-05 23:55-0400\n"
+"POT-Creation-Date: 2012-08-17 20:17:55+0200\n"
 "PO-Revision-Date: 2010-03-30 11:28+0100\n"
 "Last-Translator: Mario Carrion <mario@carrion.mx>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../data/tasque.desktop.in.h:1
-msgid "Easy quick task management"
-msgstr "Gestione sus tareas fácil y rápidamente"
-
-#: ../data/tasque.desktop.in.h:2
-msgid "Task Manager"
-msgstr "Gestor de tareas"
-
-#: ../data/tasque.desktop.in.h:3
-msgid "Tasque"
-msgstr "Tasque"
-
-#: ../src/Application.cs:518
-#, csharp-format
-msgid "{0} task is Overdue\n"
-msgid_plural "{0} tasks are Overdue\n"
-msgstr[0] "{0} tarea está atrasada\n"
-msgstr[1] "{0} tareas están atrasadas\n"
-
-#: ../src/Application.cs:526
-#, csharp-format
-msgid "{0} task for Today\n"
-msgid_plural "{0} tasks for Today\n"
-msgstr[0] "{0} tarea para hoy\n"
-msgstr[1] "{0} tareas para hoy\n"
-
-#: ../src/Application.cs:534
-#, csharp-format
-msgid "{0} task for Tomorrow\n"
-msgid_plural "{0} tasks for Tomorrow\n"
-msgstr[0] "{0} tarea para mañana\n"
-msgstr[1] "{0} tareas para mañana\n"
-
-#. Translators: This is the status icon's tooltip. When no tasks are overdue, due today, or due tomorrow, it displays this fun message
-#: ../src/Application.cs:540
-msgid "Tasque Rocks"
-msgstr "Tasque mola"
-
-#. string [] documenters = new string [] {
-#. "Calvin Gaisford <calvinrg@gmail.com>"
-#. };
-#.
-#: ../src/Application.cs:584
-msgid "translator-credits"
-msgstr "Nacho Hermoso de Mendoza <gnacho@gmail.com>"
-
-#: ../src/Application.cs:593
-msgid "Copyright © 2008 Novell, Inc."
-msgstr "Copyright © 2008 Novell, Inc."
-
-#: ../src/Application.cs:594
-msgid "A Useful Task List"
-msgstr "Una lista de tareas útil"
-
-#: ../src/Application.cs:596
-msgid "Tasque Project Homepage"
-msgstr "Página web del proyecto Tasque"
-
-#: ../src/Application.cs:710
-msgid "New Task ..."
-msgstr "Tarea nueva..."
-
-#: ../src/Application.cs:717
-msgid "Show Tasks ..."
-msgstr "Mostrar tareas..."
-
-#: ../src/Application.cs:732
-msgid "Refresh Tasks ..."
-msgstr "Actualizar tareas..."
-
-#: ../src/AllCategory.cs:28 ../src/CompletedTaskGroup.cs:174
-msgid "All"
-msgstr "Todas"
-
-#: ../src/CompletedTaskGroup.cs:165 ../src/Utilities.cs:282
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3 ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Yesterday"
 msgstr "Ayer"
 
-#: ../src/CompletedTaskGroup.cs:167
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
 msgid "Last 7 Days"
 msgstr "Últimos 7 dias"
 
-#: ../src/CompletedTaskGroup.cs:169
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
 msgid "Last Month"
 msgstr "Último mes"
 
-#: ../src/CompletedTaskGroup.cs:171
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
 msgid "Last Year"
 msgstr "Último año"
 
-#: ../src/NoteDialog.cs:24
-#, csharp-format
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
+#: ../src/Tasque.Gtk/TaskWindow.cs:15
+msgid "All"
+msgstr "Todas"
+
+#: ../src/Tasque.Gtk/NoteDialog.cs:1
 msgid "Notes for: {0:s}"
 msgstr "Notas para: {0:s}"
 
-#: ../src/OSXApplication.cs:38
-msgid "_File"
-msgstr "_Archivo"
-
-#: ../src/OSXApplication.cs:44
-msgid "_Window"
-msgstr "_Ventana"
-
-#. Update the window title
-#: ../src/PreferencesDialog.cs:97
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:8
 msgid "Tasque Preferences"
 msgstr "Preferencias de Tasque"
 
-#: ../src/PreferencesDialog.cs:116
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:8
 msgid "General"
 msgstr "General"
 
-#: ../src/PreferencesDialog.cs:124
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:9
 msgid "Appearance"
 msgstr "Apariencia"
 
-#: ../src/PreferencesDialog.cs:160
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:13
 msgid "Color Management"
 msgstr "Gestión de color"
 
-#: ../src/PreferencesDialog.cs:171
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:15
 msgid "Today:"
 msgstr "Hoy:"
 
-#: ../src/PreferencesDialog.cs:199
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:21
 msgid "Overdue:"
 msgstr "Atrasadas:"
 
-#: ../src/PreferencesDialog.cs:243
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Task Management System"
 msgstr "Sistema de gestión de tareas"
 
-#: ../src/PreferencesDialog.cs:285
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Task Filtering"
 msgstr "Filtro de tareas"
 
-#: ../src/PreferencesDialog.cs:304
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Sh_ow completed tasks"
 msgstr "Mostrar tareas _completas"
 
-#. Categories TreeView
-#: ../src/PreferencesDialog.cs:313
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Only _show these categories when \"All\" is selected:"
 msgstr "Mostrar sólo estas categorias cuando \"Todas\" está seleccionada:"
 
-#: ../src/PreferencesDialog.cs:331
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Category"
 msgstr "Categoría"
 
-#: ../src/RemoteControl.cs:150
-msgid "New task created."
-msgstr "Nueva tarea creada."
-
-#. Title for Completed/Checkbox Column
-#: ../src/TaskTreeView.cs:84 ../src/TaskWindow.cs:342
+#: ../src/Tasque.Gtk/TaskTreeView.cs:6 ../src/Tasque.Gtk/TaskWindow.cs:13
 msgid "Completed"
 msgstr "Completada"
 
-#. Title for Priority Column
-#: ../src/TaskTreeView.cs:101
+#: ../src/Tasque.Gtk/TaskTreeView.cs:6
 msgid "Priority"
 msgstr "Prioridad"
 
-#: ../src/TaskTreeView.cs:114 ../src/TaskTreeView.cs:366
-#: ../src/TaskTreeView.cs:612
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7 ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
 msgid "1"
 msgstr "1"
 
-#. High
-#: ../src/TaskTreeView.cs:115 ../src/TaskTreeView.cs:363
-#: ../src/TaskTreeView.cs:610
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7 ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
 msgid "2"
 msgstr "2"
 
-#. Medium
-#: ../src/TaskTreeView.cs:116 ../src/TaskTreeView.cs:360
-#: ../src/TaskTreeView.cs:608
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7 ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
 msgid "3"
 msgstr "3"
 
-#. Low
-#: ../src/TaskTreeView.cs:117 ../src/TaskTreeView.cs:369
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7 ../src/Tasque.Gtk/TaskTreeView.cs:22
 msgid "-"
 msgstr "-"
 
-#. Title for Task Name Column
-#: ../src/TaskTreeView.cs:131
+#: ../src/Tasque.Gtk/TaskTreeView.cs:8
 msgid "Task Name"
 msgstr "Nombre de la tarea"
 
-#. Title for Due Date Column
-#: ../src/TaskTreeView.cs:173
+#: ../src/Tasque.Gtk/TaskTreeView.cs:9
 msgid "Due Date"
 msgstr "Fecha de vencimiento"
 
-#: ../src/TaskTreeView.cs:187 ../src/TaskTreeView.cs:189
-#: ../src/TaskTreeView.cs:201 ../src/TaskTreeView.cs:694
-#: ../src/TaskTreeView.cs:697 ../src/TaskTreeView.cs:702
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
 msgid "M/d - "
 msgstr "d/M - "
 
-#: ../src/TaskTreeView.cs:187 ../src/TaskTreeView.cs:694
-#: ../src/TaskWindow.cs:275 ../src/Utilities.cs:276
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/TaskWindow.cs:13 ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Today"
 msgstr "Hoy"
 
-#: ../src/TaskTreeView.cs:189 ../src/TaskTreeView.cs:697
-#: ../src/TaskWindow.cs:293 ../src/Utilities.cs:295
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/TaskWindow.cs:13 ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Tomorrow"
 msgstr "Mañana"
 
-#: ../src/TaskTreeView.cs:191 ../src/TaskTreeView.cs:193
-#: ../src/TaskTreeView.cs:195 ../src/TaskTreeView.cs:197
-#: ../src/TaskTreeView.cs:199 ../src/TaskTreeView.cs:434
-#: ../src/TaskTreeView.cs:711
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:25
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
 msgid "M/d - ddd"
 msgstr "d/M - ddd"
 
-#: ../src/TaskTreeView.cs:201 ../src/TaskTreeView.cs:702
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
 msgid "In 1 Week"
 msgstr "En 1 semana"
 
-#: ../src/TaskTreeView.cs:202 ../src/TaskTreeView.cs:699
-#: ../src/Utilities.cs:308
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "No Date"
 msgstr "Sin fecha"
 
-#: ../src/TaskTreeView.cs:203 ../src/TaskTreeView.cs:704
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
 msgid "Choose Date..."
 msgstr "Elegir una fecha..."
 
-#. Title for Notes Column
-#: ../src/TaskTreeView.cs:219
+#: ../src/Tasque.Gtk/TaskTreeView.cs:12
 msgid "Notes"
 msgstr "Notas"
 
-#. Title for Timer Column
-#: ../src/TaskTreeView.cs:236
+#: ../src/Tasque.Gtk/TaskTreeView.cs:12
 msgid "Timer"
 msgstr "Temporizador"
 
-#: ../src/TaskTreeView.cs:281
+#: ../src/Tasque.Gtk/TaskTreeView.cs:20
 msgid "Task Completed"
 msgstr "Tarea completada"
 
-#: ../src/TaskTreeView.cs:436
+#: ../src/Tasque.Gtk/TaskTreeView.cs:25
 msgid "M/d/yy - ddd"
 msgstr "d/M/yy - ddd"
 
-#: ../src/TaskTreeView.cs:594
+#: ../src/Tasque.Gtk/TaskTreeView.cs:26
 msgid "Action Canceled"
 msgstr "Acción cancelada"
 
-#: ../src/TaskTreeView.cs:859
-#, csharp-format
+#: ../src/Tasque.Gtk/TaskTreeView.cs:36
 msgid "Completing Task In: {0}"
 msgstr "Completando tarea en: {0}"
 
-#. The new task entry widget
-#. Clear the entry if it contains the default text
-#: ../src/TaskWindow.cs:149 ../src/TaskWindow.cs:837 ../src/TaskWindow.cs:893
-#: ../src/TaskWindow.cs:903 ../src/TaskWindow.cs:914
+#: ../src/Tasque.Gtk/TaskWindow.cs:6 ../src/Tasque.Gtk/TaskWindow.cs:38
+#: ../src/Tasque.Gtk/TaskWindow.cs:44
 msgid "New task..."
 msgstr "Nueva tarea..."
 
-#: ../src/TaskWindow.cs:165
+#: ../src/Tasque.Gtk/TaskWindow.cs:6
 msgid "_Add"
 msgstr "_Añadir"
 
-#: ../src/TaskWindow.cs:170
+#: ../src/Tasque.Gtk/TaskWindow.cs:6
 msgid "_Add Task"
 msgstr "_Añadir Tarea"
 
-#: ../src/TaskWindow.cs:257
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
 msgid "Overdue"
 msgstr "Atrasadas"
 
-#: ../src/TaskWindow.cs:311
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
 msgid "Next 7 Days"
 msgstr "Próximos 7 días"
 
-#: ../src/TaskWindow.cs:327
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
 msgid "Future"
 msgstr "Futuro"
 
-#. Translators: This status shows the date and time when the task list was last refreshed
-#: ../src/TaskWindow.cs:474 ../src/TaskWindow.cs:1213
-#, csharp-format
+#: ../src/Tasque.Gtk/TaskWindow.cs:29 ../src/Tasque.Gtk/TaskWindow.cs:56
 msgid "Tasks loaded: {0}"
 msgstr "Tareas cargadas: {0}"
 
-#. Show error status
-#: ../src/TaskWindow.cs:801
+#: ../src/Tasque.Gtk/TaskWindow.cs:37
 msgid "Error creating a new task"
 msgstr "Error al crear una tarea nueva"
 
-#. Show successful status
-#: ../src/TaskWindow.cs:805
+#: ../src/Tasque.Gtk/TaskWindow.cs:37
 msgid "Task created successfully"
 msgstr "Tarea creada satisfactoriamente"
 
-#: ../src/TaskWindow.cs:1089
+#: ../src/Tasque.Gtk/TaskWindow.cs:50
 msgid "_Notes..."
 msgstr "_Notas"
 
-#: ../src/TaskWindow.cs:1096
+#: ../src/Tasque.Gtk/TaskWindow.cs:51
 msgid "_Delete task"
 msgstr "_Eliminar tarea"
 
-#: ../src/TaskWindow.cs:1101
+#: ../src/Tasque.Gtk/TaskWindow.cs:52
 msgid "_Edit task"
 msgstr "_Editar tarea"
 
-#. TODO Needs translation.
-#: ../src/TaskWindow.cs:1133
+#: ../src/Tasque.Gtk/TaskWindow.cs:54
 msgid "_Change category"
 msgstr "_Cambiar categoría"
 
-#: ../src/TaskWindow.cs:1162
+#: ../src/Tasque.Gtk/TaskWindow.cs:54
 msgid "Task deleted"
 msgstr "Tarea borrada"
 
-#: ../src/TaskWindow.cs:1204
+#: ../src/Tasque.Gtk/TaskWindow.cs:56
 msgid "Loading tasks..."
 msgstr "Cargando tareas..."
 
-#: ../src/TaskWindow.cs:1225
+#: ../src/Tasque.Gtk/TaskWindow.cs:56
 msgid "Not connected."
 msgstr "Sin conexión."
 
-#: ../src/Utilities.cs:274
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Today, {0}"
 msgstr "Hoy, {0}"
 
-#: ../src/Utilities.cs:280
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Yesterday, {0}"
 msgstr "Ayer, {0}"
 
-#: ../src/Utilities.cs:286
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "{0} days ago, {1}"
 msgstr "{0} días atrás, {1}"
 
-#: ../src/Utilities.cs:288
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "{0} days ago"
 msgstr "{0} días atrás"
 
-#: ../src/Utilities.cs:293
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Tomorrow, {0}"
 msgstr "Mañana, {0}"
 
-#: ../src/Utilities.cs:299
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "In {0} days, {1}"
 msgstr "En {0} días, {1}"
 
-#: ../src/Utilities.cs:301
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "In {0} days"
 msgstr "En {0} días"
 
-#: ../src/Utilities.cs:305
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "MMMM d, h:mm tt"
 msgstr "MMMM d, h:mm tt"
 
-#: ../src/Utilities.cs:306
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "MMMM d"
 msgstr "MMMM d"
 
-#: ../src/Utilities.cs:311
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d MMMM yyyy h:mm tt"
 
-#: ../src/Utilities.cs:312
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "MMMM d yyyy"
 msgstr "d MMMM yyyy"
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:65
-msgid "Click Here to Connect"
-msgstr "Pulse aquí para conectar"
+#: ../src/Tasque.Gtk/GtkTray.cs:8
+msgid "Tasque Rocks"
+msgstr "Tasque mola"
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:71
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:142
-msgid "You are currently connected"
-msgstr "Ahora está conectado"
+#: ../src/Tasque.Gtk/GtkTray.cs:14
+msgid "translator-credits"
+msgstr "Nacho Hermoso de Mendoza <gnacho@gmail.com>"
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:75
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:147
-msgid "You are currently connected as"
-msgstr "Ahora está conectado como"
+#: ../src/Tasque.Gtk/GtkTray.cs:14
+msgid "A Useful Task List"
+msgstr "Una lista de tareas útil"
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:79
-msgid "You are not connected"
-msgstr "No está conectado"
+#: ../src/Tasque.Gtk/GtkTray.cs:14
+msgid "Tasque Project Homepage"
+msgstr "Página web del proyecto Tasque"
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:112
-msgid "Remember the Milk not responding. Try again later."
-msgstr "Remember the Milk no responde. Inténtelo de nuevo más tarde."
+#: ../src/Tasque.Gtk/GtkTray.cs:15
+msgid "New Task ..."
+msgstr "Tarea nueva..."
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:119
-msgid "Click Here After Authorizing"
-msgstr "Pulse aquí después de la autorización"
+#: ../src/Tasque.Gtk/GtkTray.cs:18
+msgid "Refresh Tasks ..."
+msgstr "Actualizar tareas..."
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:122
-msgid "Set the default browser and try again"
-msgstr "Establecer el navegador predeterminado e intentarlo de nuevo"
+#: ../src/Tasque.Gtk/GtkTray.cs:19
+msgid "Toggle Task Window"
+msgstr ""
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:125
-msgid "Processing..."
-msgstr "Procesando…"
+#: ../src/Tasque.Gtk/GtkTray.cs:4
+#, fuzzy
+msgid "{0} task is Overdue\n"
+msgid_plural "{0} tasks are Overdue\\n"
+msgstr[0] "{0} tarea está atrasada\n"
+msgstr[1] "{0} tareas están atrasadas\n"
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:135
-msgid "Failed, Try Again"
-msgstr "Falló, inténtelo de nuevo"
+#: ../src/Tasque.Gtk/GtkTray.cs:5
+#, fuzzy
+msgid "{0} task for Today\n"
+msgid_plural "{0} tasks for Today\\n"
+msgstr[0] "{0} tarea para hoy\n"
+msgstr[1] "{0} tareas para hoy\n"
 
-#: ../src/Backends/Rtm/RtmPreferencesWidget.cs:139
-msgid "Thank You"
-msgstr "Gracias"
+#: ../src/Tasque.Gtk/GtkTray.cs:7
+#, fuzzy
+msgid "{0} task for Tomorrow\n"
+msgid_plural "{0} tasks for Tomorrow\\n"
+msgstr[0] "{0} tarea para mañana\n"
+msgstr[1] "{0} tareas para mañana\n"
 
-#. Token "O". Notice only the suffix is translated.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:49
+#: ../src/libtasque/TaskParser.cs:6
 msgid "th,st,nd,rd"
 msgstr "o"
 
-#. Token "T"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:53
+#: ../src/libtasque/TaskParser.cs:7
 msgid "today"
 msgstr "hoy"
 
-#. Token "T"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:57
+#: ../src/libtasque/TaskParser.cs:8
 msgid "tomorrow"
 msgstr "mañana"
 
-#. Token "m". Don't forget to include the plural value, if any
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:61
+#: ../src/libtasque/TaskParser.cs:9
 msgid "month|months"
 msgstr "mes|meses"
 
-#. Token "w". Don't forget to include the plural value, if any
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:65
+#: ../src/libtasque/TaskParser.cs:10
 msgid "week|weeks"
 msgstr "semana|semanas"
 
-#. Token "y". Don't forget to include the plural value, if any
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:69
+#: ../src/libtasque/TaskParser.cs:11
 msgid "year|years"
 msgstr "año|años"
 
-#. Token "d". Don't forget to include the plural value, if any
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:73
+#: ../src/libtasque/TaskParser.cs:12
 msgid "day|days"
 msgstr "día|dia|días|dias"
 
-#. Token "u". More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:207
+#: ../src/libtasque/TaskParser.cs:24
 msgid "due before|due by|due"
 msgstr "para|antes de|antes|antes del"
 
-#. Token "n". Examples could be: "Next Month", "Next Monday"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:233
+#: ../src/libtasque/TaskParser.cs:24
 msgid "next"
 msgstr "la siguiente|la proxima|la próxima|el siguiente|el próximo|el proximo"
 
-#. Token "o". Examples could be: "On April 1st", "On Wednesday"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:239
+#: ../src/libtasque/TaskParser.cs:24
 msgid "on"
 msgstr "el"
 
-#. Token "i". Examples could be: "In 2 weeks", "In 3 months"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:245
+#: ../src/libtasque/TaskParser.cs:24
 msgid "in"
 msgstr "en"
 
-#. Represents "Today and Tomorrow" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:260
+#: ../src/libtasque/TaskParser.cs:26
 msgid "u T"
 msgstr "u T"
 
-#. Represents: "Next" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:263
+#: ../src/libtasque/TaskParser.cs:26
 msgid "n w|n m|n y|n D"
 msgstr "n w|n m|n y|n D"
 
-#. Represents "Due" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:266
+#: ../src/libtasque/TaskParser.cs:26
 msgid "u o D|u M O|u M N|u O|u M"
 msgstr "u 'del' D|u 'del' O 'de' M|u 'del' O|u 'de' M O|u 'de' M"
 
-#. Represents "On" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:269
+#: ../src/libtasque/TaskParser.cs:26
 msgid "o D|o O"
 msgstr "o D|o O"
 
-#. Represents "In" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:272
+#: ../src/libtasque/TaskParser.cs:26
 msgid "i N d|i d|i N w|i w|i N m|i m|i N y|i y"
 msgstr "i N d|i d|i N w|i w|i N m|i m|i N y|i y"
 
-#. Represents all other expressions not using tokens.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
-#: ../src/libtasque/TaskParser.cs:275
+#: ../src/libtasque/TaskParser.cs:26
 msgid "T|D|M O|M N|O|A"
 msgstr "T|D|O 'de' M|M N|O|A"
+
+#: ../src/Options.cs:72
+msgid "OptionName"
+msgstr ""
+
+#: ../src/Tasque.MonoMac/OSXApplication.cs:8
+msgid "_File"
+msgstr "_Archivo"
+
+#: ../src/Tasque.MonoMac/OSXApplication.cs:8
+msgid "_Window"
+msgstr "_Ventana"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+msgid "Click Here to Connect"
+msgstr "Pulse aquí para conectar"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "You are currently connected"
+msgstr "Ahora está conectado"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "You are currently connected as"
+msgstr "Ahora está conectado como"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+msgid "You are not connected"
+msgstr "No está conectado"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Remember the Milk not responding. Try again later."
+msgstr "Remember the Milk no responde. Inténtelo de nuevo más tarde."
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Click Here After Authorizing"
+msgstr "Pulse aquí después de la autorización"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Set the default browser and try again"
+msgstr "Establecer el navegador predeterminado e intentarlo de nuevo"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Processing..."
+msgstr "Procesando…"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Failed, Try Again"
+msgstr "Falló, inténtelo de nuevo"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Thank You"
+msgstr "Gracias"
+
+#~ msgid "Easy quick task management"
+#~ msgstr "Gestione sus tareas fácil y rápidamente"
+
+#~ msgid "Task Manager"
+#~ msgstr "Gestor de tareas"
+
+#~ msgid "Tasque"
+#~ msgstr "Tasque"
+
+#~ msgid "Copyright © 2008 Novell, Inc."
+#~ msgstr "Copyright © 2008 Novell, Inc."
+
+#~ msgid "Show Tasks ..."
+#~ msgstr "Mostrar tareas..."
+
+#~ msgid "New task created."
+#~ msgstr "Nueva tarea creada."

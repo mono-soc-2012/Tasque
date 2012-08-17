@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tasque master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=tasque&component=general\n"
-"POT-Creation-Date: 2010-12-03 22:51+0000\n"
+"POT-Creation-Date: 2012-08-17 20:17:55+0200\n"
 "PO-Revision-Date: 2009-10-09 14:11+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
@@ -22,408 +22,465 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Easy quick task management"
-msgstr "Lihtne ja kiire ülesandehaldus"
-
-msgid "Task Manager"
-msgstr "Ülesandehaldur"
-
-msgid "Tasque"
-msgstr "Ülesandetasku"
-
-#, csharp-format
-msgid "{0} task is Overdue\n"
-msgid_plural "{0} tasks are Overdue\n"
-msgstr[0] "{0} ülesanne on hilinenud\n"
-msgstr[1] "{0} ülesannet on hilinenud\n"
-
-#, csharp-format
-msgid "{0} task for Today\n"
-msgid_plural "{0} tasks for Today\n"
-msgstr[0] "Tänaseks on {0} ülesanne\n"
-msgstr[1] "Tänaseks on {0} ülesannet\n"
-
-#, csharp-format
-msgid "{0} task for Tomorrow\n"
-msgid_plural "{0} tasks for Tomorrow\n"
-msgstr[0] "Homseks on {0} ülesanne\n"
-msgstr[1] "Homseks on {0} ülesannet\n"
-
-#. Translators: This is the status icon's tooltip. When no tasks are overdue, due today, or due tomorrow, it displays this fun message
-msgid "Tasque Rocks"
-msgstr "Ülesandetasku on mõnusalt tühi"
-
-#. string [] documenters = new string [] {
-#. "Calvin Gaisford <calvinrg@gmail.com>"
-#. };
-#.
-msgid "translator-credits"
-msgstr "Ivar Smolin <okul linux ee>"
-
-msgid "Copyright © 2008 Novell, Inc."
-msgstr "Autoriõigus © 2008 Novell, Inc."
-
-msgid "A Useful Task List"
-msgstr "Ülesannete nimekiri"
-
-msgid "Tasque Project Homepage"
-msgstr "Ülesandetasku projekti koduleht"
-
-msgid "New Task ..."
-msgstr "Uus ülesanne..."
-
-msgid "Show Tasks ..."
-msgstr "Näita ülesandeid..."
-
-msgid "Refresh Tasks ..."
-msgstr "Värskenda ülesandeid..."
-
-msgid "All"
-msgstr "Kõik"
-
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3 ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Yesterday"
 msgstr "Eile"
 
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
 msgid "Last 7 Days"
 msgstr "Viimased 7 päeva"
 
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
 msgid "Last Month"
 msgstr "Viimane kuu"
 
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
 msgid "Last Year"
 msgstr "Viimane aasta"
 
-#, csharp-format
+#: ../src/Tasque.Gtk/CompletedTaskGroup.cs:3
+#: ../src/Tasque.Gtk/TaskWindow.cs:15
+msgid "All"
+msgstr "Kõik"
+
+#: ../src/Tasque.Gtk/NoteDialog.cs:1
 msgid "Notes for: {0:s}"
 msgstr "Ülesande märkmed: {0:s}"
 
-msgid "_File"
-msgstr "_Fail"
-
-msgid "_Window"
-msgstr "_Aken"
-
-#. Update the window title
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:8
 msgid "Tasque Preferences"
 msgstr "Ülesandetasku eelistused"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:8
 msgid "General"
 msgstr "Üldine"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:9
 msgid "Appearance"
 msgstr "Välimus"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:13
 msgid "Color Management"
 msgstr "Värvihaldus"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:15
 msgid "Today:"
 msgstr "Täna:"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:21
 msgid "Overdue:"
 msgstr "Hilinenud:"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Task Management System"
 msgstr "Ülesannete haldamise süsteem"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Task Filtering"
 msgstr "Ülesannete filter"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Sh_ow completed tasks"
 msgstr "_Lõpetatud ülesandeid näidatakse"
 
-#. Categories TreeView
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Only _show these categories when \"All\" is selected:"
 msgstr "Neid kategooriaid _kuvatakse ainult siis, kui valitud on \"Kõik\":"
 
+#: ../src/Tasque.Gtk/PreferencesDialog.cs:29
 msgid "Category"
 msgstr "Kategooria"
 
-msgid "New task created."
-msgstr "Loodi uus ülesanne."
-
-#. Title for Completed/Checkbox Column
+#: ../src/Tasque.Gtk/TaskTreeView.cs:6 ../src/Tasque.Gtk/TaskWindow.cs:13
 msgid "Completed"
 msgstr "Lõpetatud"
 
-#. Title for Priority Column
+#: ../src/Tasque.Gtk/TaskTreeView.cs:6
 msgid "Priority"
 msgstr "Tähtsus"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7 ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
 msgid "1"
 msgstr "1"
 
-#. High
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7 ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
 msgid "2"
 msgstr "2"
 
-#. Medium
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7 ../src/Tasque.Gtk/TaskTreeView.cs:22
+#: ../src/Tasque.Gtk/TaskTreeView.cs:28
 msgid "3"
 msgstr "3"
 
-#. Low
+#: ../src/Tasque.Gtk/TaskTreeView.cs:7 ../src/Tasque.Gtk/TaskTreeView.cs:22
 msgid "-"
 msgstr "-"
 
-#. Title for Task Name Column
+#: ../src/Tasque.Gtk/TaskTreeView.cs:8
 msgid "Task Name"
 msgstr "Ülesande nimi"
 
-#. Title for Due Date Column
+#: ../src/Tasque.Gtk/TaskTreeView.cs:9
 msgid "Due Date"
 msgstr "Tähtaeg"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
 msgid "M/d - "
 msgstr "d-M - "
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/TaskWindow.cs:13 ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Today"
 msgstr "Täna"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/TaskWindow.cs:13 ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Tomorrow"
 msgstr "Homme"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:25
+#: ../src/Tasque.Gtk/TaskTreeView.cs:29
 msgid "M/d - ddd"
 msgstr "d-M - ddd"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
 msgid "In 1 Week"
 msgstr "Nädala jooksul"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "No Date"
 msgstr "Kuupäev puudub"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:10 ../src/Tasque.Gtk/TaskTreeView.cs:29
 msgid "Choose Date..."
 msgstr "Vali kuupäev..."
 
-#. Title for Notes Column
+#: ../src/Tasque.Gtk/TaskTreeView.cs:12
 msgid "Notes"
 msgstr "Märkmed"
 
-#. Title for Timer Column
+#: ../src/Tasque.Gtk/TaskTreeView.cs:12
 msgid "Timer"
 msgstr "Taimer"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:20
 msgid "Task Completed"
 msgstr "Ülesanne täidetud"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:25
 msgid "M/d/yy - ddd"
 msgstr "d-M-yy - ddd"
 
+#: ../src/Tasque.Gtk/TaskTreeView.cs:26
 msgid "Action Canceled"
 msgstr "Tegevus katkestatud"
 
-#, csharp-format
+#: ../src/Tasque.Gtk/TaskTreeView.cs:36
 msgid "Completing Task In: {0}"
 msgstr "Ülesanne täidetakse: {0}"
 
-#. The new task entry widget
-#. Clear the entry if it contains the default text
+#: ../src/Tasque.Gtk/TaskWindow.cs:6 ../src/Tasque.Gtk/TaskWindow.cs:38
+#: ../src/Tasque.Gtk/TaskWindow.cs:44
 msgid "New task..."
 msgstr "Uus ülesanne..."
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:6
 msgid "_Add"
 msgstr "_Lisa"
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:6
 msgid "_Add Task"
 msgstr "_Lisa ülesanne"
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
 msgid "Overdue"
 msgstr "Hilinemine"
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
 msgid "Next 7 Days"
 msgstr "Järgmised 7 päeva"
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:13
 msgid "Future"
 msgstr "Tulevikus"
 
-#. Translators: This status shows the date and time when the task list was last refreshed
-#, csharp-format
+#: ../src/Tasque.Gtk/TaskWindow.cs:29 ../src/Tasque.Gtk/TaskWindow.cs:56
 msgid "Tasks loaded: {0}"
 msgstr "Laaditud ülesandeid: {0}"
 
-#. Show error status
+#: ../src/Tasque.Gtk/TaskWindow.cs:37
 msgid "Error creating a new task"
 msgstr "Viga uue ülesande loomisel"
 
-#. Show successful status
+#: ../src/Tasque.Gtk/TaskWindow.cs:37
 msgid "Task created successfully"
 msgstr "Ülesanne edukalt loodud"
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:50
 msgid "_Notes..."
 msgstr "_Märkmed..."
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:51
 msgid "_Delete task"
 msgstr "_Kustuta ülesanne"
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:52
 msgid "_Edit task"
 msgstr "_Redigeeri ülesannet"
 
-#. TODO Needs translation.
+#: ../src/Tasque.Gtk/TaskWindow.cs:54
 msgid "_Change category"
 msgstr "_Muuda kataloogi"
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:54
 msgid "Task deleted"
 msgstr "Ülesanne kustutatud"
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:56
 msgid "Loading tasks..."
 msgstr "Ülesannete laadimine..."
 
+#: ../src/Tasque.Gtk/TaskWindow.cs:56
 msgid "Not connected."
 msgstr "Pole ühendatud."
 
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Today, {0}"
 msgstr "Täna, {0}"
 
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Yesterday, {0}"
 msgstr "Eile, {0}"
 
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "{0} days ago, {1}"
 msgstr "{0} päeva tagasi, {1}"
 
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "{0} days ago"
 msgstr "{0} päeva tagasi"
 
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "Tomorrow, {0}"
 msgstr "Homme, {0}"
 
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "In {0} days, {1}"
 msgstr "{0} päeva pärast, {1}"
 
-#, csharp-format
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "In {0} days"
 msgstr "{0} päeva pärast"
 
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "MMMM d, h:mm tt"
 msgstr "d. MMMM, h:mm tt"
 
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "MMMM d"
 msgstr "d. MMMM"
 
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "MMMM d yyyy, h:mm tt"
 msgstr "d. MMMM yyyy, h:mm tt"
 
+#: ../src/Tasque.Gtk/Utilities.cs:7
 msgid "MMMM d yyyy"
 msgstr "d. MMMM yyyy"
 
-msgid "Click Here to Connect"
-msgstr "Ühendumiseks klõpsa siia"
+#: ../src/Tasque.Gtk/GtkTray.cs:8
+msgid "Tasque Rocks"
+msgstr "Ülesandetasku on mõnusalt tühi"
 
-msgid "You are currently connected"
-msgstr "Sa oled praegu ühendatud"
+#: ../src/Tasque.Gtk/GtkTray.cs:14
+msgid "translator-credits"
+msgstr "Ivar Smolin <okul linux ee>"
 
-msgid "You are currently connected as"
-msgstr "Oled praegu ühendatud kasutajana"
+#: ../src/Tasque.Gtk/GtkTray.cs:14
+msgid "A Useful Task List"
+msgstr "Ülesannete nimekiri"
 
-msgid "You are not connected"
-msgstr "Sa pole ühendatud"
+#: ../src/Tasque.Gtk/GtkTray.cs:14
+msgid "Tasque Project Homepage"
+msgstr "Ülesandetasku projekti koduleht"
 
-msgid "Remember the Milk not responding. Try again later."
-msgstr "\"Remember the Milk\" server ei vasta. Proovi hiljem uuesti."
+#: ../src/Tasque.Gtk/GtkTray.cs:15
+msgid "New Task ..."
+msgstr "Uus ülesanne..."
 
-msgid "Click Here After Authorizing"
-msgstr "Pärast autoriseerimist klõpsa siia"
+#: ../src/Tasque.Gtk/GtkTray.cs:18
+msgid "Refresh Tasks ..."
+msgstr "Värskenda ülesandeid..."
 
-msgid "Set the default browser and try again"
-msgstr "Määra vaikimisi veebilehitseja ja proovi uuesti"
+#: ../src/Tasque.Gtk/GtkTray.cs:19
+msgid "Toggle Task Window"
+msgstr ""
 
-msgid "Processing..."
-msgstr "Töötlemine..."
+#: ../src/Tasque.Gtk/GtkTray.cs:4
+#, fuzzy
+msgid "{0} task is Overdue\n"
+msgid_plural "{0} tasks are Overdue\\n"
+msgstr[0] "{0} ülesanne on hilinenud\n"
+msgstr[1] "{0} ülesannet on hilinenud\n"
 
-msgid "Failed, Try Again"
-msgstr "Nurjus, proovi uuesti"
+#: ../src/Tasque.Gtk/GtkTray.cs:5
+#, fuzzy
+msgid "{0} task for Today\n"
+msgid_plural "{0} tasks for Today\\n"
+msgstr[0] "Tänaseks on {0} ülesanne\n"
+msgstr[1] "Tänaseks on {0} ülesannet\n"
 
-msgid "Thank You"
-msgstr "Suur tänu"
+#: ../src/Tasque.Gtk/GtkTray.cs:7
+#, fuzzy
+msgid "{0} task for Tomorrow\n"
+msgid_plural "{0} tasks for Tomorrow\\n"
+msgstr[0] "Homseks on {0} ülesanne\n"
+msgstr[1] "Homseks on {0} ülesannet\n"
 
-#. Token "O". Notice only the suffix is translated.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:6
 msgid "th,st,nd,rd"
 msgstr ""
 
-#. Token "T"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:7
 #, fuzzy
 msgid "today"
 msgstr "Täna"
 
-#. Token "T"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:8
 #, fuzzy
 msgid "tomorrow"
 msgstr "Homme"
 
-#. Token "m". Don't forget to include the plural value, if any
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:9
 msgid "month|months"
 msgstr ""
 
-#. Token "w". Don't forget to include the plural value, if any
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:10
 msgid "week|weeks"
 msgstr ""
 
-#. Token "y". Don't forget to include the plural value, if any
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:11
 msgid "year|years"
 msgstr ""
 
-#. Token "d". Don't forget to include the plural value, if any
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:12
 msgid "day|days"
 msgstr ""
 
-#. Token "u". More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:24
 msgid "due before|due by|due"
 msgstr ""
 
-#. Token "n". Examples could be: "Next Month", "Next Monday"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:24
 msgid "next"
 msgstr ""
 
-#. Token "o". Examples could be: "On April 1st", "On Wednesday"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:24
 msgid "on"
 msgstr ""
 
-#. Token "i". Examples could be: "In 2 weeks", "In 3 months"
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:24
 msgid "in"
 msgstr ""
 
-#. Represents "Today and Tomorrow" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:26
 msgid "u T"
 msgstr ""
 
-#. Represents: "Next" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:26
 msgid "n w|n m|n y|n D"
 msgstr ""
 
-#. Represents "Due" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:26
 msgid "u o D|u M O|u M N|u O|u M"
 msgstr ""
 
-#. Represents "On" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:26
 msgid "o D|o O"
 msgstr ""
 
-#. Represents "In" expression.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:26
 msgid "i N d|i d|i N w|i w|i N m|i m|i N y|i y"
 msgstr ""
 
-#. Represents all other expressions not using tokens.
-#. More information in http://git.gnome.org/browse/tasque/tree/TRANSLATORS
+#: ../src/libtasque/TaskParser.cs:26
 msgid "T|D|M O|M N|O|A"
 msgstr ""
+
+#: ../src/Options.cs:72
+msgid "OptionName"
+msgstr ""
+
+#: ../src/Tasque.MonoMac/OSXApplication.cs:8
+msgid "_File"
+msgstr "_Fail"
+
+#: ../src/Tasque.MonoMac/OSXApplication.cs:8
+msgid "_Window"
+msgstr "_Aken"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+msgid "Click Here to Connect"
+msgstr "Ühendumiseks klõpsa siia"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "You are currently connected"
+msgstr "Sa oled praegu ühendatud"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "You are currently connected as"
+msgstr "Oled praegu ühendatud kasutajana"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:5
+msgid "You are not connected"
+msgstr "Sa pole ühendatud"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Remember the Milk not responding. Try again later."
+msgstr "\"Remember the Milk\" server ei vasta. Proovi hiljem uuesti."
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Click Here After Authorizing"
+msgstr "Pärast autoriseerimist klõpsa siia"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Set the default browser and try again"
+msgstr "Määra vaikimisi veebilehitseja ja proovi uuesti"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Processing..."
+msgstr "Töötlemine..."
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Failed, Try Again"
+msgstr "Nurjus, proovi uuesti"
+
+#: ../src/Addins/RtmBackend/RtmPreferencesWidget.cs:6
+msgid "Thank You"
+msgstr "Suur tänu"
+
+#~ msgid "Easy quick task management"
+#~ msgstr "Lihtne ja kiire ülesandehaldus"
+
+#~ msgid "Task Manager"
+#~ msgstr "Ülesandehaldur"
+
+#~ msgid "Tasque"
+#~ msgstr "Ülesandetasku"
+
+#~ msgid "Copyright © 2008 Novell, Inc."
+#~ msgstr "Autoriõigus © 2008 Novell, Inc."
+
+#~ msgid "Show Tasks ..."
+#~ msgstr "Näita ülesandeid..."
+
+#~ msgid "New task created."
+#~ msgstr "Loodi uus ülesanne."
 
 #~ msgid "Sunday"
 #~ msgstr "Pühapäeval"
