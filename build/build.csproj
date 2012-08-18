@@ -53,16 +53,16 @@
     <None Include="..\tests\tests.csproj">
       <Link>tests.csproj</Link>
     </None>
-    <None Include="..\src\ObservableTransformCollections\CollectionTransform\CollectionTransform.csproj">
+    <None Include="..\src\ObservableTransformCollections\src\CollectionTransform\CollectionTransform.csproj">
       <Link>Libraries\ObservableCollectionTransforms\CollectionTransform.csproj</Link>
     </None>
-    <None Include="..\src\ObservableTransformCollections\CollectionTransform.Tests\CollectionTransform.Tests.csproj">
+    <None Include="..\src\ObservableTransformCollections\src\CollectionTransform.Tests\CollectionTransform.Tests.csproj">
       <Link>Libraries\ObservableCollectionTransforms\CollectionTransform.Tests.csproj</Link>
     </None>
-    <None Include="..\src\ObservableTransformCollections\CollectionView\CollectionView.csproj">
+    <None Include="..\src\ObservableTransformCollections\src\CollectionView\CollectionView.csproj">
       <Link>Libraries\ObservableCollectionTransforms\CollectionView.csproj</Link>
     </None>
-    <None Include="..\src\ObservableTransformCollections\TreeModelListAdapter\TreeModelListAdapter.csproj">
+    <None Include="..\src\ObservableTransformCollections\src\TreeModelListAdapter\TreeModelListAdapter.csproj">
       <Link>Libraries\ObservableCollectionTransforms\TreeModelListAdapter.csproj</Link>
     </None>
     <None Include="..\.gitignore">
