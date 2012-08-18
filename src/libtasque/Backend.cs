@@ -35,7 +35,7 @@ namespace Tasque
 	/// This is the main integration interface for different backends that
 	/// Tasque can use.
 	/// </summary>
-	public abstract class Backend
+	public abstract class Backend : IDisposable
 	{
 		protected Backend (string name)
 		{
@@ -116,13 +116,23 @@ namespace Tasque
 		/// </value>
 		public ReadOnlySortedNotifyCollection<Task> Tasks { get; private set; }
 		#endregion
+
+		#region IDisposable implementation
+		public void Dispose ()
+		{
+			Dispose (true);
+			GC.SuppressFinalize (this);
+		}
+		
+		protected virtual void Dispose (bool disposing) {}
+		
+		~Backend ()
+		{
+			Dispose (false);
+		}
+		#endregion
 		
 		#region Methods
-		/// <summary>
-		/// Cleanup the backend before quitting
-		/// </summary>
-		public abstract void Cleanup ();
-
 		/// <summary>
 		/// Create a new task.
 		/// </summary>

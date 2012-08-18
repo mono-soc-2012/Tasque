@@ -99,7 +99,7 @@ namespace Tasque
 				// Cleanup the old backend
 				try {
 					Debug.WriteLine ("Cleaning up backend: {0}", backend.Name);
-					backend.Cleanup ();
+					backend.Dispose ();
 				} catch (Exception e) {
 					Trace.TraceWarning ("Exception cleaning up '{0}': {1}", backend.Name, e);
 				}
@@ -197,7 +197,7 @@ namespace Tasque
 			OnQuitting ();
 			
 			if (backend != null)
-				backend.Cleanup ();
+				backend.Dispose ();
 			
 			QuitMainLoop ();
 		}
@@ -237,11 +237,11 @@ namespace Tasque
 		#endregion
 		
 		#region Backend loading and helpers
-		protected void RetryBackend()
+		protected void RetryBackend ()
 		{
 			try {
 				if (backend != null && !backend.Configured) {
-					backend.Cleanup();
+					backend.Dispose();
 					backend.Initialize();
 				}
 			} catch (Exception e) {
