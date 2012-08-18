@@ -70,7 +70,7 @@ namespace Tasque
 		/// (credentials/etc.) to run.  If false, the properties dialog will
 		/// be shown so the user can configure the backend.
 		/// </value>
-		public abstract bool Configured { get; }
+		public abstract bool Configured { get; protected set; }
 		
 		public Category DefaultCategory {
 			get { return defaultCategory; }
@@ -86,7 +86,15 @@ namespace Tasque
 		/// <value>
 		/// Inidication that the backend is initialized
 		/// </value>
-		public abstract bool Initialized { get; }
+		public bool Initialized {
+			get { return initialized; }
+			protected set {
+				if (value != initialized) {
+					initialized = value;
+					OnBackendInitialized ();
+				}
+			}
+		}
 
 		/// <value>
 		/// A human-readable name for the backend that will be displayed in the
@@ -267,5 +275,6 @@ namespace Tasque
 		List<INotifyCollectionChanged> categoriesChangedSources;
 		Category defaultCategory;
 		SortedNotifyCollection<Task> tasks;
+		bool initialized;
 	}
 }
