@@ -13,8 +13,6 @@ namespace Tasque.Backends.Sqlite
 		private Dictionary<int, Gtk.TreeIter> taskIters;
 		private Gtk.TreeStore taskStore;
 		private Gtk.TreeModelSort sortedTasksModel;
-		private bool initialized;
-		private bool configured = true;
 		private Database db;
 		private Gtk.ListStore categoryListStore;
 		private Gtk.TreeModelSort sortedCategoriesModel;
@@ -24,7 +22,7 @@ namespace Tasque.Backends.Sqlite
 		
 		public SqliteBackend () : base (Catalog.GetString ("Local File"))
 		{
-			initialized = false;
+			Configured = true;
 			taskIters = new Dictionary<int, Gtk.TreeIter> (); 
 			taskStore = new Gtk.TreeStore (typeof(Task));
 			
