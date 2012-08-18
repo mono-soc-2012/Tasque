@@ -1,9 +1,8 @@
 // RtmCategory.cs created with MonoDevelop
-// User: boyd at 9:06 AM 2/11/2008
+// User: boyd at 9:06 AM 2/11/2008
 //
 // To change standard headers go to Edit->Preferences->Coding->Standard Headers
 //
-
 using System;
 using Tasque;
 using RtmNet;
@@ -15,56 +14,48 @@ namespace Tasque.Backends.RtmBackend
 		private List list;
 		private Gtk.TreeIter iter;
 
-		public RtmCategory(List list)
+		public RtmCategory (List list)
 		{
 			this.list = list;
 		}
 		
-		public string Name
-		{
+		public string Name {
 			get { return list.Name; }
 		}
 
-		public string ID
-		{
+		public string ID {
 			get { return list.ID; }
 		}
     
-		public int Deleted
-		{
+		public int Deleted {
 			get { return list.Deleted; }
 		}
 
-		public int Locked
-		{
+		public int Locked {
 			get { return list.Locked; }
 		}
     
-		public int Archived
-		{
+		public int Archived {
 			get { return list.Archived; }
 		}
 
-		public int Position
-		{
+		public int Position {
 			get { return list.Position; }
 		}
 
-		public int Smart
-		{
+		public int Smart {
 			get { return list.Smart; }
 		}
 		
-		public Gtk.TreeIter Iter
-		{
+		public Gtk.TreeIter Iter {
 			get { return iter; }
 			set { iter = value; }
 		}
 
-		public bool ContainsTask(Task task)
+		public bool ContainsTask (Task task)
 		{
-			if(task.Category is RtmCategory)
-				return ((task.Category as RtmCategory).ID.CompareTo(ID) == 0);
+			if (task.Category is RtmCategory)
+				return ((task.Category as RtmCategory).ID.CompareTo (ID) == 0);
 			else
 				return false;
 		}

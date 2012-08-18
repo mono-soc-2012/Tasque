@@ -1,6 +1,5 @@
 // Task.cs created with MonoDevelop
-// User: boyd at 8:50 PM 2/10/2008
-
+// User: boyd at 8:50 PM 2/10/2008
 using System;
 using RtmNet;
 using System.Collections.Generic;
@@ -12,8 +11,7 @@ namespace Tasque.Backends.RtmBackend
 		private RtmBackend rtmBackend;
 		private TaskState state;
 		private RtmCategory category;
-		private List<TaskNote> notes;		
-		
+		private List<TaskNote> notes;
 		TaskSeries taskSeries;
 		
 		/// <summary>
@@ -22,22 +20,22 @@ namespace Tasque.Backends.RtmBackend
 		/// <param name="taskSeries">
 		/// A <see cref="TaskSeries"/>
 		/// </param>
-		public RtmTask(TaskSeries taskSeries, RtmBackend be, string listID)
+		public RtmTask (TaskSeries taskSeries, RtmBackend be, string listID)
 		{
 			this.taskSeries = taskSeries;
 			this.rtmBackend = be;
-			this.category = be.GetCategory(listID);
+			this.category = be.GetCategory (listID);
 			
-			if(CompletionDate == DateTime.MinValue )
+			if (CompletionDate == DateTime.MinValue)
 				state = TaskState.Active;
 			else
 				state = TaskState.Completed;
-			notes = new List<TaskNote>();
+			notes = new List<TaskNote> ();
 
 			if (taskSeries.Notes.NoteCollection != null) {
-				foreach(Note note in taskSeries.Notes.NoteCollection) {
-					RtmNote rtmNote = new RtmNote(note);
-					notes.Add(rtmNote);
+				foreach (Note note in taskSeries.Notes.NoteCollection) {
+					RtmNote rtmNote = new RtmNote (note);
+					notes.Add (rtmNote);
 				}
 			}
 		}
@@ -46,21 +44,19 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// Gets the id of the task
 		/// </value>
-		public override string Id
-		{
+		public override string Id {
 			get { return taskSeries.Task.TaskID; } 
 		}
 
 		/// <value>
 		/// Holds the name of the task
 		/// </value>		
-		public override string Name
-		{
+		public override string Name {
 			get { return taskSeries.Name; }
 			set {
 				if (value != null) {
 					taskSeries.Name = value.Trim ();
-					rtmBackend.UpdateTaskName(this);
+					rtmBackend.UpdateTaskName (this);
 				}
 			}
 		}
@@ -68,12 +64,11 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// Due Date for the task
 		/// </value>
-		public override DateTime DueDate
-		{
+		public override DateTime DueDate {
 			get { return taskSeries.Task.Due; }
 			set { 
 				taskSeries.Task.Due = value;
-				rtmBackend.UpdateTaskDueDate(this);			
+				rtmBackend.UpdateTaskDueDate (this);			
 			}
 		}
 		
@@ -81,8 +76,7 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// Due Date for the task
 		/// </value>
-		public string DueDateString
-		{
+		public string DueDateString {
 			get {
 				// Return the due date in UTC format
 				string format = "yyyy-MM-ddTHH:mm:ssZ";
@@ -95,63 +89,59 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// Completion Date for the task
 		/// </value>
-		public override DateTime CompletionDate
-		{
+		public override DateTime CompletionDate {
 			get { return taskSeries.Task.Completed; }
 			set { 
 				taskSeries.Task.Completed = value;
-				rtmBackend.UpdateTaskCompleteDate(this);
+				rtmBackend.UpdateTaskCompleteDate (this);
 			}
 		}
 		
 		/// <value>
 		/// Returns if the task is complete
 		/// </value>
-		public override bool IsComplete
-		{
+		public override bool IsComplete {
 			get { return state == TaskState.Completed; }
 		}
 		
 		/// <value>
 		/// Holds the priority of the task
 		/// </value>
-		public override TaskPriority Priority
-		{
+		public override TaskPriority Priority {
 			get { 
 				switch (taskSeries.Task.Priority) {
-					default:
-					case "N":
-						return TaskPriority.None;
-					case "1":
-						return TaskPriority.High;
-					case "2":
-						return TaskPriority.Medium;
-					case "3":
-						return TaskPriority.Low;
+				default:
+				case "N":
+					return TaskPriority.None;
+				case "1":
+					return TaskPriority.High;
+				case "2":
+					return TaskPriority.Medium;
+				case "3":
+					return TaskPriority.Low;
 				}
 			}
 			set {
 				switch (value) {
-					default:
-					case TaskPriority.None:
-						taskSeries.Task.Priority = "N";
-						break;
-					case TaskPriority.High:
-						taskSeries.Task.Priority = "1";
-						break;
-					case TaskPriority.Medium:
-						taskSeries.Task.Priority = "2";
-						break;
-					case TaskPriority.Low:
-						taskSeries.Task.Priority = "3";
-						break;
+				default:
+				case TaskPriority.None:
+					taskSeries.Task.Priority = "N";
+					break;
+				case TaskPriority.High:
+					taskSeries.Task.Priority = "1";
+					break;
+				case TaskPriority.Medium:
+					taskSeries.Task.Priority = "2";
+					break;
+				case TaskPriority.Low:
+					taskSeries.Task.Priority = "3";
+					break;
 				}
-				rtmBackend.UpdateTaskPriority(this);				
+				rtmBackend.UpdateTaskPriority (this);				
 			}
 		}
 		
-		public string PriorityString
-		{
+		public string PriorityString {
 			get { return taskSeries.Task.Priority; }
 		}		
 		
@@ -159,72 +149,62 @@ namespace Tasque.Backends.RtmBackend
 		/// <value>
 		/// Returns if the task has any notes
 		/// </value>
-		public override bool HasNotes
-		{
+		public override bool HasNotes {
 			get { return (notes.Count > 0); }
 		}
 		
 		/// <value>
 		/// Returns if the task supports multiple notes
 		/// </value>
-		public override bool SupportsMultipleNotes
-		{
+		public override bool SupportsMultipleNotes {
 			get { return true; }
 		}
 		
 		/// <value>
 		/// Holds the current state of the task
 		/// </value>
-		public override TaskState State
-		{
+		public override TaskState State {
 			get { return state; }
 		}
 		
 		/// <value>
 		/// Returns the category object for this task
 		/// </value>
-		public override Category Category
-		{
+		public override Category Category {
 			get { return category; } 
 			set {
 				RtmCategory rtmCategory = value as RtmCategory;
-				rtmBackend.MoveTaskCategory(this, rtmCategory.ID);				
+				rtmBackend.MoveTaskCategory (this, rtmCategory.ID);				
 			}
 		}
 		
 		/// <value>
 		/// Returns the notes associates with this task
 		/// </value>
-		public override List<TaskNote> Notes
-		{
+		public override List<TaskNote> Notes {
 			get { return notes; }
 		}
 		
 		/// <value>
 		/// Holds the current RtmBackend for this task
 		/// </value>
-		public RtmBackend RtmBackend
-		{
+		public RtmBackend RtmBackend {
 			get { return this.rtmBackend; }
 		}
 		
-		public string ID
-		{
-			get {return taskSeries.TaskID; }
-		}
-		
-		public string SeriesTaskID
-		{
+		public string ID {
 			get { return taskSeries.TaskID; }
 		}
 		
-		public string TaskTaskID
-		{
+		public string SeriesTaskID {
+			get { return taskSeries.TaskID; }
+		}
+		
+		public string TaskTaskID {
 			get { return taskSeries.Task.TaskID; }
 		}
 		
-		public string ListID
-		{
+		public string ListID {
 			get { return category.ID; }
 		}
 		#endregion // Public Properties
@@ -235,10 +215,10 @@ namespace Tasque.Backends.RtmBackend
 		/// </summary>
 		public override void Activate ()
 		{
-			Debug.WriteLine("Activating Task: " + Name);
+			Debug.WriteLine ("Activating Task: " + Name);
 			state = TaskState.Active;
 			taskSeries.Task.Completed = DateTime.MinValue;
-			rtmBackend.UpdateTaskActive(this);
+			rtmBackend.UpdateTaskActive (this);
 		}
 		
 		/// <summary>
@@ -246,10 +226,10 @@ namespace Tasque.Backends.RtmBackend
 		/// </summary>
 		public override void Inactivate ()
 		{
-			Debug.WriteLine("Inactivating Task: " + Name);		
+			Debug.WriteLine ("Inactivating Task: " + Name);		
 			state = TaskState.Inactive;
 			taskSeries.Task.Completed = DateTime.Now;
-			rtmBackend.UpdateTaskInactive(this);
+			rtmBackend.UpdateTaskInactive (this);
 		}
 		
 		/// <summary>
@@ -257,11 +237,11 @@ namespace Tasque.Backends.RtmBackend
 		/// </summary>
 		public override void Complete ()
 		{
-			Debug.WriteLine("Completing Task: " + Name);			
+			Debug.WriteLine ("Completing Task: " + Name);			
 			state = TaskState.Completed;
-			if(taskSeries.Task.Completed == DateTime.MinValue)
+			if (taskSeries.Task.Completed == DateTime.MinValue)
 				taskSeries.Task.Completed = DateTime.Now;
-			rtmBackend.UpdateTaskCompleted(this);
+			rtmBackend.UpdateTaskCompleted (this);
 		}
 		
 		/// <summary>
@@ -270,7 +250,7 @@ namespace Tasque.Backends.RtmBackend
 		public override void Delete ()
 		{
 			state = TaskState.Deleted;
-			rtmBackend.UpdateTaskDeleted(this);
+			rtmBackend.UpdateTaskDeleted (this);
 		}
 		
 		/// <summary>
@@ -279,12 +259,12 @@ namespace Tasque.Backends.RtmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override TaskNote CreateNote(string text)
+		public override TaskNote CreateNote (string text)
 		{
 			RtmNote rtmNote;
 			
-			rtmNote = rtmBackend.CreateNote(this, text);
-			notes.Add(rtmNote);
+			rtmNote = rtmBackend.CreateNote (this, text);
+			notes.Add (rtmNote);
 			
 			return rtmNote;
 		}
@@ -295,17 +275,17 @@ namespace Tasque.Backends.RtmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override void DeleteNote(TaskNote note)
+		public override void DeleteNote (TaskNote note)
 		{
 			RtmNote rtmNote = (note as RtmNote);
 			
-			foreach(RtmNote lRtmNote in notes) {
-				if(lRtmNote.ID == rtmNote.ID) {
-					notes.Remove(lRtmNote);
+			foreach (RtmNote lRtmNote in notes) {
+				if (lRtmNote.ID == rtmNote.ID) {
+					notes.Remove (lRtmNote);
 					break;
 				}
 			}
-			rtmBackend.DeleteNote(this, rtmNote);
+			rtmBackend.DeleteNote (this, rtmNote);
 		}		
 
 		/// <summary>
@@ -314,9 +294,9 @@ namespace Tasque.Backends.RtmBackend
 		/// <param name="note">
 		/// A <see cref="INote"/>
 		/// </param>
-		public override void SaveNote(TaskNote note)
+		public override void SaveNote (TaskNote note)
 		{		
-			rtmBackend.SaveNote(this, (note as RtmNote));
+			rtmBackend.SaveNote (this, (note as RtmNote));
 		}		
 
 		#endregion // Public Methods
