@@ -19,9 +19,6 @@ namespace Tasque.Backends.RtmBackend
 	{
 		private const string apiKey = "b29f7517b6584035d07df3170b80c430";
 		private const string sharedSecret = "93eb5f83628b2066";
-
-		private Gtk.ListStore categoryListStore;
-		private Gtk.TreeModelSort sortedCategoriesModel;
 		
 		private Thread refreshThread;
 		private bool runningRefreshThread;
@@ -56,22 +53,8 @@ namespace Tasque.Backends.RtmBackend
 			// *************************************
 			// Data Model Set up
 			// *************************************
-			Tasks = new ObservableCollection<Task>();
 
-			categoryListStore = new Gtk.ListStore (typeof (Category));
-
-			sortedCategoriesModel = new Gtk.TreeModelSort (categoryListStore);
-			sortedCategoriesModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareCategorySortFunc));
-			sortedCategoriesModel.SetSortColumnId (0, Gtk.SortType.Ascending);
-
-			// make sure we have the all Category in our list
-			Gtk.Application.Invoke ( delegate {
-				AllCategory allCategory = new Tasque.AllCategory ();
-				Gtk.TreeIter iter = categoryListStore.Append ();
-				categoryListStore.SetValue (iter, 0, allCategory);				
-			});
-
-			runRefreshEvent = new AutoResetEvent(false);
+			runRefreshEvent = new AutoResetEvent (false);
 			
 			runningRefreshThread = false;
 			refreshThread  = new Thread(RefreshThreadLoop);
@@ -204,8 +187,7 @@ namespace Tasque.Backends.RtmBackend
 			// *************************************
 			// AUTHENTICATION to Remember The Milk
 			// *************************************
-			string authToken =
-				Application.Preferences.Get (Preferences.AuthTokenKey);
+			string authToken = Application.Preferences.Get (Tasque.Preferences.AuthTokenKey);
 			if (authToken != null ) {
 				Debug.WriteLine("Found AuthToken, checking credentials...");
 				try {
