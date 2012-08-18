@@ -56,9 +56,6 @@
     <None Include="..\src\ObservableTransformCollections\src\CollectionTransform\CollectionTransform.csproj">
       <Link>Libraries\ObservableCollectionTransforms\CollectionTransform.csproj</Link>
     </None>
-    <None Include="..\src\ObservableTransformCollections\src\CollectionTransform.Tests\CollectionTransform.Tests.csproj">
-      <Link>Libraries\ObservableCollectionTransforms\CollectionTransform.Tests.csproj</Link>
-    </None>
     <None Include="..\src\ObservableTransformCollections\src\CollectionView\CollectionView.csproj">
       <Link>Libraries\ObservableCollectionTransforms\CollectionView.csproj</Link>
     </None>
