@@ -127,30 +127,6 @@ namespace Tasque.Backends.Sqlite
 		#endregion // Public Methods
 		
 		#region Private Methods
-		public void UpdateTask (SqliteTask task)
-		{
-			// Set the task in the store so the model will update the UI.
-			Gtk.TreeIter iter;
-			
-			if (!taskIters.ContainsKey (task.SqliteId))
-				return;
-				
-			iter = taskIters [task.SqliteId];
-			
-			if (task.State == TaskState.Deleted) {
-				taskIters.Remove (task.SqliteId);
-				if (!taskStore.Remove (ref iter)) {
-					Debug.WriteLine ("Successfully deleted from taskStore: {0}",
-						task.Name);
-				} else {
-					Debug.WriteLine ("Problem removing from taskStore: {0}",
-						task.Name);
-				}
-			} else {
-				taskStore.SetValue (iter, 0, task);
-			}
-		}
-		
 		public void RefreshCategories ()
 		{
 			Gtk.TreeIter iter;
