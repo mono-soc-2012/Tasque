@@ -122,10 +122,26 @@ namespace Tasque
 		#endregion
 		
 		#region Methods
-		public abstract void Activate ();
-		
-		public abstract void Inactivate ();
+		public void Activate ()
+		{
+			Debug.WriteLine ("Task.Activate ()");
+			CompletionDate = DateTime.MinValue;
+			State = TaskState.Active;
+			OnActivate ();
+		}
 
+		protected virtual void OnActivate () {}
+		
+		public void Inactivate ()
+		{
+			Debug.WriteLine ("Task.Inactivate ()");
+			CompletionDate = DateTime.Now;
+			State = TaskState.Inactive;
+			OnInactivate ();
+		}
+
+		protected virtual void OnInactivate () {}
+		
 		public void AddNote (TaskNote note)
 		{
 			if (note == null)
@@ -168,11 +184,26 @@ namespace Tasque
 			return CompareToByPriorityAndName (task);
 		}
 
-		public abstract void Complete ();
+		public void Complete ()
+		{
+			Debug.WriteLine ("Task.Complete ()");
+			CompletionDate = DateTime.Now;
+			State = TaskState.Completed;
+			OnComplete ();
+		}
+		
+		protected virtual void OnComplete () {}
 		
 		public abstract TaskNote CreateNote (string text);
 
-		public abstract void Delete ();
+		public void Delete ()
+		{
+			Debug.WriteLine ("Task.Delete ()");
+			State = TaskState.Deleted;
+			OnDelete ();
+		}
+		
+		protected virtual void OnDelete () {}
 
 		public bool RemoveNote (TaskNote note)
 		{
