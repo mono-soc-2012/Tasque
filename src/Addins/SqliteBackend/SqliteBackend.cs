@@ -119,7 +119,7 @@ namespace Tasque.Backends.Sqlite
 		/// processing is required to make sure special characters are
 		/// escaped, etc.
 		/// </summary>
-		public string SanitizeText (string text)
+		internal string SanitizeText (string text)
 		{
 			return text.Replace ("'", "''");
 		}
