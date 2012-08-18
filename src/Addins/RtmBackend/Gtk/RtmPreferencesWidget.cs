@@ -2,17 +2,18 @@
 // User: boyd at 11:29 PM 2/18/2008
 
 using System;
-using Gtk;
+using System.Diagnostics;
 using Mono.Unix;
+using Gtk;
 
-namespace Tasque.Backends.RtmBackend
+namespace Tasque.Backends.RtmBackend.Gtk
 {
-	public class RtmPreferencesWidget : Gtk.EventBox
+	public class RtmPreferencesWidget : EventBox
 	{
  		private LinkButton		authButton;
 		
 		private Label			statusLabel;
-		private Gtk.Image		image;
+		private Image		image;
 		private bool			authRequested;
 		private bool			isAuthorized;
 		
@@ -42,7 +43,7 @@ namespace Tasque.Backends.RtmBackend
 			Add(mainVBox);
 
 			// Add the rtm logo
-			image = new Gtk.Image (normalPixbuf);
+			image = new Image (normalPixbuf);
 			image.Show();
 			//make the dialog box look pretty without hard coding total size and
 			//therefore clipping displays with large fonts.
@@ -55,7 +56,7 @@ namespace Tasque.Backends.RtmBackend
 
 			// Status message label
 			statusLabel = new Label();
-			statusLabel.Justify = Gtk.Justification.Center;
+			statusLabel.Justify = Justification.Center;
 			statusLabel.Wrap = true;
 			statusLabel.LineWrap = true;
 			statusLabel.Show();
@@ -114,7 +115,7 @@ namespace Tasque.Backends.RtmBackend
 					}
 					Debug.WriteLine("Launching browser to authorize with Remember the Milk");
 					try {
-						Application.Instance.NativeApplication.OpenUrlInBrowser (url);
+						Application.Instance.OpenUrlInBrowser (url);
 						authRequested = true;
 						authButton.Label = Catalog.GetString ("Click Here After Authorizing");
 					} catch (Exception ex) {

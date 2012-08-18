@@ -57,14 +57,16 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="RtmBackend.cs" />
-    <None Include="RtmCategory.cs" />
-    <None Include="RtmNote.cs" />
-    <None Include="RtmPreferencesWidget.cs" />
-    <None Include="RtmTask.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="Mono.Posix" />
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,11 +76,23 @@
     <Compile Include="..\..\..\build\GlobalDefines.cs">
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
+    <Compile Include="RtmBackend.cs" />
+    <Compile Include="RtmCategory.cs" />
+    <Compile Include="RtmNote.cs" />
+    <Compile Include="RtmTask.cs" />
+    <Compile Include="Gtk\RtmPreferencesWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\RtmNet\RtmNet.csproj">
       <Project>{0AA1B96E-03DE-4D26-B4FD-507E988FD9B7}</Project>
       <Name>RtmNet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\libtasque\libtasque.csproj">
+      <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
+      <Name>libtasque</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Gtk\" />
   </ItemGroup>
 </Project>
