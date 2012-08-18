@@ -9,15 +9,6 @@ namespace Tasque.Backends.Sqlite
 {
 	public class SqliteTask : Task
 	{
-		private SqliteBackend backend;
-		private int id;
-		private int category;
-		private string name;
-		private long dueDate;
-		private long completionDate;
-		private int priority;
-		private int state;
-
 		public SqliteTask (SqliteBackend backend, string name)
 			: base (backend.SanitizeText (name), TaskNoteSupport.Multiple)
 		{
@@ -262,5 +253,8 @@ namespace Tasque.Backends.Sqlite
 		}
 
 		#endregion // Public Methods
+		
+		SqliteBackend backend;
+		int id;
 	}
 }
