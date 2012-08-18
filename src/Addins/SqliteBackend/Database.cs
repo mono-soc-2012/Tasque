@@ -10,45 +10,41 @@ using Mono.Data.Sqlite;
 
 namespace Tasque.Backends.Sqlite
 {
-	public class Database
+	public class Database : IDisposable
 	{
-		private SqliteConnection connection;
-		public static readonly DateTime LocalUnixEpoch = new DateTime (
-				1970,
-				1,
-				1
-			).ToLocalTime ();
+		public static readonly DateTime LocalUnixEpoch = new DateTime (1970, 1, 1).ToLocalTime ();
 		
-		public SqliteConnection Connection {
-			get { return connection; }
-		}
-		
-		public Database ()
-		{
-		}
+		public SqliteConnection Connection { get; private set; }
 		
 		public void Open ()
 		{
-			string dbLocation = "URI=file:" + Path.Combine (
-						Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData), 
-						"tasque/sqlitebackend.db");
-
-			connection = new SqliteConnection (dbLocation);
-			connection.Open ();
+			var dbLocation = "URI=file:" + Path.Combine (
+				Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData),
+				"tasque/sqlitebackend.db");
+			
+			Connection = new SqliteConnection (dbLocation);
+			Connection.Open ();
 			
 			CreateTables ();
 		}
 		
 		public void Close ()
 		{
-			connection.Close ();
-			connection = null;			
+			if (Connection != null) {
+				Connection.Close ();
+				Connection = null;		
+			}
+		}
+		
+		void IDisposable.Dispose ()
+		{
+			Close ();
 		}
 		
 		public void CreateTables ()
 		{
 			if (!TableExists ("Categories")) {
-				Console.WriteLine ("Creating Categories table");
+				Debug.WriteLine ("Creating Categories table");
 				ExecuteScalar (@"CREATE TABLE Categories (
 					ID INTEGER PRIMARY KEY,
 					Name TEXT,
@@ -58,7 +54,7 @@ namespace Tasque.Backends.Sqlite
 			}
 
 			if (!TableExists ("Tasks")) {
-				Console.WriteLine ("Creating Tasks table");
+				Debug.WriteLine ("Creating Tasks table");
 				ExecuteScalar (@"CREATE TABLE Tasks (
 					ID INTEGER PRIMARY KEY,
 					Category INTEGER,
@@ -73,7 +69,7 @@ namespace Tasque.Backends.Sqlite
 			}
 
 			if (!TableExists ("Notes")) {
-				Console.WriteLine ("Creating Notes table");
+				Debug.WriteLine ("Creating Notes table");
 				ExecuteScalar (@"CREATE TABLE Notes (
 					ID INTEGER PRIMARY KEY,
 					Task INTEGER KEY,
@@ -87,31 +83,27 @@ namespace Tasque.Backends.Sqlite
 
 		public object ExecuteScalar (string command)
 		{
-			object resultset;
-        	
-			SqliteCommand cmd = connection.CreateCommand ();
+			var cmd = Connection.CreateCommand ();
 			cmd.CommandText = command;
-			resultset = cmd.ExecuteScalar ();
-			return resultset;
+			return cmd.ExecuteScalar ();
 		}
         
 		public int ExecuteNonQuery (string command)
 		{
-			int resultCode;
-			SqliteCommand cmd = connection.CreateCommand ();
+			var cmd = Connection.CreateCommand ();
 			cmd.CommandText = command;
-			resultCode = cmd.ExecuteNonQuery ();
+			var resultCode = cmd.ExecuteNonQuery ();
 			cmd.Dispose ();
 			return resultCode;
 		}
         
 		public string GetSingleString (string command)
 		{
-			string readString = String.Empty;
+			var readString = string.Empty;
 			try {
-				SqliteCommand cmd = connection.CreateCommand ();
+				var cmd = Connection.CreateCommand ();
 				cmd.CommandText = command;
-				SqliteDataReader dataReader = cmd.ExecuteReader ();
+				var dataReader = cmd.ExecuteReader ();
 				if (dataReader.Read ())
 					readString = dataReader.GetString (0);
 				else
@@ -145,9 +137,9 @@ namespace Tasque.Backends.Sqlite
 		{
 			int dtVal = 0;
 			try {        	
-				SqliteCommand cmd = connection.CreateCommand ();
+				var cmd = Connection.CreateCommand ();
 				cmd.CommandText = command;
-				SqliteDataReader dataReader = cmd.ExecuteReader ();
+				var dataReader = cmd.ExecuteReader ();
 				if (dataReader.Read ())
 					dtVal = dataReader.GetInt32 (0);
 				else
@@ -164,9 +156,9 @@ namespace Tasque.Backends.Sqlite
 		{
 			long dtVal = 0;
 			try {       	
-				SqliteCommand cmd = connection.CreateCommand ();
+				var cmd = Connection.CreateCommand ();
 				cmd.CommandText = command;
-				SqliteDataReader dataReader = cmd.ExecuteReader ();
+				var dataReader = cmd.ExecuteReader ();
 				if (dataReader.Read ())
 					dtVal = dataReader.GetInt64 (0);
 				else
@@ -181,13 +173,10 @@ namespace Tasque.Backends.Sqlite
         
 		public bool TableExists (string table)
 		{
-			return Convert.ToInt32 (ExecuteScalar (String.Format (@"
+			return Convert.ToInt32 (ExecuteScalar (string.Format (@"
 				SELECT COUNT(*)
 				FROM sqlite_master
-				WHERE Type='table' AND Name='{0}'", 
-				table)
-			)
-			) > 0;
+				WHERE Type='table' AND Name='{0}'", table))) > 0;
 		}
 
 		public static DateTime ToDateTime (long time)
