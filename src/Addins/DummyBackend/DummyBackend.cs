@@ -26,6 +26,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
+using System.Collections.Generic;
 using Tasque.Backends.Dummy.Gtk;
 
 namespace Tasque.Backends.Dummy
@@ -117,7 +118,7 @@ namespace Tasque.Backends.Dummy
 		}
 		#endregion
 
-		protected override Task CreateTaskCore (string taskName)
+		protected override Task CreateTaskCore (string taskName, IEnumerable<Category> categories)
 		{
 			return new DummyTask (taskName);
 		}

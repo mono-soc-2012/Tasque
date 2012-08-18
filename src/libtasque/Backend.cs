@@ -151,7 +151,7 @@ namespace Tasque
 			if (categories == null)
 				throw new ArgumentNullException ("categories");
 
-			var task = CreateTaskCore (taskName);
+			var task = CreateTaskCore (taskName, categories);
 
 			bool isEmpty = true;
 			foreach (var item in categories) {
@@ -193,7 +193,7 @@ namespace Tasque
 		/// </summary>
 		public virtual void Refresh () {}
 
-		protected abstract Task CreateTaskCore (string taskName);
+		protected abstract Task CreateTaskCore (string taskName, IEnumerable<Category> categories);
 		
 		protected void OnBackendInitialized () {
 			if (BackendInitialized != null)
