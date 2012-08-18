@@ -29,10 +29,7 @@
   </PropertyGroup>
   <!-- Project and tasks imports -->
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.SetDataAtBuildTime" />
-  <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.LoadGitSubmodules" />
-  <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.BuildBinScript" />
-  <UsingTask AssemblyFile="bin\Tasque.Build.dll" TaskName="Tasque.Build.CheckPrefix" />
+  <Import Project="Tasque.targets" />
   <ItemGroup>
     <None Include="build.csproj" />
     <None Include="..\tasque.sln">
@@ -96,16 +93,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SetDataAtBuildTime.cs" />
     <Compile Include="LoadGitSubmodules.cs" />
     <Compile Include="CompileTranslations.cs" />
     <Compile Include="DeleteCompiledTranslations.cs" />
-    <Compile Include="BuildBinScript.cs" />
     <Compile Include="CheckPrefix.cs" />
+    <Compile Include="SetValues.cs" />
+    <Compile Include="PrepareAuthorsFile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <GlobalDefines Include="GlobalDefines.cs" />
-    <GlobalDefinesIn Include="GlobalDefines.cs.in" />
+    <SetValueSourceFile Include="GlobalDefines.cs.in" />
+    <SetValueSourceFile Include="Solution.properties.in" />
+    <SetValueSourceFile Include="tasque.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <SetValueTargetFile Include="GlobalDefines.cs" />
+    <SetValueTargetFile Include="Solution.properties" />
   </ItemGroup>
   <ItemGroup>
     <License Include="..\LICENSE">
@@ -114,9 +116,7 @@
     <Authors Include="..\AUTHORS">
       <Link>AUTHORS</Link>
     </Authors>
-  </ItemGroup>
-  <ItemGroup>
-    <BinScriptIn Include="tasque.in" />
+    <CopyrightInfo Include="CopyrightInfo.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Framework" />
@@ -127,15 +127,15 @@
     <Message Text="Checking prefix..." />
     <CheckPrefix Prefix="$(Prefix)" />
     <Message Text="Finished checking prefix." />
-    <Message Text="Setting up global definitions..." />
-    <SetDataAtBuildTime AuthorsFile="@(Authors)" CopyingFile="@(License)" Prefix="$(Prefix)" GlobalDefinesFile="@(GlobalDefines)" GlobalDefinesFileIn="@(GlobalDefinesIn)" Version="$(ReleaseVersion)" Website="$(Website)" />
-    <Message Text="Finished setting up global definitions." />
+    <Message Text="Setting up global variable definitions..." />
+    <PrepareAuthorsFile AuthorsFile="@(Authors)">
+      <Output ItemName="AuthorsPrepared" TaskParameter="Output" />
+    </PrepareAuthorsFile>
+    <SetValues SourceFiles="@(SetValueSourceFile)" TargetFiles="@(SetValueTargetFile);$(Prefix)\bin\tasque" Patterns="@version@;@prefix@;@website@;@authors@;@copyrightinfo@;@license@" Values="$(ReleaseVersion);$(Prefix);$(Website);@(AuthorsPrepared);@(CopyrightInfo);@(License)" />
+    <Message Text="Finished setting up global variable definitions." />
     <Message Text="Load submodules..." />
     <LoadGitSubmodules SolutionDirectory="$(MSBuildProjectDirectory)\.." />
     <Message Text="Finished loading submodules." />
-    <Message Text="Installing bin script..." />
-    <BuildBinScript Prefix="$(Prefix)" BinScriptIn="@(BinScriptIn)" />
-    <Message Text="Finished installing bin script." />
   </Target>
   <ProjectExtensions>
     <MonoDevelop>

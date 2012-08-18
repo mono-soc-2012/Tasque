@@ -1,5 +1,5 @@
 // 
-// BuildBinScript.cs
+// PrepareAuthorsFile.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -25,33 +25,42 @@
 // THE SOFTWARE.
 using System;
 using System.IO;
+using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
 namespace Tasque.Build
 {
-	public class BuildBinScript : Task
+	public class PrepareAuthorsFile : Task
 	{
 		[Required]
-		public ITaskItem Prefix { get; set; }
+		public ITaskItem AuthorsFile { get; set; }
 		
-		[Required]
-		public ITaskItem BinScriptIn { get; set; }
+		[Output]
+		public ITaskItem Output { get; set; }
 		
 		public override bool Execute ()
 		{
 			try {
-				var text = File.ReadAllText (BinScriptIn.GetMetadata ("FullPath"));
-				text = text.Replace ("@prefix@", Prefix.ItemSpec);
+				string authors;
+				using (var fs = new FileStream (AuthorsFile.GetMetadata ("FullPath"), FileMode.Open)) {
+					using (var sr = new StreamReader (fs)) {
+
+						var authorsStrBuilder = new StringBuilder ();
+
+						while (!sr.EndOfStream) {
+							var line = sr.ReadLine ().Trim ();
+							if (!string.IsNullOrWhiteSpace (line))
+								authorsStrBuilder.Append ("\"" + line + "\", ");
+						}
+
+						authors = authorsStrBuilder.ToString ();
+					}
+				}
 				
-				var dirPath = Path.Combine (Prefix.ItemSpec, "bin");
-				if (!Directory.Exists (dirPath))
-					Directory.CreateDirectory (dirPath);
-				
-				var path = Path.Combine (dirPath, "tasque");
-				File.WriteAllText (path, text);
+				Output = new TaskItem (authors);
 			} catch (Exception ex) {
-				Log.LogErrorFromException (ex, true);
+				Log.LogErrorFromException (ex);
 				return false;
 			}
 			return true;
