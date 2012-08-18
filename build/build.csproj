@@ -104,8 +104,8 @@
     <SetValueSourceFile Include="tasque.in" />
   </ItemGroup>
   <ItemGroup>
-    <SetValueTargetFile Include="GlobalDefines.cs" />
-    <SetValueTargetFile Include="Solution.properties" />
+    <GlobalProperties Include="GlobalDefines.cs" />
+    <GlobalProperties Include="Solution.properties" />
   </ItemGroup>
   <ItemGroup>
     <License Include="..\LICENSE">
@@ -129,8 +129,11 @@
     <PrepareAuthorsFile AuthorsFile="@(Authors)">
       <Output ItemName="AuthorsPrepared" TaskParameter="Output" />
     </PrepareAuthorsFile>
-    <SetValues SourceFiles="@(SetValueSourceFile)" TargetFiles="@(SetValueTargetFile);$(Prefix)\bin\tasque" Patterns="@version@;@prefix@;@website@;@authors@;@copyrightinfo@;@license@" Values="$(ReleaseVersion);$(Prefix);$(Website);@(AuthorsPrepared);@(CopyrightInfo);@(License)" />
+    <SetValues SourceFiles="@(SetValueSourceFile)" TargetFiles="@(GlobalProperties);$(Prefix)\bin\tasque" Patterns="@version@;@prefix@;@website@;@authors@;@copyrightinfo@;@license@" Values="$(ReleaseVersion);$(Prefix);$(Website);@(AuthorsPrepared);@(CopyrightInfo);@(License)" />
     <Message Text="Finished setting up global variable definitions." />
+    <Message Text="Copy Solution.properties into submodules root directories..." />
+    <Copy SourceFiles="@(GlobalProperties)" DestinationFolder="..\src\ObservableTransformCollections\build" />
+    <Message Text="Finished copying" />
     <Message Text="Load submodules..." />
     <LoadGitSubmodules SolutionDirectory="$(MSBuildProjectDirectory)\.." />
     <Message Text="Finished loading submodules." />
