@@ -514,23 +514,6 @@ namespace Tasque.Backends.RtmBackend
 #endregion // Public Methods
 
 #region Private Methods
-		static int CompareCategorySortFunc (Gtk.TreeModel model,
-											Gtk.TreeIter a,
-											Gtk.TreeIter b)
-		{
-			Category categoryA = model.GetValue (a, 0) as Category;
-			Category categoryB = model.GetValue (b, 0) as Category;
-			
-			if (categoryA == null || categoryB == null)
-				return 0;
-			
-			if (categoryA is Tasque.AllCategory)
-				return -1;
-			else if (categoryB is Tasque.AllCategory)
-				return 1;
-			
-			return (categoryA.Name.CompareTo (categoryB.Name));
-		}
 
 		/// <summary>
 		/// Update the model to match what is in RTM
