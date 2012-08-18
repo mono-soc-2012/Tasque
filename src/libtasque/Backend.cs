@@ -187,7 +187,7 @@ namespace Tasque
 		/// <summary>
 		/// Refreshes the backend.
 		/// </summary>
-		public abstract void Refresh ();
+		public virtual void Refresh () {}
 
 		protected abstract Task CreateTaskCore (string taskName);
 		
