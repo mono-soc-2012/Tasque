@@ -35,152 +35,53 @@ namespace Tasque.Backends.Sqlite
 			CompletionDate = completionDate;
 			Priority = priority;
 			State = state;
-		}		
-		
-		#region Public Properties
-		
-		public override string Id {
-			get { return id.ToString (); }
-		}
-
-		internal int SqliteId {
-			get { return id; } 
 		}
 		
-		public override string Name {
-			get { return this.name; }
-			set {
-				string name = backend.SanitizeText (value);
-				this.name = name;
-				string command = String.Format (
-					"UPDATE Tasks set Name='{0}' where ID='{1}'",
-					name,
-					id
-				);
-				backend.Database.ExecuteScalar (command);
-				backend.UpdateTask (this);
+		protected override void OnNameChanged ()
+		{
+			var name = backend.SanitizeText (Name);
+			if (name != Name) {
+				Name = name;
+				return;
 			}
+			
+			var command = string.Format ("UPDATE Tasks set Name='{0}' where ID='{1}'", name, id);
+			backend.Database.ExecuteScalar (command);
+			base.OnNameChanged ();
 		}
 		
-		public override DateTime DueDate {
-			get { return Database.ToDateTime (this.dueDate); }
-			set {
-				this.dueDate = Database.FromDateTime (value);
-				string command = String.Format (
-					"UPDATE Tasks set DueDate='{0}' where ID='{1}'",
-					this.dueDate,
-					id
-				);
-				backend.Database.ExecuteScalar (command);
-				backend.UpdateTask (this);				
-			}
+		protected override void OnDueDateChanged ()
+		{
+			var dueDate = Database.FromDateTime (DueDate);
+			var command = string.Format ("UPDATE Tasks set DueDate='{0}' where ID='{1}'", dueDate, id);
+			backend.Database.ExecuteScalar (command);
+			base.OnDueDateChanged ();
 		}
 		
-		public override DateTime CompletionDate {
-			get { return Database.ToDateTime (this.completionDate); }
-			set {
-				this.completionDate = Database.FromDateTime (value);
-				string command = String.Format (
-					"UPDATE Tasks set CompletionDate='{0}' where ID='{1}'",
-					this.completionDate,
-					id
-				);
-				backend.Database.ExecuteScalar (command);
-				backend.UpdateTask (this);
-			}
+		protected override void OnCompletionDateChanged ()
+		{
+			var completionDate = Database.FromDateTime (CompletionDate);
+			var command = string.Format ("UPDATE Tasks set CompletionDate='{0}' where ID='{1}'",
+			                             completionDate, id);
+			backend.Database.ExecuteScalar (command);
+			base.OnCompletionDateChanged ();
 		}
 		
-		public override bool IsComplete {
-			get {
-				if (CompletionDate == DateTime.MinValue)
-					return false;
-				
-				return true;
-			}
+		protected override void OnPriorityChanged ()
+		{
+			var priority = (int)Priority;
+			var command = string.Format ("UPDATE Tasks set Priority='{0}' where ID='{1}'", priority, id);
+			backend.Database.ExecuteScalar (command);
+			base.OnPriorityChanged ();
 		}
 		
-		public override TaskPriority Priority {
-			get { return (TaskPriority)this.priority; }
-			set {
-				this.priority = (int)value;
-				string command = String.Format (
-					"UPDATE Tasks set Priority='{0}' where ID='{1}'",
-					this.priority,
-					id
-				);
-				backend.Database.ExecuteScalar (command);
-				backend.UpdateTask (this);
-			}
+		protected override void OnStateChanged ()
+		{
+			var state = (int)State;
+			var command = string.Format ("UPDATE Tasks set State='{0}' where ID='{1}'", state, id);
+			backend.Database.ExecuteScalar (command);
+			base.OnStateChanged ();
 		}
-
-		public override bool HasNotes {
-			get {
-				string command = String.Format (
-					"SELECT COUNT(*) FROM Notes WHERE Task='{0}'",
-					id
-				);
-				return backend.Database.GetSingleInt (command) > 0;
-			}
-		}
-		
-		public override bool SupportsMultipleNotes {
-			get { return true; }
-		}
-		
-		public override TaskState State {
-			get { return LocalState; }
-		}
-		
-		public TaskState LocalState {
-			get { return (TaskState)this.state; }
-			set {
-				this.state = (int)value;
-				string command = String.Format (
-					"UPDATE Tasks set State='{0}' where ID='{1}'",
-					this.state,
-					id
-				);
-				backend.Database.ExecuteScalar (command);
-				backend.UpdateTask (this);
-			}
-		}
-
-		public override Category Category {
-			get { return new SqliteCategory (backend, this.category); }
-			set {
-				this.category = (int)(value as SqliteCategory).ID;
-				string command = String.Format (
-					"UPDATE Tasks set Category='{0}' where ID='{1}'",
-					category,
-					id
-				);
-				backend.Database.ExecuteScalar (command);
-				backend.UpdateTask (this);
-			}
-		}
-		
-		public override List<TaskNote> Notes {
-			get {
-				List<TaskNote> notes = new List<TaskNote> ();
-
-				string command = String.Format (
-					"SELECT ID, Text FROM Notes WHERE Task='{0}'",
-					id
-				);
-				SqliteCommand cmd = backend.Database.Connection.CreateCommand ();
-				cmd.CommandText = command;
-				SqliteDataReader dataReader = cmd.ExecuteReader ();
-				while (dataReader.Read()) {
-					int taskId = dataReader.GetInt32 (0);
-					string text = dataReader.GetString (1);
-					notes.Add (new SqliteNote (taskId, text));
-				}
-
-				return notes;
-			}
-		}		
-		
-		#endregion // Public Properties
 		
 		#region Public Methods
 		public override void Activate ()
