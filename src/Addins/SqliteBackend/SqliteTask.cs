@@ -28,18 +28,21 @@ namespace Tasque.Backends.Sqlite
 
 		public SqliteTask (SqliteBackend backend, int id, int category, string name, 
 		                   long dueDate, long completionDate, int priority, int state)
-			: base (backend, name)
+			: base (name, TaskNoteSupport.Multiple)
 		{
 			this.backend = backend;
 			this.id = id;
-			DueDate = dueDate;
-			CompletionDate = completionDate;
-			Priority = priority;
-			State = state;
+			DueDate = Database.ToDateTime (dueDate);
+			CompletionDate = Database.ToDateTime (completionDate);
+			Priority = (TaskPriority)priority;
+			State = (TaskState)state;
 		}
 		
 		protected override void OnNameChanged ()
 		{
+			if (backend == null)
+				return;
+			
 			var name = backend.SanitizeText (Name);
 			if (name != Name) {
 				Name = name;
