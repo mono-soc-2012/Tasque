@@ -106,8 +106,6 @@ namespace Tasque.Backends.Dummy
 			
 			Initialized = true;
 		}
-
-		public override void Cleanup () {}
 		
 		public override IBackendPreferences Preferences
 		{

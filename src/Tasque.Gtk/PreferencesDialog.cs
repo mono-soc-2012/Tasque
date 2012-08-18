@@ -437,7 +437,7 @@ namespace Tasque
 					Backend oldBackend = backendComboMap [selectedBackend];
 					Trace.TraceInformation ("Cleaning up '{0}'...", oldBackend.Name);
 					try {
-						oldBackend.Cleanup ();
+						oldBackend.Dispose ();
 					} catch (Exception e) {
 						Trace.TraceWarning ("Exception cleaning up '{0}': {2}",
 									 oldBackend.Name,
