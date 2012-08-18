@@ -82,29 +82,17 @@ namespace Tasque.Backends.Sqlite
 		{
 		}
 		
-		public void Initialize ()
+		public override void Initialize ()
 		{
 			if (db == null)
 				db = new Database ();
 				
 			db.Open ();
 			
-			//
-			// Add in the "All" Category
-			//
-			AllCategory allCategory = new Tasque.AllCategory ();
-			Gtk.TreeIter iter = categoryListStore.Append ();
-			categoryListStore.SetValue (iter, 0, allCategory);
-			
-			
 			RefreshCategories ();
-			RefreshTasks ();		
-
+			RefreshTasks ();
 		
-			initialized = true;
-			if (BackendInitialized != null) {
-				BackendInitialized ();
-			}		
+			Initialized = true;		
 		}
 
 		public void Cleanup ()
