@@ -34,7 +34,7 @@ namespace Tasque
 {
 	public abstract class Application : IDisposable
 	{
-		internal static Application Instance { get; private set; }
+		public static Application Instance { get; private set; }
 
 		protected Application () : this (Path.Combine (Environment.GetFolderPath (
 				Environment.SpecialFolder.ApplicationData), "tasque")) {}

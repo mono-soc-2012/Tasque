@@ -36,7 +36,7 @@ namespace Tasque
 {
 	public abstract class GtkApplication : Application
 	{
-		public static GtkApplication Instance {
+		public new static GtkApplication Instance {
 			get {
 				if (instance == null)
 					throw new InvalidOperationException ("No instance has been created yet.");
