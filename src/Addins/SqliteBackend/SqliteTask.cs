@@ -1,9 +1,7 @@
 // SqliteTask.cs created with MonoDevelop
 // User: boyd at 8:50 PM 2/10/2008
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using Mono.Data.Sqlite;
 
 namespace Tasque.Backends.Sqlite
 {
@@ -16,7 +14,7 @@ namespace Tasque.Backends.Sqlite
 				throw new ArgumentNullException ("backend");
 			
 			name = backend.SanitizeText (name);
-			Backend = backend;
+			this.backend = backend;
 			Debug.WriteLine ("Creating New Task Object : {0} (id={1})", name, id);
 			var dueDate = Database.FromDateTime (DueDate);
 			var completionDate = Database.FromDateTime (CompletionDate);
@@ -32,7 +30,7 @@ namespace Tasque.Backends.Sqlite
 		                   long dueDate, long completionDate, int priority, int state)
 			: base (backend, name)
 		{
-			Backend = backend;
+			this.backend = backend;
 			this.id = id;
 			DueDate = dueDate;
 			CompletionDate = completionDate;
