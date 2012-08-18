@@ -6,12 +6,12 @@
 
 using System;
 using Mono.Unix;
-using Tasque.Backends;
 using RtmNet;
 using System.Threading;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Tasque.Backends.RtmBackend
 {
@@ -648,8 +648,5 @@ namespace Tasque.Backends.RtmBackend
 		}
 		
 #endregion // Private Methods
-
-#region Event Handlers
-#endregion // Event Handlers
 	}
 }
