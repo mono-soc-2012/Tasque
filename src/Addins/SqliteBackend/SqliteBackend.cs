@@ -1,11 +1,10 @@
 // SqliteBackend.cs created with MonoDevelop
-// User: boyd at 7:10 AM 2/11/2008
-
+// User: boyd at 7:10 AM 2/11/2008
 using System;
 using System.Collections.Generic;
-using Mono.Unix;
-using Tasque.Backends;
+using System.Diagnostics;
 using Mono.Data.Sqlite;
+using Mono.Unix;
 
 namespace Tasque.Backends.Sqlite
 {
@@ -16,64 +15,59 @@ namespace Tasque.Backends.Sqlite
 		private Gtk.TreeModelSort sortedTasksModel;
 		private bool initialized;
 		private bool configured = true;
-		
 		private Database db;
-		
 		private Gtk.ListStore categoryListStore;
 		private Gtk.TreeModelSort sortedCategoriesModel;
-
-		public event BackendInitializedHandler BackendInitialized;
-		public event BackendSyncStartedHandler BackendSyncStarted;
-		public event BackendSyncFinishedHandler BackendSyncFinished;
-		
 		SqliteCategory defaultCategory;
 		//SqliteCategory workCategory;
 		//SqliteCategory projectsCategory;
 		
-		public SqliteBackend ()
+		public SqliteBackend () : base (Catalog.GetString ("Local File"))
 		{
 			initialized = false;
 			taskIters = new Dictionary<int, Gtk.TreeIter> (); 
-			taskStore = new Gtk.TreeStore (typeof (Task));
+			taskStore = new Gtk.TreeStore (typeof(Task));
 			
 			sortedTasksModel = new Gtk.TreeModelSort (taskStore);
-			sortedTasksModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareTasksSortFunc));
+			sortedTasksModel.SetSortFunc (
+				0,
+				new Gtk.TreeIterCompareFunc (CompareTasksSortFunc)
+			);
 			sortedTasksModel.SetSortColumnId (0, Gtk.SortType.Ascending);
 			
-			categoryListStore = new Gtk.ListStore (typeof (Category));
+			categoryListStore = new Gtk.ListStore (typeof(Category));
 			
 			sortedCategoriesModel = new Gtk.TreeModelSort (categoryListStore);
-			sortedCategoriesModel.SetSortFunc (0, new Gtk.TreeIterCompareFunc (CompareCategorySortFunc));
+			sortedCategoriesModel.SetSortFunc (
+				0,
+				new Gtk.TreeIterCompareFunc (CompareCategorySortFunc)
+			);
 			sortedCategoriesModel.SetSortColumnId (0, Gtk.SortType.Ascending);
 		}
 		
 		#region Public Properties
-		public string Name
-		{
-			get { return "Local File"; } // TODO: Return something more usable to the user like, "Built-in" or whatever
+		public string Name {
+			get { return; } // TODO: Return something more usable to the user like, "Built-in" or whatever
 		}
 		
 		/// <value>
 		/// All the tasks including ITaskDivider items.
 		/// </value>
-		public Gtk.TreeModel SortedTasks
-		{
+		public Gtk.TreeModel SortedTasks {
 			get { return sortedTasksModel; }
 		}
 		
 		/// <value>
 		/// This returns all the task lists (categories) that exist.
 		/// </value>
-		public Gtk.TreeModel Categories
-		{
+		public Gtk.TreeModel Categories {
 			get { return sortedCategoriesModel; }
 		}
 		
 		/// <value>
 		/// Indication that the Sqlite backend is configured
 		/// </value>
-		public bool Configured 
-		{
+		public bool Configured {
 			get { return configured; }
 		}
 		
@@ -81,19 +75,17 @@ namespace Tasque.Backends.Sqlite
 		/// <value>
 		/// Inidication that the backend is initialized
 		/// </value>
-		public bool Initialized
-		{
+		public bool Initialized {
 			get { return initialized; }
-		}		
+		}
 		
-		public Database Database
-		{
+		public Database Database {
 			get { return db; }
 		}
 		#endregion // Public Properties
 		
 		#region Public Methods
-		public Task CreateTask (string taskName, Category category)		
+		public Task CreateTask (string taskName, Category category)
 		{
 			// not sure what to do here with the category
 			SqliteTask task = new SqliteTask (this, taskName);
@@ -111,7 +103,7 @@ namespace Tasque.Backends.Sqlite
 			return task;
 		}
 		
-		public void DeleteTask(Task task)
+		public void DeleteTask (Task task)
 		{
 			//string id = task.Id;
 			task.Delete ();
@@ -119,15 +111,16 @@ namespace Tasque.Backends.Sqlite
 			//db.ExecuteNonQuery (command);
 		}
 		
-		public void Refresh()
-		{}
-		
-		public void Initialize()
+		public void Refresh ()
 		{
-			if(db == null)
-				db = new Database();
+		}
+		
+		public void Initialize ()
+		{
+			if (db == null)
+				db = new Database ();
 				
-			db.Open();
+			db.Open ();
 			
 			//
 			// Add in the "All" Category
@@ -137,24 +130,24 @@ namespace Tasque.Backends.Sqlite
 			categoryListStore.SetValue (iter, 0, allCategory);
 			
 			
-			RefreshCategories();
-			RefreshTasks();		
+			RefreshCategories ();
+			RefreshTasks ();		
 
 		
 			initialized = true;
-			if(BackendInitialized != null) {
-				BackendInitialized();
+			if (BackendInitialized != null) {
+				BackendInitialized ();
 			}		
 		}
 
-		public void Cleanup()
+		public void Cleanup ()
 		{
-			this.categoryListStore.Clear();
-			this.taskStore.Clear();
-			this.taskIters.Clear();
+			this.categoryListStore.Clear ();
+			this.taskStore.Clear ();
+			this.taskIters.Clear ();
 
 			if (db != null)
-				db.Close();
+				db.Close ();
 			db = null;
 			initialized = false;		
 		}
@@ -234,34 +227,31 @@ namespace Tasque.Backends.Sqlite
 			}
 		}
 		
-		
-		
-		public void RefreshCategories()
+		public void RefreshCategories ()
 		{
 			Gtk.TreeIter iter;
 			SqliteCategory newCategory;
 			bool hasValues = false;
 			
 			string command = "SELECT id FROM Categories";
-			SqliteCommand cmd = db.Connection.CreateCommand();
+			SqliteCommand cmd = db.Connection.CreateCommand ();
 			cmd.CommandText = command;
-			SqliteDataReader dataReader = cmd.ExecuteReader();
-			while(dataReader.Read()) {
-			    int id = dataReader.GetInt32(0);
+			SqliteDataReader dataReader = cmd.ExecuteReader ();
+			while (dataReader.Read()) {
+				int id = dataReader.GetInt32 (0);
 				hasValues = true;
 				
 				newCategory = new SqliteCategory (this, id);
-				if( (defaultCategory == null) || (newCategory.Name.CompareTo("Work") == 0) )
+				if ((defaultCategory == null) || (newCategory.Name.CompareTo ("Work") == 0))
 					defaultCategory = newCategory;
 				iter = categoryListStore.Append ();
 				categoryListStore.SetValue (iter, 0, newCategory);				
 			}
 			
-			dataReader.Close();
-			cmd.Dispose();
+			dataReader.Close ();
+			cmd.Dispose ();
 
-			if(!hasValues)
-			{
+			if (!hasValues) {
 				defaultCategory = newCategory = new SqliteCategory (this, "Work");
 				iter = categoryListStore.Append ();
 				categoryListStore.SetValue (iter, 0, newCategory);
@@ -279,42 +269,40 @@ namespace Tasque.Backends.Sqlite
 				categoryListStore.SetValue (iter, 0, newCategory);		
 			}
 		}
-		
 
-		public void RefreshTasks()
+		public void RefreshTasks ()
 		{
 			Gtk.TreeIter iter;
 			SqliteTask newTask;
 			bool hasValues = false;
 
 			string command = "SELECT id,Category,Name,DueDate,CompletionDate,Priority, State FROM Tasks";
-			SqliteCommand cmd = db.Connection.CreateCommand();
+			SqliteCommand cmd = db.Connection.CreateCommand ();
 			cmd.CommandText = command;
-			SqliteDataReader dataReader = cmd.ExecuteReader();
-			while(dataReader.Read()) {
-				int id = dataReader.GetInt32(0);
-				int category = dataReader.GetInt32(1);
-				string name = dataReader.GetString(2);
-				long dueDate = dataReader.GetInt64(3);
-				long completionDate = dataReader.GetInt64(4);
-				int priority = dataReader.GetInt32(5);
-				int state = dataReader.GetInt32(6);
+			SqliteDataReader dataReader = cmd.ExecuteReader ();
+			while (dataReader.Read()) {
+				int id = dataReader.GetInt32 (0);
+				int category = dataReader.GetInt32 (1);
+				string name = dataReader.GetString (2);
+				long dueDate = dataReader.GetInt64 (3);
+				long completionDate = dataReader.GetInt64 (4);
+				int priority = dataReader.GetInt32 (5);
+				int state = dataReader.GetInt32 (6);
 
 				hasValues = true;
 
-				newTask = new SqliteTask(this, id, category,
+				newTask = new SqliteTask (this, id, category,
 				                         name, dueDate, completionDate,
 				                         priority, state);
-				iter = taskStore.AppendNode();
+				iter = taskStore.AppendNode ();
 				taskStore.SetValue (iter, 0, newTask);
 				taskIters [newTask.SqliteId] = iter;
 			}
 
-			dataReader.Close();
-			cmd.Dispose();
+			dataReader.Close ();
+			cmd.Dispose ();
 
-			if(!hasValues)
-			{
+			if (!hasValues) {
 				newTask = new SqliteTask (this, "Create some tasks");
 				newTask.Category = defaultCategory;
 				newTask.DueDate = DateTime.Now;
