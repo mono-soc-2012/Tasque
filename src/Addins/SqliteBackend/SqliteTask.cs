@@ -83,48 +83,36 @@ namespace Tasque.Backends.Sqlite
 			backend.Database.ExecuteScalar (command);
 			base.OnStateChanged ();
 		}
-		
-		#region Public Methods
-		
+			
 		public override TaskNote CreateNote (string text)
 		{
 			Debug.WriteLine ("Creating New Note Object : {0} (id={1})", text, id);
 			text = backend.SanitizeText (text);
-			string command = String.Format (
+			var command = String.Format (
 				"INSERT INTO Notes (Task, Text) VALUES ('{0}','{1}'); SELECT last_insert_rowid();",
-				id,
-				text
-			);
-			int taskId = Convert.ToInt32 (backend.Database.ExecuteScalar (command));
+				id, text);
+			var taskId = Convert.ToInt32 (backend.Database.ExecuteScalar (command));
 
-			return new SqliteNote (taskId, text);
+			var note = new SqliteNote (taskId, text);
+			note.OnTextChangedAction = delegate { SaveNote (note); };
+			return note;
 		}
 		
-		public override void DeleteNote (TaskNote note)
+		protected override void OnRemoveNote (TaskNote note)
 		{
-			SqliteNote sqNote = (note as SqliteNote);
-
-			string command = String.Format (
-				"DELETE FROM Notes WHERE ID='{0}'",
-				sqNote.ID
-			);
+			var sqNote = note as SqliteNote;
+			var command = string.Format ("DELETE FROM Notes WHERE ID='{0}'", sqNote.Id);
+			backend.Database.ExecuteScalar (command);
+			base.OnRemoveNote (note);
+		}
+				
+		void SaveNote (TaskNote note)
+		{
+			var sqNote = note as SqliteNote;
+			var text = backend.SanitizeText (sqNote.Text);
+			var command = string.Format ("UPDATE Notes SET Text='{0}' WHERE ID='{1}'", text, sqNote.Id);
 			backend.Database.ExecuteScalar (command);
 		}
-
-		public override void SaveNote (TaskNote note)
-		{
-			SqliteNote sqNote = (note as SqliteNote);
-
-			string text = backend.SanitizeText (sqNote.Text);
-			string command = String.Format (
-				"UPDATE Notes SET Text='{0}' WHERE ID='{1}'",
-				text,
-				sqNote.ID
-			);
-			backend.Database.ExecuteScalar (command);
-		}
-
-		#endregion // Public Methods
 		
 		SqliteBackend backend;
 		int id;
