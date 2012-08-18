@@ -46,39 +46,6 @@ namespace Tasque.Backends.Sqlite
 		}
 		
 		#region Public Properties
-		public string Name {
-			get { return; } // TODO: Return something more usable to the user like, "Built-in" or whatever
-		}
-		
-		/// <value>
-		/// All the tasks including ITaskDivider items.
-		/// </value>
-		public Gtk.TreeModel SortedTasks {
-			get { return sortedTasksModel; }
-		}
-		
-		/// <value>
-		/// This returns all the task lists (categories) that exist.
-		/// </value>
-		public Gtk.TreeModel Categories {
-			get { return sortedCategoriesModel; }
-		}
-		
-		/// <value>
-		/// Indication that the Sqlite backend is configured
-		/// </value>
-		public bool Configured {
-			get { return configured; }
-		}
-		
-		
-		/// <value>
-		/// Inidication that the backend is initialized
-		/// </value>
-		public bool Initialized {
-			get { return initialized; }
-		}
-		
 		public Database Database {
 			get { return db; }
 		}
