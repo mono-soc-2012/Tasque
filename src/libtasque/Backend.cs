@@ -177,8 +177,12 @@ namespace Tasque
 			
 			foreach (var cat in Categories)
 				cat.Remove (task);
+			
+			OnDeleteTask (task);
 		}
-
+		
+		protected virtual void OnDeleteTask (Task task) {}
+		
 		/// <summary>
 		/// Initializes the backend
 		/// </summary>
