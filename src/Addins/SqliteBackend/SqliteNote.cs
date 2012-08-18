@@ -3,27 +3,26 @@
 //
 // To change standard headers go to Edit->Preferences->Coding->Standard Headers
 //
+using System;
 
 namespace Tasque.Backends.Sqlite
 {
 	public class SqliteNote : TaskNote
 	{
-		private int id;
-		private string text;
-
-		public SqliteNote (int id, string text)
+		public SqliteNote (int id, string text) : base (text)
 		{
-			this.id = id;
-			this.text = text;
+			Id = id;
 		}
 
-		public string Text {
-			get { return this.text; }
-			set { this.text = value; }
+		public int Id { get; private set; }
+		
+		protected override void OnTextChanged ()
+		{
+			if (OnTextChangedAction != null)
+				OnTextChangedAction ();
+			base.OnTextChanged ();
 		}
-
-		public int ID {
-			get { return this.id; }
-		}
+		
+		internal Action OnTextChangedAction { get; set; }
 	}
 }
