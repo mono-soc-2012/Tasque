@@ -19,20 +19,19 @@ namespace Tasque.Backends.Sqlite
 		private int state;
 
 		public SqliteTask (SqliteBackend backend, string name)
+			: base (backend.SanitizeText (name), TaskNoteSupport.Multiple)
 		{
+			name = backend.SanitizeText (name);
 			this.backend = backend;
 			Debug.WriteLine ("Creating New Task Object : {0} (id={1})", name, id);
-			name = backend.SanitizeText (name);
-			this.name = name;
-			this.dueDate = Database.FromDateTime (DateTime.MinValue);
-			this.completionDate = Database.FromDateTime (DateTime.MinValue);
-			this.category = 0;
-			this.priority = (int)(TaskPriority.None);
-			this.state = (int)TaskState.Active;
-			string command = String.Format ("INSERT INTO Tasks (Name, DueDate, CompletionDate, Priority, State, Category, ExternalID) values ('{0}','{1}', '{2}','{3}', '{4}', '{5}', '{6}'); SELECT last_insert_rowid();", 
-								name, dueDate, completionDate,
-								priority, state, category, string.Empty);
-			this.id = Convert.ToInt32 (backend.Database.ExecuteScalar (command));
+			var dueDate = Database.FromDateTime (DueDate);
+			var completionDate = Database.FromDateTime (CompletionDate);
+			var category = 0;
+			var priority = (int)Priority;
+			var state = (int)State;
+			var command = string.Format ("INSERT INTO Tasks (Name, DueDate, CompletionDate, Priority, State, Category, ExternalID) values ('{0}','{1}', '{2}','{3}', '{4}', '{5}', '{6}'); SELECT last_insert_rowid();", 
+								name, dueDate, completionDate, priority, state, category, string.Empty);
+			id = Convert.ToInt32 (backend.Database.ExecuteScalar (command));
 		}
 
 		public SqliteTask (SqliteBackend backend, int id, int category, string name, 
@@ -40,12 +39,11 @@ namespace Tasque.Backends.Sqlite
 		{
 			this.backend = backend;
 			this.id = id;
-			this.category = category;
-			this.name = name;
-			this.dueDate = dueDate;
-			this.completionDate = completionDate;
-			this.priority = priority;
-			this.state = state;
+			Name = name;
+			DueDate = dueDate;
+			CompletionDate = completionDate;
+			Priority = priority;
+			State = state;
 		}		
 		
 		#region Public Properties
