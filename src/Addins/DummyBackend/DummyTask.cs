@@ -25,42 +25,12 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-using System;
-using Tasque;
-using System.Diagnostics;
 
 namespace Tasque.Backends.Dummy
 {
 	public class DummyTask : Task
 	{
 		public DummyTask (string name) : base (name, TaskNoteSupport.Multiple) {}
-		
-		public override void Activate ()
-		{
-			Debug.WriteLine ("DummyTask.Activate ()");
-			CompletionDate = DateTime.MinValue;
-			State = TaskState.Active;
-		}
-		
-		public override void Inactivate ()
-		{
-			Debug.WriteLine ("DummyTask.Inactivate ()");
-			CompletionDate = DateTime.Now;
-			State = TaskState.Inactive;
-		}
-		
-		public override void Complete ()
-		{
-			Debug.WriteLine ("DummyTask.Complete ()");
-			CompletionDate = DateTime.Now;
-			State = TaskState.Completed;
-		}
-		
-		public override void Delete ()
-		{
-			Debug.WriteLine ("DummyTask.Delete ()");
-			State = TaskState.Deleted;
-		}
 		
 		public override TaskNote CreateNote (string text)
 		{
