@@ -33,7 +33,7 @@ namespace Tasque.Backends.Dummy
 {
 	public class DummyTask : Task
 	{
-		public DummyTask(string name) : base (name, TaskNoteSupport.Multiple) {}
+		public DummyTask (string name) : base (name, TaskNoteSupport.Multiple) {}
 		
 		public override void Activate ()
 		{
