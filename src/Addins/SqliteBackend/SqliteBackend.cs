@@ -139,37 +139,6 @@ namespace Tasque.Backends.Sqlite
 		#endregion // Public Methods
 		
 		#region Private Methods
-		static int CompareTasksSortFunc (Gtk.TreeModel model,
-										 Gtk.TreeIter a,
-										 Gtk.TreeIter b)
-		{
-			Task taskA = model.GetValue (a, 0) as Task;
-			Task taskB = model.GetValue (b, 0) as Task;
-			
-			if (taskA == null || taskB == null)
-				return 0;
-			
-			return (taskA.CompareTo (taskB));
-		}
-		
-		static int CompareCategorySortFunc (Gtk.TreeModel model,
-											Gtk.TreeIter a,
-											Gtk.TreeIter b)
-		{
-			Category categoryA = model.GetValue (a, 0) as Category;
-			Category categoryB = model.GetValue (b, 0) as Category;
-			
-			if (categoryA == null || categoryB == null)
-				return 0;
-			
-			if (categoryA is Tasque.AllCategory)
-				return -1;
-			else if (categoryB is Tasque.AllCategory)
-				return 1;
-			
-			return (categoryA.Name.CompareTo (categoryB.Name));
-		}
-		
 		public void UpdateTask (SqliteTask task)
 		{
 			// Set the task in the store so the model will update the UI.
