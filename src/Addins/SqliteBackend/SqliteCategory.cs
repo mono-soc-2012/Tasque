@@ -9,74 +9,15 @@ namespace Tasque.Backends.Sqlite
 {
 	public class SqliteCategory : Category
 	{
-		private int id;
-		SqliteBackend backend;
-		
-		public int ID {
-			get { return id; }
-		}
-		
-		public string Name {
-			get {
-				string command = String.Format (
-					"SELECT Name FROM Categories where ID='{0}'",
-					id
-				);
-				return backend.Database.GetSingleString (command);
-			}
-			set {
-				string command = String.Format (
-					"UPDATE Categories set Name='{0}' where ID='{0}'",
-					value,
-					id
-				);
-				backend.Database.ExecuteScalar (command);
-			}
-		}
-		
-		public string ExternalID {
-			get {
-				string command = String.Format (
-					"SELECT ExternalID FROM Categories where ID='{0}'",
-					id
-				);
-				return backend.Database.GetSingleString (command);
-			}
-			set {
-				string command = String.Format (
-					"UPDATE Categories set ExternalID='{0}' where ID='{0}'",
-					value,
-					id
-				);
-				backend.Database.ExecuteScalar (command);
-			}
-		}
-		
-		public SqliteCategory (SqliteBackend backend, string name)
+		public SqliteCategory (SqliteBackend backend, string name) : base (name)
 		{
-			this.backend = backend;
-			string command = String.Format (
+			var command = string.Format (
 				"INSERT INTO Categories (Name, ExternalID) values ('{0}', '{1}'); SELECT last_insert_rowid();",
-				name,
-				string.Empty
-			);
-			this.id = Convert.ToInt32 (backend.Database.ExecuteScalar (command));
+				name, string.Empty);
+			backend.Database.ExecuteScalar (command);
 			//Debug.WriteLine("Inserted category named: {0} with id {1}", name, id);
 		}
 		
-		public SqliteCategory (SqliteBackend backend, int id)
-		{
-			this.backend = backend;
-			this.id = id;
-		}
-
-		public bool ContainsTask (Task task)
-		{
-			if (task.Category is SqliteCategory)
-				return ((task.Category as SqliteCategory).ID == id);
-
-			return false;
-		}
-		
+		public SqliteCategory (string name) : base (name) {}
 	}
 }
