@@ -2,7 +2,7 @@
 // User: boyd at 7:10 AM 2/11/2008
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using Mono.Data.Sqlite;
 using Mono.Unix;
 
@@ -10,64 +10,36 @@ namespace Tasque.Backends.Sqlite
 {
 	public class SqliteBackend : Backend
 	{
-		private Dictionary<int, Gtk.TreeIter> taskIters;
-		private Gtk.TreeStore taskStore;
-		private Gtk.TreeModelSort sortedTasksModel;
-		private Database db;
-		private Gtk.ListStore categoryListStore;
-		private Gtk.TreeModelSort sortedCategoriesModel;
-		SqliteCategory defaultCategory;
-		//SqliteCategory workCategory;
-		//SqliteCategory projectsCategory;
-		
 		public SqliteBackend () : base (Catalog.GetString ("Local File"))
 		{
 			Configured = true;
 		}
 		
-		#region Public Properties
-		public Database Database {
-			get { return db; }
-		}
-		#endregion // Public Properties
+		public Database Database { get; private set; }
 		
-		#region Public Methods
-		public Task CreateTask (string taskName, Category category)
+		protected override Task CreateTaskCore (string taskName, IEnumerable<Category> categories)
 		{
-			// not sure what to do here with the category
-			SqliteTask task = new SqliteTask (this, taskName);
-			
-			// Determine and set the task category
-			if (category == null || category is Tasque.AllCategory)
-				task.Category = defaultCategory; // Default to work
-			else
-				task.Category = category;
-			
-			Gtk.TreeIter iter = taskStore.AppendNode ();
-			taskStore.SetValue (iter, 0, task);
-			taskIters [task.SqliteId] = iter;
-			
-			return task;
+			var index = 0;
+			foreach (var cat in Categories) {
+				if (cat == categories.ElementAt (0))
+					break;
+				index++;
+			}
+			return new SqliteTask (this, taskName, index);
 		}
 		
-		public void DeleteTask (Task task)
+		protected override void OnDeleteTask (Task task)
 		{
-			//string id = task.Id;
 			task.Delete ();
-			//string command = "delete from Tasks where id=" + id;
-			//db.ExecuteNonQuery (command);
-		}
-		
-		public void Refresh ()
-		{
+			base.OnDeleteTask (task);
 		}
 		
 		public override void Initialize ()
 		{
-			if (db == null)
-				db = new Database ();
+			if (Database == null)
+				Database = new Database ();
 				
-			db.Open ();
+			Database.Open ();
 			
 			RefreshCategories ();
 			RefreshTasks ();
@@ -75,24 +47,18 @@ namespace Tasque.Backends.Sqlite
 			Initialized = true;		
 		}
 
-		public void Cleanup ()
+		protected override void Dispose (bool disposing)
 		{
-			this.categoryListStore.Clear ();
-			this.taskStore.Clear ();
-			this.taskIters.Clear ();
-
-			if (db != null)
-				db.Close ();
-			db = null;
-			initialized = false;		
+			if (disposing) {
+				if (Database != null)
+					Database.Close ();
+				Database = null;
+				Initialized = false;
+			}
+			base.Dispose (disposing);
 		}
-
-		public Gtk.Widget GetPreferencesWidget ()
-		{
-			// TODO: Replace this with returning null once things are going
-			// so that the Preferences Dialog doesn't waste space.
-			return new Gtk.Label ("Local file requires no configuration.");
-		}
+		
+		public override IBackendPreferences Preferences { get { return new SqlitePreferences (); } }
 
 		/// <summary>
 		/// Given some text to be input into the database, do whatever
@@ -104,98 +70,81 @@ namespace Tasque.Backends.Sqlite
 			return text.Replace ("'", "''");
 		}
 		
-		#endregion // Public Methods
-		
-		#region Private Methods
 		public void RefreshCategories ()
 		{
-			Gtk.TreeIter iter;
+			SqliteCategory defaultCategory = null;
 			SqliteCategory newCategory;
-			bool hasValues = false;
+			var hasValues = false;
 			
-			string command = "SELECT id FROM Categories";
-			SqliteCommand cmd = db.Connection.CreateCommand ();
+			var command = "SELECT Name FROM Categories";
+			var cmd = Database.Connection.CreateCommand ();
 			cmd.CommandText = command;
-			SqliteDataReader dataReader = cmd.ExecuteReader ();
+			var dataReader = cmd.ExecuteReader ();
+			var isFirstEntry = true;
 			while (dataReader.Read()) {
-				int id = dataReader.GetInt32 (0);
+				var name = dataReader.GetString (0);
 				hasValues = true;
 				
-				newCategory = new SqliteCategory (this, id);
-				if ((defaultCategory == null) || (newCategory.Name.CompareTo ("Work") == 0))
+				newCategory = new SqliteCategory (name);
+				if (isFirstEntry) {
 					defaultCategory = newCategory;
-				iter = categoryListStore.Append ();
-				categoryListStore.SetValue (iter, 0, newCategory);				
+					isFirstEntry = false;
+				}
+				Categories.Add (newCategory);				
 			}
 			
 			dataReader.Close ();
 			cmd.Dispose ();
 
 			if (!hasValues) {
-				defaultCategory = newCategory = new SqliteCategory (this, "Work");
-				iter = categoryListStore.Append ();
-				categoryListStore.SetValue (iter, 0, newCategory);
+				defaultCategory = new SqliteCategory (this, Catalog.GetString ("Work"));
+				Categories.Add (defaultCategory);
 
-				newCategory = new SqliteCategory (this, "Personal");
-				iter = categoryListStore.Append ();
-				categoryListStore.SetValue (iter, 0, newCategory);
+				newCategory = new SqliteCategory (this, Catalog.GetString ("Personal"));
+				Categories.Add (newCategory);
 				
-				newCategory = new SqliteCategory (this, "Family");
-				iter = categoryListStore.Append ();
-				categoryListStore.SetValue (iter, 0, newCategory);		
+				newCategory = new SqliteCategory (this, Catalog.GetString ("Family"));
+				Categories.Add (newCategory);	
 
-				newCategory = new SqliteCategory (this, "Project");
-				iter = categoryListStore.Append ();
-				categoryListStore.SetValue (iter, 0, newCategory);		
+				newCategory = new SqliteCategory (this, Catalog.GetString ("Project"));
+				Categories.Add (newCategory);		
 			}
+			
+			// remove fake default category
+			Categories.Remove (DefaultCategory);
+			DefaultCategory = defaultCategory;
 		}
 
 		public void RefreshTasks ()
 		{
-			Gtk.TreeIter iter;
 			SqliteTask newTask;
-			bool hasValues = false;
+			var hasValues = false;
 
-			string command = "SELECT id,Category,Name,DueDate,CompletionDate,Priority, State FROM Tasks";
-			SqliteCommand cmd = db.Connection.CreateCommand ();
+			var command = "SELECT id,Category,Name,DueDate,CompletionDate,Priority, State FROM Tasks";
+			var cmd = Database.Connection.CreateCommand ();
 			cmd.CommandText = command;
-			SqliteDataReader dataReader = cmd.ExecuteReader ();
+			var dataReader = cmd.ExecuteReader ();
 			while (dataReader.Read()) {
-				int id = dataReader.GetInt32 (0);
-				int category = dataReader.GetInt32 (1);
-				string name = dataReader.GetString (2);
-				long dueDate = dataReader.GetInt64 (3);
-				long completionDate = dataReader.GetInt64 (4);
-				int priority = dataReader.GetInt32 (5);
-				int state = dataReader.GetInt32 (6);
+				var id = dataReader.GetInt32 (0);
+				var category = dataReader.GetInt32 (1);
+				var name = dataReader.GetString (2);
+				var dueDate = dataReader.GetInt64 (3);
+				var completionDate = dataReader.GetInt64 (4);
+				var priority = dataReader.GetInt32 (5);
+				var state = dataReader.GetInt32 (6);
 
 				hasValues = true;
-
-				newTask = new SqliteTask (this, id, category,
-				                         name, dueDate, completionDate,
-				                         priority, state);
-				iter = taskStore.AppendNode ();
-				taskStore.SetValue (iter, 0, newTask);
-				taskIters [newTask.SqliteId] = iter;
+				
+				newTask = new SqliteTask (this, id, category, name, dueDate,
+				                          completionDate, priority, state);
+				Categories.ElementAt (category).Add (newTask);
 			}
 
 			dataReader.Close ();
 			cmd.Dispose ();
 
-			if (!hasValues) {
-				newTask = new SqliteTask (this, "Create some tasks");
-				newTask.Category = defaultCategory;
-				newTask.DueDate = DateTime.Now;
-				newTask.Priority = TaskPriority.Medium;
-				iter = taskStore.AppendNode ();
-				taskStore.SetValue (iter, 0, newTask);	
-				taskIters [newTask.SqliteId] = iter;
-			}
+			if (!hasValues)
+				CreateTask (Catalog.GetString ("Create some tasks"), DefaultCategory);
 		}
-
-		#endregion // Private Methods
-		
-		#region Event Handlers
-		#endregion // Event Handlers
 	}
 }
