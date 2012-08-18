@@ -25,44 +25,33 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-
 using System;
-using System.Collections.ObjectModel;
 using Tasque.Backends.Dummy.Gtk;
 
 namespace Tasque.Backends.Dummy
 {
 	public class DummyBackend : Backend
 	{
-		public DummyBackend () : base ("Debugging System") {}
-		
-		#region Public Properties
-		/// <value>
-		/// Indication that the dummy backend is configured
-		/// </value>
-		public override bool Configured { get { return true; } }
-		
-		/// <value>
-		/// Inidication that the backend is initialized
-		/// </value>
-		public override bool Initialized { get { return initialized; } }		
-		#endregion
+		public DummyBackend () : base ("Debugging System")
+		{
+			Configured = true;
+		}
 		
 		#region Public Methods		
 		public override void Refresh () {}
 		
 		public override void Initialize ()
-		{
+		{			
 			//
 			// Add in some fake categories
 			//
-			homeCategory = new Category ("Home");
+			var homeCategory = new Category ("Home");
 			Categories.Add (homeCategory);
 			
-			workCategory = new Category ("Work");
+			var workCategory = new Category ("Work");
 			Categories.Add (workCategory);
 			
-			projectsCategory = new Category ("Projects");
+			var projectsCategory = new Category ("Projects");
 			Categories.Add (projectsCategory);
 			
 			//
@@ -115,8 +104,7 @@ namespace Tasque.Backends.Dummy
 			task.Priority = TaskPriority.None;
 			task.Complete ();
 			
-			initialized = true;
-			OnBackendInitialized ();
+			Initialized = true;
 		}
 
 		public override void Cleanup () {}
@@ -135,13 +123,5 @@ namespace Tasque.Backends.Dummy
 		{
 			return new DummyTask (taskName);
 		}
-
-		bool initialized;
-
-		ObservableCollection<Task> tasks;
-
-		Category homeCategory;
-		Category projectsCategory;
-		Category workCategory;
 	}
 }
