@@ -23,24 +23,6 @@ namespace Tasque.Backends.Sqlite
 		public SqliteBackend () : base (Catalog.GetString ("Local File"))
 		{
 			Configured = true;
-			taskIters = new Dictionary<int, Gtk.TreeIter> (); 
-			taskStore = new Gtk.TreeStore (typeof(Task));
-			
-			sortedTasksModel = new Gtk.TreeModelSort (taskStore);
-			sortedTasksModel.SetSortFunc (
-				0,
-				new Gtk.TreeIterCompareFunc (CompareTasksSortFunc)
-			);
-			sortedTasksModel.SetSortColumnId (0, Gtk.SortType.Ascending);
-			
-			categoryListStore = new Gtk.ListStore (typeof(Category));
-			
-			sortedCategoriesModel = new Gtk.TreeModelSort (categoryListStore);
-			sortedCategoriesModel.SetSortFunc (
-				0,
-				new Gtk.TreeIterCompareFunc (CompareCategorySortFunc)
-			);
-			sortedCategoriesModel.SetSortColumnId (0, Gtk.SortType.Ascending);
 		}
 		
 		#region Public Properties
