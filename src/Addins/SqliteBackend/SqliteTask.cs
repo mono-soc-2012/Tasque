@@ -84,36 +84,6 @@ namespace Tasque.Backends.Sqlite
 		}
 		
 		#region Public Methods
-		public override void Activate ()
-		{
-			// Debug.WriteLine ("SqliteTask.Activate ()");
-			CompletionDate = DateTime.MinValue;
-			LocalState = TaskState.Active;
-			backend.UpdateTask (this);
-		}
-		
-		public override void Inactivate ()
-		{
-			// Debug.WriteLine ("SqliteTask.Inactivate ()");
-			CompletionDate = DateTime.Now;
-			LocalState = TaskState.Inactive;
-			backend.UpdateTask (this);
-		}
-		
-		public override void Complete ()
-		{
-			//Debug.WriteLine ("SqliteTask.Complete ()");
-			CompletionDate = DateTime.Now;
-			LocalState = TaskState.Completed;
-			backend.UpdateTask (this);
-		}
-		
-		public override void Delete ()
-		{
-			//Debug.WriteLine ("SqliteTask.Delete ()");
-			LocalState = TaskState.Deleted;
-			backend.UpdateTask (this);
-		}
 		
 		public override TaskNote CreateNote (string text)
 		{
