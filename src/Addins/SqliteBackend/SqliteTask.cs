@@ -12,8 +12,11 @@ namespace Tasque.Backends.Sqlite
 		public SqliteTask (SqliteBackend backend, string name)
 			: base (backend.SanitizeText (name), TaskNoteSupport.Multiple)
 		{
+			if (backend == null)
+				throw new ArgumentNullException ("backend");
+			
 			name = backend.SanitizeText (name);
-			this.backend = backend;
+			Backend = backend;
 			Debug.WriteLine ("Creating New Task Object : {0} (id={1})", name, id);
 			var dueDate = Database.FromDateTime (DueDate);
 			var completionDate = Database.FromDateTime (CompletionDate);
@@ -27,10 +30,10 @@ namespace Tasque.Backends.Sqlite
 
 		public SqliteTask (SqliteBackend backend, int id, int category, string name, 
 		                   long dueDate, long completionDate, int priority, int state)
+			: base (backend, name)
 		{
-			this.backend = backend;
+			Backend = backend;
 			this.id = id;
-			Name = name;
 			DueDate = dueDate;
 			CompletionDate = completionDate;
 			Priority = priority;
