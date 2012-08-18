@@ -13,6 +13,7 @@
     <RootNamespace>Tasque.Build</RootNamespace>
     <Website>https://live.gnome.org/Tasque</Website>
     <Prefix Condition=" '$(Prefix)' == '' ">$(MSBuildProjectDirectory)\out</Prefix>
+    <LibDir>$(Prefix)\lib\tasque</LibDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>

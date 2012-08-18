@@ -33,6 +33,7 @@ bin/
 *.mdb
 *.mo
 /build/GlobalDefines.cs
+/build/Solution.properties
 
 # include binary dependencies
 !/src/tasque/lib/*
