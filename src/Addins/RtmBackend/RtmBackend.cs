@@ -33,18 +33,9 @@ namespace Tasque.Backends.RtmBackend
 
 		private Dictionary<string, RtmCategory> categories;
 		private object catLock;
-		private bool initialized;
-		private bool configured;
-
-		public event BackendInitializedHandler BackendInitialized;
-		public event BackendSyncStartedHandler BackendSyncStarted;
-		public event BackendSyncFinishedHandler BackendSyncFinished;
 		
-		public RtmBackend ()
+		public RtmBackend () : base ("Remember the Milk")
 		{
-			initialized = false;
-			configured = false;
-
 			taskLock = new Object();
 			
 			categories = new Dictionary<string, RtmCategory> ();
@@ -59,31 +50,7 @@ namespace Tasque.Backends.RtmBackend
 			runningRefreshThread = false;
 			refreshThread  = new Thread(RefreshThreadLoop);
 		}
-
-		#region Public Properties
-		public string Name
-		{
-			get { return "Remember the Milk"; }
-		}
 		
-		/// <value>
-		/// All the tasks including ITaskDivider items.
-		/// </value>
-		public IEnumerable<Task> Tasks
-		{
-			get { return Tasks.OrderBy (t => t, Comparer<Task>.Default); }
-		}
-
-		public ObservableCollection<Task> Tasks { get; private set; }
-
-		/// <value>
-		/// This returns all the task lists (categories) that exist.
-		/// </value>
-		public Gtk.TreeModel Categories2
-		{
-			get { return sortedCategoriesModel; }
-		}
-
 		public string RtmUserName
 		{
 			get {
@@ -93,26 +60,8 @@ namespace Tasque.Backends.RtmBackend
 					return null;
 			}
 		}
-		
-		/// <value>
-		/// Indication that the rtm backend is configured
-		/// </value>
-		public bool Configured
-		{
-			get { return configured; }
-		}
-		
-		/// <value>
-		/// Inidication that the backend is initialized
-		/// </value>
-		public bool Initialized
-		{
-			get { return initialized; }
-		}
-		
-#endregion // Public Properties
 
-#region Public Methods
+		#region Public Methods
 		public Task CreateTask (string taskName, Category category)
 		{
 			string categoryID;
