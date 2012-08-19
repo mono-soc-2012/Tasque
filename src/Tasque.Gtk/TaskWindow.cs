@@ -767,6 +767,8 @@ namespace Tasque
 		private Task CreateTask (string taskText, Category category)
 		{
 			Task task = backend.CreateTask (taskText);
+			if (category == null)
+				category = GtkApplication.Instance.Backend.DefaultCategory;
 			category.Add (task);
 			
 			if (task == null) {
