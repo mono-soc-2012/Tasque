@@ -114,6 +114,7 @@
     <Compile Include="StatusIconTray.cs" />
     <Compile Include="GtkTray.cs" />
     <Compile Include="GtkApplication.cs" />
+    <Compile Include="GtkDispatcher.cs" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'WinDebug' or '$(Configuration)' == 'WinRelease' ">
     <Compile Include="GtkWinApplication.cs" />

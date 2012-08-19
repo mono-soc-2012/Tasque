@@ -51,6 +51,10 @@ namespace Tasque
 			instance = this;
 		}
 		
+		public override Dispatcher Dispatcher {
+			get { return dispatcher ?? (dispatcher = new GtkDispatcher ()); }
+		}
+		
 		protected override void OnInitialize ()
 		{
 			Catalog.Init ("tasque", GlobalDefines.LocaleDir);
@@ -227,5 +231,6 @@ namespace Tasque
 		bool backendWasNullBeforeChange;
 		PreferencesDialog preferencesDialog;
 		GtkTray trayIcon;
+		GtkDispatcher dispatcher;
 	}
 }

@@ -53,6 +53,8 @@ namespace Tasque
 			Application.Instance = this;
 		}
 		
+		public abstract Dispatcher Dispatcher { get; }
+		
 		public List<Backend> AvailableBackends {
 			get { return new List<Backend> (availableBackends.Values); }
 //			get { return Application.Instance.availableBackends; }
