@@ -26,7 +26,7 @@ namespace Tasque
 		private Task taskBeingEdited = null;
 		private bool toggled;
 
-		private static string status;
+		internal static string status;
 		
 		static TaskTreeView ()
 		{
@@ -92,8 +92,7 @@ namespace Tasque
 			renderer = new Gtk.CellRendererToggle ();
 			(renderer as Gtk.CellRendererToggle).Toggled += OnTaskToggled;
 			column.PackStart (renderer, false);
-			column.SetCellDataFunc (renderer,
-							new Gtk.TreeCellDataFunc (TaskToggleCellDataFunc));
+			column.SetCellDataFunc (renderer, new Gtk.TreeCellDataFunc (TaskToggleCellDataFunc));
 			AppendColumn (column);
 			
 			//
@@ -335,7 +334,7 @@ namespace Tasque
 			Refilter (filterCategory);
 		}
 
-		private static void ShowCompletedTaskStatus ()
+		internal static void ShowCompletedTaskStatus ()
 		{
 			status = Catalog.GetString ("Task Completed");
 			TaskWindow.ShowStatus (status);
@@ -615,19 +614,19 @@ namespace Tasque
 		#endregion // Private Methods
 		
 		#region EventHandlers
-		void OnTaskToggled (object sender, Gtk.ToggledArgs args)
+		void OnTaskToggled (object sender, ToggledArgs args)
 		{
 			Debug.WriteLine ("OnTaskToggled");
-			Gtk.TreeIter iter;
-			Gtk.TreePath path = new Gtk.TreePath (args.Path);
+			TreeIter iter;
+			var path = new TreePath (args.Path);
 			if (!Model.GetIter (out iter, path))
 				return; // Do nothing
 			
-			Task task = Model.GetValue (iter, 0) as Task;
+			var task = Model.GetValue (iter, 0) as Task;
 			if (task == null)
 				return;
-
-			// remove any timer set up on this task			
+			
+			// remove any timer set up on this task
 			InactivateTimer.CancelTimer(task);
 			
 			if (task.State == TaskState.Active) {
@@ -648,8 +647,7 @@ namespace Tasque
 					int timeout =
 						GtkApplication.Instance.Preferences.GetInt (Preferences.InactivateTimeoutKey);
 					Debug.WriteLine ("Read timeout from prefs: {0}", timeout);
-					InactivateTimer timer =
-						new InactivateTimer (this, iter, task, (uint) timeout);
+					var timer = new InactivateTimer (this, iter, task, (uint) timeout);
 					timer.StartTimer ();
 					toggled = true;
 				}
@@ -801,157 +799,5 @@ namespace Tasque
 			NumberOfTasksChanged (this, EventArgs.Empty);
 		}
 		#endregion // EventHandlers
-		
-		#region Private Classes
-		/// <summary>
-		/// Does the work of walking a task through the Inactive -> Complete
-		/// states
-		/// </summary>
-		class InactivateTimer
-		{
-			/// <summary>
-			/// Keep track of all the timers so that the pulseTimeoutId can
-			/// be removed at the proper time.
-			/// </summary>
-			private static Dictionary<uint, InactivateTimer> timers;
-			
-			static InactivateTimer ()
-			{
-				timers = new Dictionary<uint,InactivateTimer> ();
-			}
-			
-			private TaskTreeView tree;
-			private Task task;
-			private uint delay;
-			private uint secondsLeft;
-			protected uint pulseTimeoutId;
-			private uint secondTimerId;
-			private Gtk.TreeIter iter;
-			private Gtk.TreePath path;
-			
-			public InactivateTimer (TaskTreeView treeView,
-									Gtk.TreeIter taskIter,
-									Task taskToComplete,
-									uint delayInSeconds)
-			{
-				tree = treeView;
-				iter = taskIter;
-				path = treeView.Model.GetPath (iter);
-				task = taskToComplete;
-				secondsLeft = delayInSeconds;
-				delay = delayInSeconds * 1000; // Convert to milliseconds
-				pulseTimeoutId = 0;
-			}
-			
-			public bool Paused {
-				get; set;
-			}
-
-			public void StartTimer ()
-			{
-				pulseTimeoutId = GLib.Timeout.Add (500, PulseAnimation);
-				StartSecondCountdown ();
-				task.TimerID = GLib.Timeout.Add (delay, CompleteTask);
-				timers [task.TimerID] = this;
-			}
-
-			public static void ToggleTimer (Task task)
-			{
-				InactivateTimer timer = null;
-				if (timers.TryGetValue (task.TimerID, out timer))
-					timer.Paused = !timer.Paused;
-			}
-
-			public static void CancelTimer(Task task)
-			{
-				Debug.WriteLine ("Timeout Canceled for task: " + task.Name);
-				InactivateTimer timer = null;
-				uint timerId = task.TimerID;
-				if(timerId != 0) {
-					if (timers.ContainsKey (timerId)) {
-						timer = timers [timerId];
-						timers.Remove (timerId);
-					}
-					GLib.Source.Remove(timerId);
-					GLib.Source.Remove (timer.pulseTimeoutId);
-					timer.pulseTimeoutId = 0;
-					task.TimerID = 0;
-				}
-				
-				if (timer != null) {
-					GLib.Source.Remove (timer.pulseTimeoutId);
-					timer.pulseTimeoutId = 0;
-					GLib.Source.Remove (timer.secondTimerId);
-					timer.secondTimerId = 0;
-					timer.Paused = false;
-				}
-			}
-			
-			private bool CompleteTask ()
-			{
-				if (!Paused) {
-					GLib.Source.Remove (pulseTimeoutId);
-					if (timers.ContainsKey (task.TimerID))
-						timers.Remove (task.TimerID);
-					
-					if(task.State != TaskState.Inactive)
-						return false;
-						
-					task.Complete ();
-					ShowCompletedTaskStatus ();
-					tree.Refilter ();
-					return false; // Don't automatically call this handler again
-				}
-
-				return true;
-			}
-			
-			private bool PulseAnimation ()
-			{
-				if (tree.Model == null) {
-					// Widget has been closed, no need to call this again
-					return false;
-				} else {
-					if (!Paused) {
-						// Emit this signal to cause the TreeView to update the row
-						// where the task is located.  This will allow the
-						// CellRendererPixbuf to update the icon.
-						tree.Model.EmitRowChanged (path, iter);
-						
-						// Return true so that this method will be called after an
-						// additional timeout duration has elapsed.
-						return true;
-					}
-				}
-
-				return true;
-			}
-
-			private void StartSecondCountdown ()
-			{
-				SecondCountdown();
-				secondTimerId = GLib.Timeout.Add (1000, SecondCountdown);
-			}
-
-			private bool SecondCountdown ()
-			{
-				if (tree.Model == null) {
-					// Widget has been closed, no need to call this again
-					return false;
-				}
-				if (!Paused) {
-					if (secondsLeft > 0 && task.State == TaskState.Inactive) {
-						status = String.Format (Catalog.GetString ("Completing Task In: {0}"), secondsLeft--);
-						TaskWindow.ShowStatus (status);
-						return true;
-					} else {
-						return false;
-					}
-				}
-				return true;
-			}
-	
-		}
-		#endregion // Private Classes
 	}
 }
