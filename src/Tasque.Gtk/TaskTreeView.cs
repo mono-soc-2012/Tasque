@@ -781,13 +781,8 @@ namespace Tasque
 			
 			Console.WriteLine ("task.State {0}", task.State);
 			
-			if (task.State == TaskState.Completed) {
-				// Modify the completion date
-				task.CompletionDate = newDate;
-			} else {
-				// Modify the due date
-				task.DueDate = newDate;
-			}
+			// Modify the due date
+			task.DueDate = newDate;
 		}
 		
 		void OnRowInsertedHandler ()

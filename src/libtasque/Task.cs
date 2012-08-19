@@ -72,7 +72,7 @@ namespace Tasque
 		public DateTime CompletionDate
 		{
 			get { return completionDate; }
-			set {
+			protected set {
 				if (value != completionDate) {
 					Debug.WriteLine ("Setting new task completion date");
 					completionDate = value;
