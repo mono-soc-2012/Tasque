@@ -1123,8 +1123,23 @@ namespace Tasque
 		{
 			if (clickedTask == null)
 				return;
-		
-			GtkApplication.Instance.Backend.DeleteTask(clickedTask);
+			
+			// get category of item
+			Category cat = null;
+			var model = categoryComboBox.Model;
+			TreeIter iter;
+			categoryComboBox.GetActiveIter (out iter);
+			if (model.GetPath (iter).Indices [0] == TreePath.NewFirst ().Indices [0])
+				cat = null;
+			else {
+				var catName = model.GetValue (iter, 0) as string;
+				cat = GtkApplication.Instance.Backend.Categories.SingleOrDefault (c => c.Name == catName);
+			}
+			
+			if (cat != null)
+				cat.Remove (clickedTask);
+			else
+				GtkApplication.Instance.Backend.DeleteTaskFromAllCategories (clickedTask);
 			
 			status = Catalog.GetString ("Task deleted");
 			TaskWindow.ShowStatus (status);
