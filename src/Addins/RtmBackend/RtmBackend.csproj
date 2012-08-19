@@ -91,6 +91,10 @@
       <Project>{784C9AA8-2B28-400B-8CC4-DCDC48CA37F0}</Project>
       <Name>libtasque</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Tasque.Gtk\Tasque.Gtk.csproj">
+      <Project>{B19B9840-669D-4984-9772-E1F55193A67F}</Project>
+      <Name>Tasque.Gtk</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Gtk\" />
