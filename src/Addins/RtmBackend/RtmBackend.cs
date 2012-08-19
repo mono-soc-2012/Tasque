@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Diagnostics;
+using System.Net;
 
 namespace Tasque.Backends.RtmBackend
 {
@@ -116,7 +117,7 @@ namespace Tasque.Backends.RtmBackend
 				throw new Exception ("Unable to communicate with Remember The Milk");
 		}
 		
-		public void Refresh ()
+		public override void Refresh ()
 		{
 			Debug.WriteLine ("Refreshing data...");
 
@@ -142,20 +143,19 @@ namespace Tasque.Backends.RtmBackend
 					timeline = rtm.TimelineCreate ();
 					Debug.WriteLine ("RTM Auth Token is valid!");
 					Debug.WriteLine ("Setting configured status to true");
-					configured = true;
-				} catch (RtmNet.RtmApiException e) {
-					
-					Application.Preferences.Set (Preferences.AuthTokenKey, null);
-					Application.Preferences.Set (Preferences.UserIdKey, null);
-					Application.Preferences.Set (Preferences.UserNameKey, null);
+					Configured = true;
+				} catch (RtmApiException e) {
+					Application.Preferences.Set (Tasque.Preferences.AuthTokenKey, null);
+					Application.Preferences.Set (Tasque.Preferences.UserIdKey, null);
+					Application.Preferences.Set (Tasque.Preferences.UserNameKey, null);
 					rtm = null;
 					rtmAuth = null;
 					Trace.TraceError ("Exception authenticating, reverting" + e.Message);
-				} catch (RtmNet.RtmWebException e) {
+				} catch (RtmWebException e) {
 					rtm = null;
 					rtmAuth = null;
 					Trace.TraceError ("Not connected to RTM, maybe proxy: #{0}", e.Message);
-				} catch (System.Net.WebException e) {
+				} catch (WebException e) {
 					rtm = null;
 					rtmAuth = null;
 					Trace.TraceError ("Problem connecting to internet: #{0}", e.Message);
@@ -170,18 +170,17 @@ namespace Tasque.Backends.RtmBackend
 
 		public void StartThread ()
 		{
-			if (!configured) {
+			if (!Configured) {
 				Debug.WriteLine ("Backend not configured, not starting thread");
 				return;
 			}
 			runningRefreshThread = true;
 			Debug.WriteLine ("ThreadState: " + refreshThread.ThreadState);
-			if (refreshThread.ThreadState == ThreadState.Running) {
+			if (refreshThread.ThreadState == System.Threading.ThreadState.Running)
 				Debug.WriteLine ("RtmBackend refreshThread already running");
-			} else {
-				if (!refreshThread.IsAlive) {
+			else {
+				if (!refreshThread.IsAlive)
 					refreshThread = new Thread (RefreshThreadLoop);
-				}
 				refreshThread.Start ();
 			}
 			runRefreshEvent.Set ();
@@ -211,15 +210,15 @@ namespace Tasque.Backends.RtmBackend
 			rtmAuth = rtm.AuthGetToken (frob);
 			if (rtmAuth != null) {
 				Preferences prefs = Application.Preferences;
-				prefs.Set (Preferences.AuthTokenKey, rtmAuth.Token);
+				prefs.Set (Tasque.Preferences.AuthTokenKey, rtmAuth.Token);
 				if (rtmAuth.User != null) {
-					prefs.Set (Preferences.UserNameKey, rtmAuth.User.Username);
-					prefs.Set (Preferences.UserIdKey, rtmAuth.User.UserId);
+					prefs.Set (Tasque.Preferences.UserNameKey, rtmAuth.User.Username);
+					prefs.Set (Tasque.Preferences.UserIdKey, rtmAuth.User.UserId);
 				}
 			}
 			
 			string authToken =
-				Application.Preferences.Get (Preferences.AuthTokenKey);
+				Application.Preferences.Get (Tasque.Preferences.AuthTokenKey);
 			if (authToken != null) {
 				Debug.WriteLine ("Found AuthToken, checking credentials...");
 				try {
@@ -228,7 +227,7 @@ namespace Tasque.Backends.RtmBackend
 					timeline = rtm.TimelineCreate ();
 					Debug.WriteLine ("RTM Auth Token is valid!");
 					Debug.WriteLine ("Setting configured status to true");
-					configured = true;
+					Configured = true;
 					Refresh ();
 				} catch (Exception e) {
 					rtm = null;
@@ -474,11 +473,9 @@ namespace Tasque.Backends.RtmBackend
 			} else
 				throw new Exception ("Unable to communicate with Remember The Milk");
 		}
-
-#endregion // Public Methods
-
-#region Private Methods
-
+		#endregion // Public Methods
+		
+		#region Private Methods
 		/// <summary>
 		/// Update the model to match what is in RTM
 		/// FIXME: This is a lame implementation and needs to be optimized
