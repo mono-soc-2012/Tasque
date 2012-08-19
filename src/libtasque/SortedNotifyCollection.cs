@@ -1,5 +1,5 @@
 // 
-// NotifyCollection.cs
+// SortedNotifyCollection.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
@@ -40,19 +40,11 @@ namespace Tasque
 			items = new ObservableCollection<T> ();
 		}
 
-		#region IEnumerable implementation
-		IEnumerator IEnumerable.GetEnumerator ()
-		{
-			return GetEnumerator ();
-		}
-
-		public IEnumerator<T> GetEnumerator ()
-		{
-			return items.GetEnumerator ();
-		}
-		#endregion
-
 		#region ICollection implementation
+		public int Count { get { return items.Count; } }
+		
+		public bool IsReadOnly { get { return false; } }
+		
 		public void Add (T item)
 		{
 			if (item == null)
@@ -97,12 +89,20 @@ namespace Tasque
 
 			return items.Remove (item);
 		}
-
-		public int Count { get { return items.Count; } }
-
-		public bool IsReadOnly { get { return false; } }
 		#endregion
-
+		
+		#region IEnumerable implementation
+		public IEnumerator<T> GetEnumerator ()
+		{
+			return items.GetEnumerator ();
+		}
+		
+		IEnumerator IEnumerable.GetEnumerator ()
+		{
+			return GetEnumerator ();
+		}
+		#endregion
+		
 		#region INotifyCollectionChanged implementation
 		public event NotifyCollectionChangedEventHandler CollectionChanged {
 			add { items.CollectionChanged += value; }

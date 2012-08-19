@@ -1,5 +1,5 @@
 // 
-// ReadOnlyNotifyCollection.cs
+// ReadOnlySortedNotifyCollection.cs
 //  
 // Author:
 //       Antonius Riha <antoniusriha@gmail.com>
