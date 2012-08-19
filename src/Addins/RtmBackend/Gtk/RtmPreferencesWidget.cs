@@ -5,7 +5,7 @@ using System.Diagnostics;
 using Mono.Unix;
 using Gtk;
 
-namespace Tasque.Backends.RtmBackend.Gtk
+namespace Tasque.Backends.RtmBackend
 {
 	public class RtmPreferencesWidget : EventBox
 	{
