@@ -39,7 +39,7 @@ using System.Diagnostics;
 
 namespace Tasque
 {
-	static partial class Utilities
+	public static class Utilities
 	{
 		public static Gdk.Pixbuf GetIcon (string iconName, int size)
 		{
