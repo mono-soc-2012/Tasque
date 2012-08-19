@@ -652,11 +652,11 @@ namespace Tasque
 			
 			int taskCount = 0;
 			if (model.GetPath (iter).Indices [0] == TreePath.NewFirst ().Indices [0])
-				taskCount = backend.Tasks.Count;
+				taskCount = backend.Tasks.Count (t => !t.IsComplete);
 			else {
 				var cat = backend.Categories.SingleOrDefault (c => c.Name == catName);
 				if (cat != null)
-					taskCount = cat.Count;
+					taskCount = cat.Count (t => !t.IsComplete);
 				else
 					catName = null;
 			}
