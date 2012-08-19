@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Mono.Data.Sqlite;
 using Mono.Unix;
+using Tasque.Backends.SqliteBackend;
 
 namespace Tasque.Backends.Sqlite
 {
@@ -16,6 +17,23 @@ namespace Tasque.Backends.Sqlite
 		}
 		
 		public Database Database { get; private set; }
+		
+		public override Category DefaultCategory {
+			get {
+				if (!Initialized)
+					throw new InvalidOperationException ("Backend not initialized");
+				return defaultCategory;
+			}
+			set {
+				if (!Initialized)
+					throw new InvalidOperationException ("Backend not initialized");
+				if (value == null)
+					throw new ArgumentNullException ("value");
+				if (!Categories.Contains (value))
+					throw new ArgumentException ("Default category must be one of Categories.");
+				defaultCategory = value;
+			}
+		}
 		
 		protected override Task CreateTaskCore (string taskName, IEnumerable<Category> categories)
 		{
@@ -72,7 +90,6 @@ namespace Tasque.Backends.Sqlite
 		
 		public void RefreshCategories ()
 		{
-			SqliteCategory defaultCategory = null;
 			SqliteCategory newCategory;
 			var hasValues = false;
 			
@@ -97,8 +114,9 @@ namespace Tasque.Backends.Sqlite
 			cmd.Dispose ();
 
 			if (!hasValues) {
-				defaultCategory = new SqliteCategory (this, Catalog.GetString ("Work"));
-				Categories.Add (defaultCategory);
+				newCategory = new SqliteCategory (this, Catalog.GetString ("Work"));
+				Categories.Add (newCategory);
+				defaultCategory = newCategory;
 
 				newCategory = new SqliteCategory (this, Catalog.GetString ("Personal"));
 				Categories.Add (newCategory);
@@ -109,10 +127,6 @@ namespace Tasque.Backends.Sqlite
 				newCategory = new SqliteCategory (this, Catalog.GetString ("Project"));
 				Categories.Add (newCategory);		
 			}
-			
-			// remove fake default category
-			Categories.Remove (DefaultCategory);
-			DefaultCategory = defaultCategory;
 		}
 
 		public void RefreshTasks ()
@@ -146,5 +160,7 @@ namespace Tasque.Backends.Sqlite
 			if (!hasValues)
 				CreateTask (Catalog.GetString ("Create some tasks"), DefaultCategory);
 		}
+		
+		Category defaultCategory;
 	}
 }

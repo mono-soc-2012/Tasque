@@ -38,6 +38,23 @@ namespace Tasque.Backends.Dummy
 			Configured = true;
 		}
 		
+		public override Category DefaultCategory {
+			get {
+				if (!Initialized)
+					throw new InvalidOperationException ("Backend not initialized");
+				return defaultCategory;
+			}
+			set {
+				if (!Initialized)
+					throw new InvalidOperationException ("Backend not initialized");
+				if (value == null)
+					throw new ArgumentNullException ("value");
+				if (!Categories.Contains (value))
+					throw new ArgumentException ("Default category must be one of Categories.");
+				defaultCategory = value;
+			}
+		}
+		
 		#region Public Methods		
 		public override void Refresh () {}
 		
@@ -46,13 +63,14 @@ namespace Tasque.Backends.Dummy
 			//
 			// Add in some fake categories
 			//
-			var homeCategory = new Category ("Home");
+			var homeCategory = new DummyCategory ("Home");
 			Categories.Add (homeCategory);
 			
-			var workCategory = new Category ("Work");
+			var workCategory = new DummyCategory ("Work");
 			Categories.Add (workCategory);
+			defaultCategory = workCategory;
 			
-			var projectsCategory = new Category ("Projects");
+			var projectsCategory = new DummyCategory ("Projects");
 			Categories.Add (projectsCategory);
 			
 			//
@@ -122,5 +140,7 @@ namespace Tasque.Backends.Dummy
 		{
 			return new DummyTask (taskName);
 		}
+		
+		Category defaultCategory;
 	}
 }

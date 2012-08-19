@@ -50,6 +50,7 @@
       <Link>Properties\GlobalDefines.cs</Link>
     </Compile>
     <Compile Include="DummyNote.cs" />
+    <Compile Include="DummyCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

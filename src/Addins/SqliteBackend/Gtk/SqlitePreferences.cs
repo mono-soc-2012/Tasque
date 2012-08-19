@@ -27,7 +27,7 @@ using Mono.Unix;
 using Gtk;
 using Tasque;
 
-namespace Tasque.Backends.SqliteBackend.Gtk
+namespace Tasque.Backends.SqliteBackend
 {
 	public class SqlitePreferences : Box, IBackendPreferences
 	{
