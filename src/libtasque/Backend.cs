@@ -124,9 +124,6 @@ namespace Tasque
 		/// </summary>
 		public Task CreateTask (string taskName, Category category)
 		{
-			if (category == null)
-				throw new ArgumentNullException ("category");
-
 			return CreateTask (taskName, new Category [] { category });
 		}
 		
