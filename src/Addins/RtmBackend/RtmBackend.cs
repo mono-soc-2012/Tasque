@@ -79,34 +79,19 @@ namespace Tasque.Backends.RtmBackend
 			return rtmTask;
 		}
 		
-		public void DeleteTask (Task task)
+		protected override void OnDeleteTask (Task task)
 		{
-			RtmTask rtmTask = task as RtmTask;
+			var rtmTask = task as RtmTask;
 			if (rtm != null) {
 				try {
-					rtm.TasksDelete (
-						timeline,
-						rtmTask.ListID,
-						rtmTask.SeriesTaskID,
-						rtmTask.TaskTaskID
-					);
-
-					lock (taskLock) {
-						Gtk.Application.Invoke (delegate {
-							if (taskIters.ContainsKey (rtmTask.ID)) {
-								Gtk.TreeIter iter = taskIters [rtmTask.ID];
-								Tasks.Remove (ref iter);
-								taskIters.Remove (rtmTask.ID);
-							}
-						}
-						);
-					}
+					rtm.TasksDelete (timeline, rtmTask.ListID, rtmTask.SeriesTaskID, rtmTask.TaskTaskID);
 				} catch (Exception e) {
 					Debug.WriteLine ("Unable to delete task: " + task.Name);
 					Debug.WriteLine (e.ToString ());
 				}
 			} else
 				throw new Exception ("Unable to communicate with Remember The Milk");
+			base.OnDeleteTask (task);
 		}
 		
 		public override void Refresh ()
