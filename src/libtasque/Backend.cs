@@ -125,18 +125,14 @@ namespace Tasque
 		/// </summary>
 		public abstract Task CreateTask (string taskName);
 		
-		public void DeleteTask (Task task)
+		public void DeleteTaskFromAllCategories (Task task)
 		{
 			if (task == null)
 				throw new ArgumentNullException ("task");
 			
 			foreach (var cat in Categories)
 				cat.Remove (task);
-			
-			OnDeleteTask (task);
 		}
-		
-		protected virtual void OnDeleteTask (Task task) {}
 		
 		/// <summary>
 		/// Initializes the backend

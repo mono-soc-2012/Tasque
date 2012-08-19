@@ -40,11 +40,11 @@ namespace Tasque.Backends.Sqlite
 			return new SqliteTask (this, taskName);
 		}
 		
-		protected override void OnDeleteTask (Task task)
-		{
-			task.Delete ();
-			base.OnDeleteTask (task);
-		}
+//		protected override void OnDeleteTask (Task task)
+//		{
+//			task.Delete ();
+//			base.OnDeleteTask (task);
+//		}
 		
 		public override void Initialize ()
 		{
