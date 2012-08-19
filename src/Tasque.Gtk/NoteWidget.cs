@@ -161,6 +161,7 @@ namespace Tasque
 			textView.Buffer.Text = text;
 			textView.CanFocus = true;
 			textView.NoShowAll = true;
+			textView.SetSizeRequest (-1, 60);
 			sw.Add (textView);
 			sw.Show ();
 			vbox.PackStart (sw, true, true, 0);
