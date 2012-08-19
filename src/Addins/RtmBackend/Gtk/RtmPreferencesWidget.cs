@@ -7,7 +7,7 @@ using Gtk;
 
 namespace Tasque.Backends.RtmBackend
 {
-	public class RtmPreferencesWidget : EventBox
+	public class RtmPreferencesWidget : EventBox, IBackendPreferences
 	{
 		private LinkButton		authButton;
 		private Label			statusLabel;
@@ -67,7 +67,7 @@ namespace Tasque.Backends.RtmBackend
 			if (isAuthorized) {
 				statusLabel.Text = "\n\n" +
 					Catalog.GetString ("You are currently connected");
-				string userName = Application.Preferences.Get (Preferences.UserNameKey);
+				var userName = Application.Instance.Preferences.Get (Preferences.UserNameKey);
 				if (userName != null && userName.Trim () != string.Empty)
 					statusLabel.Text = "\n\n" +
 						Catalog.GetString ("You are currently connected as") +
@@ -87,7 +87,7 @@ namespace Tasque.Backends.RtmBackend
 		
 		private void LoadPreferences ()
 		{
-			string authToken = Tasque.Application.Preferences.Get (Preferences.AuthTokenKey);
+			var authToken = Application.Instance.Preferences.Get (Preferences.AuthTokenKey);
 			if (authToken == null || authToken.Trim () == "") {
 				Debug.WriteLine ("Rtm: Not authorized");
 				isAuthorized = false;
@@ -99,7 +99,7 @@ namespace Tasque.Backends.RtmBackend
 		
 		private void OnAuthButtonClicked (object sender, EventArgs args)
 		{
-			RtmBackend rtmBackend = Application.Backend as RtmBackend;
+			var rtmBackend = Application.Instance.Backend as RtmBackend;
 			if (rtmBackend != null) {
 				if (!isAuthorized && !authRequested) {
 					string url = string.Empty;
@@ -139,7 +139,7 @@ namespace Tasque.Backends.RtmBackend
 					statusLabel.Text = "\n\n" +
 						Catalog.GetString ("You are currently connected");
 					string userName =
-						Application.Preferences.Get (Preferences.UserNameKey);
+						Application.Instance.Preferences.Get (Preferences.UserNameKey);
 					if (userName != null && userName.Trim () != string.Empty)
 						statusLabel.Text = "\n\n" +
 							Catalog.GetString ("You are currently connected as") +

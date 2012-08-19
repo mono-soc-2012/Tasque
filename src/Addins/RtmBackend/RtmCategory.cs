@@ -11,16 +11,11 @@ namespace Tasque.Backends.RtmBackend
 {
 	public class RtmCategory : Category
 	{
-		private List list;
-		private Gtk.TreeIter iter;
+		List list;
 
-		public RtmCategory (List list)
+		public RtmCategory (List list) : base (list.Name)
 		{
 			this.list = list;
-		}
-		
-		public string Name {
-			get { return list.Name; }
 		}
 
 		public string ID {
@@ -46,19 +41,5 @@ namespace Tasque.Backends.RtmBackend
 		public int Smart {
 			get { return list.Smart; }
 		}
-		
-		public Gtk.TreeIter Iter {
-			get { return iter; }
-			set { iter = value; }
-		}
-
-		public bool ContainsTask (Task task)
-		{
-			if (task.Category is RtmCategory)
-				return ((task.Category as RtmCategory).ID.CompareTo (ID) == 0);
-			else
-				return false;
-		}
-
 	}
 }

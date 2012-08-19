@@ -17,82 +17,72 @@ namespace Tasque.Backends.RtmBackend
 {
 	public class RtmBackend : Backend
 	{
-		private const string apiKey = "b29f7517b6584035d07df3170b80c430";
-		private const string sharedSecret = "93eb5f83628b2066";
-		private Thread refreshThread;
-		private bool runningRefreshThread;
-		private AutoResetEvent runRefreshEvent;
-		private Rtm rtm;
-		private string frob;
-		private Auth rtmAuth;
-		private string timeline;
-		private object taskLock;
-		private Dictionary<string, RtmCategory> categories;
-		private object catLock;
-		
 		public RtmBackend () : base ("Remember the Milk")
 		{
 			taskLock = new Object ();
-			
-			categories = new Dictionary<string, RtmCategory> ();
 			catLock = new Object ();
 
-			// *************************************
-			// Data Model Set up
-			// *************************************
-
 			runRefreshEvent = new AutoResetEvent (false);
-			
 			runningRefreshThread = false;
 			refreshThread = new Thread (RefreshThreadLoop);
 		}
 		
+		public override Category DefaultCategory {
+			get {
+				if (!Initialized)
+					throw new InvalidOperationException ("Backend not initialized");
+				return Categories.ElementAt (0);
+			}
+			set { throw new NotSupportedException (); }
+		}
+		
 		public string RtmUserName {
 			get {
-				if ((rtmAuth != null) && (rtmAuth.User != null)) {
+				if (rtmAuth != null && rtmAuth.User != null)
 					return rtmAuth.User.Username;
-				} else
+				else
 					return null;
 			}
 		}
 
 		#region Public Methods
-		protected override Task CreateTaskCore (string taskName, IEnumerable<Category> categories)
+		public override Task CreateTask (string taskName)
 		{
-			var category = categories.ElementAt (0);
-			var categoryID = (category as RtmCategory).ID;
-			RtmTask rtmTask = null;
-
-			if (rtm != null) {
-				try {
-					var list = rtm.TasksAdd (timeline, taskName, categoryID);
-					var ts = list.TaskSeriesCollection [0];
-					if (ts != null)
-						rtmTask = new RtmTask (ts, this, list.ID);
-				} catch (Exception e) {
-					Debug.WriteLine ("Unable to set create task: " + taskName);
-					Debug.WriteLine (e.ToString ());
-				}
-			} else
-				throw new Exception ("Unable to communicate with Remember The Milk");
-				
-			return rtmTask;
+			throw new NotImplementedException ();
+//			var category = categories.ElementAt (0);
+//			var categoryID = (category as RtmCategory).ID;
+//			RtmTask rtmTask = null;
+//
+//			if (rtm != null) {
+//				try {
+//					var list = rtm.TasksAdd (timeline, taskName, categoryID);
+//					var ts = list.TaskSeriesCollection [0];
+//					if (ts != null)
+//						rtmTask = new RtmTask (ts, this, list.ID);
+//				} catch (Exception e) {
+//					Debug.WriteLine ("Unable to set create task: " + taskName);
+//					Debug.WriteLine (e.ToString ());
+//				}
+//			} else
+//				throw new Exception ("Unable to communicate with Remember The Milk");
+//				
+//			return rtmTask;
 		}
 		
-		protected override void OnDeleteTask (Task task)
-		{
-			var rtmTask = task as RtmTask;
-			if (rtm != null) {
-				try {
-					rtm.TasksDelete (timeline, rtmTask.ListID, rtmTask.SeriesTaskID, rtmTask.TaskTaskID);
-				} catch (Exception e) {
-					Debug.WriteLine ("Unable to delete task: " + task.Name);
-					Debug.WriteLine (e.ToString ());
-				}
-			} else
-				throw new Exception ("Unable to communicate with Remember The Milk");
-			base.OnDeleteTask (task);
-		}
+//		protected override void OnDeleteTask (Task task)
+//		{
+//			var rtmTask = task as RtmTask;
+//			if (rtm != null) {
+//				try {
+//					rtm.TasksDelete (timeline, rtmTask.ListID, rtmTask.SeriesTaskID, rtmTask.TaskTaskID);
+//				} catch (Exception e) {
+//					Debug.WriteLine ("Unable to delete task: " + task.Name);
+//					Debug.WriteLine (e.ToString ());
+//				}
+//			} else
+//				throw new Exception ("Unable to communicate with Remember The Milk");
+//			base.OnDeleteTask (task);
+//		}
 		
 		public override void Refresh ()
 		{
@@ -105,26 +95,26 @@ namespace Tasque.Backends.RtmBackend
 			
 			Debug.WriteLine ("Done refreshing data!");
 		}
-
-		public void Initialize ()
+		
+		public override void Initialize ()
 		{
 			// *************************************
 			// AUTHENTICATION to Remember The Milk
 			// *************************************
-			string authToken = Application.Preferences.Get (Tasque.Preferences.AuthTokenKey);
+			var authToken = Application.Instance.Preferences.Get (Tasque.Preferences.AuthTokenKey);
 			if (authToken != null) {
 				Debug.WriteLine ("Found AuthToken, checking credentials...");
 				try {
-					rtm = new Rtm (apiKey, sharedSecret, authToken);
+					rtm = new Rtm (ApiKey, SharedSecret, authToken);
 					rtmAuth = rtm.AuthCheckToken (authToken);
 					timeline = rtm.TimelineCreate ();
 					Debug.WriteLine ("RTM Auth Token is valid!");
 					Debug.WriteLine ("Setting configured status to true");
 					Configured = true;
 				} catch (RtmApiException e) {
-					Application.Preferences.Set (Tasque.Preferences.AuthTokenKey, null);
-					Application.Preferences.Set (Tasque.Preferences.UserIdKey, null);
-					Application.Preferences.Set (Tasque.Preferences.UserNameKey, null);
+					Application.Instance.Preferences.Set (Tasque.Preferences.AuthTokenKey, null);
+					Application.Instance.Preferences.Set (Tasque.Preferences.UserIdKey, null);
+					Application.Instance.Preferences.Set (Tasque.Preferences.UserNameKey, null);
 					rtm = null;
 					rtmAuth = null;
 					Trace.TraceError ("Exception authenticating, reverting" + e.Message);
@@ -140,7 +130,7 @@ namespace Tasque.Backends.RtmBackend
 			}
 
 			if (rtm == null)
-				rtm = new Rtm (apiKey, sharedSecret);
+				rtm = new Rtm (ApiKey, SharedSecret);
 	
 			StartThread ();	
 		}
@@ -163,30 +153,29 @@ namespace Tasque.Backends.RtmBackend
 			runRefreshEvent.Set ();
 		}
 
-		public void Cleanup ()
+		protected override void Dispose (bool disposing)
 		{
-			runningRefreshThread = false;
-			runRefreshEvent.Set ();
-			refreshThread.Abort ();
+			if (disposing) {
+				runningRefreshThread = false;
+				runRefreshEvent.Set ();
+				refreshThread.Abort ();
+			}
+			base.Dispose (disposing);
 		}
 
-		public Gtk.Widget GetPreferencesWidget ()
-		{
-			return new RtmPreferencesWidget ();
-		}
+		public override IBackendPreferences Preferences { get { return new RtmPreferencesWidget (); } }
 
 		public string GetAuthUrl ()
 		{
 			frob = rtm.AuthGetFrob ();
-			string url = rtm.AuthCalcUrl (frob, AuthLevel.Delete);
-			return url;
+			return rtm.AuthCalcUrl (frob, AuthLevel.Delete);
 		}
 
 		public void FinishedAuth ()
 		{
 			rtmAuth = rtm.AuthGetToken (frob);
 			if (rtmAuth != null) {
-				Preferences prefs = Application.Preferences;
+				var prefs = Application.Instance.Preferences;
 				prefs.Set (Tasque.Preferences.AuthTokenKey, rtmAuth.Token);
 				if (rtmAuth.User != null) {
 					prefs.Set (Tasque.Preferences.UserNameKey, rtmAuth.User.Username);
@@ -194,12 +183,11 @@ namespace Tasque.Backends.RtmBackend
 				}
 			}
 			
-			string authToken =
-				Application.Preferences.Get (Tasque.Preferences.AuthTokenKey);
+			var authToken = Application.Instance.Preferences.Get (Tasque.Preferences.AuthTokenKey);
 			if (authToken != null) {
 				Debug.WriteLine ("Found AuthToken, checking credentials...");
 				try {
-					rtm = new Rtm (apiKey, sharedSecret, authToken);
+					rtm = new Rtm (ApiKey, SharedSecret, authToken);
 					rtmAuth = rtm.AuthCheckToken (authToken);
 					timeline = rtm.TimelineCreate ();
 					Debug.WriteLine ("RTM Auth Token is valid!");
@@ -213,19 +201,13 @@ namespace Tasque.Backends.RtmBackend
 				}	
 			}
 		}
-
+		
 		public void UpdateTaskName (RtmTask task)
 		{
 			if (rtm != null) {
 				try {
-					List list = rtm.TasksSetName (
-						timeline,
-						task.ListID,
-						task.SeriesTaskID,
-						task.TaskTaskID,
-						task.Name
-					);		
-					UpdateTaskFromResult (list);
+					rtm.TasksSetName (timeline, task.ListID, task.SeriesTaskID,
+					                  task.TaskTaskID, task.Name);
 				} catch (Exception e) {
 					Debug.WriteLine ("Unable to set name on task: " + task.Name);
 					Debug.WriteLine (e.ToString ());
@@ -237,23 +219,11 @@ namespace Tasque.Backends.RtmBackend
 		{
 			if (rtm != null) {
 				try {
-					List list;
 					if (task.DueDate == DateTime.MinValue)
-						list = rtm.TasksSetDueDate (
-							timeline,
-							task.ListID,
-							task.SeriesTaskID,
-							task.TaskTaskID
-						);
+						rtm.TasksSetDueDate (timeline, task.ListID, task.SeriesTaskID, task.TaskTaskID);
 					else	
-						list = rtm.TasksSetDueDate (
-							timeline,
-							task.ListID,
-							task.SeriesTaskID,
-							task.TaskTaskID,
-							task.DueDateString
-						);
-					UpdateTaskFromResult (list);
+						rtm.TasksSetDueDate (timeline, task.ListID, task.SeriesTaskID,
+						                     task.TaskTaskID, task.DueDateString);
 				} catch (Exception e) {
 					Debug.WriteLine ("Unable to set due date on task: " + task.Name);
 					Debug.WriteLine (e.ToString ());
@@ -261,23 +231,12 @@ namespace Tasque.Backends.RtmBackend
 			}
 		}
 		
-		public void UpdateTaskCompleteDate (RtmTask task)
-		{
-			UpdateTask (task);
-		}
-		
 		public void UpdateTaskPriority (RtmTask task)
 		{
 			if (rtm != null) {
 				try {
-					List list = rtm.TasksSetPriority (
-						timeline,
-						task.ListID,
-						task.SeriesTaskID,
-						task.TaskTaskID,
-						task.PriorityString
-					);
-					UpdateTaskFromResult (list);
+					rtm.TasksSetPriority (timeline, task.ListID, task.SeriesTaskID,
+					                      task.TaskTaskID, task.PriorityString);
 				} catch (Exception e) {
 					Debug.WriteLine ("Unable to set priority on task: " + task.Name);
 					Debug.WriteLine (e.ToString ());
@@ -287,41 +246,21 @@ namespace Tasque.Backends.RtmBackend
 		
 		public void UpdateTaskActive (RtmTask task)
 		{
-			if (task.State == TaskState.Completed) {
-				if (rtm != null) {
-					try {
-						List list = rtm.TasksUncomplete (
-							timeline,
-							task.ListID,
-							task.SeriesTaskID,
-							task.TaskTaskID
-						);
-						UpdateTaskFromResult (list);
-					} catch (Exception e) {
-						Debug.WriteLine ("Unable to set Task as completed: " + task.Name);
-						Debug.WriteLine (e.ToString ());
-					}
+			if (rtm != null) {
+				try {
+					rtm.TasksUncomplete (timeline, task.ListID, task.SeriesTaskID, task.TaskTaskID);
+				} catch (Exception e) {
+					Debug.WriteLine ("Unable to set Task as completed: " + task.Name);
+					Debug.WriteLine (e.ToString ());
 				}
-			} else
-				UpdateTask (task);
-		}
-		
-		public void UpdateTaskInactive (RtmTask task)
-		{
-			UpdateTask (task);
+			}
 		}
 
 		public void UpdateTaskCompleted (RtmTask task)
 		{
 			if (rtm != null) {
 				try {
-					List list = rtm.TasksComplete (
-						timeline,
-						task.ListID,
-						task.SeriesTaskID,
-						task.TaskTaskID
-					);
-					UpdateTaskFromResult (list);
+					rtm.TasksComplete (timeline, task.ListID, task.SeriesTaskID, task.TaskTaskID);
 				} catch (Exception e) {
 					Debug.WriteLine ("Unable to set Task as completed: " + task.Name);
 					Debug.WriteLine (e.ToString ());
@@ -331,21 +270,21 @@ namespace Tasque.Backends.RtmBackend
 
 		public void UpdateTaskDeleted (RtmTask task)
 		{
-			UpdateTask (task);
+			if (rtm != null) {
+				try {
+					rtm.TasksDelete (timeline, task.ListID, task.SeriesTaskID, task.TaskTaskID);
+				} catch (Exception e) {
+					Debug.WriteLine ("Unable to set Task as deleted: " + task.Name);
+					Debug.WriteLine (e.ToString ());
+				}
+			}
 		}
 
 		public void MoveTaskCategory (RtmTask task, string id)
 		{
 			if (rtm != null) {
 				try {
-					List list = rtm.TasksMoveTo (
-						timeline,
-						task.ListID,
-						id,
-						task.SeriesTaskID,
-						task.TaskTaskID
-					);
-					UpdateTaskFromResult (list);
+					rtm.TasksMoveTo (timeline, task.ListID, id, task.SeriesTaskID, task.TaskTaskID);
 				} catch (Exception e) {
 					Debug.WriteLine ("Unable to set Task as completed: " + task.Name);
 					Debug.WriteLine (e.ToString ());
@@ -353,68 +292,17 @@ namespace Tasque.Backends.RtmBackend
 			}					
 		}
 		
-		public void UpdateTask (RtmTask task)
-		{
-			lock (taskLock) {
-				Gtk.TreeIter iter;
-				
-				Gtk.Application.Invoke (delegate {
-					if (taskIters.ContainsKey (task.ID)) {
-						iter = taskIters [task.ID];
-						Tasks.SetValue (iter, 0, task);
-					}
-				}
-				);
-			}		
-		}
-		
-		public RtmTask UpdateTaskFromResult (List list)
-		{
-			TaskSeries ts = list.TaskSeriesCollection [0];
-			if (ts != null) {
-				RtmTask rtmTask = new RtmTask (ts, this, list.ID);
-				lock (taskLock) {
-					Gtk.Application.Invoke (delegate {
-						if (taskIters.ContainsKey (rtmTask.ID)) {
-							Gtk.TreeIter iter = taskIters [rtmTask.ID];
-							Tasks.SetValue (iter, 0, rtmTask);
-						} else {
-							Gtk.TreeIter iter = Tasks.AppendNode ();
-							taskIters.Add (rtmTask.ID, iter);
-							Tasks.SetValue (iter, 0, rtmTask);
-						}
-					}
-					);
-				}
-				return rtmTask;				
-			}
-			return null;
-		}
-		
-		public RtmCategory GetCategory (string id)
-		{
-			if (categories.ContainsKey (id))
-				return categories [id];
-			else
-				return null;
-		}
-		
 		public RtmNote CreateNote (RtmTask rtmTask, string text)
 		{
-			RtmNet.Note note = null;
+			Note note = null;
 			RtmNote rtmNote = null;
 			
 			if (rtm != null) {
 				try {
-					note = rtm.NotesAdd (
-						timeline,
-						rtmTask.ListID,
-						rtmTask.SeriesTaskID,
-						rtmTask.TaskTaskID,
-						String.Empty,
-						text
-					);
+					note = rtm.NotesAdd (timeline, rtmTask.ListID, rtmTask.SeriesTaskID,
+					                     rtmTask.TaskTaskID, string.Empty, text);
 					rtmNote = new RtmNote (note);
+					rtmNote.OnTextChangedAction = delegate { SaveNote (rtmTask, rtmNote); };
 				} catch (Exception e) {
 					Debug.WriteLine ("RtmBackend.CreateNote: Unable to create a new note");
 					Debug.WriteLine (e.ToString ());
@@ -438,11 +326,11 @@ namespace Tasque.Backends.RtmBackend
 				throw new Exception ("Unable to communicate with Remember The Milk");
 		}
 
-		public void SaveNote (RtmTask rtmTask, RtmNote note)
+		void SaveNote (RtmTask rtmTask, RtmNote note)
 		{
 			if (rtm != null) {
 				try {
-					rtm.NotesEdit (timeline, note.ID, String.Empty, note.Text);
+					rtm.NotesEdit (timeline, note.ID, string.Empty, note.Text);
 				} catch (Exception e) {
 					Debug.WriteLine ("RtmBackend.SaveNote: Unable to save note");
 					Debug.WriteLine (e.ToString ());
@@ -457,48 +345,36 @@ namespace Tasque.Backends.RtmBackend
 		/// Update the model to match what is in RTM
 		/// FIXME: This is a lame implementation and needs to be optimized
 		/// </summary>		
-		private void UpdateCategories (Lists lists)
+		void UpdateCategories (Lists lists)
 		{
 			Debug.WriteLine ("RtmBackend.UpdateCategories was called");
-			
 			try {
-				foreach (List list in lists.listCollection) {
-					RtmCategory rtmCategory = new RtmCategory (list);
-
+				foreach (var list in lists.listCollection) {
 					lock (catLock) {
-						Gtk.TreeIter iter;
-						
-						Gtk.Application.Invoke (delegate {
-
-							if (categories.ContainsKey (rtmCategory.ID)) {
-								iter = categories [rtmCategory.ID].Iter;
-								categoryListStore.SetValue (iter, 0, rtmCategory);
-							} else {
-								iter = categoryListStore.Append ();
-								categoryListStore.SetValue (iter, 0, rtmCategory);
-								rtmCategory.Iter = iter;
-								categories.Add (rtmCategory.ID, rtmCategory);
+						Application.Instance.Dispatcher.Invoke (delegate {
+							RtmCategory rtmCategory;
+							if (!Categories.Any (c => ((RtmCategory)c).ID == list.ID)) {
+								rtmCategory = new RtmCategory (list);
+								Categories.Add (rtmCategory);
 							}
-						}
-						);
+						});
 					}
 				}
 			} catch (Exception e) {
 				Debug.WriteLine ("Exception in fetch " + e.Message);
 			}
-			Debug.WriteLine ("RtmBackend.UpdateCategories is done");			
+			Debug.WriteLine ("RtmBackend.UpdateCategories is done");
 		}
 
 		/// <summary>
 		/// Update the model to match what is in RTM
 		/// FIXME: This is a lame implementation and needs to be optimized
 		/// </summary>		
-		private void UpdateTasks (Lists lists)
+		void UpdateTasks (Lists lists)
 		{
 			Debug.WriteLine ("RtmBackend.UpdateTasks was called");
-			
 			try {
-				foreach (List list in lists.listCollection) {
+				foreach (var list in lists.listCollection) {
 					Tasks tasks = null;
 					try {
 						tasks = rtm.TasksGetList (list.ID);
@@ -507,27 +383,22 @@ namespace Tasque.Backends.RtmBackend
 					}
 
 					if (tasks != null) {
-						foreach (List tList in tasks.ListCollection) {
+						foreach (var tList in tasks.ListCollection) {
 							if (tList.TaskSeriesCollection == null)
 								continue;
-							foreach (TaskSeries ts in tList.TaskSeriesCollection) {
-								RtmTask rtmTask = new RtmTask (ts, this, list.ID);
-								
+							
+							foreach (var ts in tList.TaskSeriesCollection) {
 								lock (taskLock) {
-									Gtk.TreeIter iter;
-									
-									Gtk.Application.Invoke (delegate {
-
-										if (taskIters.ContainsKey (rtmTask.ID)) {
-											iter = taskIters [rtmTask.ID];
-										} else {
-											iter = Tasks.AppendNode ();
-											taskIters.Add (rtmTask.ID, iter);
+									Application.Instance.Dispatcher.Invoke (delegate {
+										if (!Tasks.Any (t => ((RtmTask)t).ID == ts.TaskID)) {
+											
+											var rtmTask = new RtmTask (ts, this, list.ID);
+											var cat = Categories.SingleOrDefault (
+												c => ((RtmCategory)c).ID == list.ID);
+											if (cat != null)
+												cat.Add (rtmTask);
 										}
-
-										Tasks.SetValue (iter, 0, rtmTask);
-									}
-									);
+									});
 								}
 							}
 						}
@@ -540,48 +411,46 @@ namespace Tasque.Backends.RtmBackend
 			Debug.WriteLine ("RtmBackend.UpdateTasks is done");			
 		}
 		
-		private void RefreshThreadLoop ()
+		void RefreshThreadLoop ()
 		{
 			while (runningRefreshThread) {
 				runRefreshEvent.WaitOne ();
 
 				if (!runningRefreshThread)
 					return;
-
+				
 				// Fire the event on the main thread
-				Gtk.Application.Invoke (delegate {
-					if (BackendSyncStarted != null)
-						BackendSyncStarted ();
-				}
-				);
-
-				runRefreshEvent.Reset ();
+				Application.Instance.Dispatcher.Invoke (delegate { OnBackendSyncStarted (); });
 
 				if (rtmAuth != null) {
-					Lists lists = rtm.ListsGetList ();
+					var lists = rtm.ListsGetList ();
 					UpdateCategories (lists);
 					UpdateTasks (lists);
 				}
-				if (!initialized) {
-					initialized = true;
 
-					// Fire the event on the main thread
-					Gtk.Application.Invoke (delegate {
-						if (BackendInitialized != null)
-							BackendInitialized ();
-					}
-					);
-				}
 
 				// Fire the event on the main thread
-				Gtk.Application.Invoke (delegate {
-					if (BackendSyncFinished != null)
-						BackendSyncFinished ();
-				}
-				);
+				Application.Instance.Dispatcher.Invoke (delegate { 
+					if (!Initialized)
+						Initialized = true;
+				});
 			}
+
+			// Fire the event on the main thread
+			Application.Instance.Dispatcher.Invoke (delegate { OnBackendSyncFinished (); });
 		}
+		#endregion // Private Methods
 		
-#endregion // Private Methods
+		const string ApiKey = "b29f7517b6584035d07df3170b80c430";
+		const string SharedSecret = "93eb5f83628b2066";
+		Thread refreshThread;
+		bool runningRefreshThread;
+		AutoResetEvent runRefreshEvent;
+		Rtm rtm;
+		string frob;
+		Auth rtmAuth;
+		string timeline;
+		object taskLock, catLock;
 	}
 }
+
