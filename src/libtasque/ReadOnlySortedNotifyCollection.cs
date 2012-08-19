@@ -31,30 +31,23 @@ using System.ComponentModel;
 
 namespace Tasque
 {
-	public class ReadOnlySortedNotifyCollection<T> : ICollection<T>, INotifyCollectionChanged
+	public class ReadOnlySortedNotifyCollection<T> : ICollection<T>, INotifyCollectionChanged, IDisposable
 		where T : INotifyPropertyChanged, IComparable<T>
 	{
 		public ReadOnlySortedNotifyCollection (SortedNotifyCollection<T> source)
 		{
 			if (source == null)
 				throw new ArgumentNullException ("source");
-
+			
+			source.CollectionChanged += HandleCollectionChanged;
 			items = source;
 		}
-
-		#region IEnumerable implementation
-		IEnumerator IEnumerable.GetEnumerator ()
-		{
-			return GetEnumerator ();
-		}
-
-		public IEnumerator<T> GetEnumerator ()
-		{
-			return items.GetEnumerator ();
-		}
-		#endregion
-
+		
 		#region ICollection implementation
+		public int Count { get { return CountProtected; } }
+		
+		public bool IsReadOnly { get { return true; } }
+		
 		void ICollection<T>.Add (T item)
 		{
 			throw new NotSupportedException ("This collection is read-only.");
@@ -67,28 +60,88 @@ namespace Tasque
 
 		public bool Contains (T item)
 		{
-			return items.Contains (item);
+			return ContainsProtected (item);
 		}
 
 		public void CopyTo (T[] array, int arrayIndex)
 		{
-			items.CopyTo (array, arrayIndex);
+			CopyToProtected (array, arrayIndex);
 		}
 
 		bool ICollection<T>.Remove (T item)
 		{
 			throw new NotSupportedException ("This collection is read-only.");
 		}
-
-		public int Count { get { return items.Count; } }
-
-		public bool IsReadOnly { get { return true; } }
+		#endregion
+		
+		#region IEnumerable implementation
+		public IEnumerator<T> GetEnumerator ()
+		{
+			return GetEnumeratorProtected ();
+		}
+		
+		IEnumerator IEnumerable.GetEnumerator ()
+		{
+			return GetEnumerator ();
+		}
+		#endregion
+		
+		#region INotifyCollectionChanged implementation
+		public event NotifyCollectionChangedEventHandler CollectionChanged;
+		
+		void HandleCollectionChanged (object sender, NotifyCollectionChangedEventArgs e)
+		{
+			OnCollectionChanged (e);
+		}
 		#endregion
 
-		#region INotifyCollectionChanged implementation
-		public event NotifyCollectionChangedEventHandler CollectionChanged {
-			add { items.CollectionChanged += value; }
-			remove { items.CollectionChanged -= value; }
+		#region IDisposable implementation
+		public void Dispose ()
+		{
+			Dispose (true);
+			GC.SuppressFinalize (this);
+		}
+		
+		protected virtual void Dispose (bool disposing)
+		{
+			if (!disposed && disposing) {
+				items.CollectionChanged -= HandleCollectionChanged;
+				disposed = true;
+			}
+		}
+		
+		~ReadOnlySortedNotifyCollection ()
+		{
+			Dispose (false);
+		}
+		
+		bool disposed;
+		#endregion
+		
+		#region Internal
+		internal protected ReadOnlySortedNotifyCollection () {}
+		
+		internal protected virtual int CountProtected { get { return items.Count; } }
+		
+		internal protected virtual bool ContainsProtected (T item)
+		{
+			return items.Contains (item);
+		}
+		
+		internal protected virtual void CopyToProtected (T[] array, int arrayIndex)
+		{
+			items.CopyTo (array, arrayIndex);
+		}
+		
+		internal protected virtual IEnumerator<T> GetEnumeratorProtected ()
+		{
+			return items.GetEnumerator ();
+		}
+		
+		internal protected void OnCollectionChanged (NotifyCollectionChangedEventArgs e)
+		{
+			if (CollectionChanged != null)
+				CollectionChanged (this, e);
 		}
 		#endregion
 

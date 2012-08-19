@@ -26,8 +26,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 
 namespace Tasque
 {
@@ -43,14 +41,9 @@ namespace Tasque
 				throw new ArgumentNullException ("name");
 
 			Name = name;
-
-			tasks = new SortedNotifyCollection<Task> ();
-			Tasks = new ReadOnlySortedNotifyCollection<Task> (tasks);
-
-			categoriesChangedSources = new List<INotifyCollectionChanged> ();
-			Categories = new SortedNotifyCollection<Category> ();
 			
-			Categories.CollectionChanged += HandleCategoriesChanged;
+			Categories = new SortedNotifyCollection<Category> ();
+			Tasks = new BackendTaskCollection (Categories);
 		}
 
 		#region Properties
@@ -110,12 +103,20 @@ namespace Tasque
 			GC.SuppressFinalize (this);
 		}
 		
-		protected virtual void Dispose (bool disposing) {}
+		protected virtual void Dispose (bool disposing)
+		{
+			if (!disposed && disposing) {
+				Tasks.Dispose ();
+				disposed = true;
+			}
+		}
 		
 		~Backend ()
 		{
 			Dispose (false);
 		}
+		
+		bool disposed;
 		#endregion
 		
 		#region Methods
@@ -167,79 +168,6 @@ namespace Tasque
 		public event EventHandler BackendSyncFinished;
 		public event EventHandler BackendSyncStarted;
 		
-		void HandleCategoriesChanged (object sender, NotifyCollectionChangedEventArgs e)
-		{
-			switch (e.Action) {
-			case NotifyCollectionChangedAction.Add: {
-				var cat = (Category)e.NewItems [0];
-				RegisterCategoriesChanged (cat);
-				foreach (var item in cat)
-					tasks.Add (item);
-				break;
-			}
-			case NotifyCollectionChangedAction.Remove: {
-				var cat = (Category)e.OldItems [0];
-				UnRegisterCategoriesChanged (cat);
-				RemoveCategoryContent (cat);
-				break;
-			}
-			case NotifyCollectionChangedAction.Reset:
-				for (int i = 0; i < categoriesChangedSources.Count; i++) {
-					UnRegisterCategoriesChanged (categoriesChangedSources [0]);
-				}
-				tasks.Clear ();
-				break;
-			}
-		}
-
-		void HandleTaskCollectionChanged (object sender, NotifyCollectionChangedEventArgs e)
-		{
-			switch (e.Action) {
-			case NotifyCollectionChangedAction.Add:
-				tasks.Add ((Task)e.NewItems [0]);
-				break;
-			case NotifyCollectionChangedAction.Remove:
-				var task = (Task)e.OldItems [0];
-				if (IsSoleOccurenceInCategory ((Category)sender, task))
-					tasks.Remove (task);
-				break;
-			case NotifyCollectionChangedAction.Reset:
-				RemoveCategoryContent ((Category)sender);
-				break;
-			}
-		}
-
-		bool IsSoleOccurenceInCategory (Category cat, Task task)
-		{
-			foreach (var item in Categories) {
-				if (cat != item && cat.Contains (task))
-					return false;
-			}
-			return true;
-		}
-
-		void RemoveCategoryContent (Category cat)
-		{
-			foreach (var item in cat) {
-				if (IsSoleOccurenceInCategory (cat, item))
-					tasks.Remove (item);
-			}
-		}
-
-		void RegisterCategoriesChanged (INotifyCollectionChanged source)
-		{
-			categoriesChangedSources.Add (source);
-			source.CollectionChanged += HandleTaskCollectionChanged;
-		}
-
-		void UnRegisterCategoriesChanged (INotifyCollectionChanged source)
-		{
-			source.CollectionChanged -= HandleTaskCollectionChanged;
-			categoriesChangedSources.Remove (source);
-		}
-
-		List<INotifyCollectionChanged> categoriesChangedSources;
-		SortedNotifyCollection<Task> tasks;
 		bool initialized;
 	}
 }

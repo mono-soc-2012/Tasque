@@ -72,6 +72,7 @@
     <Compile Include="CompletedTaskGroupModel.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Dispatcher.cs" />
+    <Compile Include="BackendTaskCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
