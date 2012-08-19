@@ -57,26 +57,18 @@ namespace Tasque.Backends.RtmBackend
 		}
 
 		#region Public Methods
-		public Task CreateTask (string taskName, Category category)
+		protected override Task CreateTaskCore (string taskName, IEnumerable<Category> categories)
 		{
-			string categoryID;
+			var category = categories.ElementAt (0);
+			var categoryID = (category as RtmCategory).ID;
 			RtmTask rtmTask = null;
-			
-			if (category is Tasque.AllCategory)
-				categoryID = null;
-			else
-				categoryID = (category as RtmCategory).ID;	
 
 			if (rtm != null) {
 				try {
-					List list;
-					
-					if (categoryID == null)
-						list = rtm.TasksAdd (timeline, taskName);
-					else
-						list = rtm.TasksAdd (timeline, taskName, categoryID);
-
-					rtmTask = UpdateTaskFromResult (list);
+					var list = rtm.TasksAdd (timeline, taskName, categoryID);
+					var ts = list.TaskSeriesCollection [0];
+					if (ts != null)
+						rtmTask = new RtmTask (ts, this, list.ID);
 				} catch (Exception e) {
 					Debug.WriteLine ("Unable to set create task: " + taskName);
 					Debug.WriteLine (e.ToString ());
