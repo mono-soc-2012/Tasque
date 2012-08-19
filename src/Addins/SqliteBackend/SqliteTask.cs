@@ -7,7 +7,7 @@ namespace Tasque.Backends.Sqlite
 {
 	public class SqliteTask : Task
 	{
-		public SqliteTask (SqliteBackend backend, string name, int category)
+		public SqliteTask (SqliteBackend backend, string name)
 			: base (backend.SanitizeText (name), TaskNoteSupport.Multiple)
 		{
 			if (backend == null)
@@ -21,7 +21,7 @@ namespace Tasque.Backends.Sqlite
 			var priority = (int)Priority;
 			var state = (int)State;
 			var command = string.Format ("INSERT INTO Tasks (Name, DueDate, CompletionDate, Priority, State, Category, ExternalID) values ('{0}','{1}', '{2}','{3}', '{4}', '{5}', '{6}'); SELECT last_insert_rowid();", 
-								name, dueDate, completionDate, priority, state, category, string.Empty);
+								name, dueDate, completionDate, priority, state, 0, string.Empty);
 			id = Convert.ToInt32 (backend.Database.ExecuteScalar (command));
 		}
 

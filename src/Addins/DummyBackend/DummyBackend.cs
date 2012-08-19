@@ -76,41 +76,51 @@ namespace Tasque.Backends.Dummy
 			//
 			// Add in some fake tasks
 			//
-			var task = CreateTask ("Buy some nails", projectsCategory);
+			var task = CreateTask ("Buy some nails");
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.Medium;
+			projectsCategory.Add (task);
 			
-			task = CreateTask ("Call Roger", homeCategory);
+			task = CreateTask ("Call Roger");
 			task.DueDate = DateTime.Now.AddDays (-1);
 			task.Complete ();
-			task.CompletionDate = task.DueDate;
+			homeCategory.Add (task);
 			
-			task = CreateTask ("Replace burnt out lightbulb", homeCategory);
+			task = CreateTask ("Replace burnt out lightbulb");
 			task.DueDate = DateTime.Now;
 			task.Priority = TaskPriority.Low;
+			homeCategory.Add (task);
 			
-			task = CreateTask ("File taxes", homeCategory);
+			task = CreateTask ("File taxes");
 			task.DueDate = new DateTime (2008, 4, 1);
+			homeCategory.Add (task);
 			
-			task = CreateTask ("Purchase lumber", projectsCategory);
+			task = CreateTask ("Purchase lumber");
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.High;
-						
-			task = CreateTask ("Estimate drywall requirements", new Category [] { projectsCategory, workCategory });
+			projectsCategory.Add (task);
+			
+			task = CreateTask ("Estimate drywall requirements");
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.Low;
+			projectsCategory.Add (task);
+			workCategory.Add (task);
 			
-			task = CreateTask ("Borrow framing nailer from Ben", new Category [] { projectsCategory, homeCategory });
+			task = CreateTask ("Borrow framing nailer from Ben");
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.High;
+			projectsCategory.Add (task);
+			homeCategory.Add (task);
 			
-			task = CreateTask ("Call for an insulation estimate", projectsCategory);
+			task = CreateTask ("Call for an insulation estimate");
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.Medium;
+			projectsCategory.Add (task);
 			
-			task = CreateTask ("Pay storage rental fee", homeCategory);
+			task = CreateTask ("Pay storage rental fee");
 			task.DueDate = DateTime.Now.AddDays (1);
 			task.Priority = TaskPriority.None;
+			homeCategory.Add (task);
 			
 			task = new DummyTask ("Place carpet order");
 			projectsCategory.Add (task);
@@ -136,7 +146,7 @@ namespace Tasque.Backends.Dummy
 		}
 		#endregion
 
-		protected override Task CreateTaskCore (string taskName, IEnumerable<Category> categories)
+		public override Task CreateTask (string taskName)
 		{
 			return new DummyTask (taskName);
 		}

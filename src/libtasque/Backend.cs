@@ -122,36 +122,7 @@ namespace Tasque
 		/// <summary>
 		/// Create a new task.
 		/// </summary>
-		public Task CreateTask (string taskName, Category category)
-		{
-			return CreateTask (taskName, new Category [] { category });
-		}
-		
-		public Task CreateTask (string taskName, IEnumerable<Category> categories)
-		{
-			if (taskName == null)
-				throw new ArgumentNullException ("taskName");
-			if (categories == null)
-				throw new ArgumentNullException ("categories");
-
-			var task = CreateTaskCore (taskName, categories);
-
-			bool isEmpty = true;
-			foreach (var item in categories) {
-				Category cat = item;
-				if (item == null)
-					cat = DefaultCategory;
-
-				cat.Add (task);
-				isEmpty = false;
-			}
-
-			if (isEmpty)
-				throw new ArgumentException ("This backend doesn't contain a category. Hence it's " +
-					"impossible to add an item.", "categories");
-
-			return task;
-		}
+		public abstract Task CreateTask (string taskName);
 		
 		public void DeleteTask (Task task)
 		{
@@ -175,8 +146,6 @@ namespace Tasque
 		/// Refreshes the backend.
 		/// </summary>
 		public virtual void Refresh () {}
-
-		protected abstract Task CreateTaskCore (string taskName, IEnumerable<Category> categories);
 		
 		protected void OnBackendInitialized () {
 			if (BackendInitialized != null)

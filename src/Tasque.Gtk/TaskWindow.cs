@@ -766,7 +766,8 @@ namespace Tasque
 		
 		private Task CreateTask (string taskText, Category category)
 		{
-			Task task = backend.CreateTask (taskText, category);
+			Task task = backend.CreateTask (taskText);
+			category.Add (task);
 			
 			if (task == null) {
 				Debug.WriteLine ("Error creating a new task!");

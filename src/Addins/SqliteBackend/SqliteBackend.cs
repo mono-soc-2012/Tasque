@@ -35,15 +35,9 @@ namespace Tasque.Backends.Sqlite
 			}
 		}
 		
-		protected override Task CreateTaskCore (string taskName, IEnumerable<Category> categories)
+		public override Task CreateTask (string taskName)
 		{
-			var index = 0;
-			foreach (var cat in Categories) {
-				if (cat == categories.ElementAt (0))
-					break;
-				index++;
-			}
-			return new SqliteTask (this, taskName, index);
+			return new SqliteTask (this, taskName);
 		}
 		
 		protected override void OnDeleteTask (Task task)
@@ -157,8 +151,10 @@ namespace Tasque.Backends.Sqlite
 			dataReader.Close ();
 			cmd.Dispose ();
 
-			if (!hasValues)
-				CreateTask (Catalog.GetString ("Create some tasks"), DefaultCategory);
+			if (!hasValues) {
+				var task = CreateTask (Catalog.GetString ("Create some tasks"));
+				defaultCategory.Add (task);
+			}
 		}
 		
 		Category defaultCategory;
