@@ -100,5 +100,9 @@
       <Project>{91F6578A-2993-40A4-BE49-64028923EB87}</Project>
       <Name>DummyBackend</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Addins\RtmBackend\RtmBackend.csproj">
+      <Project>{545C0208-DE58-42F1-B818-0B57293B7831}</Project>
+      <Name>RtmBackend</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
