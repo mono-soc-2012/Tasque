@@ -29,7 +29,7 @@ using System.Collections.Generic;
 
 namespace Tasque
 {
-	public class TaskGroupModel : CollectionView<Task>
+	public class TaskGroupModel : ListCollectionView<Task>
 	{
 		public bool ShowCompletedTasks {
 			get { return showCompletedTasks; }
