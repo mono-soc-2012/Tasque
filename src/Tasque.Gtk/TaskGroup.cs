@@ -26,10 +26,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Gtk;
-using System.Collections.Generic;
 
 namespace Tasque
 {
@@ -62,9 +61,8 @@ namespace Tasque
 
 			filteredTasks = CreateModel (rangeStart, rangeEnd, tasks);
 
-			filteredTasks.ShowCompletedTasks = 
-				GtkApplication.Instance.Preferences.GetBool (
-					Preferences.ShowCompletedTasksKey);
+			filteredTasks.ShowCompletedTasks = GtkApplication.Instance.Preferences.GetBool (
+				Preferences.ShowCompletedTasksKey);
 			GtkApplication.Instance.Preferences.SettingChanged += OnSettingChanged;
 			
 			// TODO: Add something to watch events so that the group will
@@ -351,9 +349,8 @@ namespace Tasque
 			header.Markup = GetHeaderMarkup (DisplayName);
 		}
 
-		protected virtual TaskGroupModel CreateModel (DateTime rangeStart,
-		                                               DateTime rangeEnd,
-		                                               IEnumerable<Task> tasks)
+		protected virtual TaskGroupModel CreateModel (DateTime rangeStart, DateTime rangeEnd,
+		                                              IEnumerable<Task> tasks)
 		{
 			return new TaskGroupModel (rangeStart, rangeEnd, tasks);
 		}
