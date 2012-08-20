@@ -36,13 +36,16 @@ namespace Tasque
 		{
 			if (categories == null)
 				throw new ArgumentNullException ("source");
-			categories.CollectionChanged += HandleSourceCollectionChanged;
 			this.categories = categories;
+			foreach (var item in categories)
+				item.CollectionChanged += HandleCollectionChanged;
+			categories.CollectionChanged += HandleSourceCollectionChanged;
 		}
 		
 		protected override void Dispose (bool disposing)
 		{
 			if (!disposed && disposing) {
+				categories.CollectionChanged -= HandleSourceCollectionChanged;
 				foreach (var item in categories)
 					item.CollectionChanged -= HandleCollectionChanged;
 				disposed = true;
@@ -75,8 +78,8 @@ namespace Tasque
 		
 		internal protected override IEnumerator<Task> GetEnumeratorProtected ()
 		{
-			Task [] tasks = new Task [CountProtected];
-			int i = 0;
+			var tasks = new Task [CountProtected];
+			var i = 0;
 			foreach (var collection in categories) {
 				foreach (var item in collection) {
 					if (tasks.Contains (item))
@@ -85,20 +88,6 @@ namespace Tasque
 					yield return item;
 				}
 			}
-		}
-		
-		void AddCollection (Category category)
-		{
-			categories.Add (category);
-			if (categories.Contains (category))
-			    category.CollectionChanged += HandleCollectionChanged;
-		}
-		
-		bool RemoveCollection (Category category)
-		{
-			if (categories.Contains (category))
-				category.CollectionChanged -= HandleCollectionChanged;
-			return categories.Remove (category);
 		}
 		
 		void HandleCollectionChanged (object sender, NotifyCollectionChangedEventArgs e)
@@ -110,10 +99,12 @@ namespace Tasque
 		{
 			switch (e.Action) {
 			case NotifyCollectionChangedAction.Add:
-				AddCollection (e.NewItems [0] as Category);
+				var newCat = e.NewItems [0] as Category;
+				newCat.CollectionChanged += HandleCollectionChanged;
 				break;
 			case NotifyCollectionChangedAction.Remove:
-				RemoveCollection (e.OldItems [0] as Category);
+				var oldCat = e.OldItems [0] as Category;
+				oldCat.CollectionChanged -= HandleCollectionChanged;
 				break;
 			}
 		}
