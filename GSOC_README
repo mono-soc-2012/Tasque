@@ -1,0 +1,119 @@
+README - Tasque Revitalization
+
+Organization: Mono
+Student: Antonius Riha
+Date: August 20, 2012
+
+
+The project aimed to put life back into Tasque, a GNOME ToDo list application written in Mono/C#.
+
+
+State of the project
+--------------------
+The application comiles and runs, though it is very buggy. The Tasque project in its entirety is
+currently in a transition which is caused by
+	* a change in the employed programming paradigm of active development compared to past
+	  development,
+	* changes in the Tasque base layer (libtasque) which have not been fully accounted for in
+	  higher layers.
+Therefore Tasque is considered unstable and still needs some refactoring effort.
+
+
+Changes made during GSOC
+------------------------
+All in all, there have been made around 200 commits on branch master and some more on topic
+branches. The changes are summarized below. Detailed descriptions of the changes have been
+provided in the resp. commit messages.
+
+Repo directory structure changes and project layout/organization
+----------------------------------------------------------------
+The current file system tree is like this:
+.
+├── build								// MSBuild related stuff
+│   └── out								// for build output
+├── data								// resources
+│   ├── icons
+│   ├── osx
+│   └── sounds
+├── po									// translations
+├── src
+│   ├── Addins							// backends: RTM, SQLite and Dummy
+│   ├── libtasque						// Tasque library (model)
+│   ├── ObservableTransformCollections	// helper library
+│   ├── Options.cs						// Mono.Options (cmd line option parsing)
+│   ├── RtmNet							// RTM C# lib
+│   ├── tasque							// executable project
+│   ├── Tasque.Gtk						// Tasque Gtk# application library
+│   └── Tasque.MonoMac					// Tasque MonoMac application library
+├── tasque.sln
+└── tests
+
+The most notable changes here are
+	* the addition of ObservableTransformCollection library and Options.cs,
+	* the restructuring of the Gtk frontend into a library (Tasque.Gtk) and an executable (tasque),
+	* the establishment of the common output directory (/build/out),
+	* moving the backends to a sepparate Addins folder,
+	* setting up the build project which provides a means to manage the build from inside MD,
+	* setting up a translation project for easy translation from within MD.
+The changes in the directory structure are in part reflected in the MD solution. The only
+noteworthy difference is that the solution gathers all helper libs (ObservableTransformCollections,
+Options.cs and RtmNet) in a Library solution folder.
+
+
+ObservableTransformCollections
+------------------------------
+ObservableTransformCollections is a library which provides class that provide a GUI platform
+agnostic way of doing sort, filter and group by operations on collections. They also provide change
+notifaction if the underlying collection or one of its objects themselves notify a change. It also
+contains a TreeModelListAdapter which allows using any IEnumerable<T> as a Gtk.TreeModel for Gtk
+widgets that support a TreeModel backend (most notably the Gtk.TreeView).
+This library was written during the GNOME-Mono-Hackfest in Boston. More information can be viewed
+here: http://antoniustech.blogspot.co.at/2012/07/gnome-mono-festival-of-love-in-boston.html
+
+The ICollectionView objects are employed instead of Gtk.TreeSort and Gtk.TreeFilter objects
+throughout the application.
+
+
+Changes in the Model (libtasque)
+--------------------------------
+The model was cleared of all Gtk# dependencies, of which the main part were Gtk.ListStore objects.
+This has been done to enable alternative frontends that don't use Gtk# (e.g. MonoMac).
+Other changes are:
+	* Category is now a proper collection that contains tasks (not just a property of a task).
+	* A task can now be contained by multiple categories.
+	* Category more prominent, backend less.
+	* Added a DefaultCategory property
+	* (ReadOnly)SortedNotifyCollection.cs: The same as (ReadOnly)ObservableCollection but with
+	  sorting support.
+	* BackendTaskCollection.cs: A ReadOnlySortedNotifyCollection that flattens a collection of
+	   categories of tasks into a collection of tasks (and removes duplicate tasks by doing so).
+	
+* Backend changes
+	* Adjustments to new model: RTM, SQlite and DummyBackend; resulted in massive reduction on LoC
+	
+* Gtk frontend changes:
+	* The (messy) class Tasque.Gtk/Application.cs was dropped. Its logic has been distributed
+	   over the classes libtasque/Application.cs, Tasque.Gtk/GtkApplication.cs and
+	   tasque/Program.cs.
+	* StatusIcon (systray) logic has been rewritten
+	* Ubuntu/Unity's AppIndicator is now supported via a build switch "EnableAppIndicator".
+	* Updated process name fix (from banshee/hyena)
+	* Single App instance is now also supported on the Windows system. (A sample Gtk#3 solution
+	  has been added also)
+	
+Build system
+------------
+	* Primary build system is now MSBuild (in fact autotools build is not working at the moment)
+	* Introduced build switches:
+		- EnableAppIndicator: compiles AppIndicatorTray.cs; uses libappindicator
+		- Prefix: same as in autotool's configure
+	* Lots of automation: E.g. Authors file and license file are parsed every build and resp.
+	  global variables are set every build (see GlobalDefines.cs.in)
+	* Global MSBuild properties introduced: build/Solution.properties
+	* Implemented some custom MSBuild tasks (look for them in build/)
+
+ Misc
+ ----
+ 	* Dropped Logger.cs. Debug and Trace output now done via Mono native classes.
+
+For more detailed information, please have a look at the commits directly.
