@@ -595,7 +595,7 @@ namespace Tasque
 			}
 			
 			Backend backend = backendComboMap [selectedBackend];
-			filteredCategories = new CollectionView<Category> (backend.Categories);
+			filteredCategories = new ListCollectionView<Category> (backend.Categories);
 			filteredCategories.IsObserving = true;
 			// Filter out the AllCategory
 			filteredCategories.Filter = c => c != null;

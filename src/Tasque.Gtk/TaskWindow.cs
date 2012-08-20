@@ -1081,7 +1081,7 @@ namespace Tasque
 					 * here in order to enable changing categories. The list of available categories
 					 * is pre-filtered as to not contain the current category and the AllCategory.
 					 */
-					var cvCategories = new CollectionView<Category> (GtkApplication.Instance.Backend.Categories);
+					var cvCategories = new ListCollectionView<Category> (GtkApplication.Instance.Backend.Categories);
 					cvCategories.Filter = c => c != null && !c.Contains (clickedTask);
 					cvCategories.IsObserving = true;
 					

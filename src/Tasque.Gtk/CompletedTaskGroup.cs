@@ -32,7 +32,7 @@ namespace Tasque
 		/// </summary>
 		static IEnumerable<Task> GetSortedTasks (IEnumerable<Task> tasks)
 		{
-			var cv = new CollectionView<Task> (tasks);
+			var cv = new ListCollectionView<Task> (tasks);
 			cv.SortDescriptions.Add (new SortDescription ("CompletionDate", ListSortDirection.Descending));
 			cv.IsObserving = true;
 			return cv;

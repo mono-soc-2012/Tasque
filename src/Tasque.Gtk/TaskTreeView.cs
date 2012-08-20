@@ -64,7 +64,7 @@ namespace Tasque
 			
 			filterCategory = null;
 			
-			modelFilter = new CollectionView<Task> (model);
+			modelFilter = new ListCollectionView<Task> (model);
 			modelFilter.Filter = FilterFunc;
 			modelFilter.CollectionChanged += HandleModelFilterChanged;
 			Model = new TreeModelListAdapter<Task> (modelFilter);
